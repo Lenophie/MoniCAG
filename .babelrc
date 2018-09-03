@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["@babel/env", {
+      "targets": {
+        "browsers": ["ie > 9", "> 0.5%"]
+      }
+    }]
+  ],
+  "plugins": ["transform-async-to-generator"]
+}
