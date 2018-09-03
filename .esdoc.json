@@ -1,0 +1,27 @@
+{
+  "source": "./src/FRONT-END/js",
+  "destination": "./doc",
+  "excludes": ["./src/FRONT-END/js/template-dashboard"],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "unexportedIdentifier": {"enable": true},
+        "lint": {"enable": true},
+        "coverage": {"enable": true},
+        "brand": {
+          "title": "MoniCAG",
+          "description": "Monitor CAG Inventory !"
+        },
+        "manual": {
+          "asset": "./manual/assets",
+          "files": [
+            "./changelog.md",
+            "./manual/resources.md",
+            "./manual/UML-modelization.md"
+          ]
+        }
+      }
+    }
+  ]
+}
