@@ -12,7 +12,7 @@
 
 Just MoniCAG.
 
-**Version :** *MoniCAG v0.3.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.3.1* - [Changelog](./changelog.md)
 
 **Work in progress :**
 

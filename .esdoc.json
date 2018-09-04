@@ -17,8 +17,8 @@
           "asset": "./manual/assets",
           "files": [
             "./changelog.md",
-            "./manual/resources.md",
-            "./manual/UML-modelization.md"
+            "./src/DOC/resources.md",
+            "./src/DOC/UML-modelization.md"
           ]
         }
       }

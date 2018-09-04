@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2018-09-04
+
+### Changed
+
+* Project Architecture
+  * ```ESDoc``` sources for manuals are now approprietaly in the ```src``` folder.
+
+### Fixed
+
+* Documentation
+  * ```UML``` diagram.
+
 ## [0.3.0] - 2018-09-04
 
 ### Added
@@ -24,7 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-* Changelog link in [readme](./readme.md).
+* Changelog link in readme file.
 
 ## [0.2.0] - 2018-09-03
 
