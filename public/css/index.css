@@ -1,0 +1,52 @@
+/* TITLE */
+
+#title-div
+{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+.h1-hr {
+  margin-top: 0px;
+  border-color: black;
+  width: 50%;
+}
+
+/* SUB-TITLES */
+
+h2 {
+  margin-left: 35px;
+}
+
+.h2-hr {
+  margin-top: 0px;
+  border-color: black;
+  width: 30%;
+  margin-left: 20px;
+}
+
+/* MENU */
+
+.menu-icon
+{
+  font-size: 60px;
+}
+
+.menu-text
+{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.menu-button
+{
+  padding-bottom: 30px !important;
+  padding-top: 20px !important;
+  white-space: normal !important;
+  height: 100%;
+}
