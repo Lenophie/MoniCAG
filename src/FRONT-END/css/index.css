@@ -11,17 +11,23 @@ h1 {
   text-align: center;
 }
 
+.h1-hr {
+  margin-top: 0px;
+  border-color: black;
+  width: 50%;
+}
+
 /* SUB-TITLES */
+
+h2 {
+  margin-left: 35px;
+}
 
 .h2-hr {
   margin-top: 0px;
   border-color: black;
   width: 30%;
   margin-left: 20px;
-}
-
-h2 {
-  margin-left: 35px;
 }
 
 /* MENU */

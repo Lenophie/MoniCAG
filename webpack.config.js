@@ -21,7 +21,8 @@ const filesToCopy = [
 
 // List of browser icons to copy to destination
 const iconsToCopy = [
-  'monicag.png'
+  'monicag.png',
+  'monicag.ico'
 ].map(file => ({
   from: `./src/FRONT-END/favicons/${file}`,
   to: file
@@ -31,7 +32,7 @@ filesToCopy.push(...iconsToCopy);
 
 // List of PHP files to copy to destination
 const PHPFilesToCopy = [
-
+  'api.php'
 ].map(file => ({
   from: `./src/BACK-END/${file}`,
   to: file
@@ -43,7 +44,7 @@ filesToCopy.push(...PHPFilesToCopy);
 const htmlWebpackPluginConfig = [
   {
     name: 'index',
-    favicon: 'monicag.png'
+    favicon: 'monicag.ico'
   }
 ].map(page => (
   new HtmlWebpackPlugin({

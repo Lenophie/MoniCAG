@@ -14,7 +14,7 @@
           "description": "Monitor CAG Inventory !"
         },
         "manual": {
-          "asset": "./manual/assets",
+          "asset": "./src/DOC/assets",
           "files": [
             "./changelog.md",
             "./src/DOC/resources.md",

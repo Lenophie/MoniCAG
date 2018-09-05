@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+      "target": "es6"
+  },
+  "exclude": [
+      "node_modules",
+      "dist",
+      "manual"
+  ],
+  "checkJs": true,
+  "allowSyntheticDefaultImports": true
+}

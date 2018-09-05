@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 03 sep. 2018 à 23:28
+-- Généré le :  mar. 04 sep. 2018 à 18:01
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -73,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `registryBorrowings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `borrowed_inventory_item_id` int(11) NOT NULL,
   `borrower_id` int(11) NOT NULL,
-  `lender_id` int(11) NOT NULL,
+  `initial_lender_id` int(11) NOT NULL,
+  `return_lender_id` int(11) DEFAULT NULL,
   `guarantee` int(11) DEFAULT NULL,
   `date_start` date NOT NULL,
   `date_expected_return` date NOT NULL,
@@ -81,9 +82,10 @@ CREATE TABLE IF NOT EXISTS `registryBorrowings` (
   `notes_before` varchar(5000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `notes_after` varchar(5000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FOREIGN_REGISTRY_BORROWINGS_LENDER_ID` (`lender_id`),
   KEY `FOREIGN_REGISTRY_BORROWINGS_INVENTORY_ITEM_ID` (`borrowed_inventory_item_id`),
-  KEY `FOREIGN_REGISTRY_BORROWINGS_BORROWER_ID` (`borrower_id`)
+  KEY `FOREIGN_REGISTRY_BORROWINGS_BORROWER_ID` (`borrower_id`),
+  KEY `FOREIGN_REGISTRY_BORROWINGS_INITIAL_LENDER_ID` (`initial_lender_id`),
+  KEY `FOREIGN_REGISTRY_BORROWINGS_RETURN_LENDER_ID` (`return_lender_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -97,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hashedPassword` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `firstName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `promotion` int(11) NOT NULL,
@@ -120,8 +123,9 @@ ALTER TABLE `inventory`
 --
 ALTER TABLE `registryBorrowings`
   ADD CONSTRAINT `FOREIGN_REGISTRY_BORROWINGS_BORROWER_ID` FOREIGN KEY (`borrower_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FOREIGN_REGISTRY_BORROWINGS_INITIAL_LENDER_ID` FOREIGN KEY (`initial_lender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FOREIGN_REGISTRY_BORROWINGS_INVENTORY_ITEM_ID` FOREIGN KEY (`borrowed_inventory_item_id`) REFERENCES `inventory` (`id`),
-  ADD CONSTRAINT `FOREIGN_REGISTRY_BORROWINGS_LENDER_ID` FOREIGN KEY (`lender_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FOREIGN_REGISTRY_BORROWINGS_RETURN_LENDER_ID` FOREIGN KEY (`return_lender_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
