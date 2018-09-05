@@ -7,7 +7,7 @@
 }
 
 h1 {
-  font-weight: bold;
+  font-weight: bold !important;
   text-align: center;
 }
 

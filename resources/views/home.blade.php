@@ -1,7 +1,11 @@
 @extends('template')
 
 @section('stylesheet')
-    {{URL::asset('css/index.css')}}
+    {{asset('css/index.css')}}
+@endsection
+
+@section('favicon')
+    {{asset('favicons/monicag.png')}}
 @endsection
 
 @section('title')
