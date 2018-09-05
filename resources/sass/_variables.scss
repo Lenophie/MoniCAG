@@ -2,20 +2,18 @@
 $new-borrowing-theme-color: #dd3232;
 $end-borrowing-theme-color: #f1bf34;
 $borrowings-history-theme-color: #dcdf2d;
-$new-game-theme-color: #96f14c;
-$lost-game-theme-color: #4ab979;
+$view-inventory-theme-color: #a7885a;
+$edit-inventory-theme-color: #6c6c6c;
 $admin-theme-color: #5dbcf3;
 $lender-theme-color: #6973f7;
-$inventory-theme-color: #a7885a;
 
 // Theme colors object used in bootstrap-theming.scss.
 $theme-colors: (
   "new-borrowing": $new-borrowing-theme-color,
   "end-borrowing": $end-borrowing-theme-color,
   "borrowings-history": $borrowings-history-theme-color,
-  "new-game": $new-game-theme-color,
-  "lost-game": $lost-game-theme-color,
+  "view-inventory": $view-inventory-theme-color,
+  "edit-inventory": $edit-inventory-theme-color,
   "admin": $admin-theme-color,
   "lender": $lender-theme-color,
-  "inventory": $inventory-theme-color
 );

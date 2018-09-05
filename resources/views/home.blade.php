@@ -65,7 +65,7 @@
                 <hr class="h2-hr">
                 <div class="row">
                     <div class="col-md-6 mb-3 mb-md-3">
-                        <button class="btn btn-block btn-outline-inventory menu-button">
+                        <button class="btn btn-block btn-outline-view-inventory menu-button">
                             <span class="menu-text">VOIR L'INVENTAIRE</span>
                             <br>
                             <span class="fa-layers fa-fw menu-icon">
@@ -75,7 +75,7 @@
                         </button>
                     </div>
                     <div class="col-md-6 mb-3 mb-md-3">
-                        <button class="btn btn-block btn-outline-lost-game menu-button">
+                        <button class="btn btn-block btn-outline-edit-inventory menu-button">
                             <span class="menu-text">GÉRER L'INVENTAIRE</span>
                             <br>
                             <span class="fa-layers fa-fw menu-icon">
