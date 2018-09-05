@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.5.0] - 2018-09-05
 
+### Added
+
+* Main menu
+    * Modularity for buttons creation.
+
 ### Changed
 
 * Main menu
