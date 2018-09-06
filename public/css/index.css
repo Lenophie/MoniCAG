@@ -30,6 +30,35 @@ h2 {
   margin-left: 20px;
 }
 
+/* MODALS */
+
+.modal-hr
+{
+  margin-top: 0px;
+  border-color: black;
+  width: 30%;
+  margin-left: 0px;
+}
+
+.modal-body-row-label {
+  font-weight: bold;
+  float: left;
+}
+
+.modal-body-row-input-span {
+  display: block;
+  overflow: hidden;
+  padding-left: 5px;
+}
+
+.modal-body-row-input {
+  width: 100%;
+}
+
+.modal-body-row-bottom-margin {
+    margin-bottom: 5px;
+}
+
 /* MENU */
 
 .menu-icon
