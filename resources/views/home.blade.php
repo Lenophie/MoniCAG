@@ -42,8 +42,8 @@
                         @slot('title')
                             RÉALISER UN EMPRUNT
                         @endslot
-                        @slot('dataToggle')
-                            data-toggle="modal" data-target="#newBorrowingModal"
+                        @slot('action')
+                            location.href='{{url('new-borrowing')}}'
                         @endslot
                         @slot('icon')
                             <span class="fa-layers fa-fw menu-icon">

@@ -1,0 +1,6 @@
+/* SEARCH BAR BOX SHADOW */
+.form-control:focus {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: #dd3232 !important;
+}

@@ -21315,7 +21315,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "body\r\n{\r\n\tmin-width: 600px; \r\n\tmax-width: 100%;\r\n}\r\n\r\nheader\r\n{\r\n\tpadding-top: 10px;\r\n\tpadding-bottom: 10px;\r\n}\r\n\r\n/* TITLE */\r\n\r\nh1 {\r\n    font-weight: bold !important;\r\n    text-align: center;\r\n}\r\n\r\n.h1-hr {\r\n    margin-top: 0px;\r\n    border-color: black;\r\n    width: 50%;\r\n}\r\n\r\n.no-display {\r\n  display: none;\r\n}", ""]);
+exports.push([module.i, "body\r\n{\r\n\tmin-width: 600px; \r\n\tmax-width: 100%;\r\n}\r\n\r\nheader\r\n{\r\n\tpadding-top: 10px;\r\n\tpadding-bottom: 10px;\r\n}\r\n\r\n#menu-return {\r\n    font-weight: bold !important;\r\n    font-size: 30px;\r\n    text-decoration: none;\r\n    color: #000000;\r\n    white-space: nowrap;\r\n    margin-top: 5px;\r\n}\r\n\r\n#menu-return:hover {\r\n    text-decoration: none;\r\n    color: #626262;\r\n}\r\n\r\n/* TITLE */\r\n\r\nh1 {\r\n    font-weight: bold !important;\r\n    text-align: center;\r\n}\r\n\r\n.h1-hr {\r\n    margin-top: 0px;\r\n    border-color: black;\r\n    width: 50%;\r\n}\r\n\r\n.no-display {\r\n  display: none;\r\n}", ""]);
 
 // exports
 
