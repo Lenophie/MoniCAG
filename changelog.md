@@ -18,8 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-* Main menu
-    * Colors.
+* Views
+    * Main menu colors.
+    * Titles.
 
 ## [0.4.1] - 2018-09-05
 

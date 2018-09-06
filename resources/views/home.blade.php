@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-    MoniCAG
+    MoniCAG | Home
 @endsection
 
 @section('content')

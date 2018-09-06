@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    NOUVEL EMPRUNT
+    MoniCAG | Nouvel emprunt
 @endsection
 
 @section('stylesheet')
