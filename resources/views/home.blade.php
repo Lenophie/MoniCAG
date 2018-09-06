@@ -14,12 +14,17 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12" id="title-div">
-                <h1><i class="fas fa-eye"></i> MoniCAG <i class="fas fa-dice"></i></h1>
-                <hr class="h1-hr">
-            </div>
-        </div>
+        @header
+            @slot('leftIcon')
+                <i class="fas fa-eye"></i>
+            @endslot
+            @slot('rightIcon')
+                <i class="fas fa-dice"></i>
+            @endslot
+            @slot('title')
+                MoniCAG
+            @endslot
+        @endheader
         <div class="row">
             <div class="col-xl-12">
                 <div class="row">

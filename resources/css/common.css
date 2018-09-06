@@ -4,6 +4,25 @@ body
 	max-width: 100%;
 }
 
+header
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/* TITLE */
+
+h1 {
+    font-weight: bold !important;
+    text-align: center;
+}
+
+.h1-hr {
+    margin-top: 0px;
+    border-color: black;
+    width: 50%;
+}
+
 .no-display {
   display: none;
 }

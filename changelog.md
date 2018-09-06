@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Views
     * Blade components for menu buttons and modals.
+    * Template for headers.
+    * New borrowing view.
 * Public
     * CSS for input fields in modals.
 

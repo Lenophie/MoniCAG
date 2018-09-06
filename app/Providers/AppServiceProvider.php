@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::component('components.header', 'header');
         Blade::component('components.menu-button', 'menubutton');
         Blade::component('components.modal', 'modal');
     }
