@@ -45,4 +45,9 @@
             </div>
         </div>
     </div>
+    <ul>
+        @foreach($inventoryItems as $inventoryItem)
+            <li>{{$inventoryItem->name}}</li>
+        @endforeach
+    </ul>
 @endsection
