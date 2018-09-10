@@ -62,6 +62,9 @@
                         @slot('title')
                             RÉCUPÉRER UN EMPRUNT
                         @endslot
+                        @slot('action')
+                            location.href='{{url('end-borrowing')}}'
+                        @endslot
                         @slot('icon')
                             <span class="fa-layers fa-fw menu-icon">
                                 <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
@@ -78,6 +81,9 @@
                         @endslot
                         @slot('title')
                             VOIR L'HISTORIQUE DES EMPRUNTS
+                        @endslot
+                        @slot('action')
+                            location.href='{{url('borrowings-history')}}'
                         @endslot
                         @slot('icon')
                             <i class="fas fa-history menu-icon"></i>
@@ -103,6 +109,9 @@
                         @slot('title')
                             VOIR L'INVENTAIRE
                         @endslot
+                        @slot('action')
+                            location.href='{{url('view-inventory')}}'
+                        @endslot
                         @slot('icon')
                             <span class="fa-layers fa-fw menu-icon">
                                 <i class="fas fa-circle" data-fa-transform="shrink-7 down-7 right-9" data-fa-mask="fas fa-boxes"></i>
@@ -119,6 +128,9 @@
                         @endslot
                         @slot('title')
                             GÉRER L'INVENTAIRE
+                        @endslot
+                        @slot('action')
+                            location.href='{{url('edit-inventory')}}'
                         @endslot
                         @slot('icon')
                              <span class="fa-layers fa-fw menu-icon">
@@ -147,6 +159,9 @@
                         @slot('title')
                             GÉRER LES ADMINISTRATEURS
                         @endslot
+                        @slot('action')
+                            location.href='{{url('admin')}}'
+                        @endslot
                         @slot('icon')
                             <span class="fa-layers fa-fw menu-icon">
                                 <i class="fas fa-circle" data-fa-transform="shrink-7 down-6 right-6" data-fa-mask="fas fa-users"></i>
@@ -163,6 +178,9 @@
                         @endslot
                         @slot('title')
                             GÉRER LES PRÊTEURS
+                        @endslot
+                        @slot('action')
+                            location.href='{{url('lender')}}'
                         @endslot
                         @slot('icon')
                              <span class="fa-layers fa-fw menu-icon">
