@@ -10,7 +10,7 @@
         </div>
         @if($hasCheckoutButton == 'true')
             <div class="col-md-2" style="text-align:right">
-                <span class="fa-layers fa-fw" id="checkout-link">
+                <span class="fa-layers fa-fw" id="checkout-link" {{$checkoutTags ?? ''}}>
                     <i class="fas fa-gift"></i>
                     <span class="fa-layers-counter" id="checkout-counter">{{$checkoutCounter}}</span>
                 </span>

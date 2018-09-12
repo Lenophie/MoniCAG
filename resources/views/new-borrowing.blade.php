@@ -35,6 +35,9 @@
         @slot('checkoutCounter')
             0
         @endslot
+        @slot('checkoutTags')
+            data-toggle="modal" data-target="#newBorrowingModal"
+        @endslot
         @slot('title')
             Nouvel emprunt
         @endslot
@@ -56,9 +59,18 @@
             Confirmation de l'emprunt
         @endslot
         @slot('body')
+            Liste des jeux choisis :
+            <ul>
+
+            </ul>
+            <hr>
             @include('forms/new-borrowing')
         @endslot
+        @slot('tags')
+            id="newBorrowingModal"
+        @endslot
         @slot('footer')
+            <button type="submit" class="btn btn-new-borrowing">Submit</button>
         @endslot
     @endmodal
 @endsection
