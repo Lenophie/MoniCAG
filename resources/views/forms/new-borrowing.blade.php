@@ -23,6 +23,6 @@
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="agreementCheck2">
-        <label class="form-check-label" for="agreementCheck2">Je m'engage à rembourser intégralement le jeu emprunté en cas de perte du jeu.</label>
+        <label class="form-check-label" for="agreementCheck2">Je m'engage à rembourser intégralement tout jeu emprunté s'il est perdu.</label>
     </div>
 </form>
