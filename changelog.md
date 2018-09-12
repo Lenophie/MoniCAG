@@ -9,14 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Views
+* Views (Common)
     * Blade components for menu buttons and modals.
     * Template for headers.
-    * Basic layout for every page.
+    * Basic layout.
+* New borrowing view
+    * Checkout button.
 * Controllers
-    * Templates
+    * Templates.
 * Database
     * Access configuration.
+    * Tables creation.
+    * Reference tables seeding.
 * Public
     * CSS for input fields in modals.
 
@@ -25,6 +29,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Views
     * Main menu colors.
     * Titles.
+    
+### Fixed
+
+* Views
+    * Header blade condition statements.
 
 ## [0.4.1] - 2018-09-05
 

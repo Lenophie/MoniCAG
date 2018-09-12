@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call('BorrowingStatusesSeeder');
+        $this->command->info('Borrowing statuses table seeded!');
+        $this->call('InventoryItemStatusesSeeder');
+        $this->command->info('Inventory item statuses table seeded!');
     }
 }

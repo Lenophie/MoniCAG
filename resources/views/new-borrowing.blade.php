@@ -29,6 +29,12 @@
         @slot('hasReturnButton')
             true
         @endslot
+        @slot('hasCheckoutButton')
+            true
+        @endslot
+        @slot('checkoutCounter')
+            0
+        @endslot
         @slot('title')
             Nouvel emprunt
         @endslot
@@ -45,4 +51,14 @@
             </div>
         </div>
     </div>
+    @modal
+        @slot('title')
+            Confirmation de l'emprunt
+        @endslot
+        @slot('body')
+            @include('forms/new-borrowing')
+        @endslot
+        @slot('footer')
+        @endslot
+    @endmodal
 @endsection

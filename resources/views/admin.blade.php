@@ -29,6 +29,9 @@
     @slot('hasReturnButton')
         true
     @endslot
+    @slot('hasCheckoutButton')
+        false
+    @endslot
     @slot('title')
         Administrateurs
     @endslot

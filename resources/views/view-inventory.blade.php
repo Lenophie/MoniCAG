@@ -29,6 +29,9 @@
     @slot('hasReturnButton')
         true
     @endslot
+    @slot('hasCheckoutButton')
+        false
+    @endslot
     @slot('title')
         Inventaire
     @endslot

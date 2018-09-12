@@ -23,6 +23,9 @@
     @slot('hasReturnButton')
         true
     @endslot
+    @slot('hasCheckoutButton')
+        false
+    @endslot
     @slot('title')
         Historique des emprunts
     @endslot

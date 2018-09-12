@@ -21,6 +21,12 @@
             @slot('rightIcon')
                 <i class="fas fa-dice"></i>
             @endslot
+            @slot('hasReturnButton')
+                false
+            @endslot
+            @slot('hasCheckoutButton')
+                false
+            @endslot
             @slot('title')
                 MoniCAG
             @endslot
