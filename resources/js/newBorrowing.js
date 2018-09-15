@@ -1,14 +1,15 @@
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
 
 // Listeners setting
 const addListeners = () => {
     for (const inventoryItemButton of $('.inventory-item-button')) {
-        const id = parseInt(inventoryItemButton.id.slice('inventory-item-button-'.length));
-        const name = $(inventoryItemButton).text();
-        $(inventoryItemButton).click(()=>handleAddInventoryItemButtonClick(id, name));
+        const id = inventoryItemButton.id.slice('inventory-item-button-'.length);
+        const inventoryItem = getInventoryItemById(id);
+        $(inventoryItemButton).click(()=>handleAddInventoryItemButtonClick(inventoryItem));
     }
     $('#newBorrowingModal').on('shown.bs.modal', () => handleBorrowingModalShow());
 };
@@ -16,9 +17,9 @@ const addListeners = () => {
 $().ready(addListeners);
 
 // Listeners handlers
-const handleAddInventoryItemButtonClick = (id, name) => {
-    addInventoryItemToBorrowingList(id, name);
-    disableInventoryItemButton(id, true);
+const handleAddInventoryItemButtonClick = (inventoryItem) => {
+    addInventoryItemToBorrowingList(inventoryItem);
+    disableInventoryItemButton(inventoryItem, true);
     updateBorrowingCheckoutCounter();
 };
 
@@ -26,28 +27,44 @@ const handleBorrowingModalShow = () => {
     fillDisplayedToBorrowList();
 };
 
-const handleRemoveInventoryItemButtonClick = (id) => {
-    removeInventoryItemFromBorrowingList(id);
-    disableInventoryItemButton(id, false);
+const handleRemoveInventoryItemButtonClick = (inventoryItem) => {
+    removeInventoryItemFromBorrowingList(inventoryItem);
+    disableInventoryItemButton(inventoryItem, false);
     updateBorrowingCheckoutCounter();
-    $(`#to-borrow-list-element-${id}`).remove();
+    $(`#to-borrow-list-element-${inventoryItem.id}`).remove();
 };
 
 // Actions
 
-const addInventoryItemToBorrowingList = (id, name) => {
-    itemsToBorrow.push({name: name, id: id});
+const getInventoryItemById = (id) => {
+    const options = {
+        threshold: 0,
+        location: 32,
+        distance: 0,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        keys: [
+            "id"
+        ]
+    };
+    const fuse = new Fuse(inventoryItems, options);
+    const result = fuse.search(id);
+    return result[0];
+}
+
+const addInventoryItemToBorrowingList = (inventoryItem) => {
+    itemsToBorrow.push(inventoryItem);
 };
 
-const removeInventoryItemFromBorrowingList = (id) => {
+const removeInventoryItemFromBorrowingList = (inventoryItem) => {
     for (const i in itemsToBorrow) {
-        if (itemsToBorrow[i].id === id) itemsToBorrow.splice(i, 1);
+        if (itemsToBorrow[i] === inventoryItem) itemsToBorrow.splice(i, 1);
     }
 };
 
-const disableInventoryItemButton = (id, bool) => {
-    if (bool) $(`#inventory-item-button-${id}`).attr('disabled', 'disabled');
-    else $(`#inventory-item-button-${id}`).removeAttr('disabled');
+const disableInventoryItemButton = (inventoryItem, bool) => {
+    if (bool) $(`#inventory-item-button-${inventoryItem.id}`).attr('disabled', 'disabled');
+    else $(`#inventory-item-button-${inventoryItem.id}`).removeAttr('disabled');
 };
 
 const fillDisplayedToBorrowList = () => {
@@ -60,7 +77,7 @@ const fillDisplayedToBorrowList = () => {
                     <i class="fas fa-times"></i>
                 </button>
             </li>`);
-        $(`#remove-item-borrow-list-button-${itemToBorrow.id}`).on('click', () => handleRemoveInventoryItemButtonClick(itemToBorrow.id));
+        $(`#remove-item-borrow-list-button-${itemToBorrow.id}`).on('click', () => handleRemoveInventoryItemButtonClick(itemToBorrow));
     }
 };
 

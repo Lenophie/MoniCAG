@@ -82,6 +82,9 @@
     @endmodal
 @endsection
 
-@section('scripts')
+@push('scripts')
+    <script type="text/javascript">
+        const inventoryItems = {!! json_encode($inventoryItems)!!};
+    </script>
     <script type="text/javascript" src="{{URL::asset('js/newBorrowing.js')}}"></script>
-@endsection
+@endpush

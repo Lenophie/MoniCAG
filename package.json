@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-datepicker": "^1.8.0",
+        "fuse.js": "^3.2.1",
         "jquery": "^3.3.1"
     }
 }
