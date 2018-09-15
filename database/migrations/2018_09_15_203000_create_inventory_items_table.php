@@ -16,7 +16,8 @@ class CreateInventoryItemsTable extends Migration
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status_id');
+            $table->unsignedInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('inventory_item_statuses');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
+console.log(inventoryItems);
 
 // After page is loaded
 $().ready(() => {
@@ -63,7 +64,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
             `<div class="col-md-2">
-                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected ? 'disabled' : ''}>${filteredInventoryItem.name}</button>
+                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 1 ? 'disabled' : ''}>${filteredInventoryItem.name}</button>
             </div>`)
     }
     addInventoryItemButtonsListeners();

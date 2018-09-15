@@ -15,18 +15,24 @@ class CreateBorrowingsTable extends Migration
     {
         Schema::create('borrowings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('inventory_item_id');
-            $table->integer('borrower_id');
-            $table->integer('initial_lender_id');
-            $table->integer('return_lender_id');
+            $table->unsignedInteger('inventory_item_id');
+            $table->unsignedInteger('borrower_id');
+            $table->unsignedInteger('initial_lender_id');
+            $table->unsignedInteger('return_lender_id');
             $table->float('guarantee');
-            $table->integer('status_id');
+            $table->unsignedInteger('status_id');
             $table->date('start_date');
             $table->date('expected_return_date');
             $table->date('return_date');
             $table->text('notes_before');
             $table->text('notes_after');
             $table->timestamps();
+
+            $table->foreign('inventory_item_id')->references('id')->on('inventory_items');
+            $table->foreign('borrower_id')->references('id')->on('users');
+            $table->foreign('initial_lender_id')->references('id')->on('users');
+            $table->foreign('return_lender_id')->references('id')->on('users');
+            $table->foreign('status_id')->references('id')->on('borrowing_statuses');
         });
     }
 
