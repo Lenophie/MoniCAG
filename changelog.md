@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Template for headers.
     * Basic layout.
 * New borrowing view
-    * Checkout button.
+    * Checkout filling.
+    * Inventory request.
 * Controllers
     * Templates.
 * Database
