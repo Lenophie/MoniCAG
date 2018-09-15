@@ -4,20 +4,39 @@ import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
 
+// After page is loaded
+$().ready(() => {
+    for (const inventoryItem of inventoryItems) inventoryItem.selected = false;
+    handleSearchFieldUpdate('');
+    addListeners();
+});
+
 // Listeners setting
 const addListeners = () => {
-    for (const inventoryItemButton of $('.inventory-item-button')) {
-        const id = inventoryItemButton.id.slice('inventory-item-button-'.length);
-        const inventoryItem = getInventoryItemById(id);
-        $(inventoryItemButton).click(()=>handleAddInventoryItemButtonClick(inventoryItem));
-    }
-    $('#newBorrowingModal').on('shown.bs.modal', () => handleBorrowingModalShow());
+    // Show modal listener
+    $('#new-borrowing-modal').on('shown.bs.modal', () => handleBorrowingModalShow());
+
+    // Search games listeners
+    const searchGameField = $('#search-game-field');
+    searchGameField.keyup(() => handleSearchFieldUpdate(searchGameField.val()));
+    $('#search-game-button').click(() => {
+        searchGameField.val('');
+        handleSearchFieldUpdate('');
+    });
 };
 
-$().ready(addListeners);
+const addInventoryItemButtonsListeners = () => {
+    const inventoryItemButtons = $('.inventory-item-button');
+    for (const inventoryItemButton of inventoryItemButtons) {
+        const id = inventoryItemButton.id.slice('inventory-item-button-'.length);
+        const inventoryItem = getInventoryItemById(parseInt(id));
+        $(inventoryItemButton).click(() => handleAddInventoryItemButtonClick(inventoryItem));
+    }
+};
 
 // Listeners handlers
 const handleAddInventoryItemButtonClick = (inventoryItem) => {
+    inventoryItem.selected = true;
     addInventoryItemToBorrowingList(inventoryItem);
     disableInventoryItemButton(inventoryItem, true);
     updateBorrowingCheckoutCounter();
@@ -28,29 +47,53 @@ const handleBorrowingModalShow = () => {
 };
 
 const handleRemoveInventoryItemButtonClick = (inventoryItem) => {
+    inventoryItem.selected = false;
     removeInventoryItemFromBorrowingList(inventoryItem);
     disableInventoryItemButton(inventoryItem, false);
     updateBorrowingCheckoutCounter();
     $(`#to-borrow-list-element-${inventoryItem.id}`).remove();
 };
 
+const handleSearchFieldUpdate = (gamesQuery) => {
+    let filteredInventoryItems = [];
+    if (gamesQuery.length > 0) filteredInventoryItems = getInventoryItemsByName(gamesQuery);
+    else filteredInventoryItems = inventoryItems;
+    const inventoryItemButtonsList = $('#inventory-item-buttons-list');
+    inventoryItemButtonsList.empty();
+    for (const filteredInventoryItem of filteredInventoryItems) {
+        inventoryItemButtonsList.append(
+            `<div class="col-md-2">
+                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected ? 'disabled' : ''}>${filteredInventoryItem.name}</button>
+            </div>`)
+    }
+    addInventoryItemButtonsListeners();
+};
+
 // Actions
 
 const getInventoryItemById = (id) => {
+    for (const inventoryItem of inventoryItems) {
+        if (inventoryItem.id === id) return inventoryItem;
+    }
+};
+
+const getInventoryItemsByName = (searchQuery) => {
     const options = {
-        threshold: 0,
-        location: 32,
+        shouldSort: true,
+        tokenize: true,
+        threshold: 0.6,
+        location: 0,
         distance: 0,
         maxPatternLength: 32,
         minMatchCharLength: 1,
         keys: [
-            "id"
+            "name"
         ]
     };
     const fuse = new Fuse(inventoryItems, options);
-    const result = fuse.search(id);
-    return result[0];
-}
+    const result = fuse.search(searchQuery);
+    return result;
+};
 
 const addInventoryItemToBorrowingList = (inventoryItem) => {
     itemsToBorrow.push(inventoryItem);
@@ -58,7 +101,10 @@ const addInventoryItemToBorrowingList = (inventoryItem) => {
 
 const removeInventoryItemFromBorrowingList = (inventoryItem) => {
     for (const i in itemsToBorrow) {
-        if (itemsToBorrow[i] === inventoryItem) itemsToBorrow.splice(i, 1);
+        if (itemsToBorrow[i].id === inventoryItem.id) {
+            itemsToBorrow.splice(i, 1);
+            break;
+        }
     }
 };
 

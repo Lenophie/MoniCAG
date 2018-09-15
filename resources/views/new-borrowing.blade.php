@@ -36,7 +36,7 @@
             0
         @endslot
         @slot('checkoutTags')
-            data-toggle="modal" data-target="#newBorrowingModal"
+            data-toggle="modal" data-target="#new-borrowing-modal"
         @endslot
         @slot('title')
             Nouvel emprunt
@@ -46,19 +46,15 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Jeu à emprunter...">
+                    <input type="text" id="search-game-field" class="form-control" placeholder="Chercher un jeu à emprunter...">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-new-borrowing" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-outline-new-borrowing" id="search-game-button" type="submit"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <ul>
-                @foreach($inventoryItems as $inventoryItem)
-                    <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-{{$inventoryItem->id}}" type="button">{{$inventoryItem->name}}</button>
-                @endforeach
-            </ul>
+        <div class="row" id="inventory-item-buttons-list">
+
         </div>
     </div>
     @modal
@@ -74,7 +70,7 @@
             @include('forms/new-borrowing')
         @endslot
         @slot('tags')
-            id="newBorrowingModal"
+            id="new-borrowing-modal"
         @endslot
         @slot('footer')
             <button type="submit" class="btn btn-new-borrowing">Submit</button>

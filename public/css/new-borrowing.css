@@ -12,3 +12,7 @@
     font-size: 12px !important;
     margin-bottom: 2px !important;
 }
+
+.inventory-item-button {
+    width: 100%;
+}

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * New borrowing view
     * Checkout filling.
     * Inventory request.
+    * Fuzzy games search.
 * Controllers
     * Templates.
 * Database
