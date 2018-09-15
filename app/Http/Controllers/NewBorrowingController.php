@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\InventoryItem;
 
 class newBorrowingController extends Controller
 {
     public function index()
     {
-        return view('new-borrowing');
+        $inventoryItems = InventoryItem::all();
+        return view('new-borrowing', compact('inventoryItems'));
+    }
+
+    public function store()
+    {
+
     }
 }

@@ -53,6 +53,13 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <ul>
+                @foreach($inventoryItems as $inventoryItem)
+                    <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-{{$inventoryItem->id}}" type="button">{{$inventoryItem->name}}</button>
+                @endforeach
+            </ul>
+        </div>
     </div>
     @modal
         @slot('title')
@@ -60,7 +67,7 @@
         @endslot
         @slot('body')
             Liste des jeux choisis :
-            <ul>
+            <ul id="toBorrowList">
 
             </ul>
             <hr>
@@ -73,4 +80,8 @@
             <button type="submit" class="btn btn-new-borrowing">Submit</button>
         @endslot
     @endmodal
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{URL::asset('js/newBorrowing.js')}}"></script>
 @endsection

@@ -3,8 +3,8 @@
 Route::get('/', function () {
     return view('home');
 });
-
 Route::get('/new-borrowing', 'NewBorrowingController@index');
+Route::post('/new-borrowing', 'NewBorrowingController@store');
 Route::get('/end-borrowing', 'EndBorrowingController@index');
 Route::get('/borrowings-history', 'BorrowingsHistoryController@index');
 Route::get('/view-inventory', 'ViewInventoryController@index');
