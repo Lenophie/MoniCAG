@@ -64,7 +64,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
             `<div class="col-md-2">
-                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 2 ? 'disabled' : ''}>
+                <button class="btn ${filteredInventoryItem.selected ? "btn-outline-new-borrowing" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 2 ? 'disabled' : ''}>
                     ${filteredInventoryItem.name}
                     <hr class="in-button-hr">
                     <div class="inventory-item-button-footer">${filteredInventoryItem.status}</div>
@@ -114,8 +114,16 @@ const removeInventoryItemFromBorrowingList = (inventoryItem) => {
 };
 
 const disableInventoryItemButton = (inventoryItem, bool) => {
-    if (bool) $(`#inventory-item-button-${inventoryItem.id}`).attr('disabled', 'disabled');
-    else $(`#inventory-item-button-${inventoryItem.id}`).removeAttr('disabled');
+    const inventoryItemButton = $(`#inventory-item-button-${inventoryItem.id}`);
+    if (bool) {
+        inventoryItemButton.attr('disabled', 'disabled');
+        inventoryItemButton.removeClass('btn-outline-primary');
+        inventoryItemButton.addClass('btn-outline-new-borrowing');
+    } else {
+        inventoryItemButton.removeAttr('disabled');
+        inventoryItemButton.addClass('btn-outline-primary');
+        inventoryItemButton.removeClass('btn-outline-new-borrowing');
+    }
 };
 
 const fillDisplayedToBorrowList = () => {
