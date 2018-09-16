@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\InventoryItemStatus;
 
 class CreateInventoryItemsTable extends Migration
 {
@@ -16,7 +17,7 @@ class CreateInventoryItemsTable extends Migration
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('status_id')->default(InventoryItemStatus::INCONNU);
             $table->foreign('status_id')->references('id')->on('inventory_item_statuses');
             $table->timestamps();
         });

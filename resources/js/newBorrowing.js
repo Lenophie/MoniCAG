@@ -3,7 +3,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
-console.log(inventoryItems);
 
 // After page is loaded
 $().ready(() => {
@@ -24,6 +23,9 @@ const addListeners = () => {
         searchGameField.val('');
         handleSearchFieldUpdate('');
     });
+
+    // Submit button listener
+    $('#new-borrowing-submit').click(() => handleFormSubmit());
 };
 
 const addInventoryItemButtonsListeners = () => {
@@ -40,7 +42,7 @@ const handleAddInventoryItemButtonClick = (inventoryItem) => {
     inventoryItem.selected = true;
     addInventoryItemToBorrowingList(inventoryItem);
     disableInventoryItemButton(inventoryItem, true);
-    updateBorrowingCheckoutCounter();
+    updateCheckoutCounter();
 };
 
 const handleBorrowingModalShow = () => {
@@ -51,7 +53,7 @@ const handleRemoveInventoryItemButtonClick = (inventoryItem) => {
     inventoryItem.selected = false;
     removeInventoryItemFromBorrowingList(inventoryItem);
     disableInventoryItemButton(inventoryItem, false);
-    updateBorrowingCheckoutCounter();
+    updateCheckoutCounter();
     $(`#to-borrow-list-element-${inventoryItem.id}`).remove();
 };
 
@@ -63,7 +65,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     inventoryItemButtonsList.empty();
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
-            `<div class="col-md-2">
+            `<div class="col-md-2 mb-1">
                 <button class="btn ${filteredInventoryItem.selected ? "btn-outline-new-borrowing" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 2 ? 'disabled' : ''}>
                     ${filteredInventoryItem.name}
                     <hr class="in-button-hr">
@@ -72,6 +74,40 @@ const handleSearchFieldUpdate = (gamesQuery) => {
             </div>`)
     }
     addInventoryItemButtonsListeners();
+};
+
+const handleFormSubmit = () => {
+    const newBorrowingForm = $('#new-borrowing-form');
+    const itemsToBorrowIDs = {};
+    let i = 0;
+
+    for (const itemToBorrow of itemsToBorrow) {
+        itemsToBorrowIDs[i] = itemToBorrow.id;
+        i++;
+    }
+    const serializedForm = newBorrowingForm.serializeArray();
+    const formattedForm = {};
+    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    formattedForm.borrowedItems = itemsToBorrowIDs;
+    $('.error-text').remove();
+
+    $.ajax({
+        url: "/new-borrowing/",
+        type: 'POST',
+        data: formattedForm,
+        success: () => {
+            window.location.href = "/borrowings-history"
+        },
+        error: (response) => {
+            handleFormErrors(response.responseJSON.errors);
+        }
+    });
+};
+
+const handleFormErrors = (errors) => {
+    for (const fieldName in errors) {
+        $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+    }
 };
 
 // Actions
@@ -140,6 +176,6 @@ const fillDisplayedToBorrowList = () => {
     }
 };
 
-const updateBorrowingCheckoutCounter = () => {
+const updateCheckoutCounter = () => {
     $('#checkout-counter').html(itemsToBorrow.length);
 };

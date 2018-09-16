@@ -1,28 +1,37 @@
-<form>
-    <div class="form-group">
+<form method="POST" action="/new-borrowing" id="new-borrowing-form">
+    @csrf
+    <div class="form-group" id="form-field-startDate">
         <label for="startDate">Date d'emprunt</label>
         <span class="input-group">
-            <input type="text" id="startDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" value={{Carbon\Carbon::now()->format('d/m/Y')}} required>
+            <input type="text" id="startDate" name="startDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" value={{Carbon\Carbon::now()->format('d/m/Y')}} required>
             <span class="input-group-append">
                 <button class="btn btn-new-borrowing" type="button"><i class="fas fa-calendar-alt"></i></button>
             </span>
         </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="form-field-expectedReturnDate">
         <label for="expectedReturnDate">Date de retour prévu</label>
         <span class="input-group">
-            <input type="text" id="expectedReturnDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
+            <input type="text" id="expectedReturnDate" name="expectedReturnDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
             <span class="input-group-append">
                 <button class="btn btn-new-borrowing" type="button"><i class="fas fa-calendar-alt"></i></button>
             </span>
         </span>
     </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="agreementCheck1" required>
+    <div class="form-group" id="form-field-guarantee">
+        <label for="guarantee">Caution</label>
+        <input type="number" id="guarantee" name="guarantee" class="form-control" min="0" value="0" step=".01" required>
+    </div>
+    <div class="form-group" id="form-field-notes">
+        <label for="notes">Notes</label>
+        <textarea class="form-control" id="notes" name="notes" placeholder="Ce champ est utilisé pour préciser des circonstances d'emprunt particulières (WEI, soirée...). Ces notes doivent concerner l'emprunt plutôt que les jeux empruntés." rows="2"></textarea>
+    </div>
+    <div class="form-check" id="form-field-agreementCheck1">
+        <input type="checkbox" class="form-check-input" id="agreementCheck1" name="agreementCheck1" required>
         <label class="form-check-label" for="agreementCheck1">Je m'engage à dédommager à hauteur de 10 euros le club jeux en cas de détérioration d'un jeu emprunté ou de perte de pièces.</label>
     </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="agreementCheck2" required>
+    <div class="form-check" id="form-field-agreementCheck2">
+        <input type="checkbox" class="form-check-input" id="agreementCheck2" name="agreementCheck2" required>
         <label class="form-check-label" for="agreementCheck2">Je m'engage à rembourser intégralement tout jeu emprunté s'il est perdu.</label>
     </div>
 </form>

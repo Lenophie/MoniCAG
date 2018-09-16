@@ -62,10 +62,12 @@
             Confirmation de l'emprunt
         @endslot
         @slot('body')
+            <div id="form-field-borrowedItems">
             Liste des jeux choisis :
             <ul id="toBorrowList">
 
             </ul>
+            </div>
             <hr>
             @include('forms/new-borrowing')
         @endslot
@@ -73,7 +75,7 @@
             id="new-borrowing-modal"
         @endslot
         @slot('footer')
-            <button type="submit" class="btn btn-new-borrowing">Submit</button>
+            <button type="submit" class="btn btn-new-borrowing" id="new-borrowing-submit">Submit</button>
         @endslot
     @endmodal
 @endsection

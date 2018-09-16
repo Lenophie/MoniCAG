@@ -18,14 +18,14 @@ class CreateBorrowingsTable extends Migration
             $table->unsignedInteger('inventory_item_id');
             $table->unsignedInteger('borrower_id');
             $table->unsignedInteger('initial_lender_id');
-            $table->unsignedInteger('return_lender_id');
+            $table->unsignedInteger('return_lender_id')->nullable()->default(null);
             $table->float('guarantee');
             $table->unsignedInteger('status_id');
             $table->date('start_date');
             $table->date('expected_return_date');
-            $table->date('return_date');
-            $table->text('notes_before');
-            $table->text('notes_after');
+            $table->date('return_date')->nullable()->default(null);
+            $table->text('notes_before')->nullable();
+            $table->text('notes_after')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('inventory_item_id')->references('id')->on('inventory_items');
