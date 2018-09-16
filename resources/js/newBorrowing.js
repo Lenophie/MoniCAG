@@ -90,7 +90,8 @@ const handleFormSubmit = () => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.borrowedItems = itemsToBorrowIDs;
-    if (formattedForm.guarantee != null) formattedForm.guarantee = parseFloat(formattedForm.guarantee.replace(',', '.'));
+
+    if (formattedForm.guarantee != null && /^[0-9]+([.,][0-9][0-9]?)?$/.test(formattedForm.guarantee)) formattedForm.guarantee = parseFloat(formattedForm.guarantee.replace(',', '.'));
     $('.error-text').remove();
 
     $.ajax({
