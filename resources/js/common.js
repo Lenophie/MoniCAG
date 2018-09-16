@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js';

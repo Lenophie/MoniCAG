@@ -48,7 +48,7 @@ class NewBorrowingRequest extends FormRequest
             'borrowedItems.required' => 'Sélectionnez des jeux à emprunter.',
             'startDate.required'  => 'Renseignez une date de début d\'emprunt.',
             'expectedReturnDate.required'  => 'Renseignez une date de retour prévu d\'emprunt.',
-            'guarantee.required' => 'Renseignez la caution (nombre décimal écrit avec virgule).',
+            'guarantee.required' => 'Renseignez la caution.',
             'agreementCheck1.required' => 'Cet engagement est obligatoire.',
             'agreementCheck2.required' => 'Cet engagement est obligatoire.'
         ];
