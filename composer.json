@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "monicag",
+    "description": "Monitor CAG Inventory !",
+    "keywords": ["monicag", "inventory"],
     "license": "MIT",
     "type": "project",
     "require": {

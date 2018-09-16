@@ -29,7 +29,7 @@
     </div>
     <div class="form-group" id="form-field-notes">
         <label for="notes">Notes</label>
-        <textarea class="form-control" id="notes" name="notes" placeholder="Ce champ est utilisé pour préciser des circonstances d'emprunt particulières (WEI, soirée...). Ces notes doivent concerner l'emprunt plutôt que les jeux empruntés." rows="2"></textarea>
+        <textarea class="form-control" id="notes" name="notes" placeholder="Ce champ est utilisé pour préciser des circonstances d'emprunt particulières (WEI, soirée...).&#10;Ces notes doivent concerner l'emprunt plutôt que les jeux empruntés." rows="2"></textarea>
     </div>
     <div class="form-check" id="form-field-agreementCheck1">
         <input type="checkbox" class="form-check-input" id="agreementCheck1" name="agreementCheck1" required>

@@ -1,6 +1,6 @@
 {
     "name": "monicag",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Monitor CAG Inventory !",
     "private": true,
     "scripts": {

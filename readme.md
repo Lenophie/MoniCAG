@@ -12,11 +12,11 @@
 
 Just MoniCAG.
 
-**Version :** *MoniCAG v0.5.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.6.0* - [Changelog](./changelog.md)
 
 **Work in progress :**
 
-* General setup.
+* End borrowing page.
 
 # License
 
