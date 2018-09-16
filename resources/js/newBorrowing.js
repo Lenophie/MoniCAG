@@ -64,7 +64,11 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
             `<div class="col-md-2">
-                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 1 ? 'disabled' : ''}>${filteredInventoryItem.name}</button>
+                <button class="btn btn-outline-primary inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 2 ? 'disabled' : ''}>
+                    ${filteredInventoryItem.name}
+                    <hr class="in-button-hr">
+                    <div class="inventory-item-button-footer">${filteredInventoryItem.status}</div>
+                </button>
             </div>`)
     }
     addInventoryItemButtonsListeners();

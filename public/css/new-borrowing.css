@@ -16,3 +16,14 @@
 .inventory-item-button {
     width: 100%;
 }
+
+.in-button-hr {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+.inventory-item-button-footer {
+    font-style: italic;
+    text-align: right;
+    font-size: 10px;
+}

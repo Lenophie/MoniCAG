@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Access configuration.
     * Tables creation.
     * Reference tables seeding.
+    * Inventory items seeding for local environment.
 * Public
     * CSS for input fields in modals.
 
