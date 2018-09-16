@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\UserRole;
 
 class UsersSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class UsersSeeder extends Seeder
             'promotion' => 2019,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),
-            'role' => 0]);
+            'role' => UserRole::ADMINISTRATEUR]);
         Schema::enableForeignKeyConstraints();
     }
 }
