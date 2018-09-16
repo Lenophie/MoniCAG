@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.6.0] - Unreleased
 
+### Added
+
+* New borrowing view
+    * Pattern check for the ```guarantee``` field decimal value.
+        * Handling of comma-separation.
+
+### Changed
+
+* New borrowing view
+    * Better-looking input groups.
+
 ### Fixed
 
 * Seeds
