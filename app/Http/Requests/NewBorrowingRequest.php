@@ -31,7 +31,7 @@ class NewBorrowingRequest extends FormRequest
             'borrowedItems.*' => 'integer',
             'startDate' => 'required|date_format:d/m/Y',
             'expectedReturnDate' => 'required|date_format:d/m/Y',
-            'guarantee' => 'required|numeric',
+            'guarantee' => 'required|numeric|positive',
             'agreementCheck1' => 'required',
             'agreementCheck2' => 'required'
         ];
@@ -49,6 +49,8 @@ class NewBorrowingRequest extends FormRequest
             'startDate.required'  => 'Renseignez une date de début d\'emprunt.',
             'expectedReturnDate.required'  => 'Renseignez une date de retour prévu d\'emprunt.',
             'guarantee.required' => 'Renseignez la caution.',
+            'guarantee.numeric' => 'La caution doit être un nombre positif.',
+            'guarantee.positive' => 'La caution doit être un nombre positif.',
             'agreementCheck1.required' => 'Cet engagement est obligatoire.',
             'agreementCheck2.required' => 'Cet engagement est obligatoire.'
         ];

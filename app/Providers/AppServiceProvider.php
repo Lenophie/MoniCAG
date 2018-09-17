@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.header', 'header');
         Blade::component('components.menu-button', 'menubutton');
         Blade::component('components.modal', 'modal');
+
+        Validator::extend('positive', function($attribute, $value, $parameters, $validator) {
+            return $value >= 0;
+        });
     }
 
     /**

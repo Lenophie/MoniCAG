@@ -10,8 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * New borrowing view
-    * Pattern check for the ```guarantee``` field decimal value.
-        * Handling of comma-separation.
+    * Guarantee field
+        * Pattern check for decimal value.
+        * Handling of comma-separation before parsing.
+        * Positive number validator.
+        * More validation messages.
 
 ### Changed
 

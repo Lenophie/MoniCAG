@@ -24,7 +24,7 @@
             <span class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
             </span>
-            <input type="text" id="guarantee" name="guarantee" class="form-control" pattern="[0-9]+([.,][0-9][0-9]?)?" required>
+            <input type="text" id="guarantee" name="guarantee" class="form-control" pattern="[0-9]+([.,][0-9][0-9]?)?" value="10.00" required>
         </span>
     </div>
     <div class="form-group" id="form-field-notes">
