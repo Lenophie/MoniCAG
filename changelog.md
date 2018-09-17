@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * New borrowing view
     * Better-looking input groups.
+    * Calendar icons.
 
 ### Fixed
 

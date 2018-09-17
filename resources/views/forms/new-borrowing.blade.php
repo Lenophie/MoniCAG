@@ -4,7 +4,12 @@
         <label for="startDate">Date d'emprunt</label>
         <span class="input-group">
             <span class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                <span class="input-group-text">
+                    <span class="fa-layers fa-fw menu-icon">
+                        <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-calendar-alt"></i>
+                        <i class="fas fa-arrow-right" data-fa-transform="shrink-9 down-5 right-8"></i>
+                    </span>
+                </span>
             </span>
             <input type="text" id="startDate" name="startDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" value={{Carbon\Carbon::now()->format('d/m/Y')}} required>
         </span>
@@ -13,7 +18,12 @@
         <label for="expectedReturnDate">Date de retour prévu</label>
         <span class="input-group">
             <span class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                <span class="input-group-text">
+                    <span class="fa-layers fa-fw menu-icon">
+                        <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-calendar-alt"></i>
+                        <i class="fas fa-arrow-left" data-fa-transform="shrink-9 down-5 right-8"></i>
+                    </span>
+                </span>
             </span>
             <input type="text" id="expectedReturnDate" name="expectedReturnDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
         </span>
