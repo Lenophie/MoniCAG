@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\BorrowingStatus;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class BorrowingStatusesSeeder extends Seeder
 {
