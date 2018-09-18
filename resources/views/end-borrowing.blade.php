@@ -38,10 +38,13 @@
     @endheader
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12 mb-3 text-center">
+                <button class="btn btn-end-borrowing">Régulariser</button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
-                <ul class="list-group" id="borrowings-list">
-
-                </ul>
+                <ul class="list-group" id="borrowings-list"></ul>
             </div>
         </div>
     </div>
