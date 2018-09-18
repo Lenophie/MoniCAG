@@ -38,8 +38,16 @@
     @endheader
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 mb-3 text-center">
-                <button class="btn btn-end-borrowing">Régulariser</button>
+            <div class="col-md-12 text-center">
+                Déclarer les emprunts sélectionnés comme :
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 text-center">
+                <button class="btn btn-return-borrowing btn-outline-good">Revenus</button>
+            </div>
+            <div class="col-md-6 text-center">
+                <button class="btn btn-return-borrowing btn-outline-bad">Perdus</button>
             </div>
         </div>
         <div class="row">
