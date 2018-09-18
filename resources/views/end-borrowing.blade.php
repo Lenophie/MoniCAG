@@ -36,4 +36,20 @@
         Fin d'emprunt
     @endslot
     @endheader
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group" id="borrowings-list">
+
+                </ul>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        const borrowings = {!! json_encode($borrowings)!!};
+    </script>
+    <script type="text/javascript" src="{{URL::asset('js/endBorrowing.js')}}"></script>
+@endpush

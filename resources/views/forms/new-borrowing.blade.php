@@ -43,7 +43,7 @@
     </div>
     <div class="form-check" id="form-field-agreementCheck1">
         <input type="checkbox" class="form-check-input" id="agreementCheck1" name="agreementCheck1" required>
-        <label class="form-check-label" for="agreementCheck1">Je m'engage à dédommager à hauteur de 10 euros le club jeux en cas de détérioration d'un jeu emprunté ou de perte de pièces.</label>
+        <label class="form-check-label" for="agreementCheck1">Je m'engage à dédommager le club jeux en cas de détérioration d'un jeu emprunté ou de perte de pièces.</label>
     </div>
     <div class="form-check" id="form-field-agreementCheck2">
         <input type="checkbox" class="form-check-input" id="agreementCheck2" name="agreementCheck2" required>

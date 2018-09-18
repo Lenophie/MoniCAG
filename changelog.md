@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Handling of comma-separation before parsing.
         * Positive number validator.
         * More validation messages.
+    * Expected return date field
+        * Comparison to start date for validation.
+    * Better validation.
+* End borrowing view
+    * Current borrowings list
+* End borrowing controller
+    * Borrowings request.
 
 ### Changed
 

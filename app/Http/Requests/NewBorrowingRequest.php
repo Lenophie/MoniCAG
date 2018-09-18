@@ -29,8 +29,8 @@ class NewBorrowingRequest extends FormRequest
         return [
             'borrowedItems' => 'required|array',
             'borrowedItems.*' => 'integer',
-            'startDate' => 'required|date_format:d/m/Y',
-            'expectedReturnDate' => 'required|date_format:d/m/Y',
+            'startDate' => 'required|date_format:d/m/Y|after_or_equal:today',
+            'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:startDate',
             'guarantee' => 'required|numeric|positive',
             'agreementCheck1' => 'required',
             'agreementCheck2' => 'required'
@@ -47,7 +47,9 @@ class NewBorrowingRequest extends FormRequest
         return [
             'borrowedItems.required' => 'Sélectionnez des jeux à emprunter.',
             'startDate.required'  => 'Renseignez une date de début d\'emprunt.',
-            'expectedReturnDate.required'  => 'Renseignez une date de retour prévu d\'emprunt.',
+            'startDate.after_or_equal' => 'La date d\'emprunt ne peut pas être inférieure à la date du jour.',
+            'expectedReturnDate.required'  => 'Renseignez une date de retour prévu.',
+            'expectedReturnDate.after_or_equal' => 'La date de retour prévu doit être supérieure ou égale à la date d\'emprunt.',
             'guarantee.required' => 'Renseignez la caution.',
             'guarantee.numeric' => 'La caution doit être un nombre positif.',
             'guarantee.positive' => 'La caution doit être un nombre positif.',

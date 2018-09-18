@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Borrowing;
 
 class EndBorrowingController extends Controller
 {
     public function index()
     {
-        return view('end-borrowing');
+        $borrowings = Borrowing::allCurrent();
+        return view('end-borrowing', compact('borrowings'));
     }
 }

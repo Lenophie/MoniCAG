@@ -6,6 +6,8 @@ $view-inventory-theme-color: #a7885a;
 $edit-inventory-theme-color: #6c6c6c;
 $admin-theme-color: #5dbcf3;
 $lender-theme-color: #6973f7;
+$not-late-borrowing-color: #26ff26;
+$late-borrowing-color: #ff0716;
 
 // Theme colors object used in bootstrap-theming.scss.
 $theme-colors: (
@@ -16,4 +18,6 @@ $theme-colors: (
   "edit-inventory": $edit-inventory-theme-color,
   "admin": $admin-theme-color,
   "lender": $lender-theme-color,
+  "late-borrowing": $late-borrowing-color,
+  "not-late-borrowing": $not-late-borrowing-color
 );
