@@ -56,7 +56,6 @@ const handleBorrowingsListElementClick = (borrowing) => {
         removeBorrowingFromSelectedBorrowingsList(borrowing);
     }
     borrowing.selected = !borrowing.selected;
-    console.log(selectedBorrowings);
 };
 
 const addBorrowingToSelectedBorrowingsList = (borrowing) => {
@@ -103,5 +102,45 @@ const handleReturnButtonClick = (buttonEnum) => {
         toReturnListElement.append(
             `<li>${borrowing.inventoryItem.name} emprunté par ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`
         );
+    }
+
+    $('.error-text').remove();
+    modalSubmitButton.off();
+    modalSubmitButton.click(() => handleConfirmButtonClick(buttonEnum));
+};
+
+const handleConfirmButtonClick = (buttonEnum) => {
+    const selectedBorrowingsIDs = {};
+    let i = 0;
+
+    for (const selectedBorrowing of selectedBorrowings) {
+        selectedBorrowingsIDs[i] = selectedBorrowing.id;
+        i++;
+    }
+    const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? 0 : 3;
+    const csrfTokenForm = $('#csrf-token').serializeArray();
+
+    $('.error-text').remove();
+    const postURL = buttonEnum === buttonsEnum.END ? "/end-borrowing/returned" : "/end-borrowing/lost";
+    $.ajax({
+        url: postURL,
+        type: 'POST',
+        data: {
+            _token: csrfTokenForm[0].value,
+            selectedBorrowings: selectedBorrowingsIDs,
+            newInventoryItemsStatus: newInventoryItemsStatus
+        },
+        success: () => {
+            window.location.href = "/borrowings-history"
+        },
+        error: (response) => {
+            handleFormErrors(response.responseJSON.errors);
+        }
+    });
+};
+
+const handleFormErrors = (errors) => {
+    for (const fieldName in errors) {
+        $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
     }
 };

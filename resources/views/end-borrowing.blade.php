@@ -58,8 +58,12 @@
             <div id="modal-body-return">
                 <h5 id="modal-list-name">Liste des emprunts sélectionnés</h5>
                 <ul id="to-return-list"></ul>
+                <div id="form-field-selectedBorrowings"></div>
             </div>
             <hr>
+            <form id="csrf-token">
+                @csrf
+            </form>
             @include('authentications/lender')
         @endslot
         @slot('tags')

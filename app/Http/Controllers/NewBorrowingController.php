@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Borrowing;
-use App\BorrowingStatus;
 use App\Http\Requests\NewBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
@@ -27,7 +26,7 @@ class newBorrowingController extends Controller
                 'borrower_id' => 1, // to change when authentication will be setup
                 'initial_lender_id' => 1,  // to change when authentication will be setup
                 'guarantee' => request('guarantee'),
-                'status_id' => BorrowingStatus::EN_COURS,
+                'finished' => false,
                 'start_date' => $startDate,
                 'expected_return_date' => $expectedReturnDate,
                 'notes_before' => request('notes')

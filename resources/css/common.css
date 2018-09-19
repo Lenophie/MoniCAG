@@ -50,3 +50,8 @@ h1 {
 .no-display {
   display: none;
 }
+
+.error-text {
+    font-style: italic;
+    color: red;
+}

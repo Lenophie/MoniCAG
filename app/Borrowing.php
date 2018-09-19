@@ -53,14 +53,6 @@ class Borrowing extends Model
     ];
 
     /**
-     * Get the borrowing status associated with the borrowing.
-     */
-    public function borrowingStatus()
-    {
-        return $this->hasOne('App\BorrowingStatus', 'id', 'status_id');
-    }
-
-    /**
      * Get the initial lender associated with the borrowing.
      */
     public function initialLender()
@@ -91,26 +83,25 @@ class Borrowing extends Model
     }
 
     public static function allCurrent() {
-        $borrowings = Borrowing::with(['borrowingStatus', 'initialLender', 'borrower', 'inventoryItem'])
+        $borrowings = Borrowing::with(['initialLender', 'borrower', 'inventoryItem'])
             ->select('id',
                 'inventory_item_id',
-                'status_id',
+                'finished',
                 'initial_lender_id',
                 'borrower_id',
                 'start_date AS startDate',
                 'expected_return_date as expectedReturnDate',
                 'guarantee')
-            ->where('status_id', BorrowingStatus::EN_COURS)
+            ->where('finished', false)
             ->orderBy('expectedReturnDate', 'asc')
             ->orderBy('startDate', 'asc')
             ->get();
 
         foreach($borrowings as $borrowing) {
-            if (Carbon::now()->gt($borrowing->expectedReturnDate)) $borrowing->isLate = true;
+            if (Carbon::now()->startOfDay()->gt($borrowing->expectedReturnDate)) $borrowing->isLate = true;
             else $borrowing->isLate = false;
 
             unset($borrowing->inventory_item_id);
-            unset($borrowing->status_id);
             unset($borrowing->initial_lender_id);
             unset($borrowing->borrower_id);
         }
