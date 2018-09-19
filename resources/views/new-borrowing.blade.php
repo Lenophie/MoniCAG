@@ -15,16 +15,10 @@
 @section('content')
     @header
         @slot('leftIcon')
-            <span class="fa-layers fa-fw menu-icon">
-                <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-                <i class="fas fa-arrow-up" data-fa-transform="shrink-10 down-5 right-8"></i>
-            </span>
+            @include('icons/new-borrowing')
         @endslot
         @slot('rightIcon')
-            <span class="fa-layers fa-fw menu-icon">
-                <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-                <i class="fas fa-arrow-up" data-fa-transform="shrink-10 down-5 right-8"></i>
-            </span>
+            @include('icons/new-borrowing')
         @endslot
         @slot('hasReturnButton')
             true
@@ -53,9 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="inventory-item-buttons-list">
-
-        </div>
+        <div class="row" id="inventory-item-buttons-list"></div>
     </div>
     @modal
         @slot('title')
@@ -63,10 +55,8 @@
         @endslot
         @slot('body')
             <div id="form-field-borrowedItems">
-            Liste des jeux choisis :
-            <ul id="toBorrowList">
-
-            </ul>
+                Liste des jeux choisis :
+                <ul id="toBorrowList"></ul>
             </div>
             <hr>
             @include('forms/new-borrowing')
@@ -75,7 +65,7 @@
             id="new-borrowing-modal"
         @endslot
         @slot('footer')
-            <button type="submit" class="btn btn-new-borrowing" id="new-borrowing-submit">Submit</button>
+            <button type="submit" class="btn btn-new-borrowing" id="new-borrowing-submit">Confirmer</button>
         @endslot
     @endmodal
 @endsection

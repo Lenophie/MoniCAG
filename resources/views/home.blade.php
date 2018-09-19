@@ -52,10 +52,7 @@
                             location.href='{{url('new-borrowing')}}'
                         @endslot
                         @slot('icon')
-                            <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-                                <i class="fas fa-arrow-up" data-fa-transform="shrink-10 down-5 right-8"></i>
-                            </span>
+                            @include('icons/new-borrowing')
                         @endslot
                     @endmenubutton
                     @menubutton
@@ -72,10 +69,7 @@
                             location.href='{{url('end-borrowing')}}'
                         @endslot
                         @slot('icon')
-                            <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-                                <i class="fas fa-arrow-down" data-fa-transform="shrink-10 down-5 right-8"></i>
-                            </span>
+                            @include('icons/end-borrowing')
                         @endslot
                     @endmenubutton
                     @menubutton
@@ -119,10 +113,7 @@
                             location.href='{{url('view-inventory')}}'
                         @endslot
                         @slot('icon')
-                            <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-7 right-9" data-fa-mask="fas fa-boxes"></i>
-                                <i class="fas fa-eye" data-fa-transform="shrink-10 down-7 right-9"></i>
-                            </span>
+                            @include('icons/view-inventory')
                         @endslot
                     @endmenubutton
                     @menubutton
@@ -139,10 +130,7 @@
                             location.href='{{url('edit-inventory')}}'
                         @endslot
                         @slot('icon')
-                             <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-7 right-9" data-fa-mask="fas fa-boxes"></i>
-                                <i class="fas fa-wrench" data-fa-transform="shrink-10 down-7 right-9"></i>
-                            </span>
+                            @include('icons/edit-inventory')
                         @endslot
                     @endmenubutton
                 </div>
@@ -169,10 +157,7 @@
                             location.href='{{url('admin')}}'
                         @endslot
                         @slot('icon')
-                            <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-6 right-6" data-fa-mask="fas fa-users"></i>
-                                <i class="fas fa-crown" data-fa-transform="shrink-10 down-6 right-6"></i>
-                            </span>
+                            @include('icons/admin')
                         @endslot
                     @endmenubutton
                     @menubutton
@@ -189,10 +174,7 @@
                             location.href='{{url('lender')}}'
                         @endslot
                         @slot('icon')
-                             <span class="fa-layers fa-fw menu-icon">
-                                <i class="fas fa-circle" data-fa-transform="shrink-7 down-6 right-6" data-fa-mask="fas fa-users"></i>
-                                <i class="fas fa-dice" data-fa-transform="shrink-10 down-6 right-6"></i>
-                             </span>
+                             @include('icons/lender')
                         @endslot
                     @endmenubutton
                 </div>

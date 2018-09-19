@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* Views (common)
+    * Turned the custom icons in reusable templates.
 * New borrowing view
     * Guarantee field
         * Pattern check for decimal value.
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Better validation.
 * End borrowing view
     * Current borrowings list
+    * Selection modal
 * End borrowing controller
     * Borrowings request.
 

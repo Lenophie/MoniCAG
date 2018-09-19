@@ -2,6 +2,10 @@ import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 const selectedBorrowings = [];
+const buttonsEnum = {
+    END: 0,
+    LOST: 1
+};
 
 // After page is loaded
 $().ready(() => {
@@ -36,7 +40,10 @@ const addListeners = () => {
     for (const borrowing of borrowings) {
         $(`#borrowings-list-element-${borrowing.id}`).click(() => handleBorrowingsListElementClick(borrowing));
     }
+    $('#return-button').click(() => handleReturnButtonClick(buttonsEnum.END));
+    $('#lost-button').click(() => handleReturnButtonClick(buttonsEnum.LOST));
 };
+
 
 const handleBorrowingsListElementClick = (borrowing) => {
     if (borrowing.selected === false) {
@@ -62,5 +69,39 @@ const removeBorrowingFromSelectedBorrowingsList = (borrowing) => {
             selectedBorrowings.splice(i, 1);
             break;
         }
+    }
+};
+
+const handleReturnButtonClick = (buttonEnum) => {
+    let modalTitle;
+    let modalSubmitText;
+    const modalSubmitButton = $(`#end-borrowing-submit`);
+    let classToAddToSubmitButton;
+    let classToRemoveFromSubmitButton;
+    switch (buttonEnum) {
+      case buttonsEnum.END:
+          modalTitle = 'Confirmation de <b>retour</b> d\'emprunts';
+          modalSubmitText = 'Confirmer le retour';
+          classToAddToSubmitButton = 'btn-good';
+          classToRemoveFromSubmitButton = 'btn-bad';
+      break;
+      case buttonsEnum.LOST:
+          modalTitle = 'Confirmation de <b>perte</b> d\'emprunts';
+          modalSubmitText = 'Confirmer la perte';
+          classToAddToSubmitButton = 'btn-bad';
+          classToRemoveFromSubmitButton = 'btn-good';
+      break;
+    }
+    $(`#end-borrowing-modal .modal-title`).html(modalTitle);
+    modalSubmitButton.html(modalSubmitText);
+    modalSubmitButton.addClass(classToAddToSubmitButton);
+    modalSubmitButton.removeClass(classToRemoveFromSubmitButton);
+
+    const toReturnListElement = $(`#end-borrowing-modal #to-return-list`);
+    toReturnListElement.empty();
+    for (const borrowing of selectedBorrowings) {
+        toReturnListElement.append(
+            `<li>${borrowing.inventoryItem.name} emprunté par ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`
+        );
     }
 };

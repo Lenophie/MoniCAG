@@ -14,27 +14,21 @@
 
 @section('content')
     @header
-    @slot('leftIcon')
-        <span class="fa-layers fa-fw menu-icon">
-            <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-            <i class="fas fa-arrow-down" data-fa-transform="shrink-10 down-5 right-8"></i>
-        </span>
-    @endslot
-    @slot('rightIcon')
-        <span class="fa-layers fa-fw menu-icon">
-            <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-dice"></i>
-            <i class="fas fa-arrow-down" data-fa-transform="shrink-10 down-5 right-8"></i>
-        </span>
-    @endslot
-    @slot('hasReturnButton')
-        true
-    @endslot
-    @slot('hasCheckoutButton')
-        false
-    @endslot
-    @slot('title')
-        Fin d'emprunt
-    @endslot
+        @slot('leftIcon')
+            @include('icons/end-borrowing')
+        @endslot
+        @slot('rightIcon')
+            @include('icons/end-borrowing')
+        @endslot
+        @slot('hasReturnButton')
+            true
+        @endslot
+        @slot('hasCheckoutButton')
+            false
+        @endslot
+        @slot('title')
+            Fin d'emprunt
+        @endslot
     @endheader
     <div class="container-fluid">
         <div class="row">
@@ -44,10 +38,10 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-good">Revenus</button>
+                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">Revenus</button>
             </div>
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-bad">Perdus</button>
+                <button class="btn btn-return-borrowing btn-outline-bad" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal">Perdus</button>
             </div>
         </div>
         <div class="row">
@@ -56,6 +50,25 @@
             </div>
         </div>
     </div>
+    @modal
+        @slot('title')
+            Confirmation
+        @endslot
+        @slot('body')
+            <div id="modal-body-return">
+                <h5 id="modal-list-name">Liste des emprunts sélectionnés</h5>
+                <ul id="to-return-list"></ul>
+            </div>
+            <hr>
+            @include('authentications/lender')
+        @endslot
+        @slot('tags')
+            id="end-borrowing-modal"
+        @endslot
+        @slot('footer')
+            <button type="submit" class="btn" id="end-borrowing-submit">Confirmer</button>
+        @endslot
+    @endmodal
 @endsection
 
 @push('scripts')
