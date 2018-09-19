@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Borrowing;
 use App\Http\Requests\EndBorrowingRequest;
 use App\InventoryItem;
+use App\InventoryItemStatus;
 
 class EndBorrowingController extends Controller
 {
@@ -21,19 +22,18 @@ class EndBorrowingController extends Controller
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => 1]);
+                ->update(['status_id' => InventoryItemStatus::AU_LOCAL_LCR_D4]);
         }
     }
 
-    public function updateLost(EndBorrowingRequest $requestEn)
+    public function updateLost(EndBorrowingRequest $request)
     {
         foreach (request('selectedBorrowings') as $selectedBorrowing) {
             Borrowing::where('id', $selectedBorrowing)->update(['finished' => true]);
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => 4]);
+                ->update(['status_id' => InventoryItemStatus::PERDU]);
         }
     }
-
 }

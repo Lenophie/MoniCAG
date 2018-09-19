@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\InventoryItem;
+use App\InventoryItemStatus;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -22,9 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.menu-button', 'menubutton');
         Blade::component('components.modal', 'modal');
 
-        Validator::extend('positive', function($attribute, $value, $parameters, $validator) {
-            return $value >= 0;
-        });
+        Validator::extend('inventory_item_available', 'App\Validators\InventoryItemAvailable@validate');
     }
 
     /**

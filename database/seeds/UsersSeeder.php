@@ -18,8 +18,8 @@ class UsersSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('users')->truncate();
         User::create([
-            'firstName' => 'Monika',
-            'lastName' => 'Root',
+            'first_name' => 'Monika',
+            'last_name' => 'Root',
             'promotion' => 2019,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),

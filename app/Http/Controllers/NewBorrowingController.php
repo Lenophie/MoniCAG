@@ -12,7 +12,7 @@ class newBorrowingController extends Controller
 {
     public function index()
     {
-        $inventoryItems = InventoryItem::joinedAll();
+        $inventoryItems = InventoryItem::allJoined();
         return view('new-borrowing', compact('inventoryItems'));
     }
 

@@ -46,6 +46,7 @@ const handleAddInventoryItemButtonClick = (inventoryItem) => {
 };
 
 const handleBorrowingModalShow = () => {
+    $('.error-text').remove();
     fillDisplayedToBorrowList();
 };
 
@@ -66,10 +67,10 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
             `<div class="col-md-2 mb-1">
-                <button class="btn ${filteredInventoryItem.selected ? "btn-outline-new-borrowing" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status_id > 2 ? 'disabled' : ''}>
+                <button class="btn ${filteredInventoryItem.selected ? "btn-outline-new-borrowing" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status.id > 2 ? 'disabled' : ''}>
                     ${filteredInventoryItem.name}
                     <hr class="in-button-hr">
-                    <div class="inventory-item-button-footer">${filteredInventoryItem.status}</div>
+                    <div class="inventory-item-button-footer">${filteredInventoryItem.status.name}</div>
                 </button>
             </div>`)
     }
@@ -109,7 +110,11 @@ const handleFormSubmit = () => {
 
 const handleFormErrors = (errors) => {
     for (const fieldName in errors) {
-        $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+        if (!fieldName.startsWith('borrowedItems.')) {
+            $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+        } else {
+            $(`#form-field-borrowedItems`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+        }
     }
 };
 

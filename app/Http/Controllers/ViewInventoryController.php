@@ -9,7 +9,7 @@ class ViewInventoryController extends Controller
 {
     public function index()
     {
-        $inventoryItems = InventoryItem::joinedAll();
+        $inventoryItems = InventoryItem::allJoined();
         return view('view-inventory', compact('inventoryItems'));
     }
 }

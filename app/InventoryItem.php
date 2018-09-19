@@ -15,10 +15,23 @@ class InventoryItem extends Model
         return $this->belongsTo('App\Borrowing', 'id', 'inventory_item_id');
     }
 
-    public static function joinedAll() {
-        return DB::table('inventory_items as ii')
-            ->leftJoin('inventory_item_statuses as iis', 'iis.id', '=', 'ii.status_id')
-            ->select('ii.id as id', 'ii.name as name', 'ii.status_id as status_id', 'iis.name as status')
+    /**
+     * Get the inventory item status.
+     */
+    public function status()
+    {
+        return $this->hasOne('App\InventoryItemStatus', 'id', 'status_id');
+    }
+
+    public static function allJoined() {
+        $inventoryItems = InventoryItem::with(['status'])
+            ->select('id', 'name', 'status_id')
             ->get();
+
+        foreach($inventoryItems as $inventoryItem) {
+            unset($inventoryItem->status_id);
+        }
+
+        return $inventoryItems;
     }
 }

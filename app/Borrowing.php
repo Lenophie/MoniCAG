@@ -59,7 +59,7 @@ class Borrowing extends Model
     {
         return $this
             ->hasOne('App\User', 'id', 'initial_lender_id')
-            ->select('id', 'firstName', 'lastName', 'promotion');
+            ->select('id', 'first_name AS firstName', 'last_name as lastName', 'promotion');
     }
 
     /**
@@ -69,7 +69,7 @@ class Borrowing extends Model
     {
         return $this
             ->hasOne('App\User', 'id', 'borrower_id')
-            ->select('id', 'firstName', 'lastName', 'promotion');
+            ->select('id', 'first_name AS firstName', 'last_name as lastName', 'promotion');
     }
 
     /**

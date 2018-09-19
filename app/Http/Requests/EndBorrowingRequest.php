@@ -38,7 +38,7 @@ class EndBorrowingRequest extends FormRequest
     public function messages()
     {
         return [
-            'selectedBorrowings.required' => 'Sélectionnez des emprunts à terminer.'
+
         ];
     }
 }

@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - Unreleased
+
+### Added
+
+* Language pack
+    * French
+    * English validation messages.
+    * Made french the default language pack.
+* Validation
+    * Check for inventory items availability before allowing the borrowing.
+* New borrowing view
+    * Displaying of errors linked to inventory items availability.
+
+### Changed
+
+* Querying
+    * Eloquent syntax for the query requesting all the inventory items.
+* Validation
+    * Moved error messages from requests to language packs.
+
+### Fixed
+
+* Configuration
+    * Project name was not set in configuration.
+* Database / Model
+    * Some columns were in camelCase instead of snake_case.
+
 ## [0.6.0] - 2019-09-19
 
 ### Added

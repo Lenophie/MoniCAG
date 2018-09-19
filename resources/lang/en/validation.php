@@ -125,9 +125,31 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'borrowedItems' => [
+            'required' => 'Select games to borrow.'
         ],
+        'startDate' => [
+            'required' => 'Choose the borrowing\'s start date.',
+            'after_or_equal' => 'The borrowing\'s start date must be superior or equal to the current date.'
+        ],
+        'expectedReturnDate' => [
+            'required' => 'Choose the borrowing\'s expected return date.',
+            'after_or_equal' => 'The borrowing\'s expected return date must be superior or equal to the current date.'
+        ],
+        'guarantee' => [
+            'required' => 'Fill in the guarantee.',
+            'numeric' => 'The guarantee must be a positive number.',
+            'min' => 'The guarantee must be a positive number.'
+        ],
+        'agreementCheck1' => [
+            'required' => 'You must agree to these terms to proceed.'
+        ],
+        'agreementCheck2' => [
+            'required' => 'You must agree to these terms to proceed.'
+        ],
+        'selectedBorrowings' => [
+            'required' => 'Select borrowings to end.'
+        ]
     ],
 
     /*
