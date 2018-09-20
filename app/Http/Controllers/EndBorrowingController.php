@@ -6,19 +6,25 @@ use App\Borrowing;
 use App\Http\Requests\EndBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
+use Carbon\Carbon;
 
 class EndBorrowingController extends Controller
 {
     public function index()
     {
-        $borrowings = Borrowing::allCurrent();
+        $borrowings = Borrowing::current();
         return view('end-borrowing', compact('borrowings'));
     }
 
     public function updateReturned(EndBorrowingRequest $request)
     {
         foreach (request('selectedBorrowings') as $selectedBorrowing) {
-            Borrowing::where('id', $selectedBorrowing)->update(['finished' => true]);
+            Borrowing::where('id', $selectedBorrowing)
+                ->update([
+                    'finished' => true,
+                    'return_lender_id' => 1, // to change when authentication will be setup
+                    'return_date' => Carbon::now()
+                ]);
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})
@@ -29,7 +35,12 @@ class EndBorrowingController extends Controller
     public function updateLost(EndBorrowingRequest $request)
     {
         foreach (request('selectedBorrowings') as $selectedBorrowing) {
-            Borrowing::where('id', $selectedBorrowing)->update(['finished' => true]);
+            Borrowing::where('id', $selectedBorrowing)
+                ->update([
+                    'finished' => true,
+                    'return_lender_id' => 1, // to change when authentication will be setup
+                    'return_date' => Carbon::now()
+                ]);
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})

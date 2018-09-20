@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\InventoryItemStatus;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class NewBorrowingRequest extends FormRequest
 {
@@ -30,7 +28,7 @@ class NewBorrowingRequest extends FormRequest
             'borrowedItems.*' => 'integer|inventory_item_available',
             'startDate' => 'required|date_format:d/m/Y|after_or_equal:today',
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:startDate',
-            'guarantee' => 'required|numeric|min:0',
+            'guarantee' => 'required|numeric|regex:/^[0-9]+([.,][0-9][0-9]?)?$/',
             'agreementCheck1' => 'required',
             'agreementCheck2' => 'required'
         ];

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.7.0] - Unreleased
+## [0.7.0] - 2019-09-20
 
 ### Added
 
@@ -14,9 +14,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * English validation messages.
     * Made french the default language pack.
 * Validation
+    * Regular expression to validate the number of decimals (2 maximum).
     * Check for inventory items availability before allowing the borrowing.
 * New borrowing view
     * Displaying of errors linked to inventory items availability.
+* Borrowings history view
+    * List filling.
+* Borrowings history request
+    * Joining return lender to the borrowings usual request.
 
 ### Changed
 
@@ -33,6 +38,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Project name was not set in configuration.
 * Database / Model
     * Some columns were in camelCase instead of snake_case.
+    
+### Removed
+
+* Validation
+    * Check for positive number for the guarantee.
+        * Handled by the regular expression.
 
 ## [0.6.0] - 2019-09-19
 

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Borrowing;
 
 class BorrowingsHistoryController extends Controller
 {
     public function index()
     {
-        return view('borrowings-history');
+        $borrowings = Borrowing::history();
+        return view('borrowings-history', compact('borrowings'));
     }
 }

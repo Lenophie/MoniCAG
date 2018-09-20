@@ -141,7 +141,7 @@ return [
         'guarantee' => [
             'required' => 'Renseignez la caution.',
             'numeric' => 'La caution doit être un nombre positif.',
-            'min' => 'La caution doit être un nombre positif.',
+            'regex' => 'La caution doit être un nombre positif à deux décimales maximum.'
         ],
         'agreementCheck1' => [
             'required' => 'Cet engagement est obligatoire.'

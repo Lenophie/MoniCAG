@@ -128,6 +128,9 @@ return [
         'borrowedItems' => [
             'required' => 'Select games to borrow.'
         ],
+        'borrowedItems.*' => [
+            'inventory_item_available' => 'The game :item is not available anymore.'
+        ],
         'startDate' => [
             'required' => 'Choose the borrowing\'s start date.',
             'after_or_equal' => 'The borrowing\'s start date must be superior or equal to the current date.'
@@ -139,7 +142,7 @@ return [
         'guarantee' => [
             'required' => 'Fill in the guarantee.',
             'numeric' => 'The guarantee must be a positive number.',
-            'min' => 'The guarantee must be a positive number.'
+            'regex' => 'The guarantee must be a positive number with at most 2 decimals.'
         ],
         'agreementCheck1' => [
             'required' => 'You must agree to these terms to proceed.'

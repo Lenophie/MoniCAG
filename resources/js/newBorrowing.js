@@ -109,11 +109,14 @@ const handleFormSubmit = () => {
 };
 
 const handleFormErrors = (errors) => {
+    console.log(errors);
     for (const fieldName in errors) {
-        if (!fieldName.startsWith('borrowedItems.')) {
-            $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
-        } else {
-            $(`#form-field-borrowedItems`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+        for (const error of errors[fieldName]) {
+            if (!fieldName.startsWith('borrowedItems.')) {
+                $(`#form-field-${fieldName}`).append(`<div class="error-text">${error}</div>`);
+            } else {
+                $(`#form-field-borrowedItems`).append(`<div class="error-text">${error}</div>`);
+            }
         }
     }
 };

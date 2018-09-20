@@ -141,6 +141,8 @@ const handleConfirmButtonClick = (buttonEnum) => {
 
 const handleFormErrors = (errors) => {
     for (const fieldName in errors) {
-        $(`#form-field-${fieldName}`).append(`<div class="error-text">${errors[fieldName]}</div>`);
+        for (const error of errors[fieldName]) {
+            $(`#form-field-${fieldName}`).append(`<div class="error-text">${error}</div>`);
+        }
     }
 };

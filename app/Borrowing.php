@@ -23,11 +23,14 @@ class Borrowing extends Model
         'inventory_item_id',
         'borrower_id',
         'initial_lender_id',
+        'return_lender_id',
         'guarantee',
-        'status_id',
+        'finished',
         'start_date',
         'expected_return_date',
-        'notes_before'
+        'return_date',
+        'notes_before',
+        'notes_after'
     ];
 
     /**
@@ -39,7 +42,8 @@ class Borrowing extends Model
         'created_at',
         'updated_at',
         'start_date',
-        'expected_return_date'
+        'expected_return_date',
+        'return_date'
     ];
 
     /**
@@ -49,7 +53,8 @@ class Borrowing extends Model
      */
     protected $casts = [
         'startDate' => 'date:d/m/Y',
-        'expectedReturnDate' => 'date:d/m/Y'
+        'expectedReturnDate' => 'date:d/m/Y',
+        'returnDate' => 'date:d/m/Y'
     ];
 
     /**
@@ -61,6 +66,17 @@ class Borrowing extends Model
             ->hasOne('App\User', 'id', 'initial_lender_id')
             ->select('id', 'first_name AS firstName', 'last_name as lastName', 'promotion');
     }
+
+    /**
+     * Get the return lender associated with the borrowing.
+     */
+    public function returnLender()
+    {
+        return $this
+            ->hasOne('App\User', 'id', 'return_lender_id')
+            ->select('id', 'first_name AS firstName', 'last_name as lastName', 'promotion');
+    }
+
 
     /**
      * Get the borrower associated with the borrowing.
@@ -82,30 +98,72 @@ class Borrowing extends Model
             ->select('id', 'name');
     }
 
-    public static function allCurrent() {
-        $borrowings = Borrowing::with(['initialLender', 'borrower', 'inventoryItem'])
+    public static function current() {
+        $borrowings = Borrowing::initialJoin()
+            ->where('finished', false)
+            ->orderByDate()
+            ->get();
+
+        foreach($borrowings as $borrowing) {
+            self::removeIds($borrowing);
+            self::checkLateness($borrowing);
+        }
+
+        return $borrowings;
+    }
+
+    public static function history() {
+        $borrowings = Borrowing::completeJoin()
+            ->orderByDate()
+            ->get();
+
+        foreach($borrowings as $borrowing) {
+            self::removeIds($borrowing);
+        }
+
+        return $borrowings;
+    }
+
+    private static function initialJoin() {
+        return Borrowing::with(['initialLender', 'borrower', 'inventoryItem'])
             ->select('id',
                 'inventory_item_id',
                 'finished',
                 'initial_lender_id',
                 'borrower_id',
                 'start_date AS startDate',
-                'expected_return_date as expectedReturnDate',
-                'guarantee')
-            ->where('finished', false)
-            ->orderBy('expectedReturnDate', 'asc')
-            ->orderBy('startDate', 'asc')
-            ->get();
+                'expected_return_date AS expectedReturnDate',
+                'guarantee');
+    }
 
-        foreach($borrowings as $borrowing) {
-            if (Carbon::now()->startOfDay()->gt($borrowing->expectedReturnDate)) $borrowing->isLate = true;
-            else $borrowing->isLate = false;
+    private static function completeJoin() {
+        return Borrowing::with(['initialLender', 'returnLender', 'borrower', 'inventoryItem'])
+            ->select('id',
+                'inventory_item_id',
+                'finished',
+                'initial_lender_id',
+                'return_lender_id',
+                'borrower_id',
+                'start_date AS startDate',
+                'expected_return_date AS expectedReturnDate',
+                'return_date AS returnDate',
+                'guarantee');
+    }
 
-            unset($borrowing->inventory_item_id);
-            unset($borrowing->initial_lender_id);
-            unset($borrowing->borrower_id);
-        }
+    private static function removeIds($borrowing) {
+        unset($borrowing->inventory_item_id);
+        unset($borrowing->initial_lender_id);
+        unset($borrowing->return_lender_id);
+        unset($borrowing->borrower_id);
+    }
 
-        return $borrowings;
+    private static function checkLateness($borrowing) {
+        if (Carbon::now()->startOfDay()->gt($borrowing->expectedReturnDate)) $borrowing->isLate = true;
+        else $borrowing->isLate = false;
+    }
+
+    public static function scopeOrderByDate($query) {
+        return $query->orderBy('expectedReturnDate', 'asc')
+            ->orderBy('startDate', 'asc');
     }
 }
