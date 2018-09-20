@@ -32,7 +32,7 @@
     @endheader
     <div class="row">
         <div class="col-md-12 table-responsive">
-            <table class="table">
+            <table class="table table-striped table-borrowings-history">
                 <thead class="thead-light">
                     <tr>
                         <th colspan="5" class="border-right">Emprunt</th>
