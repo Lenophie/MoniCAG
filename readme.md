@@ -16,7 +16,7 @@ Just MoniCAG.
 
 **Work in progress :**
 
-* Borrowings history page.
+* View inventory page.
 
 # License
 

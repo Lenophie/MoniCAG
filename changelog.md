@@ -10,7 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * New borrowing view
-    * Borrower authentication button
+    * Borrower authentication button.
+* View inventory view
+    * Layout.
 
 ### Changed
 

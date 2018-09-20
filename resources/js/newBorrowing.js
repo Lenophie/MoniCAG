@@ -143,8 +143,7 @@ const getInventoryItemsByName = (searchQuery) => {
         ]
     };
     const fuse = new Fuse(inventoryItems, options);
-    const result = fuse.search(searchQuery);
-    return result;
+    return fuse.search(searchQuery);
 };
 
 const addInventoryItemToBorrowingList = (inventoryItem) => {
