@@ -145,36 +145,19 @@
                 <div class="row">
                     @menubutton
                         @slot('width')
-                            col-md-6
+                            col-md-12
                         @endslot
                         @slot('style')
-                            btn-outline-admin
+                            btn-outline-user
                         @endslot
                         @slot('title')
-                            GÉRER LES ADMINISTRATEURS
+                            GÉRER LES UTILISATEURS
                         @endslot
                         @slot('action')
-                            location.href='{{url('admin')}}'
+                            location.href='{{url('user')}}'
                         @endslot
                         @slot('icon')
-                            @include('icons/admin')
-                        @endslot
-                    @endmenubutton
-                    @menubutton
-                        @slot('width')
-                            col-md-6
-                        @endslot
-                        @slot('style')
-                            btn-outline-lender
-                        @endslot
-                        @slot('title')
-                            GÉRER LES PRÊTEURS
-                        @endslot
-                        @slot('action')
-                            location.href='{{url('lender')}}'
-                        @endslot
-                        @slot('icon')
-                             @include('icons/lender')
+                            @include('icons/user')
                         @endslot
                     @endmenubutton
                 </div>

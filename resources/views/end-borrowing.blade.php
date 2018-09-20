@@ -56,7 +56,7 @@
         @endslot
         @slot('body')
             <div id="modal-body-return">
-                <h5 id="modal-list-name">Liste des emprunts sélectionnés</h5>
+                <span id="modal-list-name">Liste des emprunts sélectionnés</span>
                 <ul id="to-return-list"></ul>
                 <div id="form-field-selectedBorrowings"></div>
             </div>

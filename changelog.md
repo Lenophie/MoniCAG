@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Eloquent syntax for the query requesting all the inventory items.
 * Validation
     * Moved error messages from requests to language packs.
+* Home view
+    * Layout.
 
 ### Fixed
 

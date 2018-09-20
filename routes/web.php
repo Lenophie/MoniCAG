@@ -13,5 +13,4 @@ Route::post('/end-borrowing/lost', 'EndBorrowingController@updateLost');
 Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('borrowings-history');
 Route::get('/view-inventory', 'ViewInventoryController@index');
 Route::get('/edit-inventory', 'EditInventoryController@index');
-Route::get('/admin', 'AdminController@index');
-Route::get('/lender', 'LenderController@index');
+Route::get('/user', 'UserController@index');

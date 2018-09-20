@@ -1,5 +1,6 @@
 <form method="POST" action="/new-borrowing" id="new-borrowing-form">
     @csrf
+    @include('authentications/lender')
     <div class="form-group" id="form-field-startDate">
         <label for="startDate">Date d'emprunt</label>
         <span class="input-group">

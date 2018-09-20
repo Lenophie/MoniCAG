@@ -1,0 +1,1 @@
+<i class="fas fa-chess menu-icon"></i>
