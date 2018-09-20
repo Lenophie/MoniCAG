@@ -7,7 +7,7 @@
     <div class="row text-center">
         <div class="col-md-12">
             <button class="btn btn-primary">
-                @include('icons/lender') Se connecter en tant qu'emprunteur @include('icons/lender')
+                @include('icons/borrower') Se connecter en tant qu'emprunteur @include('icons/borrower')
             </button>
         </div>
     </div>
