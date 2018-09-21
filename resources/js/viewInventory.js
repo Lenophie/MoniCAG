@@ -23,6 +23,7 @@ const addListeners = () => {
     gameSearchInput.keyup(() => handleSearchFieldsUpdate());
     genreFilteringSelect.change(() => handleSearchFieldsUpdate());
     durationFilteringInput.keyup(() => handleSearchFieldsUpdate());
+    durationFilteringInput.change(() => handleSearchFieldsUpdate());
     playersFilteringInput.keyup(() => handleSearchFieldsUpdate());
 
     cancelGameSearchButton.click(() => {

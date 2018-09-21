@@ -9,3 +9,8 @@
 .btn-return-borrowing {
     width: 100%;
 }
+
+#no-borrowing-div {
+    text-align: center;
+    font-style: italic;
+}

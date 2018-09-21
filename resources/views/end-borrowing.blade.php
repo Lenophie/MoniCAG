@@ -47,6 +47,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="list-group" id="borrowings-list"></ul>
+                @if (count($borrowings) === 0) <div id="no-borrowing-div">Pas d'emprunt en cours</div> @endif
             </div>
         </div>
     </div>

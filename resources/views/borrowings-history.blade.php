@@ -46,7 +46,7 @@
                             <th scope="col">Caution</th>
                             <th scope="col" class="border-right">Prêteur</th>
                             <th scope="col">Date de retour prévu</th>
-                            <th scope="col">Date de retour</th>
+                            <th scope="col">Date de fin</th>
                             <th scope="col">Validateur</th>
                         </tr>
                     </thead>
