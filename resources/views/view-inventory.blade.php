@@ -53,6 +53,9 @@
                         </div>
                         <select id="genre-select" class="custom-select">
                             <option value="" selected>Filtrer par genre...</option>
+                            @foreach ($genres as $genre)
+                                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                            @endforeach
                         </select>
                         <div class="input-group-append">
                             <button class="btn btn-outline-view-inventory" id="cancel-genre-filtering-button" type="submit"><i class="fas fa-times"></i></button>

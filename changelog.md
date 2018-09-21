@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Borrower authentication button.
 * View inventory view
     * Layout.
+    * Data displaying.
+    * Filtering.
+* Inventory model
+    * Duration, number of players for each inventory item.
+    * Games genres pivot and reference tables.
 
 ### Changed
 

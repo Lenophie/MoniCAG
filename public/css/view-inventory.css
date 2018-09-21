@@ -18,13 +18,13 @@
     pointer-events: none;
 }
 
-.item-hr {
-    margin-top: 2px;
-    margin-bottom: 0px;
-}
-
 .inventory-item-footer {
     font-style: italic;
     text-align: right;
     font-size: 10px;
+}
+
+.inventory-item-precision {
+    font-size: 12px;
+    text-align: left;
 }

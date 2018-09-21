@@ -16,6 +16,14 @@ class InventoryItem extends Model
     }
 
     /**
+     * Get the inventory item genres.
+     */
+    public function genres()
+    {
+        return $this->belongsToMany('App\Genre')->orderBy('name');
+    }
+
+    /**
      * Get the inventory item status.
      */
     public function status()
@@ -24,12 +32,30 @@ class InventoryItem extends Model
     }
 
     public static function allJoined() {
-        $inventoryItems = InventoryItem::with(['status'])
-            ->select('id', 'name', 'status_id')
+        $inventoryItems = InventoryItem::with(['status', 'genres'])
+            ->select('id',
+                'name',
+                'status_id',
+                'duration_min',
+                'duration_max',
+                'players_min',
+                'players_max')
             ->get();
 
         foreach($inventoryItems as $inventoryItem) {
             unset($inventoryItem->status_id);
+            $inventoryItem->duration = [
+                'min' => $inventoryItem->duration_min,
+                'max' => $inventoryItem->duration_max
+            ];
+            unset($inventoryItem->duration_min);
+            unset($inventoryItem->duration_max);
+            $inventoryItem->players = [
+                'min' => $inventoryItem->players_min,
+                'max' => $inventoryItem->players_max
+            ];
+            unset($inventoryItem->players_min);
+            unset($inventoryItem->players_max);
         }
 
         return $inventoryItems;

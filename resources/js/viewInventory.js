@@ -19,10 +19,9 @@ $().ready(() => {
 });
 
 // Handlers
-
 const addListeners = () => {
     gameSearchInput.keyup(() => handleSearchFieldsUpdate());
-    genreFilteringSelect.keyup(() => handleSearchFieldsUpdate());
+    genreFilteringSelect.change(() => handleSearchFieldsUpdate());
     durationFilteringInput.keyup(() => handleSearchFieldsUpdate());
     playersFilteringInput.keyup(() => handleSearchFieldsUpdate());
 
@@ -35,7 +34,7 @@ const addListeners = () => {
         handleSearchFieldsUpdate();
     });
     cancelGenreFilteringButton.click(() => {
-        // change selected value to default
+        genreFilteringSelect.val('');
         handleSearchFieldsUpdate();
     });
     cancelPlayersFilteringButton.click(() => {
@@ -52,14 +51,23 @@ const handleSearchFieldsUpdate = () => {
         playersNumber : playersFilteringInput.val()
     };
 
-    let filteredInventoryItems = inventoryItems;
-    if (searchParameters.game.length > 0) filteredInventoryItems = getInventoryItemsByName(searchParameters.game);
+    for (const key in searchParameters) {
+        if (searchParameters[key] === '') searchParameters[key] = null;
+        else if (key !== 'game') searchParameters[key] = parseInt(searchParameters[key]);
+    }
+
+    let filteredInventoryItems = [];
+    for (const inventoryItem of inventoryItems) filteredInventoryItems.push(inventoryItem); // first order deep copy
+    if (searchParameters.game !== null) filteredInventoryItems = filterInventoryItemsByName(searchParameters.game, filteredInventoryItems);
+    if (searchParameters.genre !== null) filteredInventoryItems = filterInventoryItemsByGenre(searchParameters.genre, filteredInventoryItems);
+    if (searchParameters.duration !== null) filteredInventoryItems = filterInventoryItemsByDuration(searchParameters.duration, filteredInventoryItems);
+    if (searchParameters.playersNumber !== null) filteredInventoryItems = filterInventoryItemsByPlayers(searchParameters.playersNumber, filteredInventoryItems);
     updateDisplayedInventoryItems(filteredInventoryItems);
 };
 
 // Actions
 
-const getInventoryItemsByName = (searchQuery) => {
+const filterInventoryItemsByName = (searchQuery, filteredInventoryItems) => {
     const options = {
         shouldSort: true,
         tokenize: true,
@@ -72,20 +80,75 @@ const getInventoryItemsByName = (searchQuery) => {
             "name"
         ]
     };
-    const fuse = new Fuse(inventoryItems, options);
+    const fuse = new Fuse(filteredInventoryItems, options);
     return fuse.search(searchQuery);
+};
+
+const filterInventoryItemsByGenre = (selectedGenre, eligibleInventoryItems) => {
+    const filteredInventoryItems = [];
+    for (const inventoryItem of eligibleInventoryItems) {
+        for (const genre of inventoryItem.genres) {
+            if (genre.id === selectedGenre) {
+                filteredInventoryItems.push(inventoryItem);
+                break;
+            }
+        }
+    }
+    return filteredInventoryItems;
+};
+
+const filterInventoryItemsByDuration = (desiredDuration, eligibleInventoryItems) => {
+    const filteredInventoryItems = [];
+    for (const inventoryItem of eligibleInventoryItems) {
+        const durationMax = inventoryItem.duration.max === null ? 0 : inventoryItem.duration.max;
+        const durationMin = inventoryItem.duration.min === null ? +Infinity : inventoryItem.duration.min;
+        if (durationMin <= desiredDuration && durationMax >= desiredDuration) filteredInventoryItems.push(inventoryItem);
+    }
+    return filteredInventoryItems;
+};
+
+const filterInventoryItemsByPlayers = (desiredPlayersCount, eligibleInventoryItems) => {
+    const filteredInventoryItems = [];
+    for (const inventoryItem of eligibleInventoryItems) {
+        const durationMax = inventoryItem.players.max === null ? 0 : inventoryItem.players.max;
+        const durationMin = inventoryItem.players.min === null ? +Infinity : inventoryItem.players.min;
+        if (durationMin <= desiredPlayersCount && durationMax >= desiredPlayersCount) filteredInventoryItems.push(inventoryItem);
+    }
+    return filteredInventoryItems;
 };
 
 const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
     displayedInventoryItemsList.empty();
     for (const inventoryItem of inventoryItemsToDisplay) {
+        const isThereDurationInfo = inventoryItem.duration.min !== null || inventoryItem.duration.max !== null;
+        const isTherePlayersInfo = inventoryItem.players.min !== null || inventoryItem.players.max !== null;
         displayedInventoryItemsList.append(
             `<div class="col-md-2 mb-1">
-                <button class="btn btn-outline-primary inventory-item" id="inventory-item-${inventoryItem.id}">
-                    <span class="inventory-item-name">${inventoryItem.name}</span>
-                    <hr class="item-hr">
-                    <div class="inventory-item-footer">${inventoryItem.status.name}</div>
+                <button class="btn btn-outline-view-inventory inventory-item" id="inventory-item-${inventoryItem.id}">
+                    <div class="inventory-item-name">${inventoryItem.name}</div>
+                    <div class="inventory-item-precision">
+                        <i class="fas fa-trophy"></i> ${formatGenresList(inventoryItem.genres)}
+                        ${isThereDurationInfo ? 
+                            `<br/><i class="far fa-clock"></i> ${inventoryItem.duration.min !== null ? inventoryItem.duration.min : '?'} - ${inventoryItem.duration.max !== null ? inventoryItem.duration.max : '?'} min`
+                            : ''}
+                        ${isTherePlayersInfo ?
+                            `<br/><i class="fas fa-users"></i> ${inventoryItem.players.min !== null ? inventoryItem.players.min : '?'} - ${inventoryItem.players.max !== null ? inventoryItem.players.max : '?'} joueurs`
+                            : ''}
+                    </div>
+                    <div class="inventory-item-footer">
+                        ${inventoryItem.status.name}
+                    </div>
                 </button>
             </div>`)
     }
+};
+
+const formatGenresList = (genres) => {
+    const genresLength = genres.length;
+    let genresString = '';
+    for (const genreIndex in genres) {
+        genresString += genres[genreIndex].name;
+        if (genreIndex < genresLength - 1) genresString += ', ';
+    }
+    return genresString;
 };

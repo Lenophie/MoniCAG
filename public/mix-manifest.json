@@ -1,6 +1,6 @@
 {
     "/js/common.js": "/js/common.js",
+    "/js/viewInventory.js": "/js/viewInventory.js",
     "/js/newBorrowing.js": "/js/newBorrowing.js",
-    "/js/endBorrowing.js": "/js/endBorrowing.js",
-    "/js/viewInventory.js": "/js/viewInventory.js"
+    "/js/endBorrowing.js": "/js/endBorrowing.js"
 }
