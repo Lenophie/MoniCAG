@@ -124,8 +124,8 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
         const isTherePlayersInfo = inventoryItem.players.min !== null || inventoryItem.players.max !== null;
         displayedInventoryItemsList.append(
             `<div class="col-md-2 mb-1">
-                <button class="btn btn-outline-view-inventory inventory-item" id="inventory-item-${inventoryItem.id}">
-                    <div class="inventory-item-name">${inventoryItem.name}</div>
+                <div class="inventory-item border border-view-inventory rounded d-flex flex-column justify-content-between" id="inventory-item-${inventoryItem.id}">
+                    <div class="inventory-item-name">${inventoryItem.name}<hr class="item-hr"></div>
                     <div class="inventory-item-precision">
                         <i class="fas fa-trophy"></i> ${formatGenresList(inventoryItem.genres)}
                         ${isThereDurationInfo ? 
@@ -135,10 +135,10 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
                             `<br/><i class="fas fa-users"></i> ${inventoryItem.players.min !== null ? inventoryItem.players.min : '?'} - ${inventoryItem.players.max !== null ? inventoryItem.players.max : '?'} joueurs`
                             : ''}
                     </div>
-                    <div class="inventory-item-footer">
+                    <div class="inventory-item-footer align-self-end">
                         ${inventoryItem.status.name}
                     </div>
-                </button>
+                </div>
             </div>`)
     }
 };

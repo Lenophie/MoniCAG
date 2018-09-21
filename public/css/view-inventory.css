@@ -15,7 +15,8 @@
     width: 100%;
     white-space: normal !important;
     height: 100%;
-    pointer-events: none;
+    padding: 6px 12px 6px 12px;
+    color: #a7885a;
 }
 
 .inventory-item-footer {
@@ -27,4 +28,14 @@
 .inventory-item-precision {
     font-size: 12px;
     text-align: left;
+}
+
+.inventory-item-name {
+    text-align: center;
+}
+
+.item-hr {
+    margin-top: 0px;
+    margin-bottom: 3px;
+    border-color: #a7885a;
 }
