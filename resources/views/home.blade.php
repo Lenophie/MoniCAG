@@ -163,5 +163,7 @@
                 </div>
             </div>
         </div>
+        <hr id="footer-hr">
+        <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> Retrouve MoniCAG sur GitHub <i class="fab fa-github"></i></a>
     </div>
 @endsection

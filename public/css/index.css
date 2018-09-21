@@ -60,3 +60,15 @@ h2 {
   white-space: normal !important;
   height: 100%;
 }
+
+#footer-hr
+{
+  margin-top: 0px;
+  margin-bottom: 2px;
+}
+
+#github-link
+{
+    float: right;
+    color: black;
+}
