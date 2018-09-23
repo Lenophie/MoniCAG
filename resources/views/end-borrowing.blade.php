@@ -38,7 +38,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">Revenus</button>
+                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">Rendus</button>
             </div>
             <div class="col-md-6 text-center">
                 <button class="btn btn-return-borrowing btn-outline-bad" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal">Perdus</button>
