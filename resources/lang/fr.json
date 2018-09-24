@@ -19,6 +19,7 @@
   "Borrowing": "Emprunt",
   "Borrower": "Emprunteur",
   "Game": "Jeu",
+  "Players": "Joueurs",
   "Return": "Retour",
   "Borrowing date": "Date d'emprunt",
   "Expected return date": "Date de retour prévu",
@@ -26,5 +27,10 @@
   "Guarantee": "Caution",
   "Lender": "Prêteur",
   "Validator": "Validateur",
-  "Notes": "Notes"
+  "Notes": "Notes",
+  "Borrowed by": "Emprunté par",
+  "Lent by": "Prêté par",
+  "Menu": "Menu",
+  "Minutes": "Minutes",
+  "Min": "Min"
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | {{__('Borrowings history')}}
+    MoniCAG | {{__('messages.titles.borrowings_history')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
             false
         @endslot
         @slot('title')
-            {{__('Borrowings history')}}
+            {{__('messages.titles.borrowings_history')}}
         @endslot
     @endheader
     <div class="container-fluid">

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('role')->unsigned()->default(UserRole::AUCUN);
+            $table->integer('role')->unsigned()->default(UserRole::NONE);
             $table->foreign('role')->references('id')->on('user_roles');
             $table->rememberToken();
             $table->timestamps();

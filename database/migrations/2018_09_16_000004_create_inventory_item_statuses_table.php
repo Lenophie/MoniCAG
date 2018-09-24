@@ -15,7 +15,8 @@ class CreateInventoryItemStatusesTable extends Migration
     {
         Schema::create('inventory_item_statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name_fr');
+            $table->string('name_en');
         });
     }
 

@@ -32,7 +32,7 @@ class EndBorrowingController extends Controller
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => InventoryItemStatus::AU_LOCAL_LCR_D4]);
+                ->update(['status_id' => InventoryItemStatus::IN_LCR_D4]);
         }
     }
 
@@ -48,7 +48,7 @@ class EndBorrowingController extends Controller
             InventoryItem::with('borrowing')
                 ->whereHas('borrowing', function($q) use($selectedBorrowing) {
                     $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => InventoryItemStatus::PERDU]);
+                ->update(['status_id' => InventoryItemStatus::LOST]);
         }
     }
 }

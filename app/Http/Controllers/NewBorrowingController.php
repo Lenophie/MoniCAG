@@ -31,7 +31,7 @@ class newBorrowingController extends Controller
                 'expected_return_date' => $expectedReturnDate,
                 'notes_before' => request('notes')
             ]);
-            InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::EMPRUNTE]);
+            InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::BORROWED]);
         }
     }
 }

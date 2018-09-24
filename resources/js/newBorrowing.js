@@ -3,6 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
+console.log(inventoryItems);
 
 // After page is loaded
 $().ready(() => {

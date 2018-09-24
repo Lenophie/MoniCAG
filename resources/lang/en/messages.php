@@ -6,13 +6,15 @@ return [
         'perform_borrowing' => 'Perform borrowing',
         'retrieve_borrowing' => 'Retrieve borrowing',
         'view_borrowings_history' => 'View borrowings history',
+        'borrowings_history' => 'Borrowings history',
         'view_inventory' => 'View inventory',
+        'inventory' => 'Inventory',
         'edit_inventory' => 'Manage inventory',
         'edit_users' => 'Manage users',
         'borrowings_management' => 'Borrowings management',
         'inventory_management' => 'Inventory management',
         'users_management' => 'Users management',
-        'gihub' => 'Checkout MoniCAG on GitHub',
+        'github' => 'Checkout MoniCAG on GitHub',
     ],
     'new_borrowing' => [
         'search_placeholder' => 'Find a game to borrow',
@@ -28,6 +30,25 @@ return [
             'returned' => 'Returned',
             'lost' => 'Lost'
         ],
-        'no_current' => 'No ongoing borrowing'
+        'no_current' => 'No ongoing borrowing',
+        'selected_list' => 'Selected borrowings',
+        'late' => 'Late',
+        'selected_tag' => 'Selected',
+        'modal' => [
+            'title' => [
+                'returned' => "Confirm borrowings return",
+                'lost' => "Confirm borrowings loss"
+            ],
+            'button' => [
+                'returned' => 'Confirm return',
+                'lost' => 'Confirm loss',
+            ]
+        ]
+    ],
+    'view_inventory' => [
+        'filter_game_placeholder' => 'Search a game...',
+        'filter_genre_placeholder' => 'Filter by genre...',
+        'filter_duration_placeholder' => 'Filter by duration...',
+        'filter_players_placeholder' => 'Filter by number of players...',
     ]
 ];

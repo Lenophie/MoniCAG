@@ -16,12 +16,13 @@ class CreateInventoryItemsTable extends Migration
     {
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name_fr');
+            $table->string('name_en')->nullable();
             $table->integer('duration_min')->unsigned()->nullable();
             $table->integer('duration_max')->unsigned()->nullable();
             $table->integer('players_min')->unsigned()->nullable();
             $table->integer('players_max')->unsigned()->nullable();
-            $table->integer('status_id')->unsigned()->default(InventoryItemStatus::INCONNU);
+            $table->integer('status_id')->unsigned()->default(InventoryItemStatus::UNKNOWN);
             $table->foreign('status_id')->references('id')->on('inventory_item_statuses');
             $table->timestamps();
         });

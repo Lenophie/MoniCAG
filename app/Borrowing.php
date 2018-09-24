@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Borrowing extends Model
 {
@@ -95,7 +96,7 @@ class Borrowing extends Model
     {
         return $this
             ->hasOne('App\InventoryItem', 'id', 'inventory_item_id')
-            ->select('id', 'name');
+            ->select('id', 'name_'.App::getLocale().' AS name');
     }
 
     public static function current() {

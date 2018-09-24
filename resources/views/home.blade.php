@@ -164,6 +164,6 @@
             </div>
         </div>
         <hr id="footer-hr">
-        <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> {{__('Checkout MoniCAG on GitHub')}} <i class="fab fa-github"></i></a>
+        <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> {{__('messages.titles.github')}} <i class="fab fa-github"></i></a>
     </div>
 @endsection

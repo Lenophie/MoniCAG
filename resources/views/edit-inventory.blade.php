@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | {{__('Edit inventory')}}
+    MoniCAG | {{__('messages.titles.edit_inventory')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
         false
     @endslot
     @slot('title')
-        {{__('Edit inventory')}}
+        {{__('messages.titles.edit_inventory')}}
     @endslot
     @endheader
 @endsection

@@ -11,9 +11,12 @@ const cancelDurationFilteringButton = $('#cancel-duration-filtering-button');
 const playersFilteringInput = $('#players-input');
 const cancelPlayersFilteringButton = $('#cancel-players-filtering-button');
 const displayedInventoryItemsList = $('#inventory-items-list');
+let messages = {};
 
 // After page is loaded
 $().ready(() => {
+    messages.players = $("meta[name='players']").attr('content');
+    messages.min = $("meta[name='min']").attr('content');
     handleSearchFieldsUpdate();
     addListeners();
 });
@@ -130,10 +133,10 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
                     <div class="inventory-item-precision">
                         <i class="fas fa-trophy"></i> ${formatGenresList(inventoryItem.genres)}
                         ${isThereDurationInfo ? 
-                            `<br/><i class="far fa-clock"></i> ${inventoryItem.duration.min !== null ? inventoryItem.duration.min : '?'} - ${inventoryItem.duration.max !== null ? inventoryItem.duration.max : '?'} min`
+                            `<br/><i class="far fa-clock"></i> ${inventoryItem.duration.min !== null ? inventoryItem.duration.min : '?'} - ${inventoryItem.duration.max !== null ? inventoryItem.duration.max : '?'} ${messages.min.toLowerCase()}`
                             : ''}
                         ${isTherePlayersInfo ?
-                            `<br/><i class="fas fa-users"></i> ${inventoryItem.players.min !== null ? inventoryItem.players.min : '?'} - ${inventoryItem.players.max !== null ? inventoryItem.players.max : '?'} joueurs`
+                            `<br/><i class="fas fa-users"></i> ${inventoryItem.players.min !== null ? inventoryItem.players.min : '?'} - ${inventoryItem.players.max !== null ? inventoryItem.players.max : '?'} ${messages.players.toLowerCase()}`
                             : ''}
                     </div>
                     <div class="inventory-item-footer align-self-end">

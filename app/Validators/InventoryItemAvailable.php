@@ -15,8 +15,8 @@ class InventoryItemAvailable
         $inventoryItem = InventoryItem::find($value);
         if ($inventoryItem) {
             $status = $inventoryItem->status_id;
-            if ($status === InventoryItemStatus::AU_LOCAL_LCR_D4
-                || $status === InventoryItemStatus::AU_LOCAL_F2) return true;
+            if ($status === InventoryItemStatus::IN_LCR_D4
+                || $status === InventoryItemStatus::IN_F2) return true;
         }
         return false;
     }

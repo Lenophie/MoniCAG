@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'last_name' => $data['lastName'],
             'promotion' => $data['promotion'],
             'email' => $data['email'],
-            'role' => UserRole::AUCUN,
+            'role' => UserRole::NONE,
             'password' => Hash::make($data['password']),
         ]);
     }

@@ -23,7 +23,7 @@ class UsersSeeder extends Seeder
             'promotion' => 2019,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),
-            'role' => UserRole::ADMINISTRATEUR]);
+            'role' => UserRole::ADMINISTRATOR]);
         Schema::enableForeignKeyConstraints();
     }
 }

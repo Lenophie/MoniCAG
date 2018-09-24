@@ -16,9 +16,9 @@ class UserRolesSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         DB::table('user_roles')->truncate();
-        UserRole::create(['name' => 'Aucun']);
-        UserRole::create(['name' => 'Prêteur']);
-        UserRole::create(['name' => 'Administrateur']);
+        UserRole::create(['name_fr' => 'Aucun', 'name_en' => 'None']);
+        UserRole::create(['name_fr' => 'Prêteur', 'name_en' => 'Lender']);
+        UserRole::create(['name_fr' => 'Administrateur', 'name_en' => 'Administrator']);
         Schema::enableForeignKeyConstraints();
     }
 }

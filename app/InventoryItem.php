@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class InventoryItem extends Model
@@ -20,7 +21,7 @@ class InventoryItem extends Model
      */
     public function genres()
     {
-        return $this->belongsToMany('App\Genre')->orderBy('name');
+        return $this->belongsToMany('App\Genre')->select('name_'.App::getLocale().' AS name')->orderBy('name');
     }
 
     /**
@@ -28,13 +29,14 @@ class InventoryItem extends Model
      */
     public function status()
     {
-        return $this->hasOne('App\InventoryItemStatus', 'id', 'status_id');
+        return $this->hasOne('App\InventoryItemStatus', 'id', 'status_id')
+            ->select('id', 'name_'.App::getLocale().' AS name');
     }
 
     public static function allJoined() {
         $inventoryItems = InventoryItem::with(['status', 'genres'])
             ->select('id',
-                'name',
+                'name_'.App::getLocale().' AS name',
                 'status_id',
                 'duration_min',
                 'duration_max',

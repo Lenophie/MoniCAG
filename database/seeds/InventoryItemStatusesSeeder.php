@@ -16,11 +16,11 @@ class InventoryItemStatusesSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         DB::table('inventory_item_statuses')->truncate();
-        InventoryItemStatus::create(['name' => 'Au local LCR D4']);
-        InventoryItemStatus::create(['name' => 'Au local F2']);
-        InventoryItemStatus::create(['name' => 'Emprunté']);
-        InventoryItemStatus::create(['name' => 'Perdu']);
-        InventoryItemStatus::create(['name' => 'Inconnu']);
+        InventoryItemStatus::create(['name_fr' => 'Au local LCR D4', 'name_en' => 'In LCR D4']);
+        InventoryItemStatus::create(['name_fr' => 'Au local F2', 'name_en' => 'In F2']);
+        InventoryItemStatus::create(['name_fr' => 'Emprunté', 'name_en' => 'Borrowed']);
+        InventoryItemStatus::create(['name_fr' => 'Perdu', 'name_en' => 'Lost']);
+        InventoryItemStatus::create(['name_fr' => 'Inconnu', 'name_en' => 'Unknown']);
         Schema::enableForeignKeyConstraints();
     }
 }

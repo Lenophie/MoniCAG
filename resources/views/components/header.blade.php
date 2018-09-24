@@ -2,7 +2,7 @@
     <div class="row">
         @if($hasReturnButton == 'true')
             <div class="col-md-2">
-                <a id="menu-return" href="{{url('/')}}"><i class="fas fa-arrow-circle-left"></i> MENU</a>
+                <a id="menu-return" href="{{url('/')}}"><i class="fas fa-arrow-circle-left"></i> {{strtoupper(__('Menu'))}}</a>
             </div>
         @endif
         <div class="{{$hasReturnButton == 'false' xor $hasCheckoutButton == 'false' ? 'offset-md-2' : ''}} {{$hasReturnButton == 'true' || $hasCheckoutButton == 'true' ? 'col-md-8' : 'col-md-12'}}">

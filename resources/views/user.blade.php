@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | {{__('Users')}}
+    MoniCAG | {{__('messages.titles.edit_users')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
             false
         @endslot
         @slot('title')
-            {{__('Users')}}
+            {{__('messages.titles.edit_users')}}
         @endslot
     @endheader
 @endsection

@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | {{__('End borrowing')}}
+    MoniCAG | {{__('messages.titles.retrieve_borrowing')}}
 @endsection
 
 @section('stylesheet')
@@ -27,9 +27,17 @@
             false
         @endslot
         @slot('title')
-            {{__('End borrowing')}}
+            {{__('messages.titles.retrieve_borrowing')}}
         @endslot
     @endheader
+    <meta name="messages.late" content="{{__('messages.end_borrowing.late')}}">
+    <meta name="messages.borrowed_by" content="{{__('Borrowed by')}}">
+    <meta name="messages.lent_by" content="{{__('Lent by')}}">
+    <meta name="messages.selected_tag" content="{{__('messages.end_borrowing.selected_tag')}}">
+    <meta name="messages.modal.title.returned" content="{{__('messages.end_borrowing.modal.title.returned')}}">
+    <meta name="messages.modal.title.lost" content="{{__('messages.end_borrowing.modal.title.lost')}}">
+    <meta name="messages.modal.button.returned" content="{{__('messages.end_borrowing.modal.button.returned')}}">
+    <meta name="messages.modal.button.lost" content="{{__('messages.end_borrowing.modal.button.lost')}}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -47,7 +55,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="list-group" id="borrowings-list"></ul>
-                @if (count($borrowings) === 0) <div id="no-borrowing-div">{{__('messages.no_current')}}</div> @endif
+                @if (count($borrowings) === 0) <div id="no-borrowing-div">{{__('messages.end_borrowing.no_current')}}</div> @endif
             </div>
         </div>
     </div>
@@ -57,15 +65,13 @@
         @endslot
         @slot('body')
             <div id="modal-body-return">
-                <span id="modal-list-name">Liste des emprunts sélectionnés</span>
+                <span id="modal-list-name">{{__('messages.end_borrowing.selected_list')}}</span>
                 <ul id="to-return-list"></ul>
                 <div id="form-field-selectedBorrowings"></div>
             </div>
-            <hr>
             <form id="csrf-token">
                 @csrf
             </form>
-            @include('authentications/lender')
         @endslot
         @slot('tags')
             id="end-borrowing-modal"
