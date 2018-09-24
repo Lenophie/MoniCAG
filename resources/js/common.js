@@ -4,5 +4,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.min.css';
 import '@fortawesome/fontawesome-free/js/all.js';
+import 'flag-icon-css/css/flag-icon.min.css';
 import '../sass/bootstrap-theming.scss';
 import '../css/common.css';

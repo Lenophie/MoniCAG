@@ -15,5 +15,9 @@ Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('bo
 Route::get('/view-inventory', 'ViewInventoryController@index');
 Route::get('/edit-inventory', 'EditInventoryController@index');
 Route::get('/user', 'UserController@index');
+Route::get('/lang/{locale}', function ($locale) {
+    session(['locale_lang' => $locale]);
+    return redirect()->back();
+});
 
 Auth::routes();

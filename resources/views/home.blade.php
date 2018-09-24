@@ -164,6 +164,8 @@
             </div>
         </div>
         <hr id="footer-hr">
+        <a id="french-link" href="{{ url('/lang/fr') }}"><span class="flag-icon flag-icon-fr flag-icon-squared"></span></a>
+        <a id="english-link" href="{{ url('/lang/en') }}"><span class="flag-icon flag-icon-gb flag-icon-squared"></span></a>
         <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> {{__('messages.titles.github')}} <i class="fab fa-github"></i></a>
     </div>
 @endsection
