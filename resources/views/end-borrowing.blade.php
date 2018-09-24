@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Fin d'emprunt
+    MoniCAG | {{__('End borrowing')}}
 @endsection
 
 @section('stylesheet')
@@ -27,27 +27,27 @@
             false
         @endslot
         @slot('title')
-            Fin d'emprunt
+            {{__('End borrowing')}}
         @endslot
     @endheader
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center">
-                Déclarer les emprunts sélectionnés comme :
+                {{__('messages.end_borrowing.declaration.content')}} :
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">Rendus</button>
+                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">{{__('messages.end_borrowing.declaration.returned')}}</button>
             </div>
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-bad" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal">Perdus</button>
+                <button class="btn btn-return-borrowing btn-outline-bad" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal">{{__('messages.end_borrowing.declaration.lost')}}</button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <ul class="list-group" id="borrowings-list"></ul>
-                @if (count($borrowings) === 0) <div id="no-borrowing-div">Pas d'emprunt en cours</div> @endif
+                @if (count($borrowings) === 0) <div id="no-borrowing-div">{{__('messages.no_current')}}</div> @endif
             </div>
         </div>
     </div>

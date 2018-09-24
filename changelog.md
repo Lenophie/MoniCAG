@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Message when no current borrowing.
 * Home view
     * MoniCAG GitHub link.
+* Authentication
+* Full translation
 
 ## [0.8.0] - 2018-09-21
 

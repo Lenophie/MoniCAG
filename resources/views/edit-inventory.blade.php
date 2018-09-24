@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Edition de l'inventaire
+    MoniCAG | {{__('Edit inventory')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
         false
     @endslot
     @slot('title')
-        Edition de l'inventaire
+        {{__('Edit inventory')}}
     @endslot
     @endheader
 @endsection

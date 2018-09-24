@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Historique des emprunts
+    MoniCAG | {{__('Borrowings history')}}
 @endsection
 
 @section('stylesheet')
@@ -14,21 +14,21 @@
 
 @section('content')
     @header
-    @slot('leftIcon')
-        <i class="fas fa-history menu-icon"></i>
-    @endslot
-    @slot('rightIcon')
-        <i class="fas fa-history menu-icon"></i>
-    @endslot
-    @slot('hasReturnButton')
-        true
-    @endslot
-    @slot('hasCheckoutButton')
-        false
-    @endslot
-    @slot('title')
-        Historique des emprunts
-    @endslot
+        @slot('leftIcon')
+            <i class="fas fa-history menu-icon"></i>
+        @endslot
+        @slot('rightIcon')
+            <i class="fas fa-history menu-icon"></i>
+        @endslot
+        @slot('hasReturnButton')
+            true
+        @endslot
+        @slot('hasCheckoutButton')
+            false
+        @endslot
+        @slot('title')
+            {{__('Borrowings history')}}
+        @endslot
     @endheader
     <div class="container-fluid">
         <div class="row">
@@ -36,18 +36,18 @@
                 <table class="table table-striped table-borrowings-history">
                     <thead class="thead-light">
                         <tr>
-                            <th colspan="5" class="border-right">Emprunt</th>
-                            <th colspan="3">Retour</th>
+                            <th colspan="5" class="border-right">{{__('Borrowing')}}</th>
+                            <th colspan="3">{{__('Return')}}</th>
                         </tr>
                         <tr>
-                            <th scope="col">Date d'emprunt</th>
-                            <th scope="col">Emprunteur</th>
-                            <th scope="col">Jeu</th>
-                            <th scope="col">Caution</th>
-                            <th scope="col" class="border-right">Prêteur</th>
-                            <th scope="col">Date de retour prévu</th>
-                            <th scope="col">Date de fin</th>
-                            <th scope="col">Validateur</th>
+                            <th scope="col">{{__('Borrowing date')}}</th>
+                            <th scope="col">{{__('Borrower')}}</th>
+                            <th scope="col">{{__('Game')}}</th>
+                            <th scope="col">{{__('Guarantee')}}</th>
+                            <th scope="col" class="border-right">{{__('Lender')}}</th>
+                            <th scope="col">{{__('Expected return date')}}</th>
+                            <th scope="col">{{__('Return date')}}</th>
+                            <th scope="col">{{__('Validator')}}</th>
                         </tr>
                     </thead>
                     <tbody>

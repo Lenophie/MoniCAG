@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,3 +15,5 @@ Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('bo
 Route::get('/view-inventory', 'ViewInventoryController@index');
 Route::get('/edit-inventory', 'EditInventoryController@index');
 Route::get('/user', 'UserController@index');
+
+Auth::routes();

@@ -1,9 +1,8 @@
 <form method="POST" action="/new-borrowing" id="new-borrowing-form">
     @csrf
-    @include('authentications/lender')
     @include('authentications/borrower')
     <div class="form-group" id="form-field-startDate">
-        <label for="startDate">Date d'emprunt</label>
+        <label for="startDate">{{__('Borrowing date')}}</label>
         <span class="input-group">
             <span class="input-group-prepend">
                 <span class="input-group-text">
@@ -17,7 +16,7 @@
         </span>
     </div>
     <div class="form-group" id="form-field-expectedReturnDate">
-        <label for="expectedReturnDate">Date de retour prévu</label>
+        <label for="expectedReturnDate">{{__('Expected return date')}}</label>
         <span class="input-group">
             <span class="input-group-prepend">
                 <span class="input-group-text">
@@ -31,7 +30,7 @@
         </span>
     </div>
     <div class="form-group" id="form-field-guarantee">
-        <label for="guarantee">Caution</label>
+        <label for="guarantee">{{__('Guarantee')}}</label>
         <span class="input-group">
             <span class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
@@ -40,15 +39,15 @@
         </span>
     </div>
     <div class="form-group" id="form-field-notes">
-        <label for="notes">Notes</label>
-        <textarea class="form-control" id="notes" name="notes" placeholder="Ce champ est utilisé pour préciser des circonstances d'emprunt particulières (WEI, soirée...).&#10;Ces notes doivent concerner l'emprunt plutôt que les jeux empruntés." rows="2"></textarea>
+        <label for="notes">{{__('Notes')}}</label>
+        <textarea class="form-control" id="notes" name="notes" placeholder="{{__('messages.new_borrowing.notes_placeholder')}}" rows="2"></textarea>
     </div>
     <div class="form-check" id="form-field-agreementCheck1">
         <input type="checkbox" class="form-check-input" id="agreementCheck1" name="agreementCheck1" required>
-        <label class="form-check-label" for="agreementCheck1">Je m'engage à dédommager le club jeux en cas de détérioration d'un jeu emprunté ou de perte de pièces.</label>
+        <label class="form-check-label" for="agreementCheck1">{{__('messages.new_borrowing.agreement_compensation')}}.</label>
     </div>
     <div class="form-check" id="form-field-agreementCheck2">
         <input type="checkbox" class="form-check-input" id="agreementCheck2" name="agreementCheck2" required>
-        <label class="form-check-label" for="agreementCheck2">Je m'engage à rembourser intégralement tout jeu emprunté s'il est perdu.</label>
+        <label class="form-check-label" for="agreementCheck2">{{__('messages.new_borrowing.agreement_reimbursement')}}.</label>
     </div>
 </form>

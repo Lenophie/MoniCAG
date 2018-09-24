@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Inventaire
+    MoniCAG | {{__('Inventory')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
         false
     @endslot
     @slot('title')
-        Inventaire
+        {{__('Inventory')}}
     @endslot
     @endheader
     <div class="ml-3 mr-3">

@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Home
+    MoniCAG | {{__('messages.titles.home')}}
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="row">
-                    <h2>Gestion des emprunts</h2>
+                    <h2>{{__('messages.titles.borrowings_management')}}</h2>
                 </div>
                 <hr class="h2-hr">
                 <div class="row">
@@ -46,7 +46,7 @@
                             btn-outline-new-borrowing
                         @endslot
                         @slot('title')
-                            RÉALISER UN EMPRUNT
+                            {{mb_strtoupper(__('messages.titles.perform_borrowing'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('new-borrowing')}}'
@@ -63,7 +63,7 @@
                             btn-outline-end-borrowing
                         @endslot
                         @slot('title')
-                            RÉCUPÉRER UN EMPRUNT
+                            {{mb_strtoupper(__('messages.titles.retrieve_borrowing'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('end-borrowing')}}'
@@ -80,7 +80,7 @@
                             btn-outline-borrowings-history
                         @endslot
                         @slot('title')
-                            VOIR L'HISTORIQUE DES EMPRUNTS
+                            {{mb_strtoupper(__('messages.titles.view_borrowings_history'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('borrowings-history')}}'
@@ -95,7 +95,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="row">
-                    <h2>Gestion de l'inventaire</h2>
+                    <h2>{{__('messages.titles.inventory_management')}}</h2>
                 </div>
                 <hr class="h2-hr">
                 <div class="row">
@@ -107,7 +107,7 @@
                             btn-outline-view-inventory
                         @endslot
                         @slot('title')
-                            VOIR L'INVENTAIRE
+                            {{mb_strtoupper(__('messages.titles.view_inventory'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('view-inventory')}}'
@@ -124,7 +124,7 @@
                             btn-outline-edit-inventory
                         @endslot
                         @slot('title')
-                            GÉRER L'INVENTAIRE
+                            {{mb_strtoupper(__('messages.titles.edit_inventory'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('edit-inventory')}}'
@@ -139,7 +139,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="row">
-                    <h2>Gestion des utilisateurs</h2>
+                    <h2>{{__('messages.titles.users_management')}}</h2>
                 </div>
                 <hr class="h2-hr">
                 <div class="row">
@@ -151,7 +151,7 @@
                             btn-outline-user
                         @endslot
                         @slot('title')
-                            GÉRER LES UTILISATEURS
+                            {{mb_strtoupper(__('messages.titles.edit_users'))}}
                         @endslot
                         @slot('action')
                             location.href='{{url('user')}}'
@@ -164,6 +164,6 @@
             </div>
         </div>
         <hr id="footer-hr">
-        <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> Retrouve MoniCAG sur GitHub <i class="fab fa-github"></i></a>
+        <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/"> {{__('Checkout MoniCAG on GitHub')}} <i class="fab fa-github"></i></a>
     </div>
 @endsection

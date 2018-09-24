@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    MoniCAG | Utilisateurs
+    MoniCAG | {{__('Users')}}
 @endsection
 
 @section('stylesheet')
@@ -27,7 +27,7 @@
             false
         @endslot
         @slot('title')
-            Utilisateurs
+            {{__('Users')}}
         @endslot
     @endheader
 @endsection
