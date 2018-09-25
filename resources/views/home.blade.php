@@ -54,6 +54,9 @@
                         @slot('action')
                             location.href='{{url('new-borrowing')}}'
                         @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::LENDER}}
+                        @endslot
                         @slot('icon')
                             @include('icons/new-borrowing')
                         @endslot
@@ -71,6 +74,9 @@
                         @slot('action')
                             location.href='{{url('end-borrowing')}}'
                         @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::LENDER}}
+                        @endslot
                         @slot('icon')
                             @include('icons/end-borrowing')
                         @endslot
@@ -87,6 +93,9 @@
                         @endslot
                         @slot('action')
                             location.href='{{url('borrowings-history')}}'
+                        @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::LENDER}}
                         @endslot
                         @slot('icon')
                             <i class="fas fa-history menu-icon"></i>
@@ -115,6 +124,9 @@
                         @slot('action')
                             location.href='{{url('view-inventory')}}'
                         @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::NONE}}
+                        @endslot
                         @slot('icon')
                             @include('icons/view-inventory')
                         @endslot
@@ -131,6 +143,9 @@
                         @endslot
                         @slot('action')
                             location.href='{{url('edit-inventory')}}'
+                        @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::ADMINISTRATOR}}
                         @endslot
                         @slot('icon')
                             @include('icons/edit-inventory')
@@ -158,6 +173,9 @@
                         @endslot
                         @slot('action')
                             location.href='{{url('user')}}'
+                        @endslot
+                        @slot('enablerCondition')
+                            {{\App\UserRole::ADMINISTRATOR}}
                         @endslot
                         @slot('icon')
                             @include('icons/user')
