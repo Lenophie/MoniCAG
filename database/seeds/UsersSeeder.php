@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
         DB::table('users')->truncate();
         User::create([
             'first_name' => 'Monika',
-            'last_name' => 'Root',
+            'last_name' => 'RoOt',
             'promotion' => 2019,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),

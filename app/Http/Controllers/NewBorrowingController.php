@@ -7,6 +7,7 @@ use App\Http\Requests\NewBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class newBorrowingController extends Controller
 {
@@ -29,7 +30,7 @@ class newBorrowingController extends Controller
             Borrowing::create([
                 'inventory_item_id' => $borrowedItem,
                 'borrower_id' => 1, // to change when authentication will be setup
-                'initial_lender_id' => 1,  // to change when authentication will be setup
+                'initial_lender_id' => Auth::user()->id,  // to change when authentication will be setup
                 'guarantee' => request('guarantee'),
                 'finished' => false,
                 'start_date' => $startDate,

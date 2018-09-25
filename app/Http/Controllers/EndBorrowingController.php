@@ -7,6 +7,7 @@ use App\Http\Requests\EndBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EndBorrowingController extends Controller
 {
@@ -27,7 +28,7 @@ class EndBorrowingController extends Controller
             Borrowing::where('id', $selectedBorrowing)
                 ->update([
                     'finished' => true,
-                    'return_lender_id' => 1, // to change when authentication will be setup
+                    'return_lender_id' => Auth::user()->id,
                     'return_date' => Carbon::now()
                 ]);
             InventoryItem::with('borrowing')
@@ -43,7 +44,7 @@ class EndBorrowingController extends Controller
             Borrowing::where('id', $selectedBorrowing)
                 ->update([
                     'finished' => true,
-                    'return_lender_id' => 1, // to change when authentication will be setup
+                    'return_lender_id' => Auth::user()->id,
                     'return_date' => Carbon::now()
                 ]);
             InventoryItem::with('borrowing')

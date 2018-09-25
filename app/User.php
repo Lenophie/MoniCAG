@@ -34,13 +34,13 @@ class User extends Authenticatable
      * Always capitalize the first letter of the first name when we retrieve it
      */
     public function setFirstNameAttribute($value) {
-        $this->attributes['first_name'] = ucfirst(strtolower($value));
+        $this->attributes['first_name'] = ucwords(strtolower($value));
     }
 
     /**
      * Always fully capitalize the last name when we retrieve it
      */
     public function setLastNameAttribute($value) {
-        $this->attributes['last_name'] = ucfirst(strtolower($value));
+        $this->attributes['last_name'] = strtoupper($value);
     }
 }

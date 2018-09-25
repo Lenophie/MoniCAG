@@ -14,7 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Home view
     * MoniCAG GitHub link.
 * Authentication
-* Full translation
+    * Laravel built-in tools.
+    * Pages access.
+    * Lender ids used for borrowings.
+* Full english translation
 
 ## [0.8.0] - 2018-09-21
 
