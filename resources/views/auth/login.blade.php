@@ -26,6 +26,9 @@
         @slot('hasCheckoutButton')
             false
         @endslot
+        @slot('hasAuthBar')
+            false
+        @endslot
         @slot('title')
             {{__('Login')}}
         @endslot

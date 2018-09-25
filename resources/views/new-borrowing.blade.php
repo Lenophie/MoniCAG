@@ -26,6 +26,9 @@
         @slot('hasCheckoutButton')
             true
         @endslot
+        @slot('hasAuthBar')
+            true
+        @endslot
         @slot('checkoutCounter')
             0
         @endslot

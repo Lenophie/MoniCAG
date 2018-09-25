@@ -9,26 +9,30 @@ use Illuminate\Support\Facades\DB;
 class InventoryItem extends Model
 {
     /**
+     * Always capitalize the first letter of each word of the name when we retrieve it
+     */
+    public function setName($value) {
+        $this->attributes['name'] = ucwords($value);
+    }
+
+    /**
      * Get the inventory item belonging to the borrowing.
      */
-    public function borrowing()
-    {
+    public function borrowing() {
         return $this->belongsTo('App\Borrowing', 'id', 'inventory_item_id');
     }
 
     /**
      * Get the inventory item genres.
      */
-    public function genres()
-    {
+    public function genres() {
         return $this->belongsToMany('App\Genre')->select('name_'.App::getLocale().' AS name')->orderBy('name');
     }
 
     /**
      * Get the inventory item status.
      */
-    public function status()
-    {
+    public function status() {
         return $this->hasOne('App\InventoryItemStatus', 'id', 'status_id')
             ->select('id', 'name_'.App::getLocale().' AS name');
     }

@@ -27,6 +27,9 @@
             @slot('hasCheckoutButton')
                 false
             @endslot
+            @slot('hasAuthBar')
+                true
+            @endslot
             @slot('title')
                 MoniCAG
             @endslot

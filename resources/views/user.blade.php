@@ -26,6 +26,9 @@
         @slot('hasCheckoutButton')
             false
         @endslot
+        @slot('hasAuthBar')
+            true
+        @endslot
         @slot('title')
             {{__('messages.titles.edit_users')}}
         @endslot

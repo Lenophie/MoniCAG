@@ -14,21 +14,24 @@
 
 @section('content')
     @header
-    @slot('leftIcon')
-        <i class="fas fa-user-plus"></i>
-    @endslot
-    @slot('rightIcon')
-        <i class="fas fa-user-plus"></i>
-    @endslot
-    @slot('hasReturnButton')
-        true
-    @endslot
-    @slot('hasCheckoutButton')
-        false
-    @endslot
-    @slot('title')
-        {{__('Register')}}
-    @endslot
+        @slot('leftIcon')
+            <i class="fas fa-user-plus"></i>
+        @endslot
+        @slot('rightIcon')
+            <i class="fas fa-user-plus"></i>
+        @endslot
+        @slot('hasReturnButton')
+            true
+        @endslot
+        @slot('hasCheckoutButton')
+            false
+        @endslot
+        @slot('hasAuthBar')
+            false
+        @endslot
+        @slot('title')
+            {{__('Register')}}
+        @endslot
     @endheader
     <div class="container">
         <div class="row justify-content-center">

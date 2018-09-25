@@ -14,20 +14,23 @@
 
 @section('content')
     @header
-    @slot('leftIcon')
-        @include('icons/edit-inventory')
-    @endslot
-    @slot('rightIcon')
-        @include('icons/edit-inventory')
-    @endslot
-    @slot('hasReturnButton')
-        true
-    @endslot
-    @slot('hasCheckoutButton')
-        false
-    @endslot
-    @slot('title')
-        {{__('messages.titles.edit_inventory')}}
-    @endslot
+        @slot('leftIcon')
+            @include('icons/edit-inventory')
+        @endslot
+        @slot('rightIcon')
+            @include('icons/edit-inventory')
+        @endslot
+        @slot('hasReturnButton')
+            true
+        @endslot
+        @slot('hasCheckoutButton')
+            false
+        @endslot
+        @slot('hasAuthBar')
+            true
+        @endslot
+        @slot('title')
+            {{__('messages.titles.edit_inventory')}}
+        @endslot
     @endheader
 @endsection

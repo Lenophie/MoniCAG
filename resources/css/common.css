@@ -19,6 +19,10 @@ header
     margin-top: 5px;
 }
 
+#checkout-column {
+    text-align: right;
+}
+
 #checkout-link {
     font-size: 50px;
     text-decoration: none;
@@ -43,6 +47,7 @@ h1 {
 
 .h1-hr {
     margin-top: 0px;
+    margin-bottom: 3px;
     border-color: black;
     width: 50%;
 }

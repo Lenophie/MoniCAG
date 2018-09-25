@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 Route::get('/new-borrowing', 'NewBorrowingController@index');
 Route::post('/new-borrowing', 'NewBorrowingController@store');
 Route::get('/end-borrowing', 'EndBorrowingController@index');
