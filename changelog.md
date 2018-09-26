@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Sorting games and genres by name.
 * Edit inventory view
     * Layout.
+    
+### Fixed
+
+* Inventory item name mutators.
 
 ## [0.9.0] - 2018-09-26
 

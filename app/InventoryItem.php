@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\App;
 class InventoryItem extends Model
 {
     /**
-     * Always capitalize the first letter of each word of the name when we retrieve it
+     * Always capitalize the first letter of each word of the french name when setting it
      */
-    public function setName($value) {
-        $this->attributes['name'] = ucwords($value);
+    public function setNameFrAttribute($value) {
+        $this->attributes['name_fr'] = ucwords($value);
+    }
+
+    /**
+     * Always capitalize the first letter of each word of the french name when setting it
+     */
+    public function setNameEnAttribute($value) {
+        $this->attributes['name_en'] = ucwords($value);
     }
 
     /**
