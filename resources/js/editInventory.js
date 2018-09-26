@@ -23,6 +23,7 @@ const handleAddItemFormSubmit = (e) => {
     const serializedForm = $('#add-item-form').serializeArray();
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    formattedForm.genres = $(`#genres-field-new .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
     $('.error-text').remove();
 
     $.ajax({
@@ -43,7 +44,8 @@ const handlePatchItemFormSubmit = (e, id) => {
     const serializedForm = $(`#edit-item-${id}-form`).serializeArray();
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
-    formattedForm.inventoryItemID = id;
+    formattedForm.inventoryItemId = id;
+    formattedForm.genres = $(`#genres-field-${id} .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
     $('.error-text').remove();
 
     $.ajax({

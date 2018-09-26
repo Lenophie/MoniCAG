@@ -32,7 +32,7 @@ class InventoryItem extends Model
      * Get the inventory item genres.
      */
     public function genres() {
-        return $this->belongsToMany('App\Genre')->select('name_'.App::getLocale().' AS name')->orderBy('name');
+        return $this->belongsToMany('App\Genre')->select('genres.id', 'name_'.App::getLocale().' AS name')->orderBy('name');
     }
 
     /**

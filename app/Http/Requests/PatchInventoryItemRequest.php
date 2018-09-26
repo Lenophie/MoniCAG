@@ -26,6 +26,7 @@ class PatchInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
+            'inventoryItemId' => 'required|integer|exists:inventory_items,id',
             'durationMin' => 'nullable|integer|min:0',
             'durationMax' => 'nullable|integer|min:0|gte:durationMin',
             'playersMin' => 'nullable|integer|min:1',

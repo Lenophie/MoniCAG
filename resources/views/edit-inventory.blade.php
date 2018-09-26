@@ -202,7 +202,7 @@
                                         <ul class="mb-0">
                                             @foreach($inventoryItem->genres as $genre)
                                                 <li>
-                                                    {{$genre->name}}
+                                                    <span id="genre-{{$genre->id}}" class="genre">{{$genre->name}}</span>
                                                     <button class="btn btn-sm btn-danger remove-genre-button">
                                                         <i class="fas fa-times"></i>
                                                     </button>
