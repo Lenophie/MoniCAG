@@ -26,11 +26,13 @@ class NewBorrowingRequest extends FormRequest
         return [
             'borrowedItems' => 'required|array',
             'borrowedItems.*' => 'integer|inventory_item_available',
+            'borrowerEmail' => 'required|email|exists:users,email',
+            'borrowerPassword' => 'required|password_for:borrowerEmail',
             'startDate' => 'required|date_format:d/m/Y|after_or_equal:today',
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:startDate',
             'guarantee' => 'required|numeric|regex:/^[0-9]+([.,][0-9][0-9]?)?$/',
-            'agreementCheck1' => 'required',
-            'agreementCheck2' => 'required'
+            'agreementCheck1' => 'required|accepted',
+            'agreementCheck2' => 'required|accepted'
         ];
     }
 

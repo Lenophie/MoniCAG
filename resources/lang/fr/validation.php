@@ -144,10 +144,12 @@ return [
             'regex' => 'La caution doit être un nombre positif à deux décimales maximum.'
         ],
         'agreementCheck1' => [
-            'required' => 'Cet engagement est obligatoire.'
+            'required' => 'Cet engagement est obligatoire.',
+            'accepted' => 'Cet engagement est obligatoire.'
         ],
         'agreementCheck2' => [
-            'required' => 'Cet engagement est obligatoire.'
+            'required' => 'Cet engagement est obligatoire.',
+            'accepted' => 'Cet engagement est obligatoire.'
         ],
         'selectedBorrowings' => [
             'required' => 'Sélectionnez des emprunts à terminer.'

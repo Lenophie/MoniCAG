@@ -1,6 +1,29 @@
 <form method="POST" action="/new-borrowing" id="new-borrowing-form">
     @csrf
-    @include('authentications/borrower')
+    <h5>{{__('Borrower')}}</h5>
+    <div class="form-group" id="form-field-borrowerEmail">
+        <label for="borrowerEmail">{{__('E-mail address')}}</label>
+        <span class="input-group">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-at"></i>
+                </span>
+            </span>
+            <input type="text" id="borrowerEmail" name="borrowerEmail" class="form-control" required>
+        </span>
+    </div>
+    <div class="form-group" id="form-field-borrowerPassword">
+        <label for="borrowerPassword">{{__('Password')}}</label>
+        <span class="input-group">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-key"></i>
+                </span>
+            </span>
+            <input type="password" id="borrowerPassword" name="borrowerPassword" class="form-control" required>
+        </span>
+    </div>
+    <hr>
     <div class="form-group" id="form-field-startDate">
         <label for="startDate">{{__('Borrowing date')}}</label>
         <span class="input-group">

@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.button-enabler', 'buttonenabler');
 
         Validator::extend('inventory_item_available', 'App\Validators\InventoryItemAvailable@validate');
+        Validator::extend('password_for', 'App\Validators\PasswordFor@validate');
     }
 
     /**

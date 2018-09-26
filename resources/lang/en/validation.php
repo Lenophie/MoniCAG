@@ -145,10 +145,12 @@ return [
             'regex' => 'The guarantee must be a positive number with at most 2 decimals.'
         ],
         'agreementCheck1' => [
-            'required' => 'You must agree to these terms to proceed.'
+            'required' => 'You must agree to these terms to proceed.',
+            'accepted' => 'You must agree to these terms to proceed.'
         ],
         'agreementCheck2' => [
-            'required' => 'You must agree to these terms to proceed.'
+            'required' => 'You must agree to these terms to proceed.',
+            'accepted' => 'You must agree to these terms to proceed.'
         ],
         'selectedBorrowings' => [
             'required' => 'Select borrowings to end.'

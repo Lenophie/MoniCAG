@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Laravel built-in tools.
     * Pages access.
     * Lender ids used for borrowings.
+    * Validating borrower for borrowing.
 * Full english translation
 
 ## [0.8.0] - 2018-09-21
