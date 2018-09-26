@@ -71,8 +71,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        const borrowings = {!! json_encode($borrowings)!!};
-        console.log(borrowings);
-    </script>
 @endsection

@@ -45,6 +45,7 @@ class InventoryItem extends Model
                 'duration_max',
                 'players_min',
                 'players_max')
+            ->orderBy('name')
             ->get();
 
         foreach($inventoryItems as $inventoryItem) {

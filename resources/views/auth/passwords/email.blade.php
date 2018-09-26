@@ -8,10 +8,6 @@
     MoniCAG | {{__('Reset password')}}
 @endsection
 
-@section('stylesheet')
-    {{asset('css/email.css')}}
-@endsection
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

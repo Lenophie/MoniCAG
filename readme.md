@@ -12,11 +12,11 @@
 
 Just MoniCAG.
 
-**Version :** *MoniCAG v0.9.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.10.0* - [Changelog](./changelog.md)
 
 **Work in progress :**
 
-* View inventory page.
+* Edit inventory page.
 
 # License
 

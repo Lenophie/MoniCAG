@@ -8,10 +8,6 @@
     MoniCAG | {{__('Login')}}
 @endsection
 
-@section('stylesheet')
-    {{asset('css/login.css')}}
-@endsection
-
 @section('content')
     @header
         @slot('leftIcon')

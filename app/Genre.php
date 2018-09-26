@@ -10,7 +10,9 @@ class Genre extends Model
     public $timestamps = false;
 
     public static function allTranslated() {
-        $genres = Genre::select('id', 'name_'.App::getLocale().' AS name')->get();
+        $genres = Genre::select('id', 'name_'.App::getLocale().' AS name')
+            ->orderBy('name')
+            ->get();
         return $genres;
     }
 }

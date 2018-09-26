@@ -8,10 +8,6 @@
     MoniCAG | {{__('Register')}}
 @endsection
 
-@section('stylesheet')
-    {{asset('css/register.css')}}
-@endsection
-
 @section('content')
     @header
         @slot('leftIcon')
