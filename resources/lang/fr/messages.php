@@ -52,7 +52,9 @@ return [
         'filter_players_placeholder' => 'Filtrer par nombre de joueurs...',
     ],
     'edit_inventory' => [
-        'change_status' => 'Changer le status',
-        'add_new_genre' => 'Ajouter un nouveau genre'
+        'change_status' => 'Changer le statut',
+        'add_new_genre' => 'Ajouter un nouveau genre',
+        'edit_items' => 'Modifier les jeux',
+        'add_item' => 'Ajouter un jeu'
     ]
 ];
