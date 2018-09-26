@@ -1,0 +1,20 @@
+.remove-genre-button {
+    height: 20px;
+    width: 20px;
+    padding: 0 !important;
+    font-size: 12px !important;
+    margin-bottom: 2px !important;
+}
+
+.plus-li {
+    list-style: none !important;
+}
+
+.plus-li:before {
+    content: '+';
+    margin-right: 4px;
+}
+
+.number-input {
+    width: 30px !important;
+}

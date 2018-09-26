@@ -30,8 +30,18 @@
   "Notes": "Notes",
   "Borrowed by": "Emprunté par",
   "Lent by": "Prêté par",
+  "Names": "Noms",
   "Menu": "Menu",
+  "Duration": "Durée",
+  "Genres": "Genres",
   "Minutes": "Minutes",
   "Min": "Min",
-  "Connected as": "Connecté comme"
+  "Max": "Max",
+  "Delete": "Supprimer",
+  "Properties": "Propriétés",
+  "French": "Français",
+  "English": "Anglais",
+  "Connected as": "Connecté comme",
+  "Confirm": "Confirmer",
+  "Confirm changes": "Confirmer les changements"
 }

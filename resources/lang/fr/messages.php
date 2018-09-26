@@ -50,5 +50,9 @@ return [
         'filter_genre_placeholder' => 'Filtrer par genre...',
         'filter_duration_placeholder' => 'Filtrer par durée...',
         'filter_players_placeholder' => 'Filtrer par nombre de joueurs...',
+    ],
+    'edit_inventory' => [
+        'change_status' => 'Changer le status',
+        'add_new_genre' => 'Ajouter un nouveau genre'
     ]
 ];

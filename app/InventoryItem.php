@@ -50,13 +50,37 @@ class InventoryItem extends Model
 
         foreach($inventoryItems as $inventoryItem) {
             unset($inventoryItem->status_id);
-            $inventoryItem->duration = [
+            $inventoryItem->duration = (object) [
                 'min' => $inventoryItem->duration_min,
                 'max' => $inventoryItem->duration_max
             ];
             unset($inventoryItem->duration_min);
             unset($inventoryItem->duration_max);
-            $inventoryItem->players = [
+            $inventoryItem->players = (object) [
+                'min' => $inventoryItem->players_min,
+                'max' => $inventoryItem->players_max
+            ];
+            unset($inventoryItem->players_min);
+            unset($inventoryItem->players_max);
+        }
+
+        return $inventoryItems;
+    }
+
+    public static function allNotTranslatedJoined() {
+        $inventoryItems = InventoryItem::with(['status', 'genres'])
+            ->orderBy('name_fr')
+            ->get();
+
+        foreach($inventoryItems as $inventoryItem) {
+            unset($inventoryItem->status_id);
+            $inventoryItem->duration = (object) [
+                'min' => $inventoryItem->duration_min,
+                'max' => $inventoryItem->duration_max
+            ];
+            unset($inventoryItem->duration_min);
+            unset($inventoryItem->duration_max);
+            $inventoryItem->players = (object) [
                 'min' => $inventoryItem->players_min,
                 'max' => $inventoryItem->players_max
             ];

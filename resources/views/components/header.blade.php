@@ -43,6 +43,7 @@
                             {{Auth::user()->role_id}}
                         @endslot
                     @endusericon
+                     |
                     <button class="btn btn-sm btn-outline-primary" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</button>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                 </div>

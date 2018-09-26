@@ -15,4 +15,10 @@ class Genre extends Model
             ->get();
         return $genres;
     }
+
+    public static function allNotTranslated() {
+        $genres = Genre::orderBy('name_fr')
+            ->get();
+        return $genres;
+    }
 }

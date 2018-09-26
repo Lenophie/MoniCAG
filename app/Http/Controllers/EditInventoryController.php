@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Genre;
+use App\InventoryItem;
+use App\InventoryItemStatus;
+
 class EditInventoryController extends Controller
 {
     public function __construct() {
@@ -11,6 +15,9 @@ class EditInventoryController extends Controller
 
     public function index()
     {
-        return view('edit-inventory');
+        $inventoryItems = InventoryItem::allNotTranslatedJoined();
+        $genres = Genre::allNotTranslated();
+        $inventoryStatuses = InventoryItemStatus::allTranslated();
+        return view('edit-inventory', compact('inventoryItems', 'genres', 'inventoryStatuses'));
     }
 }
