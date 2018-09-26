@@ -12,6 +12,8 @@ Route::post('/end-borrowing/lost', 'EndBorrowingController@updateLost');
 Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('borrowings-history');
 Route::get('/view-inventory', 'ViewInventoryController@index');
 Route::get('/edit-inventory', 'EditInventoryController@index');
+Route::post('/edit-inventory', 'EditInventoryController@post');
+Route::patch('/edit-inventory', 'EditInventoryController@patch');
 Route::get('/user', 'UserController@index');
 Route::get('/lang/{locale}', function ($locale) {
     session(['locale_lang' => $locale]);

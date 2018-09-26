@@ -88,6 +88,7 @@
 @push('scripts')
     <script type="text/javascript">
         const borrowings = {!! json_encode($borrowings)!!};
+        const inventoryItemStatuses = {!! json_encode($inventoryItemStatuses) !!}
     </script>
     <script type="text/javascript" src="{{URL::asset('js/endBorrowing.js')}}"></script>
 @endpush

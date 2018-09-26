@@ -131,6 +131,15 @@ return [
         'borrowedItems.*' => [
             'inventory_item_available' => 'The game :item is not available anymore.'
         ],
+        'borrowerEmail' => [
+            'required' => 'Enter the borrower\'s registered email address.',
+            'email' => 'The email address\' format is incorrect.',
+            'exists' => 'This email address is not registered in our database.'
+        ],
+        'borrowerPassword' => [
+            'required' => 'Enter the borrower\'s password.',
+            'password_for' => 'The password is incorrect.'
+        ],
         'startDate' => [
             'required' => 'Choose the borrowing\'s start date.',
             'after_or_equal' => 'The borrowing\'s start date must be superior or equal to the current date.'
@@ -154,6 +163,36 @@ return [
         ],
         'selectedBorrowings' => [
             'required' => 'Select borrowings to end.'
+        ],
+        'durationMin' => [
+            'integer' => 'The minimal duration must be an integer.',
+            'min' => 'The minimal duration must be positive.'
+        ],
+        'durationMax' => [
+            'integer' => 'The maximal duration must be an integer.',
+            'min' => 'The maximal duration must be positive.',
+            'gte' => 'The maximal duration must be greater or equal to the minimal duration.'
+        ],
+        'playersMin' => [
+            'integer' => 'The minimal number of players must be an integer.',
+            'min' => 'The minimal number of players must be stricly positive.'
+        ],
+        'playersMax' => [
+            'integer' => 'The maximal number of players must be an integer.',
+            'min' => 'The maximal number of players must be stricly positive.',
+            'gte' => 'The maximal number of players must be greater or equal to the minimal number of players.'
+        ],
+        'genres' => [
+            'required' => 'Please fill in at least one genre for this item.'
+        ],
+        'genres.*' => [
+            'exists' => 'A selected genre doesn\'t exist in our database.'
+        ],
+        'nameFr' => [
+            'required' => 'Please fill in the item\' french name.'
+        ],
+        'nameEn' => [
+            'required' => 'Please fill in the item\' english name.'
         ]
     ],
 
@@ -168,6 +207,25 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'borrowedItems'         => 'selected items to borrow',
+        'borrowedItems.*'       => 'selected item to borrow',
+        'borrowerEmail'         => 'borrower email',
+        'borrowerPassword'      => 'borrower password',
+        'guarantee'             => 'guarantee',
+        'startDate'             => 'start date',
+        'expectedReturnDate'    => 'expected return date',
+        'agreementCheck1'       => 'agreement check n°1',
+        'agreementCheck2'       => 'agreement check n°2',
+        'selectedBorrowings'    => 'selected borrowings',
+        'durationMin'           => 'minimal duration',
+        'durationMax'           => 'maximal duration',
+        'playersMin'            => 'minimal number of players',
+        'playersMax'            => 'maximal number of players',
+        'genres'                => 'genres',
+        'genres.*'              => 'genre',
+        'nameFr'                => 'french name',
+        'nameEn'                => 'english name'
+    ],
 
 ];

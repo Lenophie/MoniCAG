@@ -134,7 +134,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
         selectedBorrowingsIDs[i] = selectedBorrowing.id;
         i++;
     }
-    const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? 0 : 3;
+    const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? inventoryItemStatuses.RETURNED : inventoryItemStatuses.LOST;
     const csrfTokenForm = $('#csrf-token').serializeArray();
 
     $('.error-text').remove();

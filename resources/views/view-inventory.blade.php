@@ -92,7 +92,7 @@
                                 <i class="fas fa-users"></i>
                             </label>
                         </div>
-                        <input id="players-input" type="number" min="0" class="form-control" placeholder="{{__("messages.view_inventory.filter_players_placeholder")}}">
+                        <input id="players-input" type="number" min="1" class="form-control" placeholder="{{__("messages.view_inventory.filter_players_placeholder")}}">
                         <div class="input-group-append">
                             <button class="btn btn-outline-view-inventory" id="cancel-players-filtering-button" type="submit"><i class="fas fa-times"></i></button>
                         </div>

@@ -7,18 +7,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.10.0] - Unreleased
 
+### Added
+
+* Edit inventory view
+    * Layout.
+* Edit inventory validation
+    * When adding new item.
+    * When patching existing item.
+* Edit inventory routing
+    * POST and PATCH routes.
+* End borrowing validation
+    * Check if the borrowed items' new status is correct.
+* Translation files
+    * English attributes aliases.
+
 ### Changed
 
 * New borrowing view
     * Sorting games by name.
 * Inventory view
     * Sorting games and genres by name.
-* Edit inventory view
-    * Layout.
+    * Minimum value of players filter input from 0 to 1.
     
 ### Fixed
 
 * Inventory item name mutators.
+* Inventory item statuses used when ending borrowing.
+* Request authorizations.
 
 ## [0.9.0] - 2018-09-26
 

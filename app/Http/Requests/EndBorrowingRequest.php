@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\InventoryItemStatus;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class EndBorrowingRequest extends FormRequest
 {
@@ -28,7 +30,12 @@ class EndBorrowingRequest extends FormRequest
         return [
             'selectedBorrowings' => 'required|array',
             'selectedBorrowings.*' => 'integer',
-            'newInventoryItemsStatus' => 'required|integer'
+            'newInventoryItemsStatus' => [
+                'required',
+                'integer',
+                'exists:inventory_item_statuses,id',
+                Rule::in([InventoryItemStatus::IN_LCR_D4, InventoryItemStatus::LOST])
+            ]
         ];
     }
 

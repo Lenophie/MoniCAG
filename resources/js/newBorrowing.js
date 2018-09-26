@@ -3,7 +3,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Fuse from 'fuse.js';
 
 const itemsToBorrow = [];
-console.log(inventoryItems);
 
 // After page is loaded
 $().ready(() => {
@@ -110,7 +109,6 @@ const handleFormSubmit = () => {
 };
 
 const handleFormErrors = (errors) => {
-    console.log(errors);
     for (const fieldName in errors) {
         for (const error of errors[fieldName]) {
             if (!fieldName.startsWith('borrowedItems.')) {

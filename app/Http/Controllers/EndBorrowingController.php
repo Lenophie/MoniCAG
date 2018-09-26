@@ -19,7 +19,11 @@ class EndBorrowingController extends Controller
     public function index()
     {
         $borrowings = Borrowing::current();
-        return view('end-borrowing', compact('borrowings'));
+        $inventoryItemStatuses = (object) [
+            'RETURNED' => InventoryItemStatus::IN_LCR_D4,
+            'LOST' => InventoryItemStatus::LOST
+        ];
+        return view('end-borrowing', compact('borrowings', 'inventoryItemStatuses'));
     }
 
     public function updateReturned(EndBorrowingRequest $request)

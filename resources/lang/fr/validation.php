@@ -130,6 +130,15 @@ return [
         'borrowedItems.*' => [
             'inventory_item_available' => 'Le jeu :item n\'est plus disponible.'
         ],
+        'borrowerEmail' => [
+            'required' => 'Veuillez saisir l\'adresse mail de l\'utilisateur souhaitant emprunter.',
+            'email' => 'Le format de cette adresse mail est incorrect.',
+            'exists' => 'Cette adresse mail n\'existe pas dans notre base de données.'
+        ],
+        'borrowerPassword' => [
+            'required' => 'Veuillez saisir le mot de passe de l\'emprunteur.',
+            'password_for' => 'Ce mot de passe est incorrect.'
+        ],
         'startDate' => [
             'required' => 'Renseignez une date de début d\'emprunt.',
             'after_or_equal' => 'La date d\'emprunt ne peut pas être inférieure à la date du jour.'
@@ -153,6 +162,36 @@ return [
         ],
         'selectedBorrowings' => [
             'required' => 'Sélectionnez des emprunts à terminer.'
+        ],
+        'durationMin' => [
+            'integer' => 'La durée minimale doit être un entier.',
+            'min' => 'La durée minimale doit être positive.'
+        ],
+        'durationMax' => [
+            'integer' => 'La durée maximale doit être un entier.',
+            'min' => 'La durée maximale doit être positive.',
+            'gte' => 'La durée maximale doit être supérieure ou égale à la durée minimale.'
+        ],
+        'playersMin' => [
+            'integer' => 'Le nombre minimal de joueurs doit être un entier.',
+            'min' => 'Le nombre minimal de joueurs doit être strictement positif.'
+        ],
+        'playersMax' => [
+            'integer' => 'Le nombre maximal de joueurs doit être un entier.',
+            'min' => 'Le nombre maximal de joueurs doit être strictement positif.',
+            'gte' => 'Le nombre maximal de joueurs doit être supérieur ou égal au nombre minimal de joueurs.'
+        ],
+        'genres' => [
+            'required' => 'Veuillez renseigner au moins un genre pour ce jeu.'
+        ],
+        'genres.*' => [
+            'exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.'
+        ],
+        'nameFr' => [
+            'required' => 'Veuillez renseigner le nom français du jeu.'
+        ],
+        'nameEn' => [
+            'required' => 'Veuillez renseigner le nom anglais du jeu.'
         ]
     ],
 
@@ -198,8 +237,22 @@ return [
         'available'             => 'disponible',
         'size'                  => 'taille',
         'borrowedItems'         => 'jeux choisis',
+        'borrowedItems.*'       => 'jeu choisi',
+        'borrowerEmail'         => 'email de l\'emprunteur',
+        'borrowerPassword'      => 'mot de passe de l\'emprunteur',
         'guarantee'             => 'caution',
         'startDate'             => 'date de d\'emprunt',
-        'expectedReturnDate'    => 'date de retour prévu'
+        'expectedReturnDate'    => 'date de retour prévu',
+        'agreementCheck1'       => 'engagement n°1',
+        'agreementCheck2'       => 'engagement n°2',
+        'selectedBorrowings'    => 'emprunts sélectionnés',
+        'durationMin'           => 'durée minimale',
+        'durationMax'           => 'durée maximale',
+        'playersMin'            => 'nombre de joueurs minimal',
+        'playersMax'            => 'nombre de joueurs maximal',
+        'genres'                => 'genres',
+        'genres.*'              => 'genre',
+        'nameFr'                => 'nom français',
+        'nameEn'                => 'nom anglais'
     ],
 ];
