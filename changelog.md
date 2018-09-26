@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Validating borrower for borrowing.
 * Full english translation
 
+### Fixed
+
+* New borrowing view
+    * Genre filtering.
+
 ## [0.8.0] - 2018-09-21
 
 ### Added
