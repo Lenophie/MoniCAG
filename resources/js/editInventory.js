@@ -103,5 +103,16 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
             </li>
         `);
         $('#add-genre-select-new').val('default');
+    } else if (submitType === submitTypes.PATCH) {
+        console.log($(`#genres-ul-${id}`), $(`#genres-ul-${id} .plus-li`));
+        $(`#genres-ul-${id} .plus-li`).before(`
+            <li>
+                <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
+                <button class="btn btn-sm btn-danger remove-genre-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </li>
+        `);
+        $(`#add-genre-select-${id}`).val('default');
     }
 };

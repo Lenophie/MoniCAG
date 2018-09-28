@@ -204,7 +204,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <div id="genres-field-{{$inventoryItem->id}}">
-                                        <ul class="mb-0 genres-ul-{{$inventoryItem->id}}">
+                                        <ul class="mb-0" id="genres-ul-{{$inventoryItem->id}}">
                                             @foreach($inventoryItem->genres as $genre)
                                                 <li>
                                                     <span id="genre-{{$genre->id}}" class="genre">{{$genre->name}}</span>
