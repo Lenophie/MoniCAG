@@ -32,7 +32,7 @@ class AddInventoryItemRequest extends FormRequest
             'playersMin' => 'nullable|integer|min:1',
             'playersMax' => 'nullable|integer|min:1|gte:playersMin',
             'genres' => 'required|array',
-            'genres.*' => 'integer|exists:genres,id', // TO DO : make custom exist rule to get the genre name (to display it in the error)
+            'genres.*' => 'integer|distinct|exists:genres,id', // TODO : make custom exist rule to get the genre name (to display it in the error)
             'nameFr' => 'required',
             'nameEn' => 'required'
         ];

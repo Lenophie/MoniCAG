@@ -15,6 +15,7 @@ return [
     'playersMax.min' => 'Le nombre maximal de joueurs doit être strictement positif.',
     'playersMax.gte' => 'Le nombre maximal de joueurs doit être supérieur ou égal au nombre minimal de joueurs.',
     'genres.required' => 'Veuillez renseigner au moins un genre pour ce jeu.',
+    'genres.*.distinct' => 'Le genre :value a été renseigné plusieurs fois.', // TODO : Create custom validator to feed the name instead of the id to the message
     'genres.*.exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
     'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',

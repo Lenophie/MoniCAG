@@ -51,7 +51,6 @@ class EditInventoryController extends Controller
             ]);
         InventoryItem::find(request('inventoryItemId'))
             ->genres()->sync(request('genres'));
-
     }
 
     public function delete(DeleteInventoryItemRequest $request)

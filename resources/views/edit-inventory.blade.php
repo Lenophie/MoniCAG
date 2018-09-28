@@ -81,9 +81,11 @@
                                     <ul class="mb-0" id="genres-ul-new">
                                         <li class="plus-li">
                                             <select autocomplete="off" id="add-genre-select-new">
-                                                <option value="default" disabled selected>{{__('messages.edit_inventory.new_genre')}}</option>
+                                                <option value="default" disabled selected>
+                                                    {{__('messages.edit_inventory.new_genre')}}
+                                                </option>
                                                 @foreach($genres as $genre)
-                                                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                                    <option value="{{$genre->id}}" id="add-genre-{{$genre->id}}-to-new-option">{{$genre->name}}</option>
                                                 @endforeach
                                             </select>
                                         </li>
@@ -217,7 +219,14 @@
                                                 <select autocomplete="off" id="add-genre-select-{{$inventoryItem->id}}">
                                                     <option value="default" disabled selected>{{__('messages.edit_inventory.new_genre')}}</option>
                                                     @foreach($genres as $genre)
-                                                        <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                                        <option value="{{$genre->id}}" id="add-genre-{{$genre->id}}-to-{{$inventoryItem->id}}-option"
+                                                        @foreach($inventoryItem->genres as $referenceGenre)
+                                                            @if ($genre->id === $referenceGenre->id)
+                                                                disabled
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                        >{{$genre->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </li>

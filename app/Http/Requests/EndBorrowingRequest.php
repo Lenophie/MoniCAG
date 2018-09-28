@@ -30,7 +30,7 @@ class EndBorrowingRequest extends FormRequest
     {
         return [
             'selectedBorrowings' => 'required|array',
-            'selectedBorrowings.*' => 'integer',
+            'selectedBorrowings.*' => 'integer|distinct',
             'newInventoryItemsStatus' => [
                 'required',
                 'integer',

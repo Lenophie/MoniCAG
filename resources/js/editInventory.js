@@ -18,12 +18,38 @@ const addListeners = () => {
         $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
         $(`#delete-button-${inventoryItem.id}`).click((e) => handleDeleteItemFormSubmit(e, inventoryItem.id));
         addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
-        addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(submitTypes.PATCH, {id: parseInt(addGenreSelects[inventoryItem.id].val()), name: addGenreSelects[inventoryItem.id].find('option:selected').text()}, inventoryItem.id));
+        addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(
+            submitTypes.PATCH,
+            {
+                id: parseInt(addGenreSelects[inventoryItem.id].val()),
+                name: addGenreSelects[inventoryItem.id].find('option:selected').text()
+            },
+            inventoryItem.id
+        ));
+        $(`#genres-ul-${inventoryItem.id} .remove-genre-button`).click((e) =>
+            {
+                const genreSpan = $(e.target.parentElement.children).closest('.genre');
+                handleRemoveGenreButtonClick(
+                    e.target,
+                    submitTypes.PATCH,
+                    {
+                        id: parseInt(genreSpan.attr('id').slice('genre-'.length)),
+                        name: genreSpan.text()
+                    },
+                    inventoryItem.id
+                );
+            }
+        );
     }
     $('#add-item-submit-button').click((e) => handleAddItemFormSubmit(e));
     addGenreSelects.new = $(`#add-genre-select-new`);
-    addGenreSelects.new.change(() => handleAddGenreSelectChange(submitTypes.POST, {id: parseInt(addGenreSelects.new.val()), name: addGenreSelects.new.find('option:selected').text()}));
-    $('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
+    addGenreSelects.new.change(() => handleAddGenreSelectChange(
+        submitTypes.POST,
+        {
+            id: parseInt(addGenreSelects.new.val()),
+            name: addGenreSelects.new.find('option:selected').text()
+        }
+    ));
 };
 
 // Handlers
@@ -121,8 +147,8 @@ const handleFormErrors = (submitType, errors, id) => {
 
 const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
     if (submitType === submitTypes.POST) {
-        const addGenreLink = $('#genres-ul-new .plus-li');
-        addGenreLink.before(`
+        const addGenreSelect = $('#genres-ul-new .plus-li');
+        addGenreSelect.before(`
             <li>
                 <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
                 <button class="btn btn-sm btn-danger remove-genre-button">
@@ -131,10 +157,11 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
             </li>
         `);
         $('#add-genre-select-new').val('default');
-        addGenreLink.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
+        $(`#add-genre-${selectedGenre.id}-to-new-option`).attr('disabled', 'disabled');
+        addGenreSelect.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target, submitType, selectedGenre, id));
     } else if (submitType === submitTypes.PATCH) {
-        const addGenreLink = $(`#genres-ul-${id} .plus-li`);
-        addGenreLink.before(`
+        const addGenreSelect = $(`#genres-ul-${id} .plus-li`);
+        addGenreSelect.before(`
             <li>
                 <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
                 <button class="btn btn-sm btn-danger remove-genre-button">
@@ -143,12 +170,18 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
             </li>
         `);
         $(`#add-genre-select-${id}`).val('default');
-        addGenreLink.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
+        $(`#add-genre-${selectedGenre.id}-to-${id}-option`).attr('disabled', 'disabled');
+        addGenreSelect.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target, submitType, selectedGenre, id));
     }
 };
 
-const handleRemoveGenreButtonClick = (clickedButton) => {
+const handleRemoveGenreButtonClick = (clickedButton, submitType, selectedGenre, id) => {
     clickedButton.parentElement.remove();
+    if (submitType === submitTypes.POST) {
+        $(`#add-genre-${selectedGenre.id}-to-new-option`).removeAttr('disabled');
+    } else if (submitType === submitTypes.PATCH) {
+        $(`#add-genre-${selectedGenre.id}-to-${id}-option`).removeAttr('disabled');
+    }
 };
 
 const enableInputs = (bool) => {
