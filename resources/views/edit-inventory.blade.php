@@ -81,7 +81,7 @@
                                     <ul class="mb-0" id="genres-ul-new">
                                         <li class="plus-li">
                                             <select autocomplete="off" id="add-genre-select-new">
-                                                <option value="default" disabled selected>{{__('messages.edit_inventory.add_new_genre')}}</option>
+                                                <option value="default" disabled selected>{{__('messages.edit_inventory.new_genre')}}</option>
                                                 @foreach($genres as $genre)
                                                     <option value="{{$genre->id}}">{{$genre->name}}</option>
                                                 @endforeach
@@ -215,7 +215,7 @@
                                             @endforeach
                                             <li class="plus-li">
                                                 <select autocomplete="off" id="add-genre-select-{{$inventoryItem->id}}">
-                                                    <option value="default" disabled selected>{{__('messages.edit_inventory.add_new_genre')}}</option>
+                                                    <option value="default" disabled selected>{{__('messages.edit_inventory.new_genre')}}</option>
                                                     @foreach($genres as $genre)
                                                         <option value="{{$genre->id}}">{{$genre->name}}</option>
                                                     @endforeach

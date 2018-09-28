@@ -53,7 +53,7 @@ return [
     ],
     'edit_inventory' => [
         'change_status' => 'Changer status',
-        'add_new_genre' => 'Add new genre',
+        'new_genre' => 'New genre',
         'edit_items' => 'Edit items',
         'add_item' => 'Add item'
     ]

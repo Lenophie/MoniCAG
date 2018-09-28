@@ -53,7 +53,7 @@ return [
     ],
     'edit_inventory' => [
         'change_status' => 'Changer le statut',
-        'add_new_genre' => 'Ajouter un nouveau genre',
+        'new_genre' => 'Nouveau genre',
         'edit_items' => 'Modifier les jeux',
         'add_item' => 'Ajouter un jeu'
     ]
