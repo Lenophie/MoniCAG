@@ -22,6 +22,7 @@ const addListeners = () => {
     $('#add-item-submit-button').click((e) => handleAddItemFormSubmit(e));
     addGenreSelects.new = $(`#add-genre-select-new`);
     addGenreSelects.new.change(() => handleAddGenreSelectChange(submitTypes.POST, {id: parseInt(addGenreSelects.new.val()), name: addGenreSelects.new.find('option:selected').text()}));
+    $('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
 };
 
 // Handlers
@@ -94,7 +95,8 @@ const handleFormErrors = (submitType, errors, id) => {
 
 const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
     if (submitType === submitTypes.POST) {
-        $('#genres-ul-new .plus-li').before(`
+        const addGenreLink = $('#genres-ul-new .plus-li');
+        addGenreLink.before(`
             <li>
                 <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
                 <button class="btn btn-sm btn-danger remove-genre-button">
@@ -103,9 +105,10 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
             </li>
         `);
         $('#add-genre-select-new').val('default');
+        addGenreLink.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
     } else if (submitType === submitTypes.PATCH) {
-        console.log($(`#genres-ul-${id}`), $(`#genres-ul-${id} .plus-li`));
-        $(`#genres-ul-${id} .plus-li`).before(`
+        const addGenreLink = $(`#genres-ul-${id} .plus-li`);
+        addGenreLink.before(`
             <li>
                 <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
                 <button class="btn btn-sm btn-danger remove-genre-button">
@@ -114,5 +117,10 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
             </li>
         `);
         $(`#add-genre-select-${id}`).val('default');
+        addGenreLink.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target));
     }
+};
+
+const handleRemoveGenreButtonClick = (clickedButton) => {
+    clickedButton.parentElement.remove();
 };
