@@ -86,14 +86,14 @@ const handlePatchItemFormSubmit = (e, id) => {
     formattedForm.inventoryItemId = id;
     formattedForm.genres = $(`#genres-field-${id} .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
     $('.error-text').remove();
-    enableInputs(false);
+    //enableInputs(false);
 
     $.ajax({
         url: requestsURL,
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryURL;
+            //window.location.href = viewInventoryURL;
         },
         error: (response) => {
             enableInputs(true);

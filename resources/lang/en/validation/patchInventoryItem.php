@@ -19,6 +19,8 @@ return [
     'genres.*.exists' => 'A selected genre doesn\'t exist in our database.',
     'nameFr.required' => 'Please fill in the item\'s french name.',
     'nameEn.required' => 'Please fill in the item\'s english name.',
+    'nameFr.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
+    'nameEn.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
     'status.required' => 'Please fill in the item\'s current status.',
     'status.integer' => 'Please fill in a valid item status by its id.',
     'status.exists' => 'The selected status doesn\'t exist in out database.'

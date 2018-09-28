@@ -19,6 +19,8 @@ return [
     'genres.*.exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
     'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',
+    'nameFr.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié',
+    'nameEn.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié',
     'status.required' => 'Veuillez renseigner le statut actuel du jeu.',
     'status.integer' => 'Veuillez renseigner un statut valide par son id.',
     'status.exists' => 'Le statut renseigné n\'existe pas dans notre base de données.'
