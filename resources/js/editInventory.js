@@ -34,15 +34,17 @@ const handleAddItemFormSubmit = (e) => {
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.genres = $(`#genres-field-new .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
     $('.error-text').remove();
+    enableInputs(false);
 
     $.ajax({
         url: requestsURL,
         type: 'POST',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryUrl;
+            window.location.href = viewInventoryURL;
         },
         error: (response) => {
+            enableInputs(true);
             handleFormErrors(submitTypes.POST, response.responseJSON.errors)
         }
     });
@@ -56,15 +58,17 @@ const handlePatchItemFormSubmit = (e, id) => {
     formattedForm.inventoryItemId = id;
     formattedForm.genres = $(`#genres-field-${id} .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
     $('.error-text').remove();
+    enableInputs(false);
 
     $.ajax({
         url: requestsURL,
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryUrl;
+            window.location.href = viewInventoryURL;
         },
         error: (response) => {
+            enableInputs(true);
             handleFormErrors(submitTypes.PATCH, response.responseJSON.errors, id);
         }
     });
@@ -76,15 +80,17 @@ const handleDeleteItemFormSubmit = (e, id) => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.inventoryItemId = id;
+    enableInputs(false);
+
     $.ajax({
         url: requestsURL,
         type: 'DELETE',
         data: formattedForm,
         success: () => {
-
+            window.location.href = viewInventoryURL;
         },
         error: (response) => {
-
+            enableInputs(true);
         }
     });
 };
@@ -143,4 +149,19 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
 
 const handleRemoveGenreButtonClick = (clickedButton) => {
     clickedButton.parentElement.remove();
+};
+
+const enableInputs = (bool) => {
+  const buttons = $('button');
+  const selects = $('select');
+  const inputs = $('input');
+  if (!bool) {
+      buttons.attr('disabled', 'disabled');
+      selects.attr('disabled', 'disabled');
+      inputs.attr('disabled', 'disabled');
+  } else {
+      buttons.removeAttr('disabled');
+      selects.removeAttr('disabled');
+      inputs.removeAttr('disabled');
+  }
 };

@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Edit inventory view
     * Layout.
-    * Deleting items.
+* Edit inventory controller
+    * Adding, updating and deleting inventory items.
 * Edit inventory validation
     * When adding new item.
     * When patching existing item.

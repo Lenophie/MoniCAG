@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\App;
 class InventoryItem extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name_fr',
+        'name_en',
+        'duration_min',
+        'duration_max',
+        'players_min',
+        'players_max',
+        'status_id'
+    ];
+
+    /**
      * Always capitalize the first letter of each word of the french name when setting it
      */
     public function setNameFrAttribute($value) {

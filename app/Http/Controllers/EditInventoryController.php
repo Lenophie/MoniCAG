@@ -26,11 +26,31 @@ class EditInventoryController extends Controller
 
     public function post(AddInventoryItemRequest $request)
     {
-
+        InventoryItem::create([
+            'name_fr' => request('nameFr'),
+            'name_en' => request('nameEn'),
+            'duration_min' => request('durationMin'),
+            'duration_max' => request('durationMax'),
+            'players_max' => request('playersMax'),
+            'players_min' => request('playersMin'),
+            'status_id' => InventoryItemStatus::IN_LCR_D4
+        ])->genres()->attach(request('genres'));
     }
 
     public function patch(PatchInventoryItemRequest $request)
     {
+        InventoryItem::find(request('inventoryItemId'))
+            ->update([
+                'name_fr' => request('nameFr'),
+                'name_en' => request('nameEn'),
+                'duration_min' => request('durationMin'),
+                'duration_max' => request('durationMax'),
+                'players_max' => request('playersMax'),
+                'players_min' => request('playersMin'),
+                'status_id' => request('status')
+            ]);
+        InventoryItem::find(request('inventoryItemId'))
+            ->genres()->sync(request('genres'));
 
     }
 
