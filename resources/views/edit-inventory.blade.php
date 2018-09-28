@@ -301,9 +301,12 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <button class="btn btn-sm btn-danger w-100">
-                                        {{__('Delete')}}
-                                    </button>
+                                    <form method="DELETE" action="{{url('/edit-inventory')}}" id="delete-item-{{$inventoryItem->id}}-form">
+                                        @csrf
+                                        <button class="btn btn-sm btn-danger w-100" id="delete-button-{{$inventoryItem->id}}" type="submit">
+                                            {{__('Delete')}}
+                                        </button>
+                                    </form>
                                 </td>
                                 <td class="align-middle">
                                     <form method="PATCH" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
@@ -326,6 +329,7 @@
     <script type="text/javascript">
         const inventoryItems = {!! json_encode($inventoryItems)!!};
         const requestsURL = {!! json_encode(url('/edit-inventory')) !!};
+        const viewInventoryURL = {!! json_encode(url('/view-inventory')) !!};
     </script>
     <script type="text/javascript" src="{{URL::asset('js/editInventory.js')}}"></script>
 @endpush

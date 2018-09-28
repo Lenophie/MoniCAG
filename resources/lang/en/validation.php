@@ -193,6 +193,9 @@ return [
         ],
         'nameEn' => [
             'required' => 'Please fill in the item\' english name.'
+        ],
+        '' => [
+
         ]
     ],
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Genre;
 use App\Http\Requests\AddInventoryItemRequest;
+use App\Http\Requests\DeleteInventoryItemRequest;
 use App\Http\Requests\PatchInventoryItemRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
@@ -31,5 +32,10 @@ class EditInventoryController extends Controller
     public function patch(PatchInventoryItemRequest $request)
     {
 
+    }
+
+    public function delete(DeleteInventoryItemRequest $request)
+    {
+        InventoryItem::destroy(request('inventoryItemId'));
     }
 }

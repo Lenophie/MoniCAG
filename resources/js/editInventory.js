@@ -16,6 +16,7 @@ const addListeners = () => {
     const addGenreSelects = {};
     for (const inventoryItem of inventoryItems) {
         $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
+        $(`#delete-button-${inventoryItem.id}`).click((e) => handleDeleteItemFormSubmit(e, inventoryItem.id));
         addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
         addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(submitTypes.PATCH, {id: parseInt(addGenreSelects[inventoryItem.id].val()), name: addGenreSelects[inventoryItem.id].find('option:selected').text()}, inventoryItem.id));
     }
@@ -39,7 +40,7 @@ const handleAddItemFormSubmit = (e) => {
         type: 'POST',
         data: formattedForm,
         success: () => {
-            window.location.href = "/view-inventory"
+            window.location.href = viewInventoryUrl;
         },
         error: (response) => {
             handleFormErrors(submitTypes.POST, response.responseJSON.errors)
@@ -61,10 +62,29 @@ const handlePatchItemFormSubmit = (e, id) => {
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = "/view-inventory"
+            window.location.href = viewInventoryUrl;
         },
         error: (response) => {
             handleFormErrors(submitTypes.PATCH, response.responseJSON.errors, id);
+        }
+    });
+};
+
+const handleDeleteItemFormSubmit = (e, id) => {
+    e.preventDefault();
+    const serializedForm = $(`#delete-item-${id}-form`).serializeArray();
+    const formattedForm = {};
+    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    formattedForm.inventoryItemId = id;
+    $.ajax({
+        url: requestsURL,
+        type: 'DELETE',
+        data: formattedForm,
+        success: () => {
+
+        },
+        error: (response) => {
+
         }
     });
 };
