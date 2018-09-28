@@ -88,7 +88,10 @@
 @push('scripts')
     <script type="text/javascript">
         const borrowings = {!! json_encode($borrowings)!!};
-        const inventoryItemStatuses = {!! json_encode($inventoryItemStatuses) !!}
+        const inventoryItemStatuses = {!! json_encode($inventoryItemStatuses) !!};
+        const returnedRequestUrl = {!! json_encode(url('/end-borrowing/returned')) !!};
+        const lostRequestUrl = {!! json_encode(url('/end-borrowing/lost')) !!};
+        const borrowingsHistoryUrl = {!! json_encode(url('/borrowings-history')) !!};
     </script>
     <script type="text/javascript" src="{{URL::asset('js/endBorrowing.js')}}"></script>
 @endpush

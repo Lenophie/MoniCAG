@@ -145,7 +145,7 @@
                                 </div>
                             </td>
                             <td class="align-middle">
-                                <form method="POST" action="/edit-inventory" id="add-item-form">
+                                <form method="POST" action="{{url('/edit-inventory')}}" id="add-item-form">
                                     @csrf
                                     <button class="btn btn-sm btn-primary w-100" id="add-item-submit-button" type="submit">
                                         {{__('Add')}}
@@ -306,7 +306,7 @@
                                     </button>
                                 </td>
                                 <td class="align-middle">
-                                    <form id="edit-item-{{$inventoryItem->id}}-form">
+                                    <form method="PATCH" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
                                         @csrf
                                         <button class="btn btn-sm btn-primary w-100" id="edit-item-{{$inventoryItem->id}}-submit-button" type="submit">
                                             {{__('Confirm')}}
@@ -325,6 +325,7 @@
 @push('scripts')
     <script type="text/javascript">
         const inventoryItems = {!! json_encode($inventoryItems)!!};
+        const requestsURL = {!! json_encode(url('/edit-inventory')) !!};
     </script>
     <script type="text/javascript" src="{{URL::asset('js/editInventory.js')}}"></script>
 @endpush

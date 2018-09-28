@@ -35,7 +35,7 @@ const handleAddItemFormSubmit = (e) => {
     $('.error-text').remove();
 
     $.ajax({
-        url: "/edit-inventory",
+        url: requestsURL,
         type: 'POST',
         data: formattedForm,
         success: () => {
@@ -57,7 +57,7 @@ const handlePatchItemFormSubmit = (e, id) => {
     $('.error-text').remove();
 
     $.ajax({
-        url: "/edit-inventory",
+        url: requestsURL,
         type: 'PATCH',
         data: formattedForm,
         success: () => {

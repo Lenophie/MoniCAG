@@ -96,11 +96,11 @@ const handleFormSubmit = () => {
     $('.error-text').remove();
 
     $.ajax({
-        url: "/new-borrowing/",
+        url: newBorrowingUrl,
         type: 'POST',
         data: formattedForm,
         success: () => {
-            window.location.href = "/borrowings-history"
+            window.location.href = borrowingsHistoryUrl;
         },
         error: (response) => {
             handleFormErrors(response.responseJSON.errors);

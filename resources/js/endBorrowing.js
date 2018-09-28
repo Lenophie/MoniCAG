@@ -138,7 +138,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
     const csrfTokenForm = $('#csrf-token').serializeArray();
 
     $('.error-text').remove();
-    const postURL = buttonEnum === buttonsEnum.END ? "/end-borrowing/returned" : "/end-borrowing/lost";
+    const postURL = buttonEnum === buttonsEnum.END ? returnedRequestUrl : lostRequestUrl;
     $.ajax({
         url: postURL,
         type: 'POST',
@@ -148,7 +148,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
             newInventoryItemsStatus: newInventoryItemsStatus
         },
         success: () => {
-            window.location.href = "/borrowings-history"
+            window.location.href = borrowingsHistoryUrl
         },
         error: (response) => {
             handleFormErrors(response.responseJSON.errors);
