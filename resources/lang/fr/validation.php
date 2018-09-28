@@ -192,6 +192,12 @@ return [
         ],
         'nameEn' => [
             'required' => 'Veuillez renseigner le nom anglais du jeu.'
+        ],
+        'inventoryItemId' => [
+            'required' => 'Veuillez selectionner un jeu à supprimer.',
+            'integer' => 'Veuillez selectionner un jeu valide à supprimer.',
+            'exists' => 'Le jeu sélectionné n\'existe pas dans notre base de données',
+            'inventory_item_not_borrowed' => 'Un jeu en cours d\'emprunt ne peut pas être supprimé.'
         ]
     ],
 

@@ -124,6 +124,8 @@ return [
     |
     */
 
+    // TO DO : Make custom validation messages files which entries would be referenced in the messages method of request objects.
+
     'custom' => [
         'borrowedItems' => [
             'required' => 'Select games to borrow.'
@@ -194,8 +196,11 @@ return [
         'nameEn' => [
             'required' => 'Please fill in the item\' english name.'
         ],
-        '' => [
-
+        'inventoryItemId' => [
+            'required' => 'Please select an inventory item to delete.',
+            'integer' => 'Please select a valid inventory item.',
+            'exists' => 'The selected inventory item doesn\'nt exist in our database',
+            'inventory_item_not_borrowed' => 'A currently borrowed item can\'t be deleted.'
         ]
     ],
 
