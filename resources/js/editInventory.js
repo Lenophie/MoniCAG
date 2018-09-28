@@ -13,8 +13,15 @@ $().ready(() => {
 
 // Listeners setting
 const addListeners = () => {
-    for (const inventoryItem of inventoryItems) $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
+    const addGenreSelects = {};
+    for (const inventoryItem of inventoryItems) {
+        $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
+        addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
+        addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(submitTypes.PATCH, {id: parseInt(addGenreSelects[inventoryItem.id].val()), name: addGenreSelects[inventoryItem.id].find('option:selected').text()}, inventoryItem.id));
+    }
     $('#add-item-submit-button').click((e) => handleAddItemFormSubmit(e));
+    addGenreSelects.new = $(`#add-genre-select-new`);
+    addGenreSelects.new.change(() => handleAddGenreSelectChange(submitTypes.POST, {id: parseInt(addGenreSelects.new.val()), name: addGenreSelects.new.find('option:selected').text()}));
 };
 
 // Handlers
@@ -82,5 +89,19 @@ const handleFormErrors = (submitType, errors, id) => {
                 }
             }
         }
+    }
+};
+
+const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
+    if (submitType === submitTypes.POST) {
+        $('#genres-ul-new .plus-li').before(`
+            <li>
+                <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
+                <button class="btn btn-sm btn-danger remove-genre-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </li>
+        `);
+        $('#add-genre-select-new').val('default');
     }
 };

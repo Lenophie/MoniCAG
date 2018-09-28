@@ -18,7 +18,7 @@ class EditInventoryController extends Controller
     public function index()
     {
         $inventoryItems = InventoryItem::allNotTranslatedJoined();
-        $genres = Genre::allNotTranslated();
+        $genres = Genre::allTranslated();
         $inventoryStatuses = InventoryItemStatus::allTranslated();
         return view('edit-inventory', compact('inventoryItems', 'genres', 'inventoryStatuses'));
     }

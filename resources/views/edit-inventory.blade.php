@@ -78,9 +78,14 @@
                             </td>
                             <td class="align-middle">
                                 <div id="genres-field-new">
-                                    <ul class="mb-0">
+                                    <ul class="mb-0" id="genres-ul-new">
                                         <li class="plus-li">
-                                            <a href="">{{__('messages.edit_inventory.add_new_genre')}}</a>
+                                            <select autocomplete="off" id="add-genre-select-new">
+                                                <option value="default" disabled selected>{{__('messages.edit_inventory.add_new_genre')}}</option>
+                                                @foreach($genres as $genre)
+                                                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </li>
                                     </ul>
                                 </div>
@@ -199,7 +204,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <div id="genres-field-{{$inventoryItem->id}}">
-                                        <ul class="mb-0">
+                                        <ul class="mb-0 genres-ul-{{$inventoryItem->id}}">
                                             @foreach($inventoryItem->genres as $genre)
                                                 <li>
                                                     <span id="genre-{{$genre->id}}" class="genre">{{$genre->name}}</span>
@@ -209,7 +214,12 @@
                                                 </li>
                                             @endforeach
                                             <li class="plus-li">
-                                                <a href="">{{__('messages.edit_inventory.add_new_genre')}}</a>
+                                                <select autocomplete="off" id="add-genre-select-{{$inventoryItem->id}}">
+                                                    <option value="default" disabled selected>{{__('messages.edit_inventory.add_new_genre')}}</option>
+                                                    @foreach($genres as $genre)
+                                                        <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </li>
                                         </ul>
                                     </div>
