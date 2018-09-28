@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class NewBorrowingRequest extends FormRequest
 {
@@ -45,8 +46,6 @@ class NewBorrowingRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-
-        ];
+        return Lang::get('validation/newBorrowing');
     }
 }

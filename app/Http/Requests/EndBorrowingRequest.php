@@ -6,6 +6,7 @@ use App\InventoryItemStatus;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 
 class EndBorrowingRequest extends FormRequest
@@ -46,8 +47,6 @@ class EndBorrowingRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-
-        ];
+        return Lang::get('validation/endBorrowing');
     }
 }

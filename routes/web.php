@@ -19,3 +19,5 @@ Route::get('/user', 'UserController@index');
 Route::get('/lang/{locale}', 'LanguagesController@change');
 
 Auth::routes();
+
+// TO DO : Inventory modifications and movements list (needs page + table)

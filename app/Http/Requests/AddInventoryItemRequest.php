@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AddInventoryItemRequest extends FormRequest
 {
@@ -35,5 +36,15 @@ class AddInventoryItemRequest extends FormRequest
             'nameFr' => 'required',
             'nameEn' => 'required'
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return Lang::get('validation/addInventoryItem');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class DeleteInventoryItemRequest extends FormRequest
 {
@@ -28,5 +29,15 @@ class DeleteInventoryItemRequest extends FormRequest
         return [
             'inventoryItemId' => 'required|integer|exists:inventory_items,id|inventory_item_not_borrowed'
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return Lang::get('validation/deleteInventoryItem');
     }
 }

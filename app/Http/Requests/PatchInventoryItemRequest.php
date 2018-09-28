@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class PatchInventoryItemRequest extends FormRequest
 {
@@ -33,9 +34,19 @@ class PatchInventoryItemRequest extends FormRequest
             'playersMax' => 'nullable|integer|min:1|gte:playersMin',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id', // TO DO : make custom exist rule to get the genre name (to display it in the error)
-            'nameFr' => 'required',
-            'nameEn' => 'required',
-            'status' => 'required|integer|exists:inventory_item_statuses,id' // TO DO : check if not changed to borrowed when status is changed by the request
+            'nameFr' => 'required', // TO DO : prevent name change when borrowed
+            'nameEn' => 'required', // TO DO : prevent name change when borrowed
+            'status' => 'required|integer|exists:inventory_item_statuses,id' // TO DO : check if not changed from borrowed when status is changed by the request
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return Lang::get('validation/patchInventoryItem');
     }
 }

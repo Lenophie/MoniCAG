@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Edit inventory view
     * Layout.
+    * Deleting items.
 * Edit inventory validation
     * When adding new item.
     * When patching existing item.
+    * When deleting existing item.
 * Edit inventory routing
-    * POST and PATCH routes.
+    * ```POST```, ```PATCH``` and ```DELETE``` routes.
 * End borrowing validation
     * Check if the borrowed items' new status is correct.
 * Translation files
@@ -28,12 +30,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Inventory view
     * Sorting games and genres by name.
     * Minimum value of players filter input from 0 to 1.
+* Language files
+    * Sorted validation messages by relevant request.
     
 ### Fixed
 
 * Inventory item name mutators.
 * Inventory item statuses used when ending borrowing.
 * Request authorizations.
+
+### Removed
+
+* Compiled ```js``` files from ```git``` tracking
+    * Added ```.gitignore``` file for future commits.
 
 ## [0.9.0] - 2018-09-26
 
@@ -42,7 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * End borrowing view
     * Message when no current borrowing.
 * Home view
-    * MoniCAG GitHub link.
+    * MoniCAG ```GitHub``` link.
 * Authentication
     * Laravel built-in tools.
     * Pages access.
@@ -176,7 +185,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Reference tables seeding.
     * Inventory items and users seeding for local environment.
 * Public
-    * CSS for new borrowing view.
+    * ```CSS``` for new borrowing view.
 
 ### Changed
 
