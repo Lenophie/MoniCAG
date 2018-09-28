@@ -24,5 +24,6 @@ return [
     'statusId.required' => 'Please fill in the item\'s current status.',
     'statusId.integer' => 'Please fill in a valid item status by its id.',
     'statusId.exists' => 'The selected status doesn\'t exist in out database.',
-    'statusId.unchanged_during_borrowing' => 'The status of a currently borrowed item can\'t be changed.'
+    'statusId.unchanged_during_borrowing' => 'The status of a currently borrowed item can\'t be changed.',
+    'statusId.not_changed_to_borrowed' => 'The status of an item can\'t be changed to "Borrowed" without a proper borrowing.'
 ];

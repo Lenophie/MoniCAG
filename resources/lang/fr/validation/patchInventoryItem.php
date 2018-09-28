@@ -24,5 +24,6 @@ return [
     'statusId.required' => 'Veuillez renseigner le statut actuel du jeu.',
     'statusId.integer' => 'Veuillez renseigner un statut valide par son id.',
     'statusId.exists' => 'Le statut renseigné n\'existe pas dans notre base de données.',
-    'statusId.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié.'
+    'statusId.unchanged_during_borrowing' => 'Le statut d\'un jeu en cours d\'emprunt ne peut pas être modifié.',
+    'statusId.not_changed_to_borrowed' => 'Il n\'est pas possible de modifier le statut d\'un jeu en "Emprunté" sans réaliser d\'emprunt.'
 ];
