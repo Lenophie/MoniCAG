@@ -290,7 +290,7 @@
                                                             selected
                                                         @endif
                                                         @if($inventoryItem->status->id === \App\InventoryItemStatus::BORROWED
-                                                        || $inventoryStatus->id === \App\InventoryItemStatus::BORROWED)
+                                                        xor $inventoryStatus->id === \App\InventoryItemStatus::BORROWED)
                                                             disabled
                                                         @endif
                                                 >
