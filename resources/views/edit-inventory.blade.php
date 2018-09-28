@@ -288,11 +288,11 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <div id="status-field-{{$inventoryItem->id}}">
+                                    <div id="statusId-field-{{$inventoryItem->id}}">
                                         <label class="input-group-text d-none" for="status-{{$inventoryItem->id}}">
                                             {{__('Status')}}
                                         </label>
-                                        <select id="status-{{$inventoryItem->id}}" name="status" class="custom-select form-control" autocomplete="off" form="edit-item-{{$inventoryItem->id}}-form">
+                                        <select id="status-{{$inventoryItem->id}}" name="statusId" class="custom-select form-control" autocomplete="off" form="edit-item-{{$inventoryItem->id}}-form">
                                             @foreach($inventoryStatuses as $inventoryStatus)
                                                 <option value="{{$inventoryStatus->id}}"
                                                         @if($inventoryItem->status->id === $inventoryStatus->id)

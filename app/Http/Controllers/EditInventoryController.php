@@ -47,7 +47,7 @@ class EditInventoryController extends Controller
                 'duration_max' => request('durationMax'),
                 'players_max' => request('playersMax'),
                 'players_min' => request('playersMin'),
-                'status_id' => request('status')
+                'status_id' => request('statusId')
             ]);
         InventoryItem::find(request('inventoryItemId'))
             ->genres()->sync(request('genres'));

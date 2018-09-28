@@ -21,7 +21,8 @@ return [
     'nameEn.required' => 'Please fill in the item\'s english name.',
     'nameFr.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
     'nameEn.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
-    'status.required' => 'Please fill in the item\'s current status.',
-    'status.integer' => 'Please fill in a valid item status by its id.',
-    'status.exists' => 'The selected status doesn\'t exist in out database.'
+    'statusId.required' => 'Please fill in the item\'s current status.',
+    'statusId.integer' => 'Please fill in a valid item status by its id.',
+    'statusId.exists' => 'The selected status doesn\'t exist in out database.',
+    'statusId.unchanged_during_borrowing' => 'The status of a currently borrowed item can\'t be changed.'
 ];

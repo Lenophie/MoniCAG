@@ -33,10 +33,10 @@ class PatchInventoryItemRequest extends FormRequest
             'playersMin' => 'nullable|integer|min:1',
             'playersMax' => 'nullable|integer|min:1|gte:playersMin',
             'genres' => 'required|array',
-            'genres.*' => 'integer|distinct|exists:genres,id', //  TODO : make custom exist rule to get the genre name (to display it in the error)
+            'genres.*' => 'integer|distinct|exists:genres,id', // TODO : make custom exist rule to get the genre name (to display it in the error)
             'nameFr' => 'required|unchanged_during_borrowing:inventoryItemId',
             'nameEn' => 'required|unchanged_during_borrowing:inventoryItemId',
-            'status' => 'required|integer|exists:inventory_item_statuses,id' // TODO : check if not changed from borrowed when status is changed by the request
+            'statusId' => 'required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItemId'
         ];
     }
 
