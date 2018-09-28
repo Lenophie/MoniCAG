@@ -16,8 +16,8 @@ class CreateBorrowingsTable extends Migration
         Schema::create('borrowings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inventory_item_id')->unsigned();
-            $table->integer('borrower_id')->unsigned();
-            $table->integer('initial_lender_id')->unsigned();
+            $table->integer('borrower_id')->unsigned()->nullable();
+            $table->integer('initial_lender_id')->unsigned()->nullable();
             $table->integer('return_lender_id')->unsigned()->nullable()->default(null);
             $table->float('guarantee');
             $table->boolean('finished')->default(false);
@@ -28,10 +28,10 @@ class CreateBorrowingsTable extends Migration
             $table->text('notes_after')->nullable()->default(null);
             $table->timestamps();
 
-            $table->foreign('inventory_item_id')->references('id')->on('inventory_items');
-            $table->foreign('borrower_id')->references('id')->on('users');
-            $table->foreign('initial_lender_id')->references('id')->on('users');
-            $table->foreign('return_lender_id')->references('id')->on('users');
+            $table->foreign('inventory_item_id')->references('id')->on('inventory_items')->onDelete('cascade');
+            $table->foreign('borrower_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('initial_lender_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('return_lender_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

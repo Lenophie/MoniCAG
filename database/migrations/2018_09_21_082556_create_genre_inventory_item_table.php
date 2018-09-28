@@ -18,13 +18,8 @@ class CreateGenreInventoryItemTable extends Migration
             $table->integer('inventory_item_id')->unsigned();
             $table->integer('genre_id')->unsigned();
 
-            $table->foreign('inventory_item_id')
-                ->references('id')
-                ->on('inventory_items');
-
-            $table->foreign('genre_id')
-                ->references('id')
-                ->on('genres');
+            $table->foreign('inventory_item_id')->references('id')->on('inventory_items')->onDelete('cascade');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
         });
     }
 
