@@ -52,7 +52,7 @@ return [
         'filter_players_placeholder' => 'Filter by number of players...',
     ],
     'edit_inventory' => [
-        'change_status' => 'Changer status',
+        'change_status' => 'Change status',
         'new_genre' => 'New genre',
         'edit_items' => 'Edit items',
         'add_item' => 'Add item'
