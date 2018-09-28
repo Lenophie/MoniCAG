@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* New borrowing validation
+    * Check if borrowed items are distinct.
+* End borrowing validation
+    * Check if borrowings to end are distinct.
 * Edit inventory view
     * Layout.
 * Edit inventory controller

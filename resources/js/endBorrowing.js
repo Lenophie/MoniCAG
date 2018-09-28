@@ -159,7 +159,11 @@ const handleConfirmButtonClick = (buttonEnum) => {
 const handleFormErrors = (errors) => {
     for (const fieldName in errors) {
         for (const error of errors[fieldName]) {
-            $(`#form-field-${fieldName}`).append(`<div class="error-text">${error}</div>`);
+            if (!fieldName.startsWith('selectedBorrowings.')) {
+                $(`#form-field-${fieldName}`).append(`<div class="error-text">${error}</div>`);
+            } else {
+                $(`#form-field-selectedBorrowings`).append(`<div class="error-text">${error}</div>`);
+            }
         }
     }
 };

@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\InventoryItem;
-use App\InventoryItemStatus;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('inventory_item_available', 'App\Validators\InventoryItemAvailable@validate');
         Validator::extend('inventory_item_not_borrowed', 'App\Validators\InventoryItemNotBorrowed@validate');
         Validator::extend('password_for', 'App\Validators\PasswordFor@validate');
+
+        Validator::replacer('distinct', 'App\Validators\Distinct@replacer');
     }
 
     /**

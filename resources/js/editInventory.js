@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
+// TODO : Add confirmation modal for deletions.
+
 const submitTypes = {
     POST: 0,
     PATCH: 1
@@ -128,7 +130,7 @@ const handleFormErrors = (submitType, errors, id) => {
                 if (!fieldName.startsWith('genres.')) {
                     $(`#${fieldName}-field-new`).append(`<div class="error-text">${error}</div>`);
                 } else {
-                    $(`#${fieldName}-field-new`).append(`<div class="error-text">${error}</div>`);
+                    $(`#genres-field-new`).append(`<div class="error-text">${error}</div>`);
                 }
             }
         }
@@ -138,7 +140,7 @@ const handleFormErrors = (submitType, errors, id) => {
                 if (!fieldName.startsWith('genres.')) {
                     $(`#${fieldName}-field-${id}`).append(`<div class="error-text">${error}</div>`);
                 } else {
-                    $(`#${fieldName}-field-${id}`).append(`<div class="error-text">${error}</div>`);
+                    $(`#genres-field-${id}`).append(`<div class="error-text">${error}</div>`);
                 }
             }
         }

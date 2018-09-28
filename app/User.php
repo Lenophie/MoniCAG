@@ -40,4 +40,11 @@ class User extends Authenticatable
     public function setLastNameAttribute($value) {
         $this->attributes['last_name'] = strtoupper($value);
     }
+
+    /**
+     * Get the user's borrowings.
+     */
+    public function borrowings() {
+        return $this->belongsTo('App\Borrowing', 'id', 'borrower_id');
+    }
 }

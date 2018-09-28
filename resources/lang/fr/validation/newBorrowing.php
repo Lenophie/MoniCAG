@@ -2,7 +2,7 @@
 
 return [
     'borrowedItems.required' => 'Sélectionnez des jeux à emprunter.',
-    'borrowedItems.*.distinct' => 'Le jeu :value a été renseigné plusieurs fois.', // TODO : Create custom validator to feed the name instead of the id to the message
+    'borrowedItems.*.distinct' => 'Le jeu :item a été ajouté plusieurs fois à l\'emprunt.',
     'borrowedItems.*.inventory_item_available' => 'Le jeu :item n\'est plus disponible.',
     'borrowerEmail.required' => 'Veuillez saisir l\'adresse mail de l\'utilisateur souhaitant emprunter.',
     'borrowerEmail.email' => 'Le format de cette adresse mail est incorrect.',

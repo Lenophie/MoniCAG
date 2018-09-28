@@ -2,7 +2,7 @@
 
 return [
     'borrowedItems.required' => 'Select games to borrow.',
-    'borrowedItems.*.distinct' => 'The game :value was filled in multiple times.', // TODO : Create custom validator to feed the name instead of the id to the message
+    'borrowedItems.*.distinct' => 'The game :item was added to the borrowing multiple times.',
     'borrowedItems.*.inventory_item_available' => 'The game :item is not available anymore.',
     'borrowerEmail.required' => 'Enter the borrower\'s registered email address.',
     'borrowerEmail.email' => 'The email address\' format is incorrect.',
