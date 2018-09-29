@@ -112,6 +112,7 @@ const handleDeleteModalOpening = (id) => {
     deleteConfirmButtonByClass.attr('id', `delete-confirm-button-${id}`);
 
     const deleteConfirmButton = $(`#delete-confirm-button-${id}`);
+    deleteConfirmButton.off();
     deleteConfirmButton.click((e) => handleDeleteItemFormSubmit(e, id));
     $('#delete-confirm-modal').on('hidden.bs.modal', () => {
         deleteConfirmButton.off();
@@ -126,7 +127,6 @@ const handleDeleteItemFormSubmit = (e, id) => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.inventoryItemId = id;
-    $(`#delete-confirm-button-${id}`).off();
     enableInputs(false);
 
     $.ajax({
@@ -134,7 +134,7 @@ const handleDeleteItemFormSubmit = (e, id) => {
         type: 'DELETE',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryURL;
+            //window.location.href = viewInventoryURL;
         },
         error: (response) => {
             enableInputs(true);
