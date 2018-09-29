@@ -310,12 +310,9 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <form method="DELETE" action="{{url('/edit-inventory')}}" id="delete-item-{{$inventoryItem->id}}-form">
-                                        @csrf
-                                        <button class="btn btn-sm btn-danger w-100" id="delete-button-{{$inventoryItem->id}}" type="submit">
-                                            {{__('Delete')}}
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-sm btn-danger w-100" id="delete-button-{{$inventoryItem->id}}">
+                                        {{__('Delete')}}
+                                    </button>
                                 </td>
                                 <td class="align-middle">
                                     <form method="PATCH" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
@@ -332,6 +329,25 @@
             </div>
         </div>
     </div>
+    @modal
+        @slot('title')
+            {{__('messages.edit_inventory.deletion_title')}}
+        @endslot
+        @slot('body')
+            {{__('messages.edit_inventory.deletion_warning')}}
+        @endslot
+        @slot('tags')
+            id="delete-confirm-modal"
+        @endslot
+        @slot('footer')
+            <form class="delete-form" method="DELETE" action="{{url('/edit-inventory')}}">
+                @csrf
+                <button class="btn btn-sm btn-danger w-100 delete-confirm-button" type="submit"> <!-- id="delete-confirm-button-{{$inventoryItem->id}}" -->
+                    {{__('Delete')}}
+                </button>
+            </form>
+        @endslot
+    @endmodal
 @endsection
 
 @push('scripts')

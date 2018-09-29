@@ -55,6 +55,8 @@ return [
         'change_status' => 'Changer le statut',
         'new_genre' => 'Nouveau genre',
         'edit_items' => 'Modifier les jeux',
-        'add_item' => 'Ajouter un jeu'
+        'add_item' => 'Ajouter un jeu',
+        'deletion_title' => 'Confirmer la suppression',
+        'deletion_warning' => "Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n'a jamais correspondu, à un réel jeu de l'inventaire.\nSi le jeu a été perdu, vous devriez plutôt modifier son status.\nAprès avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.\nCette suppression est irréversible."
     ]
 ];

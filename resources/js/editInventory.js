@@ -18,7 +18,7 @@ const addListeners = () => {
     const addGenreSelects = {};
     for (const inventoryItem of inventoryItems) {
         $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
-        $(`#delete-button-${inventoryItem.id}`).click((e) => handleDeleteItemFormSubmit(e, inventoryItem.id));
+        $(`#delete-button-${inventoryItem.id}`).click(() => handleDeleteModalOpening(inventoryItem.id));
         addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
         addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(
             submitTypes.PATCH,
@@ -102,12 +102,31 @@ const handlePatchItemFormSubmit = (e, id) => {
     });
 };
 
+const handleDeleteModalOpening = (id) => {
+    const deleteConfirmModal = $(`#delete-confirm-modal`);
+    const deleteForm = $('.delete-form');
+    const deleteConfirmButtonByClass = $('.delete-confirm-button');
+
+    deleteConfirmModal.modal();
+    deleteForm.attr('id', `delete-item-${id}-form`);
+    deleteConfirmButtonByClass.attr('id', `delete-confirm-button-${id}`);
+
+    const deleteConfirmButton = $(`#delete-confirm-button-${id}`);
+    deleteConfirmButton.click((e) => handleDeleteItemFormSubmit(e, id));
+    $('#delete-confirm-modal').on('hidden.bs.modal', () => {
+        deleteConfirmButton.off();
+        deleteForm.removeAttr('id');
+        deleteConfirmButtonByClass.removeAttr('id');
+    });
+};
+
 const handleDeleteItemFormSubmit = (e, id) => {
     e.preventDefault();
     const serializedForm = $(`#delete-item-${id}-form`).serializeArray();
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.inventoryItemId = id;
+    $(`#delete-confirm-button-${id}`).off();
     enableInputs(false);
 
     $.ajax({
@@ -119,6 +138,7 @@ const handleDeleteItemFormSubmit = (e, id) => {
         },
         error: (response) => {
             enableInputs(true);
+            // TODO : Add error message to the modal's body.
         }
     });
 };
