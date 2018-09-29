@@ -334,7 +334,9 @@
             {{__('messages.edit_inventory.deletion_title')}}
         @endslot
         @slot('body')
-            {{__('messages.edit_inventory.deletion_warning')}}
+            <div id="delete-modal-body">
+                {{__('messages.edit_inventory.deletion_warning')}}
+            </div>
         @endslot
         @slot('tags')
             id="delete-confirm-modal"

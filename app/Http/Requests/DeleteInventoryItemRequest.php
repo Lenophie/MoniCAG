@@ -27,7 +27,7 @@ class DeleteInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'inventoryItemId' => 'required|integer|exists:inventory_items,id|inventory_item_not_borrowed'
+            'inventoryItemId' => 'bail|required|integer|exists:inventory_items,id|inventory_item_not_borrowed'
         ];
     }
 

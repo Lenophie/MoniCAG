@@ -1,11 +1,10 @@
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-// TODO : Add confirmation modal for deletions.
-
 const submitTypes = {
     POST: 0,
-    PATCH: 1
+    PATCH: 1,
+    DELETE: 2
 };
 
 // After page is loaded
@@ -127,6 +126,7 @@ const handleDeleteItemFormSubmit = (e, id) => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.inventoryItemId = id;
+    $('.error-text').remove();
     enableInputs(false);
 
     $.ajax({
@@ -134,11 +134,11 @@ const handleDeleteItemFormSubmit = (e, id) => {
         type: 'DELETE',
         data: formattedForm,
         success: () => {
-            //window.location.href = viewInventoryURL;
+            window.location.href = viewInventoryURL;
         },
         error: (response) => {
             enableInputs(true);
-            // TODO : Add error message to the modal's body.
+            handleFormErrors(submitTypes.DELETE, response.responseJSON.errors);
         }
     });
 };
@@ -162,6 +162,12 @@ const handleFormErrors = (submitType, errors, id) => {
                 } else {
                     $(`#genres-field-${id}`).append(`<div class="error-text">${error}</div>`);
                 }
+            }
+        }
+    } else if (submitType === submitTypes.DELETE) {
+        for (const fieldName in errors) {
+            for (const error of errors[fieldName]) {
+                $('#delete-modal-body').append(`<div class="error-text">${error}</div>`);
             }
         }
     }
