@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('password_for', 'App\Validators\PasswordFor@validate');
         Validator::extend('unchanged_during_borrowing', 'App\Validators\UnchangedDuringBorrowing@validate');
         Validator::extend('not_changed_to_borrowed', 'App\Validators\NotChangedToBorrowed@validate');
+        Validator::extend('unchanged_if_other_admin', 'App\Validators\UnchangedIfOtherAdmin@validate');
 
         Validator::replacer('distinct', 'App\Validators\Distinct@replacer');
     }

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Minimal width of tables for better responsiveness.
 * Edit users view
     * Layout.
+* Edit users controller
+    * Users updating and deletion.
+* Edit users validation
+    * Check for admin self-modification.
     
 ### Removed
 

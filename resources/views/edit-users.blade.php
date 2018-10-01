@@ -69,10 +69,7 @@
                                                    @if($user->role->id === $userRole->id)
                                                        selected
                                                    @endif
-                                                   @if($user->role->id === \App\UserRole::ADMINISTRATOR
-                                                       && $userRole->id !== \App\UserRole::ADMINISTRATOR)
-                                                        disabled
-                                                   @endif
+
                                            >
                                                {{$userRole->name}}
                                            </option>

@@ -20,10 +20,31 @@ class UsersSeeder extends Seeder
         User::create([
             'first_name' => 'Monika',
             'last_name' => 'RoOt',
-            'promotion' => 2019,
+            'promotion' => 2021,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),
             'role_id' => UserRole::ADMINISTRATOR]);
+        User::create([
+            'first_name' => 'Sayori',
+            'last_name' => 'ROot',
+            'promotion' => 2020,
+            'email' => 'sayori@root.ddlc',
+            'password' => bcrypt('root'),
+            'role_id' => UserRole::ADMINISTRATOR]);
+        User::create([
+            'first_name' => 'Natsuki',
+            'last_name' => 'NotROot',
+            'promotion' => 2020,
+            'email' => 'natsuki@root.ddlc',
+            'password' => bcrypt('notroot'),
+            'role_id' => UserRole::LENDER]);
+        User::create([
+            'first_name' => 'Yuri',
+            'last_name' => 'NotROot',
+            'promotion' => 2020,
+            'email' => 'yuri@root.ddlc',
+            'password' => bcrypt('notroot'),
+            'role_id' => UserRole::NONE]);
         Schema::enableForeignKeyConstraints();
     }
 }

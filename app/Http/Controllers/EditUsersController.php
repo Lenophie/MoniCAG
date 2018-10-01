@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteUserRequest;
+use App\Http\Requests\EditUserRequest;
 use App\User;
 use App\UserRole;
 
@@ -19,13 +21,16 @@ class EditUsersController extends Controller
         return view('edit-users', compact('users', 'userRoles'));
     }
 
-    public function patch()
+    public function patch(EditUserRequest $request)
     {
-
+        User::find(request('userId'))
+            ->update([
+                'role_id' => request('role')
+            ]);
     }
 
-    public function delete()
+    public function delete(DeleteUserRequest $request)
     {
-
+        User::destroy(request('userId'));
     }
 }
