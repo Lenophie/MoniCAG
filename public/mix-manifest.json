@@ -3,5 +3,6 @@
     "/js/viewInventory.js": "/js/viewInventory.js",
     "/js/newBorrowing.js": "/js/newBorrowing.js",
     "/js/endBorrowing.js": "/js/endBorrowing.js",
+    "/js/editUsers.js": "/js/editUsers.js",
     "/js/editInventory.js": "/js/editInventory.js"
 }

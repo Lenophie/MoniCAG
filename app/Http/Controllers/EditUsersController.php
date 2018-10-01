@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\UserRole;
+
 class EditUsersController extends Controller
 {
     public function __construct() {
@@ -11,6 +14,18 @@ class EditUsersController extends Controller
 
     public function index()
     {
-        return view('edit-users');
+        $users = User::allSelected();
+        $userRoles = UserRole::allTranslated();
+        return view('edit-users', compact('users', 'userRoles'));
+    }
+
+    public function patch()
+    {
+
+    }
+
+    public function delete()
+    {
+
     }
 }

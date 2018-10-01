@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 class User extends Authenticatable
 {
@@ -46,5 +47,31 @@ class User extends Authenticatable
      */
     public function borrowings() {
         return $this->belongsTo('App\Borrowing', 'id', 'borrower_id');
+    }
+
+    public function role() {
+        return $this->hasOne('App\UserRole', 'id', 'role_id')
+            ->select('id', 'name_'.App::getLocale().' AS name');
+    }
+
+    public static function allSelected() {
+        $users = User::with('role')
+            ->select(
+                'id',
+                'first_name AS firstName',
+                'last_name AS lastName',
+                'promotion',
+                'email',
+                'role_id')
+            ->orderBy('role_id', 'desc')
+            ->orderBy('promotion', 'desc')
+            ->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc')
+            ->get();
+
+        foreach($users as $user) {
+            unset($user->role_id);
+        }
+        return $users;
     }
 }

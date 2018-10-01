@@ -166,7 +166,7 @@
                             col-md-12
                         @endslot
                         @slot('style')
-                            btn-outline-user
+                            btn-outline-edit-users
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.edit_users'))}}

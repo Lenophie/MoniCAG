@@ -4,7 +4,7 @@ $end-borrowing-theme-color: #f1bf34;
 $borrowings-history-theme-color: #dcdf2d;
 $view-inventory-theme-color: #a7885a;
 $edit-inventory-theme-color: #6c6c6c;
-$user-theme-color: #6973f7;
+$edit-users-theme-color: #6973f7;
 $good-color: #1fcc1f;
 $bad-color: #d60716;
 
@@ -15,7 +15,7 @@ $theme-colors: (
   "borrowings-history": $borrowings-history-theme-color,
   "view-inventory": $view-inventory-theme-color,
   "edit-inventory": $edit-inventory-theme-color,
-  "user": $user-theme-color,
+  "edit-users": $edit-users-theme-color,
   "good": $good-color,
   "bad": $bad-color
 );
