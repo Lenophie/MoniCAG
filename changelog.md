@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* End borrowing validation
+    * A user can't confirm the return of its own borrowings.
 * Edit inventory view
     * Minimal width of tables for better responsiveness.
 * Edit users view
@@ -18,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Users updating and deletion.
 * Edit users validation
     * Check for admin self-modification.
-    
+
 ### Removed
 
 * Edit inventory view

@@ -30,7 +30,7 @@ class EndBorrowingRequest extends FormRequest
     {
         return [
             'selectedBorrowings' => 'required|array',
-            'selectedBorrowings.*' => 'integer|distinct', // TODO: Prevent self-return of borrowing
+            'selectedBorrowings.*' => 'integer|distinct|no_self_return',
             'newInventoryItemsStatus' => [
                 'required',
                 'integer',
