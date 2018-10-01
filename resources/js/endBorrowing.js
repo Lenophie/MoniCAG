@@ -37,7 +37,7 @@ const addListElements = (borrowings) => {
             `<a id="borrowings-list-element-${borrowing.id}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-${borrowing.isLate ? 'bad' : 'good'}">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="borrowed-item-name mb-1">${borrowing.inventoryItem.name}</h5>
-                    ${borrowing.isLate ? '<small class="late-message">${messages.late}</small>' : ''}
+                    ${borrowing.isLate ? `<small class="late-message">${messages.late}</small>` : ''}
                     <small>
                         <span class="borrow-date">${borrowing.startDate}</span>
                          <i class="fas fa-arrow-right"></i> <span class="expected-return-date">${borrowing.expectedReturnDate}
