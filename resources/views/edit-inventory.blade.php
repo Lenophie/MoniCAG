@@ -101,7 +101,7 @@
                                             </label>
                                         </div>
                                         <input id="durationMin-new" name="durationMin" type="text" pattern="[0-9]*" class="form-control number-input" autocomplete="off" form="add-item-form">
-                                        <div class="input-group-append d-none d-xl-block">
+                                        <div class="input-group-append">
                                             <label class="input-group-text" for="durationMin-new">
                                                 {{strtolower(__('Minutes'))}}
                                             </label>
@@ -116,7 +116,7 @@
                                             </label>
                                         </div>
                                         <input id="durationMax-new" name="durationMax" type="text" pattern="[0-9]*" class="form-control number-input" autocomplete="off" form="add-item-form">
-                                        <div class="input-group-append d-none d-xl-block">
+                                        <div class="input-group-append">
                                             <label class="input-group-text" for="durationMax-new">
                                                 {{strtolower(__('Minutes'))}}
                                             </label>
@@ -242,7 +242,7 @@
                                                 </label>
                                             </div>
                                             <input id="durationMin-{{$inventoryItem->id}}" name="durationMin" type="text" pattern="[0-9]*" class="form-control number-input" autocomplete="off" value="{{$inventoryItem->duration->min}}" form="edit-item-{{$inventoryItem->id}}-form">
-                                            <div class="input-group-append d-none d-xl-block">
+                                            <div class="input-group-append">
                                                 <label class="input-group-text" for="durationMin-{{$inventoryItem->id}}">
                                                     {{strtolower(__('Minutes'))}}
                                                 </label>
@@ -257,7 +257,7 @@
                                                 </label>
                                             </div>
                                             <input id="durationMax-{{$inventoryItem->id}}" name="durationMax" type="text" pattern="[0-9]*" class="form-control number-input" autocomplete="off" value="{{$inventoryItem->duration->max}}" form="edit-item-{{$inventoryItem->id}}-form">
-                                            <div class="input-group-append d-none d-xl-block">
+                                            <div class="input-group-append">
                                                 <label class="input-group-text" for="durationMax-{{$inventoryItem->id}}">
                                                     {{strtolower(__('Minutes'))}}
                                                 </label>

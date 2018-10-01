@@ -22,3 +22,7 @@
 ul {
     padding-left: 15px;
 }
+
+.table-edit-inventory {
+    min-width: 1400px;
+}
