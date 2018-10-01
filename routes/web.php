@@ -15,7 +15,7 @@ Route::get('/edit-inventory', 'EditInventoryController@index');
 Route::post('/edit-inventory', 'EditInventoryController@post');
 Route::patch('/edit-inventory', 'EditInventoryController@patch');
 Route::delete('/edit-inventory', 'EditInventoryController@delete');
-Route::get('/user', 'UserController@index');
+Route::get('/edit-users', 'EditUsersController@index');
 Route::get('/lang/{locale}', 'LanguagesController@change');
 
 Auth::routes();

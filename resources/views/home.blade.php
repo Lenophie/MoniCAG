@@ -172,7 +172,7 @@
                             {{mb_strtoupper(__('messages.titles.edit_users'))}}
                         @endslot
                         @slot('action')
-                            location.href='{{url('user')}}'
+                            location.href='{{url('edit-users')}}'
                         @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::ADMINISTRATOR}}
