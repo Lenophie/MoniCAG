@@ -29,10 +29,11 @@ const handleEditUserButtonClick = (e, id) => {
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = '';
+            window.location.href = ''; // TODO : redirect to home if self-modification
         },
         error: (response) => {
             enableInputs(true);
+            handleFormErrors(response.responseJSON.errors, id);
         }
     });
 };
@@ -55,8 +56,17 @@ const handleDeleteUserButtonClick = (e, id) => {
         },
         error: (response) => {
             enableInputs(true);
+            handleFormErrors(response.responseJSON.errors, id);
         }
     });
+};
+
+const handleFormErrors = (errors, id) => {
+    for (const fieldName in errors) {
+        for (const error of errors[fieldName]) {
+            $(`#errors-field-${id}`).append(`<div class="error-text">${error}</div>`);
+        }
+    }
 };
 
 const enableInputs = (bool) => {

@@ -69,13 +69,18 @@
                                                    @if($user->role->id === $userRole->id)
                                                        selected
                                                    @endif
-
+                                                   @if($user->role->id === \App\UserRole::ADMINISTRATOR
+                                                       && $userRole->id !== \App\UserRole::ADMINISTRATOR
+                                                       && $user->id !== Auth::user()->id)
+                                                        disabled
+                                                   @endif
                                            >
                                                {{$userRole->name}}
                                            </option>
                                        @endforeach
                                    </select>
                                </div>
+                               <div id="errors-field-{{$user->id}}"></div>
                            </td>
                            <td class="align-middle border-right">
                                <form method="PATCH" action="{{url('/edit-users')}}" id="edit-user-{{$user->id}}-form">
