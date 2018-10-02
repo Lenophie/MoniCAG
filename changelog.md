@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* Routing
+    * Redirection to 401 error page for non-GET requests made by guests.
 * Testing
     * Pages access tests.
     * User factory.
