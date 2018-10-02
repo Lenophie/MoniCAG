@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Redirection to 401 error page for non-GET requests made by guests.
 * Testing
     * Pages access tests.
+    * Requests authentication tests.
     * User factory.
 * Register validation
     * Promotion must now be within an acceptable range.
