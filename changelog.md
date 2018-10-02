@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* Testing
+    * User factory.
 * Register validation
     * Promotion must now be within an acceptable range.
 
