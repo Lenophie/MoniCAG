@@ -1,6 +1,6 @@
 {
     "name": "monicag",
-    "version": "0.11.0",
+    "version": "0.12.0",
     "description": "Monitor CAG Inventory !",
     "repository": "github:Lenophie/MoniCAG",
     "private": true,

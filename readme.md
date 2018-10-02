@@ -2,11 +2,11 @@
 
 Just MoniCAG.
 
-**Version :** *MoniCAG v0.11.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.12.0* - [Changelog](./changelog.md)
 
 **Work in progress :**
 
-* Users management page.
+* Tests.
 
 # License
 

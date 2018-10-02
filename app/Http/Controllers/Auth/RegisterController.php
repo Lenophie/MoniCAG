@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\UserRole;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,10 +50,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $year = Carbon::now()->year;
+        $minPromotion = $year - 7;
+        $maxPromotion = $year + 7;
         return Validator::make($data, [
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
-            'promotion' => 'required|integer',
+            'promotion' => 'required|integer|min:'.$minPromotion.'|max:'.$maxPromotion,
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ]);
