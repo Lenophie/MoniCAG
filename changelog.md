@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Pages access tests.
     * Requests authentication tests.
     * User factory.
+    * New borrowing validation tests.
 * Register validation
     * Promotion must now be within an acceptable range.
 * Validation
