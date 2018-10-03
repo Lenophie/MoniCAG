@@ -24,20 +24,6 @@
         </span>
     </div>
     <hr>
-    <div class="form-group" id="form-field-startDate">
-        <label for="startDate">{{__('Borrowing date')}}</label>
-        <span class="input-group">
-            <span class="input-group-prepend">
-                <span class="input-group-text">
-                    <span class="fa-layers fa-fw menu-icon">
-                        <i class="fas fa-circle" data-fa-transform="shrink-7 down-5 right-8" data-fa-mask="fas fa-calendar-alt"></i>
-                        <i class="fas fa-arrow-right" data-fa-transform="shrink-9 down-5 right-8"></i>
-                    </span>
-                </span>
-            </span>
-            <input type="text" id="startDate" name="startDate" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" value={{Carbon\Carbon::now()->format('d/m/Y')}} required>
-        </span>
-    </div>
     <div class="form-group" id="form-field-expectedReturnDate">
         <label for="expectedReturnDate">{{__('Expected return date')}}</label>
         <span class="input-group">

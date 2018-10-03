@@ -9,8 +9,6 @@ return [
     'borrowerEmail.exists' => 'This email address is not registered in our database.',
     'borrowerPassword.required' => 'Enter the borrower\'s password.',
     'borrowerPassword.password_for' => 'The password is incorrect.',
-    'startDate.required' => 'Choose the borrowing\'s start date.',
-    'startDate.after_or_equal' => 'The borrowing\'s start date must be superior or equal to the current date.',
     'expectedReturnDate.required' => 'Choose the borrowing\'s expected return date.',
     'expectedReturnDate.after_or_equal' => 'The borrowing\'s expected return date must be superior or equal to the current date.',
     'guarantee.required' => 'Fill in the guarantee.',
