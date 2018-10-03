@@ -25,8 +25,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Problem : The app doesn't correctly handle delayed borrowings as it is setting the items as borrowed when creating the borrowing regardless of the start date.
         * Solution : Forbid having a start date different from the current date when creating a borrowing.
         * Implementation : Remove the field from the form and update its related model attribute setting, validation rules and translation files.
+* Changelog
+    * Dates from the future. (*Thanks Spooktober*)
 
-## [0.11.0] - 2019-10-01
+## [0.11.0] - 2018-10-01
 
 ### Added
 
@@ -47,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Edit inventory view
     * Hiding of some elements for small viewports.
 
-## [0.10.0] - 2019-09-29
+## [0.10.0] - 2018-09-29
 
 ### Added
 
