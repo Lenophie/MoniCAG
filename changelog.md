@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Usage of before and after borrowing notes.
     * New borrowing validation test for arrays.
     
+### Changed
+
+* New borrowing
+    * Simplified regex validation for guarantee.
+    
 ### Fixed
 
 * New borrowing

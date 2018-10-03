@@ -32,7 +32,7 @@ class NewBorrowingRequest extends FormRequest
             'borrowerEmail' => 'required|email|exists:users,email',
             'borrowerPassword' => 'required|password_for:borrowerEmail',
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:today',
-            'guarantee' => 'required|numeric|regex:/^[0-9]+([.,][0-9][0-9]?)?$/',
+            'guarantee' => 'required|numeric|regex:/^[0-9]+(.[0-9][0-9]?)?$/',
             'agreementCheck1' => 'required|accepted',
             'agreementCheck2' => 'required|accepted'
         ];
