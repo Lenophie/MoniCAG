@@ -12,6 +12,7 @@ return [
     'playersMax.min' => 'Le nombre maximal de joueurs doit être strictement positif.',
     'playersMax.gte' => 'Le nombre maximal de joueurs doit être supérieur ou égal au nombre minimal de joueurs.',
     'genres.required' => 'Veuillez renseigner au moins un genre pour ce jeu.',
+    'genres.*.integer' => 'Un genre doit être représenté par son identifiant.',
     'genres.*.distinct' => 'Le genre :genre a été renseigné plusieurs fois.',
     'genres.*.exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',

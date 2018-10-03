@@ -12,6 +12,7 @@ return [
     'playersMax.min' => 'The maximal number of players must be stricly positive.',
     'playersMax.gte' => 'The maximal number of players must be greater or equal to the minimal number of players.',
     'genres.required' => 'Please fill in at least one genre for this item.',
+    'genres.*.integer' => 'A genre must be identified by its id.',
     'genres.*.distinct' => 'The genre :genre was filled in multiple times.',
     'genres.*.exists' => 'A selected genre doesn\'t exist in our database.',
     'nameFr.required' => 'Please fill in the item\'s french name.',
