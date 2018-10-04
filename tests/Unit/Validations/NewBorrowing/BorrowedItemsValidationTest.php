@@ -11,15 +11,12 @@ class BorrowedItemsValidationTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public $otherAvailableInventoryItems;
-
     protected function setUp()
     {
         Parent::setUp();
 
         $lender = factory(User::class)->state('lender')->create();
         $this->actingAs($lender);
-        $this->otherAvailableInventoryItems = factory(InventoryItem::class, 10)->create();
     }
 
     /**
@@ -67,6 +64,33 @@ class BorrowedItemsValidationTest extends TestCase
         $response->assertJsonValidationErrors('borrowedItems.0');
         $response = $this->json('POST', '/new-borrowing', [
             'borrowedItems' => [[0]]
+        ]);
+        $response->assertJsonValidationErrors('borrowedItems.0');
+    }
+
+    /**
+     * Tests borrowing of non existent item rejection.
+     */
+    public function testBorrowingOfNonExistentItemRejection()
+    {
+        $someInventoryItems = factory(InventoryItem::class, 5)->create();
+        $someInventoryItemsIDs = [];
+        foreach ($someInventoryItems as $inventoryItem) array_push($someInventoryItemsIDs, $inventoryItem->id);
+        $nonExistenceInventoryItemID = max($someInventoryItemsIDs) + 1;
+        $response = $this->json('POST', '/new-borrowing', [
+            'borrowedItems' => [$nonExistenceInventoryItemID]
+        ]);
+        $response->assertJsonValidationErrors('borrowedItems.0');
+    }
+
+    /**
+     * Tests borrowing of duplicate item rejection.
+     */
+    public function testBorrowingOfDuplicateItemRejection()
+    {
+        $singleItemToBorrow = factory(InventoryItem::class, 1)->create();
+        $response = $this->json('POST', '/new-borrowing', [
+            'borrowedItems' => [$singleItemToBorrow[0]->id, $singleItemToBorrow[0]->id]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
     }
