@@ -3,10 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithFaker;
-use phpDocumentor\Reflection\Types\String_;
 use Tests\TestCase;
 
 class AgreementChecksValidationTests extends TestCase
