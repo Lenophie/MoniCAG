@@ -36,6 +36,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Problem : The app doesn't correctly handle delayed borrowings as it is setting the items as borrowed when creating the borrowing regardless of the start date.
         * Solution : Forbid having a start date different from the current date when creating a borrowing.
         * Implementation : Remove the field from the form and update its related model attribute setting, validation rules and translation files.
+    * Error in custom validator ```InventoryItemAvailable```.
+        * Problem : When a non-integer is fed to the validator, an error is thrown when trying to find the corresponding inventory item.
+        * Solution : Prevent non-integers from being fed to the validator.
+        * Implementation : Add ```bail``` rule to relevant field in ```NewBorrowingRequest```.
 * Changelog
     * Dates from the future. (*Thanks Spooktober*)
 

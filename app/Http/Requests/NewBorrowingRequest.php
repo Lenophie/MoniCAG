@@ -28,7 +28,7 @@ class NewBorrowingRequest extends FormRequest
     {
         return [
             'borrowedItems' => 'required|array',
-            'borrowedItems.*' => 'integer|distinct|inventory_item_available',
+            'borrowedItems.*' => 'bail|integer|distinct|inventory_item_available',
             'borrowerEmail' => 'required|email|exists:users,email',
             'borrowerPassword' => 'required|password_for:borrowerEmail',
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:today',
