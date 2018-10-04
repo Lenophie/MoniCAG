@@ -335,7 +335,7 @@
         @endslot
         @slot('body')
             <div id="delete-modal-body">
-                {{__('messages.edit_inventory.deletion_warning')}}
+                {!!__('messages.edit_inventory.deletion_warning')!!}
             </div>
         @endslot
         @slot('tags')

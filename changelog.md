@@ -43,6 +43,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Solution : Prevent non-integers from being fed to the validator.
         * Implementation : Add ```bail``` rule to relevant field in ```NewBorrowingRequest```.
     * Inventory item name not being displayed in ```InventoryItemAvailable``` error message.
+* Edit inventory view
+    * Typo in deletion warning message.
+    * Line breaks in deletion warning message.
 * Changelog
     * Dates from the future. (*Thanks Spooktober*)
 
