@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Promotion must now be within an acceptable range.
 * Validation
     * Custom messages for integers in arrays validation.
+    * Existence rule for borrowed items when making a new borrowing request.
 * TODO items
     * Usage of before and after borrowing notes.
     * New borrowing validation test for arrays.
