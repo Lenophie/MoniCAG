@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * New borrowing
     * Simplified regex validation for guarantee.
+* End borrowing routes
+    * HTTP verb ```POST``` to ```PATCH```.
     
 ### Fixed
 

@@ -142,7 +142,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
     const postURL = buttonEnum === buttonsEnum.END ? returnedRequestUrl : lostRequestUrl;
     $.ajax({
         url: postURL,
-        type: 'POST',
+        type: 'PATCH',
         data: {
             _token: csrfTokenForm[0].value,
             selectedBorrowings: selectedBorrowingsIDs,
