@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Problem : When a non-integer is fed to the validator, an error is thrown when trying to find the corresponding inventory item.
         * Solution : Prevent non-integers from being fed to the validator.
         * Implementation : Add ```bail``` rule to relevant field in ```NewBorrowingRequest```.
+    * Inventory item name not being displayed in ```InventoryItemAvailable``` error message.
 * Changelog
     * Dates from the future. (*Thanks Spooktober*)
 
