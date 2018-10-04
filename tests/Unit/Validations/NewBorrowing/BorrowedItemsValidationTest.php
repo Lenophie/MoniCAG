@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class BorrowedItemsValidationTest extends TestCase
 {
-
+    use DatabaseTransactions;
 
     public $otherAvailableInventoryItems;
 
