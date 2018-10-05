@@ -37,13 +37,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     
 ### Changed
 
-* New borrowing
-    * Simplified regex validation for guarantee.
 * End borrowing routes
     * HTTP verb ```POST``` to ```PATCH```.
     * Refactored the two previously-```POST``` routes to one.
 * Validation
-    * Simplified some custom validators thanks to ```bail``` rule addition for relevant fiels.
+    * General
+        * Simplified some custom validators thanks to ```bail``` rule addition for relevant fiels.
+    * New borrowing
+        * Simplified regex validation for guarantee.
+    * Add inventory item
+        * Improved validation rules.
     
 ### Fixed
 
