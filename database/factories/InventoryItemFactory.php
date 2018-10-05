@@ -1,13 +1,14 @@
 <?php
 
+use App\InventoryItem;
 use App\InventoryItemStatus;
 use Faker\Generator as Faker;
 
-$factory->define(App\InventoryItem::class, function (Faker $faker) {
-    $durationMin = $faker->numberBetween(1, 120);
-    $durationMax = $faker->numberBetween($durationMin, 180);
-    $playersMin = $faker->numberBetween(1, 8);
-    $playersMax = $faker->numberBetween($playersMin, 60);
+$factory->define(InventoryItem::class, function (Faker $faker) {
+    $durationMin = rand(1, 20);
+    $durationMax = rand($durationMin, 180);
+    $playersMin = rand(1, 8);
+    $playersMax = rand($playersMin, 60);
     return [
         'name_fr' => $faker->word,
         'name_en' => $faker->word,
@@ -20,7 +21,7 @@ $factory->define(App\InventoryItem::class, function (Faker $faker) {
 });
 // TODO : Add some genres
 
-$factory->state(App\InventoryItem::class, 'in_F2', ['status_id' => InventoryItemStatus::IN_F2]);
-$factory->state(App\InventoryItem::class, 'borrowed', ['status_id' => InventoryItemStatus::BORROWED]);
-$factory->state(App\InventoryItem::class, 'lost', ['status_id' => InventoryItemStatus::LOST]);
-$factory->state(App\InventoryItem::class, 'unknown', ['status_id' => InventoryItemStatus::UNKNOWN]);
+$factory->state(InventoryItem::class, 'in_F2', ['status_id' => InventoryItemStatus::IN_F2]);
+$factory->state(InventoryItem::class, 'borrowed', ['status_id' => InventoryItemStatus::BORROWED]);
+$factory->state(InventoryItem::class, 'lost', ['status_id' => InventoryItemStatus::LOST]);
+$factory->state(InventoryItem::class, 'unknown', ['status_id' => InventoryItemStatus::UNKNOWN]);
