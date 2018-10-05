@@ -30,7 +30,7 @@ class EndBorrowingRequest extends FormRequest
     {
         return [
             'selectedBorrowings' => 'required|array',
-            'selectedBorrowings.*' => 'bail|integer|distinct|exists:borrowings,id|not_already_returned|no_self_return', // TODO : Custom exist rule to display the borrower's name in the error message
+            'selectedBorrowings.*' => 'bail|integer|exists:borrowings,id|distinct|not_already_returned|no_self_return',
             'newInventoryItemsStatus' => [
                 'required',
                 'integer',

@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Custom messages for integers in arrays validation.
         * ```bail``` validation rule for fields with custom validations rules.
         * Reworded some custom messages.
+        * Inverted order of exist and distinct rules to prevent errors in replacers.
     * Register
         * Promotion must now be within an acceptable range.
     * New borrowing
