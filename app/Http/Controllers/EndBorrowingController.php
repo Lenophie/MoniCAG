@@ -26,35 +26,36 @@ class EndBorrowingController extends Controller
         return view('end-borrowing', compact('borrowings', 'inventoryItemStatuses'));
     }
 
-    public function updateReturned(EndBorrowingRequest $request)
+    public function patch(EndBorrowingRequest $request)
     {
-        foreach (request('selectedBorrowings') as $selectedBorrowing) {
-            Borrowing::where('id', $selectedBorrowing)
-                ->update([
-                    'finished' => true,
-                    'return_lender_id' => Auth::user()->id,
-                    'return_date' => Carbon::now()
-                ]);
-            InventoryItem::with('borrowing')
-                ->whereHas('borrowing', function($q) use($selectedBorrowing) {
-                    $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => InventoryItemStatus::IN_LCR_D4]);
-        }
-    }
-
-    public function updateLost(EndBorrowingRequest $request)
-    {
-        foreach (request('selectedBorrowings') as $selectedBorrowing) {
-            Borrowing::where('id', $selectedBorrowing)
-                ->update([
-                    'finished' => true,
-                    'return_lender_id' => Auth::user()->id,
-                    'return_date' => Carbon::now()
-                ]);
-            InventoryItem::with('borrowing')
-                ->whereHas('borrowing', function($q) use($selectedBorrowing) {
-                    $q->where('id', $selectedBorrowing);})
-                ->update(['status_id' => InventoryItemStatus::LOST]);
-        }
+        $newInventoryItemsStatus = (int) request('newInventoryItemsStatus');
+        if ($newInventoryItemsStatus === InventoryItemStatus::IN_LCR_D4) {
+            foreach (request('selectedBorrowings') as $selectedBorrowing) {
+                Borrowing::where('id', $selectedBorrowing)
+                    ->update([
+                        'finished' => true,
+                        'return_lender_id' => Auth::user()->id,
+                        'return_date' => Carbon::now()
+                    ]);
+                InventoryItem::with('borrowing')
+                    ->whereHas('borrowing', function ($q) use ($selectedBorrowing) {
+                        $q->where('id', $selectedBorrowing);
+                    })
+                    ->update(['status_id' => InventoryItemStatus::IN_LCR_D4]);
+            }
+        } else if ($newInventoryItemsStatus === InventoryItemStatus::LOST) {
+            foreach (request('selectedBorrowings') as $selectedBorrowing) {
+                Borrowing::where('id', $selectedBorrowing)
+                    ->update([
+                        'finished' => true,
+                        'return_lender_id' => Auth::user()->id,
+                        'return_date' => Carbon::now()
+                    ]);
+                InventoryItem::with('borrowing')
+                    ->whereHas('borrowing', function($q) use($selectedBorrowing) {
+                        $q->where('id', $selectedBorrowing);})
+                    ->update(['status_id' => InventoryItemStatus::LOST]);
+            }
+        } else abort(422);
     }
 }

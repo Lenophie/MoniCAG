@@ -139,9 +139,8 @@ const handleConfirmButtonClick = (buttonEnum) => {
     const csrfTokenForm = $('#csrf-token').serializeArray();
 
     $('.error-text').remove();
-    const postURL = buttonEnum === buttonsEnum.END ? returnedRequestUrl : lostRequestUrl;
     $.ajax({
-        url: postURL,
+        url: endBorrowingUrl,
         type: 'PATCH',
         data: {
             _token: csrfTokenForm[0].value,
