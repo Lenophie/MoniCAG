@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Pages access tests.
     * Requests authentication tests.
     * New borrowing validation tests.
+    * End borrowing validation tests.
 * Models factories
     * Users.
     * Inventory items.
