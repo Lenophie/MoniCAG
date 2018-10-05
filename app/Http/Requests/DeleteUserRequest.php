@@ -27,7 +27,7 @@ class DeleteUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'required|integer|exists:users,id|unchanged_if_other_admin'
+            'userId' => 'bail|required|integer|exists:users,id|unchanged_if_other_admin'
         ];
     }
 

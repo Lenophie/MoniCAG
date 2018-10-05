@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Validation
     * Custom messages for integers in arrays validation.
     * Existence rule for borrowed items when making a new borrowing request.
+    * ```bail``` validation rule for fields with custom validations rules.
 * TODO items
     * Usage of before and after borrowing notes.
     * New borrowing validation test for arrays.

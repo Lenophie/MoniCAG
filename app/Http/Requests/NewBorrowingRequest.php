@@ -28,7 +28,7 @@ class NewBorrowingRequest extends FormRequest
     {
         return [
             'borrowedItems' => 'required|array',
-            'borrowedItems.*' => 'bail|integer|distinct|exists:inventory_items,id|inventory_item_available',
+            'borrowedItems.*' => 'bail|integer|distinct|exists:inventory_items,id|inventory_item_available', // TODO : Custom exist rule to display the item's name in the error message
             'borrowerEmail' => 'required|email|exists:users,email',
             'borrowerPassword' => 'required|password_for:borrowerEmail',
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:today',
