@@ -29,24 +29,13 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests lender allowed to return a borrowing.
+     * Tests lender allowed to end a borrowing.
      *
      * @return void
      */
-    public function testReturnBorrowingRequestAllowedForLender()
+    public function testEndBorrowingRequestAllowedForLender()
     {
-        $response = $this->json('PATCH', '/end-borrowing/returned', []);
-        $response->assertStatus(422);
-    }
-
-    /**
-     * Tests lender allowed to declare a borrowing as lost.
-     *
-     * @return void
-     */
-    public function testLostBorrowingRequestAllowedForLender()
-    {
-        $response = $this->json('PATCH', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing', []);
         $response->assertStatus(422);
     }
 

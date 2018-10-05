@@ -29,24 +29,13 @@ class RequestsAuthenticationForUserTest extends TestCase
     }
 
     /**
-     * Tests basic user prevented from returning a borrowing.
+     * Tests basic user prevented from ending a borrowing.
      *
      * @return void
      */
-    public function testNoReturnBorrowingRequestAllowedForUser()
+    public function testNoEndBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('PATCH', '/end-borrowing/returned', []);
-        $response->assertStatus(403);
-    }
-
-    /**
-     * Tests basic user prevented from declaring a borrowing as lost.
-     *
-     * @return void
-     */
-    public function testNoLostBorrowingRequestAllowedForUser()
-    {
-        $response = $this->json('PATCH', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing', []);
         $response->assertStatus(403);
     }
 

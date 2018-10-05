@@ -18,24 +18,13 @@ class RequestsAuthenticationForGuestTest extends TestCase
     }
 
     /**
-     * Tests guest prevented from returning a borrowing.
+     * Tests guest prevented from ending a borrowing.
      *
      * @return void
      */
-    public function testNoReturnBorrowingRequestAllowedForGuest()
+    public function testNoEndBorrowingRequestAllowedForGuest()
     {
-        $response = $this->json('PATCH', '/end-borrowing/returned', []);
-        $response->assertStatus(401);
-    }
-
-    /**
-     * Tests guest prevented from declaring a borrowing as lost.
-     *
-     * @return void
-     */
-    public function testNoLostBorrowingRequestAllowedForGuest()
-    {
-        $response = $this->json('PATCH', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing', []);
         $response->assertStatus(401);
     }
 
