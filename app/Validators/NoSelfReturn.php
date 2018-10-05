@@ -9,11 +9,7 @@ class NoSelfReturn
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        $borrowerId = Borrowing::find($value)->select('borrower_id')->first();
-        if ($borrowerId) {
-            $borrowerId = $borrowerId->borrower_id;
-            return $borrowerId !== Auth::user()->id;
-        }
-
+        $borrowerId = Borrowing::find($value)->borrower_id;
+        return $borrowerId !== Auth::user()->id;
     }
 }

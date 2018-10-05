@@ -13,12 +13,8 @@ class InventoryItemAvailable
         $validator->addReplacer('inventory_item_available', function ($message, $attribute, $rule, $parameters) use ($value) {
             return str_replace(':item', InventoryItem::find($value)->{'name_'.App::getLocale()}, $message);
         });
-        $inventoryItem = InventoryItem::find($value);
-        if ($inventoryItem) {
-            $status = $inventoryItem->status_id;
-            if ($status === InventoryItemStatus::IN_LCR_D4
-                || $status === InventoryItemStatus::IN_F2) return true;
-        }
-        return false;
+
+        $status = InventoryItem::find($value)->status_id;
+        return $status === InventoryItemStatus::IN_LCR_D4 || $status === InventoryItemStatus::IN_F2;
     }
 }

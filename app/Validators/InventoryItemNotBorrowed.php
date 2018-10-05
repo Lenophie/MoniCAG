@@ -9,11 +9,7 @@ class InventoryItemNotBorrowed
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        $inventoryItem = InventoryItem::find($value);
-        if ($inventoryItem) {
-            $status = $inventoryItem->status_id;
-            if ($status !== InventoryItemStatus::BORROWED) return true;
-        }
-        return false;
+        $status = InventoryItem::find($value)->status_id;
+        return $status !== InventoryItemStatus::BORROWED;
     }
 }

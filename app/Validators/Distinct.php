@@ -28,14 +28,14 @@ class Distinct
                 ->whereHas('borrowings', function($q) use($validator, $attribute) {
                     $q->where('id', array_get($validator->getData(), $attribute));})
                 ->first();
+            $inventoryItem = InventoryItem::with('borrowing')
+                ->whereHas('borrowing', function($q) use($validator, $attribute) {
+                    $q->where('id', array_get($validator->getData(), $attribute));})
+                ->first();
             return str_replace(
                 [':item', ':borrower'],
                 [
-                    InventoryItem::with('borrowing')
-                        ->whereHas('borrowing', function($q) use($validator, $attribute) {
-                            $q->where('id', array_get($validator->getData(), $attribute));})
-                        ->first()
-                        ->{'name_' . App::getLocale()},
+                    $inventoryItem->{'name_' . App::getLocale()},
                     $borrower->first_name . ' ' . $borrower->last_name
                 ],
                 $message

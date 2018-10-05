@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Simplified regex validation for guarantee.
 * End borrowing routes
     * HTTP verb ```POST``` to ```PATCH```.
+* Validation
+    * Simplified some custom validators thanks to ```bail``` rule addition for relevant fiels.
     
 ### Fixed
 
