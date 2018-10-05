@@ -28,6 +28,10 @@ class BorrowedItemsValidationTest extends TestCase
     {
         $response = $this->json('POST', '/new-borrowing', []);
         $response->assertJsonValidationErrors('borrowedItems');
+        $response = $this->json('POST', '/new-borrowing', [
+            'borrowedItems' => []
+        ]);
+        $response->assertJsonValidationErrors('borrowedItems');
     }
 
     /**
@@ -88,9 +92,9 @@ class BorrowedItemsValidationTest extends TestCase
      */
     public function testBorrowingOfDuplicateItemRejection()
     {
-        $singleItemToBorrow = factory(InventoryItem::class, 1)->create();
+        $singleItemToBorrow = factory(InventoryItem::class)->create();
         $response = $this->json('POST', '/new-borrowing', [
-            'borrowedItems' => [$singleItemToBorrow[0]->id, $singleItemToBorrow[0]->id]
+            'borrowedItems' => [$singleItemToBorrow->id, $singleItemToBorrow->id]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
     }
@@ -100,11 +104,11 @@ class BorrowedItemsValidationTest extends TestCase
      *
      * @return void
      */
-    public function testSingleBorrowedItemValidation()
+    public function testBorrowingOfSingleBorrowedItemValidation()
     {
-        $singleItemToBorrow = factory(InventoryItem::class, 1)->create();
+        $singleItemToBorrow = factory(InventoryItem::class)->create();
         $response = $this->json('POST', '/new-borrowing', [
-            'borrowedItems' => [$singleItemToBorrow[0]->id]
+            'borrowedItems' => [$singleItemToBorrow->id]
         ]);
         $response->assertJsonMissingValidationErrors('borrowedItems.0');
     }
@@ -114,7 +118,7 @@ class BorrowedItemsValidationTest extends TestCase
      *
      * @return void
      */
-    public function testMultipleBorrowedItemsValidation()
+    public function testBorrowingOfMultipleBorrowedItemsValidation()
     {
         $multipleItemsToBorrow = factory(InventoryItem::class, 5)->create();
         $multipleItemsToBorrowIDs = [];
@@ -130,14 +134,14 @@ class BorrowedItemsValidationTest extends TestCase
      *
      * @return void
      */
-    public function testBorrowAlreadyBorrowedItemsRejection()
+    public function testBorrowingOfAlreadyBorrowedItemsRejection()
     {
         $multipleItemsToBorrow = factory(InventoryItem::class, 5)->create();
-        $alreadyBorrowedItem = factory(InventoryItem::class, 1)->state('borrowed')->create();
+        $alreadyBorrowedItem = factory(InventoryItem::class)->state('borrowed')->create();
 
         $multipleItemsToBorrowIDs = [];
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
-        array_push($multipleItemsToBorrowIDs, $alreadyBorrowedItem[0]->id);
+        array_push($multipleItemsToBorrowIDs, $alreadyBorrowedItem->id);
 
         $response = $this->json('POST', '/new-borrowing', [
             'borrowedItems' => $multipleItemsToBorrowIDs
@@ -150,14 +154,14 @@ class BorrowedItemsValidationTest extends TestCase
      *
      * @return void
      */
-    public function testBorrowLostItemsRejection()
+    public function testBorrowingOfLostItemsRejection()
     {
         $multipleItemsToBorrow = factory(InventoryItem::class, 5)->create();
-        $lostItem = factory(InventoryItem::class, 1)->state('lost')->create();
+        $lostItem = factory(InventoryItem::class)->state('lost')->create();
 
         $multipleItemsToBorrowIDs = [];
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
-        array_push($multipleItemsToBorrowIDs, $lostItem[0]->id);
+        array_push($multipleItemsToBorrowIDs, $lostItem->id);
 
         $response = $this->json('POST', '/new-borrowing', [
             'borrowedItems' => $multipleItemsToBorrowIDs
@@ -170,14 +174,14 @@ class BorrowedItemsValidationTest extends TestCase
      *
      * @return void
      */
-    public function testBorrowItemsWithUnknownLocationRejection()
+    public function testBorrowingOfItemsWithUnknownLocationRejection()
     {
         $multipleItemsToBorrow = factory(InventoryItem::class, 5)->create();
-        $unknownLocationItem = factory(InventoryItem::class, 1)->state('unknown')->create();
+        $unknownLocationItem = factory(InventoryItem::class)->state('unknown')->create();
 
         $multipleItemsToBorrowIDs = [];
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
-        array_push($multipleItemsToBorrowIDs, $unknownLocationItem[0]->id);
+        array_push($multipleItemsToBorrowIDs, $unknownLocationItem->id);
 
         $response = $this->json('POST', '/new-borrowing', [
             'borrowedItems' => $multipleItemsToBorrowIDs
