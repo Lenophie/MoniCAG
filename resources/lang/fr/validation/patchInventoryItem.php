@@ -17,7 +17,7 @@ return [
     'genres.required' => 'Veuillez renseigner au moins un genre pour ce jeu.',
     'genres.*.integer' => 'Un genre doit être représenté par son identifiant.',
     'genres.*.distinct' => 'Le genre :genre a été ajouté plusieurs fois.',
-    'genres.*.exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.',
+    'genres.*.exists' => 'Un genre (:value) n\'existe plus.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
     'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',
     'nameFr.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié.',

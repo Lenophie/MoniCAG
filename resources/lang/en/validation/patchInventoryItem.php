@@ -17,7 +17,7 @@ return [
     'genres.required' => 'Please fill in at least one genre for this item.',
     'genres.*.integer' => 'A genre must be identified by its id.',
     'genres.*.distinct' => 'The genre :genre was added multiple times',
-    'genres.*.exists' => 'A selected genre doesn\'t exist in our database.',
+    'genres.*.exists' => 'A genre (:value) doesn\'t exist anymore.',
     'nameFr.required' => 'Please fill in the item\'s french name.',
     'nameEn.required' => 'Please fill in the item\'s english name.',
     'nameFr.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',

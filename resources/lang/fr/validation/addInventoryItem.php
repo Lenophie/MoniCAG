@@ -14,7 +14,7 @@ return [
     'genres.required' => 'Veuillez renseigner au moins un genre pour ce jeu.',
     'genres.*.integer' => 'Un genre doit être représenté par son identifiant.',
     'genres.*.distinct' => 'Le genre :genre a été renseigné plusieurs fois.',
-    'genres.*.exists' => 'Un genre sélectionné n\'existe pas dans notre base de données.',
+    'genres.*.exists' => 'Un genre sélectionné (:value) n\'existe plus.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
     'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.'
 ];
