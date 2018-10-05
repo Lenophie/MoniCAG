@@ -35,7 +35,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoReturnBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('POST', '/end-borrowing/returned', []);
+        $response = $this->json('PATCH', '/end-borrowing/returned', []);
         $response->assertStatus(403);
     }
 
@@ -46,7 +46,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoLostBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('POST', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing/lost', []);
         $response->assertStatus(403);
     }
 

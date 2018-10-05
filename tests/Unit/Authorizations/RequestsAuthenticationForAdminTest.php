@@ -35,7 +35,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testReturnBorrowingRequestAllowedForLender()
     {
-        $response = $this->json('POST', '/end-borrowing/returned', []);
+        $response = $this->json('PATCH', '/end-borrowing/returned', []);
         $response->assertStatus(422);
     }
 
@@ -46,7 +46,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testLostBorrowingRequestAllowedForLender()
     {
-        $response = $this->json('POST', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing/lost', []);
         $response->assertStatus(422);
     }
 

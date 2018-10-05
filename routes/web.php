@@ -7,8 +7,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/new-borrowing', 'NewBorrowingController@index');
 Route::post('/new-borrowing', 'NewBorrowingController@store');
 Route::get('/end-borrowing', 'EndBorrowingController@index');
-Route::post('/end-borrowing/returned', 'EndBorrowingController@updateReturned'); // TODO : Change POST to PATCH
-Route::post('/end-borrowing/lost', 'EndBorrowingController@updateLost'); // TODO : Change POST to PATCH
+Route::patch('/end-borrowing/returned', 'EndBorrowingController@updateReturned');
+Route::patch('/end-borrowing/lost', 'EndBorrowingController@updateLost');
 Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('borrowings-history');
 Route::get('/view-inventory', 'ViewInventoryController@index');
 Route::get('/edit-inventory', 'EditInventoryController@index');

@@ -24,7 +24,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoReturnBorrowingRequestAllowedForGuest()
     {
-        $response = $this->json('POST', '/end-borrowing/returned', []);
+        $response = $this->json('PATCH', '/end-borrowing/returned', []);
         $response->assertStatus(401);
     }
 
@@ -35,7 +35,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoLostBorrowingRequestAllowedForGuest()
     {
-        $response = $this->json('POST', '/end-borrowing/lost', []);
+        $response = $this->json('PATCH', '/end-borrowing/lost', []);
         $response->assertStatus(401);
     }
 
