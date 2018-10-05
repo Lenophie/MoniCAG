@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Models factories
     * Users.
     * Inventory items.
+    * Borrowing.
 * Register validation
     * Promotion must now be within an acceptable range.
 * Validation
