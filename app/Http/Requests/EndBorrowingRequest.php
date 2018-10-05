@@ -30,11 +30,10 @@ class EndBorrowingRequest extends FormRequest
     {
         return [
             'selectedBorrowings' => 'required|array',
-            'selectedBorrowings.*' => 'integer|distinct|no_self_return',
+            'selectedBorrowings.*' => 'bail|integer|distinct|exists:borrowings,id|not_already_returned|no_self_return', // TODO : Custom exist rule to display the borrower's name in the error message
             'newInventoryItemsStatus' => [
                 'required',
                 'integer',
-                'exists:inventory_item_statuses,id',
                 Rule::in([InventoryItemStatus::IN_LCR_D4, InventoryItemStatus::LOST])
             ]
         ];

@@ -5,6 +5,7 @@ return [
     'borrowedItems.array' => 'Les jeux à emprunter doivent être envoyés sous forme de liste.',
     'borrowedItems.*.integer' => 'Un jeu doit être représenté par son identifiant.',
     'borrowedItems.*.distinct' => 'Le jeu :item a été ajouté plusieurs fois à l\'emprunt.',
+    'borrowedItems.*.exists' => 'Le jeu n\'existe pas.',
     'borrowedItems.*.inventory_item_available' => 'Le jeu :item n\'est plus disponible.',
     'borrowerEmail.required' => 'Veuillez saisir l\'adresse mail de l\'utilisateur souhaitant emprunter.',
     'borrowerEmail.email' => 'Le format de cette adresse mail est incorrect.',

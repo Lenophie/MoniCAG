@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('inventory_item_available', 'App\Validators\InventoryItemAvailable@validate');
         Validator::extend('inventory_item_not_borrowed', 'App\Validators\InventoryItemNotBorrowed@validate');
         Validator::extend('no_self_return', 'App\Validators\NoSelfReturn@validate');
+        Validator::extend('not_already_returned', 'App\Validators\BorrowingNotAlreadyReturned@validate');
         Validator::extend('password_for', 'App\Validators\PasswordFor@validate');
         Validator::extend('unchanged_during_borrowing', 'App\Validators\UnchangedDuringBorrowing@validate');
         Validator::extend('not_changed_to_borrowed', 'App\Validators\NotChangedToBorrowed@validate');

@@ -5,6 +5,7 @@ return [
     'borrowedItems.array' => 'The selected games must be sent as an array.',
     'borrowedItems.*.integer' => 'A game must be identified by its id.',
     'borrowedItems.*.distinct' => 'The game :item was added to the borrowing multiple times.',
+    'borrowedItems.*.exists' => 'The game doesn\'t exist.',
     'borrowedItems.*.inventory_item_available' => 'The game :item is not available anymore.',
     'borrowerEmail.required' => 'Enter the borrower\'s registered email address.',
     'borrowerEmail.email' => 'The email address\' format is incorrect.',
