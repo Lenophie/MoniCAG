@@ -19,7 +19,7 @@ class GenresValidationForPatchingTest extends TestCase
     }
 
     /**
-     * Tests genres requirement validation.
+     * Tests genres requirement.
      *
      * @return void
      */

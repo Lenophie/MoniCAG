@@ -22,7 +22,7 @@ class BorrowingsValidationTest extends TestCase
     }
 
     /**
-     * Tests selected borrowings requirement validation.
+     * Tests selected borrowings requirement.
      *
      * @return void
      */

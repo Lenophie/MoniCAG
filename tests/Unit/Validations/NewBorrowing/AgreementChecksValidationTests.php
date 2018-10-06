@@ -18,7 +18,7 @@ class AgreementChecksValidationTests extends TestCase
     }
 
     /**
-     * Tests agreement check 1 requirement validation.
+     * Tests agreement check 1 requirement.
      *
      * @return void
      */

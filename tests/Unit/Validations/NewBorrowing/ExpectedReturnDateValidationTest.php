@@ -19,7 +19,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     }
 
     /**
-     * Tests expected return date requirement validation.
+     * Tests expected return date requirement.
      *
      * @return void
      */

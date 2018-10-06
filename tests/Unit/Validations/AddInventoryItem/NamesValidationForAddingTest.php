@@ -22,7 +22,7 @@ class NamesValidationForAddingTest extends TestCase
     }
 
     /**
-     * Tests names requirement validation.
+     * Tests names requirement.
      *
      * @return void
      */

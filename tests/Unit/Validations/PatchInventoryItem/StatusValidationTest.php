@@ -20,7 +20,7 @@ class StatusValidationTest extends TestCase
     }
 
     /**
-     * Tests status requirement validation.
+     * Tests status requirement.
      *
      * @return void
      */

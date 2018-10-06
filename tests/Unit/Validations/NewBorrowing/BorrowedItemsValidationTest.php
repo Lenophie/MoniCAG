@@ -20,7 +20,7 @@ class BorrowedItemsValidationTest extends TestCase
     }
 
     /**
-     * Tests borrowed items requirement validation.
+     * Tests borrowed items requirement.
      *
      * @return void
      */

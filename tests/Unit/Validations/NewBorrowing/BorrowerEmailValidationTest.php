@@ -21,7 +21,7 @@ class BorrowerEmailValidationTest extends TestCase
     }
 
     /**
-     * Tests borrower email requirement validation.
+     * Tests borrower email requirement.
      *
      * @return void
      */

@@ -19,7 +19,7 @@ class NewInventoryItemsStatusValidationTest extends TestCase
     }
 
     /**
-     * Tests new inventory item status requirement validation.
+     * Tests new inventory item status requirement.
      *
      * @return void
      */

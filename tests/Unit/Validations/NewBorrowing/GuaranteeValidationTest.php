@@ -18,7 +18,7 @@ class GuaranteeValidationTest extends TestCase
     }
 
     /**
-     * Tests guarantee requirement validation.
+     * Tests guarantee requirement.
      *
      * @return void
      */
