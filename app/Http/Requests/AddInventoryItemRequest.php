@@ -33,8 +33,8 @@ class AddInventoryItemRequest extends FormRequest
             'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
-            'nameFr' => 'required|string',
-            'nameEn' => 'required|string'
+            'nameFr' => 'required|string|unique:inventory_items,name_fr',
+            'nameEn' => 'required|string|unique:inventory_items,name_en'
         ];
     }
 
