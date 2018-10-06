@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * End borrowing validation tests.
     * Add inventory item validation tests.
     * Delete inventory item validation tests.
+    * Patch inventory item validation tests.
 * Models factories
     * Users.
     * Inventory items.
