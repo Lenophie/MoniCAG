@@ -22,6 +22,20 @@ class BorrowerPasswordValidationTest extends TestCase
     }
 
     /**
+     * Tests borrower password requirement.
+     *
+     * @return void
+     */
+    public function testBorrowerPasswordRequirement()
+    {
+        $user = factory(User::class)->create();
+        $response = $this->json('POST', '/new-borrowing', [
+            'borrowerEmail' => $user->email
+        ]);
+        $response->assertJsonValidationErrors('borrowerPassword');
+    }
+
+    /**
      * Tests registered borrower correct password validation.
      *
      * @return void
@@ -66,84 +80,5 @@ class BorrowerPasswordValidationTest extends TestCase
             'borrowerPassword' => $otherUserPassword
         ]);
         $response->assertJsonValidationErrors('borrowerPassword');
-    }
-
-    /**
-     * Tests borrower password requirement validation.
-     *
-     * @return void
-     */
-    public function testBorrowerPasswordRequirement()
-    {
-        $user = factory(User::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
-            'borrowerEmail' => $user->email
-        ]);
-        $response->assertJsonValidationErrors('borrowerPassword');
-    }
-
-    /**
-     * Tests expected return date requirement validation.
-     *
-     * @return void
-     */
-    public function testExpectedReturnDateRequirement()
-    {
-        $response = $this->json('POST', '/new-borrowing', []);
-        $response->assertJsonValidationErrors('expectedReturnDate');
-    }
-
-    /**
-     * Tests expected return date incorrect format rejection.
-     *
-     * @return void
-     */
-    public function testExpectedReturnDateFormatRejection()
-    {
-        $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => Carbon::now()->format('Y-m-d')
-        ]);
-        $response->assertJsonValidationErrors('expectedReturnDate');
-    }
-
-    /**
-     * Tests expected return date can be current date validation.
-     *
-     * @return void
-     */
-    public function testExpectedReturnDateCanBeTodayValidation()
-    {
-        $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => Carbon::now()->format('d/m/Y')
-        ]);
-        $response->assertJsonMissingValidationErrors('expectedReturnDate');
-    }
-
-    /**
-     * Tests expected return date can be later date validation.
-     *
-     * @return void
-     */
-    public function testExpectedReturnDateCanBeLaterValidation()
-    {
-        $laterDate = Carbon::now()->addDay();
-        $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => $laterDate->format('d/m/Y')
-        ]);
-        $response->assertJsonMissingValidationErrors('expectedReturnDate');
-    }
-
-    /**
-     * Tests expected return date can't be earlier date validation.
-     *
-     * @return void
-     */
-    public function testExpectedReturnDateCantBeEarlierValidation()
-    {
-        $earlierDate = Carbon::now()->subDay();
-        $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => $earlierDate->format('d/m/Y')
-        ]);
-        $response->assertJsonValidationErrors('expectedReturnDate');
     }
 }
