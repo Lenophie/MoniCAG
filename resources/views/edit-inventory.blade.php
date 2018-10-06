@@ -276,7 +276,7 @@
                                             <input id="playersMin-{{$inventoryItem->id}}" name="playersMin" pattern="[0-9]*[1-9][0-9]*" class="form-control number-input" autocomplete="off" value="{{$inventoryItem->players->min}}" form="edit-item-{{$inventoryItem->id}}-form">
                                         </div>
                                     </div>
-                                    <div id="playersMax-field-{{$inventoryItem}}">
+                                    <div id="playersMax-field-{{$inventoryItem->id}}">
                                         <div class="input-group mb-0">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="playersMax-{{$inventoryItem->id}}">

@@ -70,6 +70,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Edit inventory view
     * Typo in deletion warning message.
     * Line breaks in deletion warning message.
+    * Error not displayed for "Players max" field when patching.
 * Changelog
     * Dates from the future. (*Thanks Spooktober*)
 
