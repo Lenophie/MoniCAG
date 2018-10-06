@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Users.
     * Inventory items.
     * Borrowing.
+    * Genre.
 * Validation
     * General
         * Custom messages for integers in arrays validation.
