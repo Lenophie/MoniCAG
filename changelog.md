@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Check uniqueness of names in database.
     * Patch inventory item
         * Check type of names.
+        * Check uniqueness of names in database.
 * TODO items
     * Usage of before and after borrowing notes.
     

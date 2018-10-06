@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\InventoryItem;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,16 @@ class PatchInventoryItemRequest extends FormRequest
         })
         ->sometimes('playersMax', 'gte:playersMin', function ($input) {
             return gettype($input->playersMin) !== 'NULL';
+        })
+        ->sometimes('nameFr', 'unique:inventory_items,name_fr', function ($input) {
+            $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
+            if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_fr !== $input->nameFr;
+            return false;
+        })
+        ->sometimes('nameEn', 'unique:inventory_items,name_en', function ($input) {
+            $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
+            if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_en !== $input->nameEn;
+            return false;
         });
     }
 
