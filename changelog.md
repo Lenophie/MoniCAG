@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * Readme
-    * General presentation
+    * General presentation.
+    * French version.
 * Validation
     * New borrowing
         * Rules for notes field.
