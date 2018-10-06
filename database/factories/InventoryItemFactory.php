@@ -1,5 +1,6 @@
 <?php
 
+use App\Genre;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use Faker\Generator as Faker;
@@ -19,7 +20,10 @@ $factory->define(InventoryItem::class, function (Faker $faker) {
         'status_id' => InventoryItemStatus::IN_LCR_D4
     ];
 });
-// TODO : Add some genres
+
+$factory->afterCreating(InventoryItem::class, function ($inventoryItem) {
+    $inventoryItem->genres()->saveMany(factory(Genre::class, 3)->make());
+});
 
 $factory->state(InventoryItem::class, 'in_F2', ['status_id' => InventoryItemStatus::IN_F2]);
 $factory->state(InventoryItem::class, 'borrowed', ['status_id' => InventoryItemStatus::BORROWED]);
