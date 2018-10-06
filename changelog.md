@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * New custom rule to check if a borrowing to end isn't already declared as finished.
     * Add inventory item
         * Check uniqueness of names in database.
+    * Patch inventory item
+        * Check type of names.
 * TODO items
     * Usage of before and after borrowing notes.
     

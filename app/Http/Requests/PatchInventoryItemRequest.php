@@ -34,8 +34,8 @@ class PatchInventoryItemRequest extends FormRequest
             'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
-            'nameFr' => 'required|unchanged_during_borrowing:inventoryItemId',
-            'nameEn' => 'required|unchanged_during_borrowing:inventoryItemId',
+            'nameFr' => 'required|string|unchanged_during_borrowing:inventoryItemId',
+            'nameEn' => 'required|string|unchanged_during_borrowing:inventoryItemId',
             'statusId' => 'required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItemId|not_changed_to_borrowed:inventoryItemId'
         ];
     }
