@@ -34,7 +34,8 @@ class NewBorrowingRequest extends FormRequest
             'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:today',
             'guarantee' => 'required|numeric|regex:/^[0-9]+(.[0-9][0-9]?)?$/',
             'agreementCheck1' => 'required|accepted',
-            'agreementCheck2' => 'required|accepted'
+            'agreementCheck2' => 'required|accepted',
+            'notes' => 'nullable|string'
         ];
     }
 
