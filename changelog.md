@@ -52,6 +52,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Simplified regex validation for guarantee.
     * Add inventory item
         * Improved validation rules.
+    * Patch inventory item
+        * Improved validation rules.
     
 ### Fixed
 

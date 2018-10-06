@@ -29,15 +29,31 @@ class PatchInventoryItemRequest extends FormRequest
         return [
             'inventoryItemId' => 'required|integer|exists:inventory_items,id',
             'durationMin' => 'nullable|integer|min:0',
-            'durationMax' => 'nullable|integer|min:0|gte:durationMin',
+            'durationMax' => 'nullable|integer|min:0',
             'playersMin' => 'nullable|integer|min:1',
-            'playersMax' => 'nullable|integer|min:1|gte:playersMin',
+            'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
             'nameFr' => 'required|unchanged_during_borrowing:inventoryItemId',
             'nameEn' => 'required|unchanged_during_borrowing:inventoryItemId',
             'statusId' => 'required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItemId|not_changed_to_borrowed:inventoryItemId'
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->sometimes('durationMax', 'gte:durationMin', function ($input) {
+            return gettype($input->durationMin) !== 'NULL';
+        })
+        ->sometimes('playersMax', 'gte:playersMin', function ($input) {
+            return gettype($input->playersMin) !== 'NULL';
+        });
     }
 
     /**
