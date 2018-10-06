@@ -23,7 +23,7 @@ This application aims at :
 
 # License
 
-Code released under the MIT License.
+Code released under the [MIT License](./LICENSE).
 
 # Author
 

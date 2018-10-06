@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Readme
     * General presentation.
     * French version.
+    * Link to license file.
 * Validation
     * New borrowing
         * Rules for notes field.
