@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class DurationsValidationTest extends TestCase
+class DurationsValidationForAddingTest extends TestCase
 {
     use DatabaseTransactions;
 

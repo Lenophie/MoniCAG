@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class GenresValidationTest extends TestCase
+class GenresValidationForAddingTest extends TestCase
 {
     use DatabaseTransactions;
 

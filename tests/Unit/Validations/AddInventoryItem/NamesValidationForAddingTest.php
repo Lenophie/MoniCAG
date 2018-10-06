@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class NamesValidationTest extends TestCase
+class NamesValidationForAddingTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class InventoryItemIdValidationTest extends TestCase
+class InventoryItemIdValidationForDeletionTest extends TestCase
 {
     use DatabaseTransactions;
 

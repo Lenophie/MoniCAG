@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class PlayersValidationTest extends TestCase
+class PlayersValidationForAddingTest extends TestCase
 {
     use DatabaseTransactions;
 
