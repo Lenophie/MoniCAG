@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Delete inventory item validation tests.
     * Patch inventory item validation tests.
     * Edit user validation tests.
+    * Delete user validation tests.
 * Models factories
     * Users.
     * Inventory items.
