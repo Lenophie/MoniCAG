@@ -12,14 +12,12 @@ use Tests\TestCase;
 class StatusValidationTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithFaker;
 
     protected function setUp()
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
         $this->actingAs($admin);
-        $this->faker->seed(0);
     }
 
     /**
