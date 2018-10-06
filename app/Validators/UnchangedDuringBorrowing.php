@@ -13,8 +13,8 @@ class UnchangedDuringBorrowing
         if ($inventoryItem) {
             $status = $inventoryItem->status_id;
             if ($status !== InventoryItemStatus::BORROWED) return true;
-            $oldAttribute = (string) $inventoryItem->{snake_case($attribute)};
-            if ($oldAttribute === $value) return true;
+            $oldValue = $inventoryItem->{snake_case($attribute)};
+            if ((string) $oldValue === (string) $value) return true;
         }
         return false;
     }
