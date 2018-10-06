@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Validation
     * New borrowing
         * Rules for notes field.
+* Testing
+    * Unit tests for notes field rules of new borrowing request
 
 ## [0.12.0] - 2018-10-06
 
