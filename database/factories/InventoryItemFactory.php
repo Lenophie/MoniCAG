@@ -10,8 +10,8 @@ $factory->define(InventoryItem::class, function (Faker $faker) {
     $playersMin = rand(1, 8);
     $playersMax = rand($playersMin, 60);
     return [
-        'name_fr' => $faker->word,
-        'name_en' => $faker->word,
+        'name_fr' => $faker->unique()->word,
+        'name_en' => $faker->unique()->word,
         'duration_min' => $durationMin,
         'duration_max' => $durationMax,
         'players_min' => $playersMin,
