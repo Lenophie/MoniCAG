@@ -56,13 +56,17 @@ class PatchInventoryItemRequest extends FormRequest
             return gettype($input->playersMin) !== 'NULL';
         })
         ->sometimes('nameFr', 'unique:inventory_items,name_fr', function ($input) {
-            $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
-            if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_fr !== $input->nameFr;
+            if (gettype($input->inventoryItemId) === 'integer') {
+                $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
+                if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_fr !== $input->nameFr;
+            }
             return false;
         })
         ->sometimes('nameEn', 'unique:inventory_items,name_en', function ($input) {
-            $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
-            if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_en !== $input->nameEn;
+            if (gettype($input->inventoryItemId) === 'integer') {
+                $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
+                if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_en !== $input->nameEn;
+            }
             return false;
         });
     }
