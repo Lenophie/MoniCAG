@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Borrowing;
 use App\InventoryItemStatus;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

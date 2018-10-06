@@ -6,7 +6,6 @@ use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StatusValidationTest extends TestCase
