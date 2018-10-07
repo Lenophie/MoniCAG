@@ -1,5 +1,6 @@
 <?php
 
+use App\Borrowing;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -27,7 +28,7 @@ class DeleteUserRequestTest extends TestCase
         // Fields values setup
         $users = factory(User::class, 3)->create();
 
-        // Patch user
+        // Delete user
         $response = $this->json('DELETE', '/edit-users', [
             'userId' => $users[1]->id
         ]);
@@ -46,6 +47,45 @@ class DeleteUserRequestTest extends TestCase
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $users[2]->id
+        ]);
+    }
+
+    /**
+     * Tests delete user request borrowing cascading.
+     *
+     * @return void
+     */
+    public function testDeleteUserRequestBorrowingCascading()
+    {
+        // Fields values setup
+        $user = factory(User::class)->create();
+        $borrowingOfUser = factory(Borrowing::class)->state('finished')->create([
+            'borrower_id' => $user->id
+        ]);
+        $borrowingAllowedByUser = factory(Borrowing::class)->state('finished')->create([
+            'initial_lender_id' => $user->id
+        ]);
+        $borrowingReturnedByUser = factory(Borrowing::class)->state('finished')->create([
+            'return_lender_id' => $user->id
+        ]);
+
+        // Delete user
+        $this->json('DELETE', '/edit-users', [
+            'userId' => $user->id
+        ]);
+
+        // Check cascading
+        $this->assertDatabaseHas('borrowings', [
+            'id' => $borrowingOfUser->id,
+            'borrower_id' => null
+        ]);
+        $this->assertDatabaseHas('borrowings', [
+            'id' => $borrowingAllowedByUser->id,
+            'initial_lender_id' => null
+        ]);
+        $this->assertDatabaseHas('borrowings', [
+            'id' => $borrowingReturnedByUser->id,
+            'return_lender_id' => null
         ]);
     }
 }
