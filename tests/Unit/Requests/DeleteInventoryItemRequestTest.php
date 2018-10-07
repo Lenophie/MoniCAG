@@ -1,5 +1,6 @@
 <?php
 
+use App\Borrowing;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -56,6 +57,30 @@ class DeleteInventoryItemRequestTest extends TestCase
         ]);
         $this->assertDatabaseHas('inventory_items', [
             'id' => $inventoryItems[2]->id
+        ]);
+    }
+
+    /**
+     * Tests delete inventory item request borrowing cascading.
+     *
+     * @return void
+     */
+    public function testDeleteInventoryItemRequestBorrowingCascading()
+    {
+        // Fields values setup
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $borrowingOfItem = factory(Borrowing::class)->create([
+            'inventory_item_id' => $inventoryItem->id
+        ]);
+
+        // Delete inventory item
+        $this->json('DELETE', '/edit-inventory', [
+            'inventoryItemId' => $inventoryItem->id
+        ]);
+
+        // Check cascading
+        $this->assertDatabaseMissing('borrowings', [
+            'id' => $borrowingOfItem
         ]);
     }
 }
