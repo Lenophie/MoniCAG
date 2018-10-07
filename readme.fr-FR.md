@@ -15,11 +15,11 @@ Cette application cherche à :
 
 *Juste MoniCAG.*
 
-**Version :** *MoniCAG v0.13.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.14.0* - [Changelog](./changelog.md)
 
 **Travail en cours :**
 
-* Tests unitaires des requêtes
+* Tests d'intégration
 
 # Licence
 

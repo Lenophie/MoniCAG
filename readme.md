@@ -15,11 +15,11 @@ This application aims at :
 
 *Just MoniCAG.*
 
-**Version :** *MoniCAG v0.13.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.14.0* - [Changelog](./changelog.md)
 
 **Work in progress :**
 
-* Requests unit tests.
+* Integration tests.
 
 # License
 
