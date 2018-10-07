@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * New borrowing request.
     * End borrowing request.
 
+### Removed
+
+* Testing
+    * Useless (and incorrect) namespace for unit tests.
+
 ## [0.12.0] - 2018-10-06
 
 ### Added

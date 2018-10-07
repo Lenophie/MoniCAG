@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;

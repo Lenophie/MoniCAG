@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;

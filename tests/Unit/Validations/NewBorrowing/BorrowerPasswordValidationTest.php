@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

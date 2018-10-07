@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Borrowing;
 use App\InventoryItemStatus;
 use App\User;
