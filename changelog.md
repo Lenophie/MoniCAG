@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Add inventory item request.
     * Patch inventory item request.
     * Delete inventory item request.
+    * Patch user request.
     
 ### Changed
 
