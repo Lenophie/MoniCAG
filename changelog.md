@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Unit tests for notes field rules of new borrowing request.
     * New borrowing request.
     * End borrowing request.
+    * Add inventory item request.
 
 ### Removed
 
