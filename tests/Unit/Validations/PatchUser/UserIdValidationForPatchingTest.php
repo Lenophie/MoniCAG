@@ -4,7 +4,7 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class UserIdValidationForEditingTest extends TestCase
+class UserIdValidationForPatchingTest extends TestCase
 {
     use DatabaseTransactions;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\EditUserRequest;
+use App\Http\Requests\PatchUserRequest;
 use App\User;
 use App\UserRole;
 
@@ -21,7 +21,7 @@ class EditUsersController extends Controller
         return view('edit-users', compact('users', 'userRoles'));
     }
 
-    public function patch(EditUserRequest $request)
+    public function patch(PatchUserRequest $request)
     {
         User::find(request('userId'))
             ->update([
