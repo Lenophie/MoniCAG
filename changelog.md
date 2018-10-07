@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * End borrowing request.
     * Add inventory item request.
     * Patch inventory item request.
+    * Delete inventory item request.
 
 ### Removed
 
