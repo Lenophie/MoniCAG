@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Ids to buttons
 * Testing
     * Dusk setup.
+    * Integration tests for pages visits.
 
 ## [0.13.0] - 2018-10-07
 
