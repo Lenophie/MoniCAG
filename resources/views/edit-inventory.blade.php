@@ -356,7 +356,7 @@
     <script type="text/javascript">
         const inventoryItems = {!! json_encode($inventoryItems)!!};
         const requestsURL = {!! json_encode(url('/edit-inventory')) !!};
-        const viewInventoryURL = {!! json_encode(url('/view-inventory')) !!};
+        const successRedirectionURL = {!! json_encode(url('/edit-inventory')) !!};
     </script>
     <script type="text/javascript" src="{{URL::asset('js/editInventory.js')}}"></script>
 @endpush

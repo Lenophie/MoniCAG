@@ -68,7 +68,7 @@ const handleAddItemFormSubmit = (e) => {
         type: 'POST',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryURL;
+            window.location.href = successRedirectionURL;
         },
         error: (response) => {
             enableInputs(true);
@@ -92,7 +92,7 @@ const handlePatchItemFormSubmit = (e, id) => {
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryURL;
+            window.location.href = successRedirectionURL;
         },
         error: (response) => {
             enableInputs(true);
@@ -134,7 +134,7 @@ const handleDeleteItemFormSubmit = (e, id) => {
         type: 'DELETE',
         data: formattedForm,
         success: () => {
-            window.location.href = viewInventoryURL;
+            window.location.href = successRedirectionURL;
         },
         error: (response) => {
             enableInputs(true);
