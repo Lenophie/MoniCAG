@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Dusk setup.
     * Unit tests for pages visits.
     * Unit tests for pages accesses from home page.
+    * Perform new borrowing feature test.
 
 ## [0.13.0] - 2018-10-07
 
