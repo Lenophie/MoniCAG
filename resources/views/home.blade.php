@@ -45,6 +45,9 @@
                         @slot('width')
                             col-md-4
                         @endslot
+                        @slot('id')
+                            new-borrowing-button
+                        @endslot
                         @slot('style')
                             btn-outline-new-borrowing
                         @endslot
@@ -65,6 +68,9 @@
                         @slot('width')
                             col-md-4
                         @endslot
+                        @slot('id')
+                            end-borrowing-button
+                        @endslot
                         @slot('style')
                             btn-outline-end-borrowing
                         @endslot
@@ -84,6 +90,9 @@
                     @menubutton
                         @slot('width')
                             col-md-4
+                        @endslot
+                        @slot('id')
+                            borrowings-history-button
                         @endslot
                         @slot('style')
                             btn-outline-borrowings-history
@@ -115,6 +124,9 @@
                         @slot('width')
                             col-md-6
                         @endslot
+                        @slot('id')
+                            view-inventory-button
+                        @endslot
                         @slot('style')
                             btn-outline-view-inventory
                         @endslot
@@ -134,6 +146,9 @@
                     @menubutton
                         @slot('width')
                             col-md-6
+                        @endslot
+                        @slot('id')
+                            edit-inventory-button
                         @endslot
                         @slot('style')
                             btn-outline-edit-inventory
@@ -164,6 +179,9 @@
                     @menubutton
                         @slot('width')
                             col-md-12
+                        @endslot
+                        @slot('id')
+                            edit-users-button
                         @endslot
                         @slot('style')
                             btn-outline-edit-users
