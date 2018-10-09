@@ -74,6 +74,7 @@ const handleBorrowingsListElementClick = (borrowing) => {
         removeBorrowingFromSelectedBorrowingsList(borrowing);
     }
     borrowing.selected = !borrowing.selected;
+    enableEndButtons(selectedBorrowings.length > 0);
 };
 
 const addBorrowingToSelectedBorrowingsList = (borrowing) => {
@@ -87,6 +88,12 @@ const removeBorrowingFromSelectedBorrowingsList = (borrowing) => {
             break;
         }
     }
+};
+
+const enableEndButtons = (bool) => {
+    if (bool) $('.end-button').removeAttr('disabled');
+    else $('.end-button').attr('disabled', 'disabled');
+
 };
 
 const handleReturnButtonClick = (buttonEnum) => {

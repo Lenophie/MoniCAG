@@ -49,10 +49,10 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-good" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal">{{__('messages.end_borrowing.declaration.returned')}}</button>
+                <button class="btn btn-return-borrowing btn-outline-good end-button" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal" disabled>{{__('messages.end_borrowing.declaration.returned')}}</button>
             </div>
             <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-bad" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal">{{__('messages.end_borrowing.declaration.lost')}}</button>
+                <button class="btn btn-return-borrowing btn-outline-bad end-button" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal" disabled>{{__('messages.end_borrowing.declaration.lost')}}</button>
             </div>
         </div>
         <div class="row">
