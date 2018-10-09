@@ -25,7 +25,7 @@ Cette application cherche à :
 
 # Utilisation
 
-* Intaller ```Composer``` et ```npm```
+* Installer ```Composer``` et ```npm```
 * Exécuter ```composer install``` pour installer les dépendances ```PHP```
 * Exécuter ```npm install``` pour installer les dépendances ```js```
 * Mettre en place une base de données ```MariaDB``` s'appelant ```monicag``` hébergée localement

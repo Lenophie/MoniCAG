@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Unit tests for pages accesses from home page.
     * Perform new borrowing feature test.
 * Readme
-    * Basic use guide
+    * Basic use guide.
 
 ## [0.13.0] - 2018-10-07
 
