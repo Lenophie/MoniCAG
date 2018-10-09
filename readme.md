@@ -19,7 +19,29 @@ This application aims at :
 
 **Work in progress :**
 
-* Integration tests.
+* Browser unit and integration tests.
+
+---
+
+# How to use
+
+* Install ```Composer``` and ```npm```
+* Run ```composer install``` to install ```PHP``` dependencies
+* Run ```npm install``` to install ```js``` dependencies
+* Setup a local-hosted ```MariaDB``` database named ```monicag```
+* Run ```php artisan migrate --seed``` to migrate the database
+* Run ```php artisan serve``` to serve the application
+* Run ```npm run watch``` to bundle the ```js``` resources
+* Go to ```localhost:8000``` with a web navigator
+
+# How to test
+* Setup a local-hosted ```MariaDB``` database named ```monicag_testing```
+* Run ```php artisan migrate --seed --env=testing``` to migrate the testing database
+    * The testing database is currently only used for unit tests
+* Run ```vendor\bin\phpunit tests\Unit``` to perform unit tests
+* Run ```php artisan dusk tests\Browser``` to perform browser tests
+
+---
 
 # License
 

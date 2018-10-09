@@ -19,7 +19,29 @@ Cette application cherche à :
 
 **Travail en cours :**
 
-* Tests d'intégration
+* Tests unitaires et d'intégration sur navigateur
+
+---
+
+# Utilisation
+
+* Intaller ```Composer``` et ```npm```
+* Exécuter ```composer install``` pour installer les dépendances ```PHP```
+* Exécuter ```npm install``` pour installer les dépendances ```js```
+* Mettre en place une base de données ```MariaDB``` s'appelant ```monicag``` hébergée localement
+* Exécuter ```php artisan migrate --seed``` pour migrer la base de données
+* Exécuter ```php artisan serve``` pour servir l'application
+* Exécuter ```npm run watch``` pour bundle les ressources ```js```
+* Se rendre à ```localhost:8000``` avec un navigateur web
+
+# Réalisation des tests
+* Mettre en place une base de données ```MariaDB``` s'appelant ```monicag_testing``` hébergée localement
+* Exécuter ```php artisan migrate --seed --env=testing``` pour migrer la base de données de test
+    * Actuellement, la base de données de test n'est exploitée que par les tests unitaires
+* Exécuter ```vendor\bin\phpunit tests\Unit``` pour réaliser les tests unitaires
+* Exécuter ```php artisan dusk tests\Browser``` pour réaliser les tests de navigation
+
+---
 
 # Licence
 
