@@ -17,6 +17,7 @@ return [
     'guarantee.required' => 'Renseignez la caution.',
     'guarantee.numeric' => 'La caution doit être un nombre positif.',
     'guarantee.regex' => 'La caution doit être un nombre positif à deux décimales maximum.',
+    'guarantee.max' => 'La caution doit être inférieure ou égale à 1000€.',
     'agreementCheck1.required' => 'Cet engagement est obligatoire.',
     'agreementCheck1.accepted' => 'Cet engagement est obligatoire.',
     'agreementCheck2.required' => 'Cet engagement est obligatoire.',

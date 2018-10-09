@@ -65,6 +65,19 @@ class GuaranteeValidationTest extends TestCase
     }
 
     /**
+     * Tests guarantee over maximal value rejection.
+     *
+     * @return void
+     */
+    public function testGuaranteeOverMaximalValueRejection()
+    {
+        $response = $this->json('POST', '/new-borrowing', [
+            'guarantee' => 1001
+        ]);
+        $response->assertJsonValidationErrors('guarantee');
+    }
+
+    /**
      * Tests guarantee decimal validation.
      *
      * @return void

@@ -17,6 +17,7 @@ return [
     'guarantee.required' => 'Fill in the guarantee.',
     'guarantee.numeric' => 'The guarantee must be a positive number.',
     'guarantee.regex' => 'The guarantee must be a positive number with at most 2 decimals.',
+    'guarantee.max' => 'The guarantee must be inferior or equal to 1000€.',
     'agreementCheck1.required' => 'You must agree to these terms to proceed.',
     'agreementCheck1.accepted' => 'You must agree to these terms to proceed.',
     'agreementCheck2.required' => 'You must agree to these terms to proceed.',
