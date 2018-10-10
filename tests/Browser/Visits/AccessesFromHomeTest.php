@@ -81,4 +81,14 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->assertPathIs('/edit-users');
         });
     }
+
+    public function testAccessToGithubPage()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage())
+                ->navigateTo(PagesFromHomeEnum::GITHUB)
+                ->assertHostIs('github.com')
+                ->assertPathIs('/Lenophie/MoniCAG/');
+        });
+    }
 }
