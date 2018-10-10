@@ -40,4 +40,9 @@ class NewBorrowingPage extends Page
             '@newBorrowingSubmitButton' => '#new-borrowing-submit'
         ];
     }
+
+    public function clickOnInventoryItemButton(Browser $browser, $id)
+    {
+        $browser->click('#inventory-item-button-' . $id);
+    }
 }

@@ -51,7 +51,7 @@ class PerformANewBorrowingTest extends DuskTestCase
 
             // Select inventory items to borrow by clicking on them
             foreach ($fieldsValues->inventoryItemsToBorrow as $inventoryItemToBorrow) {
-                $browser->click('#inventory-item-button-' . $inventoryItemToBorrow->id);
+                $browser->clickOnInventoryItemButton($inventoryItemToBorrow->id);
             }
 
             // Fill in the new borrowing modal
