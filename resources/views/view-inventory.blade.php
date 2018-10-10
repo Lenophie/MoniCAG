@@ -110,5 +110,5 @@
     <script type="text/javascript">
         const inventoryItems = {!! json_encode($inventoryItems)!!};
     </script>
-    <script type="text/javascript" src="{{URL::asset('js/viewInventory.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/viewInventory.js')}}"></script>
 @endpush

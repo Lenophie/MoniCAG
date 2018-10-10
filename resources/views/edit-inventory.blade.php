@@ -358,5 +358,5 @@
         const requestsURL = {!! json_encode(url('/edit-inventory')) !!};
         const successRedirectionURL = {!! json_encode(url('/edit-inventory')) !!};
     </script>
-    <script type="text/javascript" src="{{URL::asset('js/editInventory.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/editInventory.js')}}"></script>
 @endpush

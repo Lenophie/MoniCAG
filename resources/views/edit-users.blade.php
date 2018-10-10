@@ -113,5 +113,5 @@
         const users = {!! json_encode($users)!!};
         const requestsURL = {!! json_encode(url('/edit-users')) !!};
     </script>
-    <script type="text/javascript" src="{{URL::asset('js/editUsers.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
 @endpush
