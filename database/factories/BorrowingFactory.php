@@ -21,7 +21,7 @@ $factory->define(Borrowing::class, function (Faker $faker) {
         'guarantee' => $faker->numberBetween(0, 100),
         'finished' => false,
         'start_date' => $startDate,
-        'expected_return_date' => $startDate->addDays(rand(1, 3)),
+        'expected_return_date' => $startDate->copy()->addDays(rand(1, 3)),
         'return_date' => null,
         'notes_before' => $faker->text,
         'notes_after' => null
@@ -35,7 +35,7 @@ $factory->state(Borrowing::class, 'finished', function(Faker $faker) {
             return factory(User::class)->state('lender')->create()->id;
         },
         'return_date' => function (array $borrowing) {
-            return $borrowing['start_date']->addDays(rand(1, 5));
+            return $borrowing['start_date']->copy()->addDays(rand(1, 5));
         },
         'notes_after' => $faker->text
     ];

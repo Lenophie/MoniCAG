@@ -25,6 +25,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Changed redirection when completing action
 * Readme
     * Basic use guide.
+    
+### Fixed
+
+* Borrowing factory
+    * The start date was mutated to generate the other dates.
 
 ## [0.13.0] - 2018-10-07
 
