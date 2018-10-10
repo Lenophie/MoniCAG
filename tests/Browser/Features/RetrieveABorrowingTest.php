@@ -6,7 +6,6 @@ use App\Borrowing;
 use App\InventoryItemStatus;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EndBorrowingPage;
 use Tests\Browser\Pages\HomePage;
@@ -14,8 +13,6 @@ use Tests\DuskTestCase;
 
 class RetrieveABorrowingTest extends DuskTestCase
 {
-    use WithFaker;
-
     protected function setUp() {
         Parent::setUp();
         exec('php artisan migrate:fresh --seed --env=testing');
