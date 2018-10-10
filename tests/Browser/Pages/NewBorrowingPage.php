@@ -37,7 +37,8 @@ class NewBorrowingPage extends Page
         return [
             '@checkoutLink' => '#checkout-link',
             '@newBorrowingModal' => '#new-borrowing-modal',
-            '@newBorrowingSubmitButton' => '#new-borrowing-submit'
+            '@newBorrowingSubmitButton' => '#new-borrowing-submit',
+            '@checkoutCounter' => '#checkout-counter'
         ];
     }
 
