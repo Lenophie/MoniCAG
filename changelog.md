@@ -26,6 +26,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Readme
     * Basic use guide.
     
+### Changed
+
+* New borrowing view
+    * Inventory item buttons behaviour.
+    
 ### Fixed
 
 * Borrowing factory

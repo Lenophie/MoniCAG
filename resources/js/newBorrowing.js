@@ -33,15 +33,16 @@ const addInventoryItemButtonsListeners = () => {
     for (const inventoryItemButton of inventoryItemButtons) {
         const id = inventoryItemButton.id.slice('inventory-item-button-'.length);
         const inventoryItem = getInventoryItemById(parseInt(id));
-        $(inventoryItemButton).click(() => handleAddInventoryItemButtonClick(inventoryItem));
+        $(inventoryItemButton).click(() => handleInventoryItemButtonClick(inventoryItem));
     }
 };
 
 // Listeners handlers
-const handleAddInventoryItemButtonClick = (inventoryItem) => {
-    inventoryItem.selected = true;
-    addInventoryItemToBorrowingList(inventoryItem);
-    disableInventoryItemButton(inventoryItem, true);
+const handleInventoryItemButtonClick = (inventoryItem) => {
+    inventoryItem.selected = !inventoryItem.selected;
+    if (inventoryItem.selected) addInventoryItemToBorrowingList(inventoryItem);
+    else removeInventoryItemFromBorrowingList(inventoryItem);
+    changeinventoryItemButtonState(inventoryItem, inventoryItem.selected);
     updateCheckoutCounter();
 };
 
@@ -50,10 +51,10 @@ const handleBorrowingModalShow = () => {
     fillDisplayedToBorrowList();
 };
 
-const handleRemoveInventoryItemButtonClick = (inventoryItem) => {
+const handleRemoveInventoryItemFromBorrowingButtonClick = (inventoryItem) => {
     inventoryItem.selected = false;
     removeInventoryItemFromBorrowingList(inventoryItem);
-    disableInventoryItemButton(inventoryItem, false);
+    changeinventoryItemButtonState(inventoryItem, false);
     updateCheckoutCounter();
     $(`#to-borrow-list-element-${inventoryItem.id}`).remove();
 };
@@ -67,7 +68,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
             `<div class="col-md-2 mb-1">
-                <button class="btn ${filteredInventoryItem.selected ? "btn-outline-new-borrowing" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.selected || filteredInventoryItem.status.id > 2 ? 'disabled' : ''}>
+                <button class="btn ${filteredInventoryItem.selected ? "btn-primary" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.status.id > 2 ? 'disabled' : ''}>
                     ${filteredInventoryItem.name}
                     <hr class="in-button-hr">
                     <div class="inventory-item-button-footer">${filteredInventoryItem.status.name}</div>
@@ -158,16 +159,14 @@ const removeInventoryItemFromBorrowingList = (inventoryItem) => {
     }
 };
 
-const disableInventoryItemButton = (inventoryItem, bool) => {
+const changeinventoryItemButtonState = (inventoryItem, bool) => {
     const inventoryItemButton = $(`#inventory-item-button-${inventoryItem.id}`);
     if (bool) {
-        inventoryItemButton.attr('disabled', 'disabled');
         inventoryItemButton.removeClass('btn-outline-primary');
-        inventoryItemButton.addClass('btn-outline-new-borrowing');
+        inventoryItemButton.addClass('btn-primary');
     } else {
-        inventoryItemButton.removeAttr('disabled');
         inventoryItemButton.addClass('btn-outline-primary');
-        inventoryItemButton.removeClass('btn-outline-new-borrowing');
+        inventoryItemButton.removeClass('btn-primary');
     }
 };
 
@@ -181,7 +180,7 @@ const fillDisplayedToBorrowList = () => {
                     <i class="fas fa-times"></i>
                 </button>
             </li>`);
-        $(`#remove-item-borrow-list-button-${itemToBorrow.id}`).on('click', () => handleRemoveInventoryItemButtonClick(itemToBorrow));
+        $(`#remove-item-borrow-list-button-${itemToBorrow.id}`).on('click', () => handleRemoveInventoryItemFromBorrowingButtonClick(itemToBorrow));
     }
 };
 
