@@ -47,25 +47,25 @@ class HomePage extends Page
 
     public function navigateTo(Browser $browser, $page) {
         switch ($page) {
-            case 'new-borrowing':
+            case PagesFromHomeEnum::NEW_BORROWING:
                 $browser->click('@newBorrowingButton');
                 break;
-            case 'end-borrowing':
+            case PagesFromHomeEnum::END_BORROWING:
                 $browser->click('@endBorrowingButton');
                 break;
-            case 'borrowings-history':
+            case PagesFromHomeEnum::BORROWINGS_HISTORY:
                 $browser->click('@borrowingsHistoryButton');
                 break;
-            case 'view-inventory':
+            case PagesFromHomeEnum::VIEW_INVENTORY:
                 $browser->click('@viewInventoryButton');
                 break;
-            case 'edit-inventory':
+            case PagesFromHomeEnum::EDIT_INVENTORY:
                 $browser->click('@editInventoryButton');
                 break;
-            case 'edit-users':
+            case PagesFromHomeEnum::EDIT_USERS:
                 $browser->click('@editUsersButton');
                 break;
-            case 'github':
+            case PagesFromHomeEnum::GITHUB:
                 $browser->click('@githubLink');
                 break;
         }

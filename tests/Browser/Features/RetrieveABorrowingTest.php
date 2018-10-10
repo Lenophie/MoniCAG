@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EndBorrowingPage;
 use Tests\Browser\Pages\HomePage;
+use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
 class RetrieveABorrowingTest extends DuskTestCase
@@ -30,7 +31,7 @@ class RetrieveABorrowingTest extends DuskTestCase
             // Navigate to the end borrowing page
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('end-borrowing')
+                ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->on(new EndBorrowingPage());
 
             // Select borrowings to end by clicking on them
@@ -87,7 +88,7 @@ class RetrieveABorrowingTest extends DuskTestCase
             // Navigate to the end borrowing page
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('end-borrowing')
+                ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->on(new EndBorrowingPage());
 
             // Select borrowings to end by clicking on them

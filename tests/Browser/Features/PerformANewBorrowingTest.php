@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\NewBorrowingPage;
+use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
 class PerformANewBorrowingTest extends DuskTestCase
@@ -45,7 +46,7 @@ class PerformANewBorrowingTest extends DuskTestCase
             // Navigate to the new borrowing page
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('new-borrowing')
+                ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->on(new NewBorrowingPage());
 
             // Select inventory items to borrow by clicking on them

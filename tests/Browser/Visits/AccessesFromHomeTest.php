@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\HomePage;
+use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
 class AccessesFromHomeTest extends DuskTestCase
@@ -19,7 +20,7 @@ class AccessesFromHomeTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('new-borrowing')
+                ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->assertPathIs('/new-borrowing');
         });
     }
@@ -31,7 +32,7 @@ class AccessesFromHomeTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('end-borrowing')
+                ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->assertPathIs('/end-borrowing');
         });
     }
@@ -43,19 +44,16 @@ class AccessesFromHomeTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
                 ->visit(new HomePage())
-                ->navigateTo('borrowings-history')
+                ->navigateTo(PagesFromHomeEnum::BORROWINGS_HISTORY)
                 ->assertPathIs('/borrowings-history');
         });
     }
 
     public function testAccessToViewInventoryPage()
     {
-        $user = factory(User::class)->create();
-
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
-                ->visit(new HomePage())
-                ->navigateTo('view-inventory')
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage())
+                ->navigateTo(PagesFromHomeEnum::VIEW_INVENTORY)
                 ->assertPathIs('/view-inventory');
         });
     }
@@ -67,7 +65,7 @@ class AccessesFromHomeTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                 ->visit(new HomePage())
-                ->navigateTo('edit-inventory')
+                ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->assertPathIs('/edit-inventory');
         });
     }
@@ -79,7 +77,7 @@ class AccessesFromHomeTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                 ->visit(new HomePage())
-                ->navigateTo('edit-users')
+                ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->assertPathIs('/edit-users');
         });
     }
