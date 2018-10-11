@@ -19,6 +19,19 @@ class NewBorrowingPageUnitTests extends DuskTestCase
         $this->lender = $lender;
     }
 
+    public function testInventoryItemsPresence() {
+        $inventoryItems = factory(InventoryItem::class, 3)->create();
+
+        $this->browse(function (Browser $browser) use ($inventoryItems) {
+            $browser->loginAs($this->lender)
+                ->visit(new NewBorrowingPage());
+
+            foreach ($inventoryItems as $inventoryItem) {
+                $browser->assertPresent('#inventory-item-button-' . $inventoryItem->id);
+            }
+        });
+    }
+
     public function testIncrementationCheckoutCounter()
     {
         $inventoryItems = factory(InventoryItem::class, 2)->create();
@@ -34,7 +47,7 @@ class NewBorrowingPageUnitTests extends DuskTestCase
         });
     }
 
-    public function testInventoryItemAdditionToCheckoutModalThroughModal()
+    public function testInventoryItemAdditionToCheckoutModal()
     {
         $inventoryItems = factory(InventoryItem::class, 2)->create();
 
