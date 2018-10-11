@@ -28,6 +28,28 @@ $factory->define(Borrowing::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(Borrowing::class, 'onTime', function() {
+    $now = Carbon::now();
+    $startDate = $now->copy()->subDays(rand(5, 10));
+    $expectedReturnDate = $now->copy()->addDays(rand(1, 3));
+
+    return [
+        'start_date' => $startDate,
+        'expected_return_date' => $expectedReturnDate
+    ];
+});
+
+$factory->state(Borrowing::class, 'late', function() {
+    $now = Carbon::now();
+    $startDate = $now->copy()->subDays(rand(5, 10));
+    $expectedReturnDate = $now->copy()->subDays(rand(1, 3));
+
+    return [
+        'start_date' => $startDate,
+        'expected_return_date' => $expectedReturnDate
+    ];
+});
+
 $factory->state(Borrowing::class, 'finished', function(Faker $faker) {
     return [
         'finished' => true,

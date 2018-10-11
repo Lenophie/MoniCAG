@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Home view
     * Ids to buttons
+* Factories
+    * Added "late" and "onTime" states to borrowing factory.
 * Testing
     * Dusk setup.
     * Unit tests for pages visits.
