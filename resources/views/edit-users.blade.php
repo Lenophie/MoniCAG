@@ -110,6 +110,7 @@
 @push('scripts')
     <script type="text/javascript">
         const users = {!! json_encode($users)!!};
+        const currentUserID = {!! json_encode(Auth::user()->id) !!};
         const requestsURL = {!! json_encode(url('/edit-users')) !!};
     </script>
     <script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>

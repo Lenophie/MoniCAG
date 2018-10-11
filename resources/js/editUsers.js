@@ -29,7 +29,7 @@ const handleEditUserButtonClick = (e, id) => {
         type: 'PATCH',
         data: formattedForm,
         success: () => {
-            window.location.href = ''; // TODO : redirect to home if self-modification
+            window.location.href = id === currentUserID ? '/' : '';
         },
         error: (response) => {
             enableInputs(true);
@@ -52,7 +52,7 @@ const handleDeleteUserButtonClick = (e, id) => {
         type: 'DELETE',
         data: formattedForm,
         success: () => {
-            window.location.href = '';
+            window.location.href = id === currentUserID ? '/' : '';
         },
         error: (response) => {
             enableInputs(true);

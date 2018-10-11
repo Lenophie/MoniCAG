@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Changed redirection when completing action.
 * TODO list
     * Moved TODO items to their own file.
+* Edit users view
+    * Changed redirection when modifying own role.
 * Readme
     * Basic use guide.
     
