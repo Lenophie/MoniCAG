@@ -45,8 +45,8 @@ class NewBorrowingPageUnitTests extends DuskTestCase
                 ->assertSeeIn('@checkoutCounter', 1)
                 ->click('@checkoutLink')
                 ->whenAvailable('@newBorrowingModal', function ($modal) use ($inventoryItems) {
-                    $modal->waitFor('#to-borrow-list-element-' . $inventoryItems[0]->id)
-                        ->assertPresent('#to-borrow-list-element-' . $inventoryItems[0]->id);
+                    $modal->waitForInventoryItemInBorrowingList($inventoryItems[0]->id)
+                        ->assertSee($inventoryItems[0]->{'name_' . App::getLocale()});
                 });
         });
     }
@@ -61,8 +61,8 @@ class NewBorrowingPageUnitTests extends DuskTestCase
                 ->clickOnInventoryItemButton($inventoryItems[0]->id)
                 ->click('@checkoutLink')
                 ->whenAvailable('@newBorrowingModal', function ($modal) use ($inventoryItems) {
-                    $modal->waitFor('#remove-item-borrow-list-button-' . $inventoryItems[0]->id)
-                        ->click('#remove-item-borrow-list-button-' . $inventoryItems[0]->id)
+                    $modal->waitForInventoryItemInBorrowingList($inventoryItems[0]->id)
+                        ->clickOnInventoryItemRemovalFromBorrowingButton($inventoryItems[0]->id)
                         ->pause(1000)
                         ->assertMissing('#to-borrow-list-element-' . $inventoryItems[0]->id)
                         ->click('.close');
