@@ -74,7 +74,6 @@
             </div>
             <form id="csrf-token">
                 @csrf
-                <!-- TODO : Add after notes field -->
             </form>
         @endslot
         @slot('tags')

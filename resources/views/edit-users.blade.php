@@ -33,7 +33,6 @@
             {{__('messages.titles.edit_users')}}
         @endslot
     @endheader
-    <!-- TODO : Add confirmation modal when modifying own role -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 table-responsive">

@@ -33,7 +33,6 @@
             {{__('messages.titles.borrowings_history')}}
         @endslot
     @endheader
-    <!-- TODO : Add before and after notes as toggleable columns -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 table-responsive">

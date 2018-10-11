@@ -23,7 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * End borrowing view
     * Added buttons blocking when no borrowing is selected.
 * Edit inventory view
-    * Changed redirection when completing action
+    * Changed redirection when completing action.
+* TODO list
+    * Moved TODO items to their own file.
 * Readme
     * Basic use guide.
     

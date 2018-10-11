@@ -20,6 +20,3 @@ Route::delete('/edit-users', 'EditUsersController@delete');
 Route::get('/lang/{locale}', 'LanguagesController@change');
 
 Auth::routes();
-
-// TODO : Inventory modifications and movements list (needs page + table)
-// TODO : Inventory items missing pieces description (needs table)

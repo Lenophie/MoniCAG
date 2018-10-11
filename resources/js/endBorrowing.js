@@ -32,7 +32,6 @@ const getTranslatedMessages = () => {
 };
 
 const addListElements = (borrowings) => {
-    // TODO : Add before notes to elements
     for (const borrowing of borrowings) {
         $('#borrowings-list').append(
             `<a id="borrowings-list-element-${borrowing.id}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-${borrowing.isLate ? 'bad' : 'good'}">
