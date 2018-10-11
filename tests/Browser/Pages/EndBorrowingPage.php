@@ -41,4 +41,9 @@ class EndBorrowingPage extends Page
             '@endBorrowingSubmitButton' => '#end-borrowing-submit'
         ];
     }
+
+    public function clickOnBorrowingButton(Browser $browser, $id)
+    {
+        $browser->click('#borrowings-list-element-' . $id);
+    }
 }

@@ -36,7 +36,7 @@ class RetrieveABorrowingTest extends DuskTestCase
 
             // Select borrowings to end by clicking on them
             foreach ($borrowingsToEnd as $borrowingToEnd) {
-                $browser->click('#borrowings-list-element-' . $borrowingToEnd->id);
+                $browser->clickOnBorrowingButton($borrowingToEnd->id);
             }
 
             // Confirm in the end borrowing modal
@@ -93,7 +93,7 @@ class RetrieveABorrowingTest extends DuskTestCase
 
             // Select borrowings to end by clicking on them
             foreach ($borrowingsToEnd as $borrowingToEnd) {
-                $browser->click('#borrowings-list-element-' . $borrowingToEnd->id);
+                $browser->clickOnBorrowingButton($borrowingToEnd->id);
             }
 
             // Confirm in the end borrowing modal
