@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Added more selection tags
 * Edit inventory view
     * Changed redirection when completing action.
+* Passwords views
+    * Added header
 * TODO list
     * Moved TODO items to their own file.
 * Edit users view
@@ -48,6 +50,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * The start date was mutated to generate the other dates.
 * Borrowings history view
     * "Deleted user" message wasn't in translation files.
+* Redirections
+    * Fixed redirections in "Reset password" and "Verification" controllers.
 
 ## [0.13.0] - 2018-10-07
 
