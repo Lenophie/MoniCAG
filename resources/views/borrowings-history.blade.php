@@ -55,31 +55,39 @@
                     </thead>
                     <tbody>
                         @foreach($borrowings as $borrowing)
-                            <tr>
-                                <td>{{$borrowing->startDate->format('d/m/Y')}}</td>
-                                <td>
+                            <tr id="borrowings-row-{{$borrowing->id}}">
+                                <td class="borrowing-start-date-cell">
+                                    {{$borrowing->startDate->format('d/m/Y')}}
+                                </td>
+                                <td class="borrowing-borrower-cell">
                                     @if($borrowing->borrower)
                                         {{$borrowing->borrower->firstName}} {{strtoupper($borrowing->borrower->lastName)}}
                                     @else
                                         <span class="deleted-user-span">Utilisateur supprimé</span>
                                     @endif
                                 </td>
-                                <td>{{$borrowing->inventoryItem->name}}</td>
-                                <td>{{number_format($borrowing->guarantee, 2)}} €</td>
-                                <td class="border-right">
+                                <td class="borrowing-inventory-item-cell">
+                                    {{$borrowing->inventoryItem->name}}
+                                </td>
+                                <td class="borrowing-guarantee-cell">
+                                    {{number_format($borrowing->guarantee, 2)}} €
+                                </td>
+                                <td class="border-right borrowing-initial-lender-cell">
                                     @if($borrowing->initialLender)
                                         {{$borrowing->initialLender->firstName}} {{strtoupper($borrowing->initialLender->lastName)}}
                                     @else
                                         <span class="deleted-user-span">Utilisateur supprimé</span>
                                     @endif
                                 </td>
-                                <td>{{$borrowing->expectedReturnDate->format('d/m/Y')}}</td>
-                                <td>
+                                <td class="borrowing-expected-return-date-cell">
+                                    {{$borrowing->expectedReturnDate->format('d/m/Y')}}
+                                </td>
+                                <td class="borrowing-return-date-cell">
                                     @if($borrowing->returnDate)
                                         {{$borrowing->returnDate->format('d/m/Y')}}
                                     @endif
                                 </td>
-                                <td>
+                                <td class="borrowing-return-lender-cell">
                                     @if($borrowing->returnLender)
                                         {{$borrowing->returnLender->firstName}} {{strtoupper($borrowing->returnLender->lastName)}}
                                     @elseif($borrowing->returnDate !== null)

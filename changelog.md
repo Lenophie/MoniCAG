@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Added maximal value for borrowing guarantee.
 * End borrowing view
     * Added buttons blocking when no borrowing is selected.
+* Borrowings history view
+    * Added more selection tags
 * Edit inventory view
     * Changed redirection when completing action.
 * TODO list
