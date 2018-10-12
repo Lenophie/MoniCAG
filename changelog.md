@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Borrowing factory
     * The start date was mutated to generate the other dates.
+* Borrowings history view
+    * "Deleted user" message wasn't in translation files.
 
 ## [0.13.0] - 2018-10-07
 

@@ -63,7 +63,7 @@
                                     @if($borrowing->borrower)
                                         {{$borrowing->borrower->firstName}} {{strtoupper($borrowing->borrower->lastName)}}
                                     @else
-                                        <span class="deleted-user-span">Utilisateur supprimé</span>
+                                        <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
                                     @endif
                                 </td>
                                 <td class="borrowing-inventory-item-cell">
@@ -76,7 +76,7 @@
                                     @if($borrowing->initialLender)
                                         {{$borrowing->initialLender->firstName}} {{strtoupper($borrowing->initialLender->lastName)}}
                                     @else
-                                        <span class="deleted-user-span">Utilisateur supprimé</span>
+                                        <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
                                     @endif
                                 </td>
                                 <td class="borrowing-expected-return-date-cell">
@@ -91,8 +91,9 @@
                                     @if($borrowing->returnLender)
                                         {{$borrowing->returnLender->firstName}} {{strtoupper($borrowing->returnLender->lastName)}}
                                     @elseif($borrowing->returnDate !== null)
-                                        <span class="deleted-user-span">Utilisateur supprimé</span>
-                                    @endif</td>
+                                        <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

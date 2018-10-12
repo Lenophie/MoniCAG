@@ -45,6 +45,9 @@ return [
             ]
         ]
     ],
+    'borrowings_history' => [
+        'deleted_user' => 'Utilisateur supprimé'
+    ],
     'view_inventory' => [
         'filter_game_placeholder' => 'Rechercher un jeu...',
         'filter_genre_placeholder' => 'Filtrer par genre...',
