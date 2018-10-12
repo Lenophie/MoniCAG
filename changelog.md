@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Retrieve borrowing feature test.
     * "New borrowing" page unit tests.
     * "End borrowing" page unit tests.
+    * "Borrowings history" page unit tests.
 * Validation
     * Added maximal value for borrowing guarantee.
 * End borrowing view
