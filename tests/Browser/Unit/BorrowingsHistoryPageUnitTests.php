@@ -36,11 +36,10 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
         $borrowing = factory(Borrowing::class)->state('finished')->create();
 
         $this->browse(function (Browser $browser) use ($borrowing) {
-            $browser->loginAs($this->lender)
-                ->visit(new BorrowingsHistoryPage());
-
             $rowSelector = '#borrowings-row-' . $borrowing->id;
-            $browser->assertSeeIn($rowSelector, $borrowing->inventoryItem()->first()->name)
+            $browser->loginAs($this->lender)
+                ->visit(new BorrowingsHistoryPage())
+                ->assertSeeIn($rowSelector, $borrowing->inventoryItem()->first()->name)
                 ->assertSeeIn($rowSelector, $borrowing->initialLender()->first()->lastName)
                 ->assertSeeIn($rowSelector, $borrowing->borrower()->first()->lastName)
                 ->assertSeeIn($rowSelector, $borrowing->returnLender()->first()->lastName)
@@ -59,11 +58,10 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($borrowing) {
-            $browser->loginAs($this->lender)
-                ->visit(new BorrowingsHistoryPage());
-
             $rowSelector = '#borrowings-row-' . $borrowing->id;
-            $browser->assertSeeIn($rowSelector . '>.borrowing-borrower-cell', __('messages.borrowings_history.deleted_user'))
+            $browser->loginAs($this->lender)
+                ->visit(new BorrowingsHistoryPage())
+                ->assertSeeIn($rowSelector . '>.borrowing-borrower-cell', __('messages.borrowings_history.deleted_user'))
                 ->assertSeeIn($rowSelector . '>.borrowing-initial-lender-cell', __('messages.borrowings_history.deleted_user'))
                 ->assertSeeIn($rowSelector . '>.borrowing-return-lender-cell', __('messages.borrowings_history.deleted_user'));
         });

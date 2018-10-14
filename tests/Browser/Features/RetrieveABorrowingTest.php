@@ -43,11 +43,9 @@ class RetrieveABorrowingTest extends DuskTestCase
             $browser->click('@returnButton')
                 ->whenAvailable('@endBorrowingModal', function($modal) {
                     $modal->press('@endBorrowingSubmitButton');
-                });
-
-            // Wait for the page reloading
-            $browser->waitForReload();
-            $browser->assertPathIs('/borrowings-history');
+                })
+                ->waitForReload()
+                ->assertPathIs('/borrowings-history');
         });
 
         // Check the database for the changes
@@ -100,11 +98,9 @@ class RetrieveABorrowingTest extends DuskTestCase
             $browser->click('@lostButton')
                 ->whenAvailable('@endBorrowingModal', function($modal) {
                     $modal->press('@endBorrowingSubmitButton');
-                });
-
-            // Wait for the page reloading
-            $browser->waitForReload();
-            $browser->assertPathIs('/borrowings-history');
+                })
+                ->waitForReload()
+                ->assertPathIs('/borrowings-history');
         });
 
         // Check the database for the changes

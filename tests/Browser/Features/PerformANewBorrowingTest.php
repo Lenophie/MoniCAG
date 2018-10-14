@@ -65,11 +65,9 @@ class PerformANewBorrowingTest extends DuskTestCase
                         ->check('agreementCheck1')
                         ->check('agreementCheck2')
                         ->press('@newBorrowingSubmitButton');
-                });
-
-            // Wait for the page reloading
-            $browser->waitForReload();
-            $browser->assertPathIs('/borrowings-history');
+                })
+                ->waitForReload()
+                ->assertPathIs('/borrowings-history');
         });
 
         // Check the database for the changes
