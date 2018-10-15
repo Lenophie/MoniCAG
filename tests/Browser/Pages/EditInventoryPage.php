@@ -45,4 +45,12 @@ class EditInventoryPage extends Page
             '@newItemSubmitButton' => '#add-item-submit-button'
         ];
     }
+
+    public function pressOnRemoveGenreButton(Browser $browser, $itemId, $genreId) {
+        $browser->click("#button-remove-genre-{$genreId}-for-{$itemId}");
+    }
+
+    public function pressOnPatchItemButton(Browser $browser, $itemId) {
+        $browser->press("#edit-item-{$itemId}-submit-button");
+    }
 }

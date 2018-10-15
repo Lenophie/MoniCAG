@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * "Borrowings history" page unit tests.
     * "View inventory" page unit tests.
     * Add new inventory item feature test.
+    * Patch inventory item feature test.
 * Password resetting
     * Added authorization for users.
 * Validation
