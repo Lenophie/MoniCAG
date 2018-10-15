@@ -59,56 +59,35 @@ class NewBorrowingRequestTest extends TestCase
         // Check response
         $response->assertStatus(200);
 
-        // Check borrowings creation in database
-        $this->assertDatabaseHas('borrowings', [
-            'inventory_item_id' => $inventoryItems[0]->id,
-            'borrower_id' => $borrower->id,
-            'initial_lender_id' => $this->lender->id,
-            'return_lender_id' => null,
-            'start_date' => $startDate->format('Y-m-d'),
-            'expected_return_date' => $expectedReturnDate->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $guarantee,
-            'notes_before' => $notes,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
-        $this->assertDatabaseHas('borrowings', [
-            'inventory_item_id' => $inventoryItems[2]->id,
-            'borrower_id' => $borrower->id,
-            'initial_lender_id' => $this->lender->id,
-            'return_lender_id' => null,
-            'start_date' => $startDate->format('Y-m-d'),
-            'expected_return_date' => $expectedReturnDate->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $guarantee,
-            'notes_before' => $notes,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
+        foreach([0, 2] as $i) {
+            // Check inventory items status updates
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $inventoryItems[$i]->id,
+                'status_id' => InventoryItemStatus::BORROWED
+            ]);
 
-        // Check inventory items status updates
-        $this->assertDatabaseHas('inventory_items', [
-           'id' => $inventoryItems[0]->id,
-           'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $inventoryItems[2]->id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
+            // Check borrowings creation in database
+            $this->assertDatabaseHas('borrowings', [
+                'inventory_item_id' => $inventoryItems[$i]->id,
+                'borrower_id' => $borrower->id,
+                'initial_lender_id' => $this->lender->id,
+                'return_lender_id' => null,
+                'start_date' => $startDate->format('Y-m-d'),
+                'expected_return_date' => $expectedReturnDate->format('Y-m-d'),
+                'return_date' => null,
+                'guarantee' => $guarantee,
+                'notes_before' => $notes,
+                'notes_after' => null,
+                'finished' => 0
+            ]);
+        }
 
-        // Check other inventory items unaffected
-        $this->assertDatabaseMissing('inventory_items', [
-            'id' => $inventoryItems[1]->id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseMissing('inventory_items', [
-            'id' => $inventoryItems[3]->id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseMissing('inventory_items', [
-            'id' => $inventoryItems[4]->id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
+        foreach([1, 3, 4] as $i) {
+            // Check other inventory items unaffected
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $inventoryItems[$i]->id,
+                'status_id' => InventoryItemStatus::IN_LCR_D4
+            ]);
+        }
     }
 }

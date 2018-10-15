@@ -51,8 +51,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Improved template translation.
 * Testing
     * Made test classes attributes private.
+    * Refactored "New borrowing" and "End borrowing" requests tests.
 * Misc
-    * Improved readability of PHP string concatenations.
+    * Improved readability of PHP strings concatenations.
     
 ### Fixed
 

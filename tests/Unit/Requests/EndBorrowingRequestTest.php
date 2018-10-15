@@ -47,104 +47,53 @@ class EndBorrowingRequestTest extends TestCase
         // Check response
         $response->assertStatus(200);
 
-        // Check borrowings creation in database
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[0]->id,
-            'inventory_item_id' => $borrowings[0]->inventory_item_id,
-            'borrower_id' => $borrowings[0]->borrower_id,
-            'initial_lender_id' => $borrowings[0]->initial_lender_id,
-            'return_lender_id' => $this->lender->id,
-            'start_date' => $borrowings[0]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[0]->expected_return_date->format('Y-m-d'),
-            'return_date' => $returnDate->format('Y-m-d'),
-            'guarantee' => $borrowings[0]->guarantee,
-            'notes_before' => $borrowings[0]->notes_before,
-            // 'notes_after' => $notes,
-            'finished' => 1
-        ]);
+        foreach([0, 2] as $i) {
+            // Check inventory items status updates
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $borrowings[$i]->inventory_item_id,
+                'status_id' => InventoryItemStatus::IN_LCR_D4
+            ]);
 
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[2]->id,
-            'inventory_item_id' => $borrowings[2]->inventory_item_id,
-            'borrower_id' => $borrowings[2]->borrower_id,
-            'initial_lender_id' => $borrowings[2]->initial_lender_id,
-            'return_lender_id' => $this->lender->id,
-            'start_date' => $borrowings[2]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[2]->expected_return_date->format('Y-m-d'),
-            'return_date' => $returnDate->format('Y-m-d'),
-            'guarantee' => $borrowings[2]->guarantee,
-            'notes_before' => $borrowings[2]->notes_before,
-            // 'notes_after' => $notes,
-            'finished' => 1
-        ]);
+            // Check borrowings creation in database
+            $this->assertDatabaseHas('borrowings', [
+                'id' => $borrowings[$i]->id,
+                'inventory_item_id' => $borrowings[$i]->inventory_item_id,
+                'borrower_id' => $borrowings[$i]->borrower_id,
+                'initial_lender_id' => $borrowings[$i]->initial_lender_id,
+                'return_lender_id' => $this->lender->id,
+                'start_date' => $borrowings[$i]->start_date->format('Y-m-d'),
+                'expected_return_date' => $borrowings[$i]->expected_return_date->format('Y-m-d'),
+                'return_date' => $returnDate->format('Y-m-d'),
+                'guarantee' => $borrowings[$i]->guarantee,
+                'notes_before' => $borrowings[$i]->notes_before,
+                // 'notes_after' => $notes,
+                'finished' => 1
+            ]);
+        }
 
-        // Check inventory items status updates
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[0]->inventory_item_id,
-            'status_id' => InventoryItemStatus::IN_LCR_D4
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[2]->inventory_item_id,
-            'status_id' => InventoryItemStatus::IN_LCR_D4
-        ]);
+        foreach([1, 3, 4] as $i) {
+            // Check other borrowed inventory items unaffected
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $borrowings[$i]->inventory_item_id,
+                'status_id' => InventoryItemStatus::BORROWED
+            ]);
 
-        // Check other borrowed inventory items unaffected
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[1]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[3]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[4]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-
-        // Check other borrowings unaffected
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[1]->id,
-            'inventory_item_id' => $borrowings[1]->inventory_item_id,
-            'borrower_id' => $borrowings[1]->borrower_id,
-            'initial_lender_id' => $borrowings[1]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[1]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[1]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[1]->guarantee,
-            'notes_before' => $borrowings[1]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[3]->id,
-            'inventory_item_id' => $borrowings[3]->inventory_item_id,
-            'borrower_id' => $borrowings[3]->borrower_id,
-            'initial_lender_id' => $borrowings[3]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[3]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[3]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[3]->guarantee,
-            'notes_before' => $borrowings[3]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[4]->id,
-            'inventory_item_id' => $borrowings[4]->inventory_item_id,
-            'borrower_id' => $borrowings[4]->borrower_id,
-            'initial_lender_id' => $borrowings[4]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[4]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[4]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[4]->guarantee,
-            'notes_before' => $borrowings[4]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
+            // Check other borrowings unaffected
+            $this->assertDatabaseHas('borrowings', [
+                'id' => $borrowings[$i]->id,
+                'inventory_item_id' => $borrowings[$i]->inventory_item_id,
+                'borrower_id' => $borrowings[$i]->borrower_id,
+                'initial_lender_id' => $borrowings[$i]->initial_lender_id,
+                'return_lender_id' => null,
+                'start_date' => $borrowings[$i]->start_date->format('Y-m-d'),
+                'expected_return_date' => $borrowings[$i]->expected_return_date->format('Y-m-d'),
+                'return_date' => null,
+                'guarantee' => $borrowings[$i]->guarantee,
+                'notes_before' => $borrowings[$i]->notes_before,
+                'notes_after' => null,
+                'finished' => 0
+            ]);
+        }
     }
 
     /**
@@ -170,104 +119,53 @@ class EndBorrowingRequestTest extends TestCase
 
         // Check response
         $response->assertStatus(200);
+        
+        foreach([0, 2] as $i) {
+            // Check inventory items status updates
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $borrowings[$i]->inventory_item_id,
+                'status_id' => InventoryItemStatus::LOST
+            ]);
 
-        // Check borrowings creation in database
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[0]->id,
-            'inventory_item_id' => $borrowings[0]->inventory_item_id,
-            'borrower_id' => $borrowings[0]->borrower_id,
-            'initial_lender_id' => $borrowings[0]->initial_lender_id,
-            'return_lender_id' => $this->lender->id,
-            'start_date' => $borrowings[0]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[0]->expected_return_date->format('Y-m-d'),
-            'return_date' => $returnDate->format('Y-m-d'),
-            'guarantee' => $borrowings[0]->guarantee,
-            'notes_before' => $borrowings[0]->notes_before,
-            // 'notes_after' => $notes,
-            'finished' => 1
-        ]);
+            // Check borrowings creation in database
+            $this->assertDatabaseHas('borrowings', [
+                'id' => $borrowings[$i]->id,
+                'inventory_item_id' => $borrowings[$i]->inventory_item_id,
+                'borrower_id' => $borrowings[$i]->borrower_id,
+                'initial_lender_id' => $borrowings[$i]->initial_lender_id,
+                'return_lender_id' => $this->lender->id,
+                'start_date' => $borrowings[$i]->start_date->format('Y-m-d'),
+                'expected_return_date' => $borrowings[$i]->expected_return_date->format('Y-m-d'),
+                'return_date' => $returnDate->format('Y-m-d'),
+                'guarantee' => $borrowings[$i]->guarantee,
+                'notes_before' => $borrowings[$i]->notes_before,
+                // 'notes_after' => $notes,
+                'finished' => 1
+            ]);
+        }
+        
+        foreach([1, 3, 4] as $i) {
+            // Check other borrowed inventory items unaffected
+            $this->assertDatabaseHas('inventory_items', [
+                'id' => $borrowings[$i]->inventory_item_id,
+                'status_id' => InventoryItemStatus::BORROWED
+            ]);
 
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[2]->id,
-            'inventory_item_id' => $borrowings[2]->inventory_item_id,
-            'borrower_id' => $borrowings[2]->borrower_id,
-            'initial_lender_id' => $borrowings[2]->initial_lender_id,
-            'return_lender_id' => $this->lender->id,
-            'start_date' => $borrowings[2]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[2]->expected_return_date->format('Y-m-d'),
-            'return_date' => $returnDate->format('Y-m-d'),
-            'guarantee' => $borrowings[2]->guarantee,
-            'notes_before' => $borrowings[2]->notes_before,
-            // 'notes_after' => $notes,
-            'finished' => 1
-        ]);
-
-        // Check inventory items status updates
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[0]->inventory_item_id,
-            'status_id' => InventoryItemStatus::LOST
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[2]->inventory_item_id,
-            'status_id' => InventoryItemStatus::LOST
-        ]);
-
-        // Check other borrowed inventory items unaffected
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[1]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[3]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-        $this->assertDatabaseHas('inventory_items', [
-            'id' => $borrowings[4]->inventory_item_id,
-            'status_id' => InventoryItemStatus::BORROWED
-        ]);
-
-        // Check other borrowings unaffected
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[1]->id,
-            'inventory_item_id' => $borrowings[1]->inventory_item_id,
-            'borrower_id' => $borrowings[1]->borrower_id,
-            'initial_lender_id' => $borrowings[1]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[1]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[1]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[1]->guarantee,
-            'notes_before' => $borrowings[1]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[3]->id,
-            'inventory_item_id' => $borrowings[3]->inventory_item_id,
-            'borrower_id' => $borrowings[3]->borrower_id,
-            'initial_lender_id' => $borrowings[3]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[3]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[3]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[3]->guarantee,
-            'notes_before' => $borrowings[3]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
-        $this->assertDatabaseHas('borrowings', [
-            'id' => $borrowings[4]->id,
-            'inventory_item_id' => $borrowings[4]->inventory_item_id,
-            'borrower_id' => $borrowings[4]->borrower_id,
-            'initial_lender_id' => $borrowings[4]->initial_lender_id,
-            'return_lender_id' => null,
-            'start_date' => $borrowings[4]->start_date->format('Y-m-d'),
-            'expected_return_date' => $borrowings[4]->expected_return_date->format('Y-m-d'),
-            'return_date' => null,
-            'guarantee' => $borrowings[4]->guarantee,
-            'notes_before' => $borrowings[4]->notes_before,
-            'notes_after' => null,
-            'finished' => 0
-        ]);
+            // Check other borrowings unaffected
+            $this->assertDatabaseHas('borrowings', [
+                'id' => $borrowings[$i]->id,
+                'inventory_item_id' => $borrowings[$i]->inventory_item_id,
+                'borrower_id' => $borrowings[$i]->borrower_id,
+                'initial_lender_id' => $borrowings[$i]->initial_lender_id,
+                'return_lender_id' => null,
+                'start_date' => $borrowings[$i]->start_date->format('Y-m-d'),
+                'expected_return_date' => $borrowings[$i]->expected_return_date->format('Y-m-d'),
+                'return_date' => null,
+                'guarantee' => $borrowings[$i]->guarantee,
+                'notes_before' => $borrowings[$i]->notes_before,
+                'notes_after' => null,
+                'finished' => 0
+            ]);
+        }
     }
 }
