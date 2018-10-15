@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Added header
 * TODO list
     * Moved TODO items to their own file.
+    * Added new TODO items.
 * Edit users view
     * Changed redirection when modifying own role.
 * Readme
