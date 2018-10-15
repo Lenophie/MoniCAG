@@ -60,6 +60,7 @@ class AddANewInventoryItemTest extends DuskTestCase
                 $browser->select('@newItemGenreSelect', $genre->id);
             }
             $browser->press('@newItemSubmitButton')
+                ->waitForReload()
                 ->assertPathIs('/edit-inventory');
         });
 
@@ -77,7 +78,15 @@ class AddANewInventoryItemTest extends DuskTestCase
         // Check the new record addition to the database
         $this->assertDatabaseHas('inventory_items', $newItemIdentifiers);
 
+        $createdInventoryItemID = InventoryItem::where($newItemIdentifiers)->first()->id;
+        foreach($fieldsValues->genres as $genre) {
+            $this->assertDatabaseHas('genre_inventory_item', [
+                'inventory_item_id' => $createdInventoryItemID,
+                'genre_id' => $genre->id
+            ]);
+        }
+
         // Remove new item from database
-        InventoryItem::where($newItemIdentifiers)->delete();
+        InventoryItem::find($createdInventoryItemID)->delete();
     }
 }
