@@ -29,14 +29,10 @@ const addListeners = () => {
         ));
         $(`#genres-ul-${inventoryItem.id} .remove-genre-button`).click((e) =>
             {
-                const genreSpan = $(e.target.parentElement.children).closest('.genre');
+                const genreId = $(e.currentTarget.parentElement).attr('id').split('-')[1];
                 handleRemoveGenreButtonClick(
-                    e.target,
                     submitTypes.PATCH,
-                    {
-                        id: parseInt(genreSpan.attr('id').slice('genre-'.length)),
-                        name: genreSpan.text()
-                    },
+                    genreId,
                     inventoryItem.id
                 );
             }
@@ -83,7 +79,7 @@ const handlePatchItemFormSubmit = (e, id) => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
     formattedForm.inventoryItemId = id;
-    formattedForm.genres = $(`#genres-field-${id} .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
+    formattedForm.genres = $(`#genres-field-${id} .genre-li`).get().map(x => parseInt(x.id.split('-')[1]));
     $('.error-text').remove();
     enableInputs(false);
 
@@ -186,29 +182,29 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
         `);
         $('#add-genre-select-new').val('default');
         $(`#add-genre-${selectedGenre.id}-to-new-option`).attr('disabled', 'disabled');
-        addGenreSelect.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target, submitType, selectedGenre, id));
+        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, null));
     } else if (submitType === submitTypes.PATCH) {
         const addGenreSelect = $(`#genres-ul-${id} .plus-li`);
         addGenreSelect.before(`
-            <li>
-                <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
-                <button class="btn btn-sm btn-danger remove-genre-button">
+            <li class="genre-li" id="genre-${selectedGenre.id}-for-${id}-li">
+                <span>${selectedGenre.name}</span>
+                <button class="btn btn-sm btn-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-${id}">
                     <i class="fas fa-times"></i>
                 </button>
             </li>
         `);
         $(`#add-genre-select-${id}`).val('default');
         $(`#add-genre-${selectedGenre.id}-to-${id}-option`).attr('disabled', 'disabled');
-        addGenreSelect.prev().find('.remove-genre-button').click((e) => handleRemoveGenreButtonClick(e.target, submitType, selectedGenre, id));
+        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, id));
     }
 };
 
-const handleRemoveGenreButtonClick = (clickedButton, submitType, selectedGenre, id) => {
-    clickedButton.parentElement.remove();
+const handleRemoveGenreButtonClick = (submitType, genreId, itemId) => {
+    $(`#genre-${genreId}-for-${itemId}-li`).remove();
     if (submitType === submitTypes.POST) {
-        $(`#add-genre-${selectedGenre.id}-to-new-option`).removeAttr('disabled');
+        $(`#add-genre-${genreId}-to-new-option`).removeAttr('disabled');
     } else if (submitType === submitTypes.PATCH) {
-        $(`#add-genre-${selectedGenre.id}-to-${id}-option`).removeAttr('disabled');
+        $(`#add-genre-${genreId}-to-${itemId}-option`).removeAttr('disabled');
     }
 };
 

@@ -61,6 +61,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * The start date was mutated to generate the other dates.
 * Borrowings history view
     * "Deleted user" message wasn't in translation files.
+* Edit inventory view
+    * Fixed tags hierarchy
+    * Fixed "Remove genre" buttons listeners
 * Redirections
     * Fixed redirections in "Reset password" and "Verification" controllers.
 
