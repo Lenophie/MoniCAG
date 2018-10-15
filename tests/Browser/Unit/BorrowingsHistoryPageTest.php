@@ -30,7 +30,7 @@ class BorrowingsHistoryPageTest extends DuskTestCase
                 ->visit(new BorrowingsHistoryPage());
 
             foreach ($borrowings as $borrowing) {
-                $rowSelector = '#borrowings-row-' . $borrowing->id;
+                $rowSelector = "#borrowings-row-{$borrowing->id}";
                 $browser->assertPresent($rowSelector);
             }
         });
@@ -48,7 +48,7 @@ class BorrowingsHistoryPageTest extends DuskTestCase
         $borrowing = factory(Borrowing::class)->state('finished')->create();
 
         $this->browse(function (Browser $browser) use ($borrowing) {
-            $rowSelector = '#borrowings-row-' . $borrowing->id;
+            $rowSelector = "#borrowings-row-{$borrowing->id}";
             $browser->loginAs($this->lender)
                 ->visit(new BorrowingsHistoryPage())
                 ->assertSeeIn($rowSelector, $borrowing->inventoryItem()->first()->name)
@@ -80,9 +80,9 @@ class BorrowingsHistoryPageTest extends DuskTestCase
             $rowSelector = '#borrowings-row-' . $borrowing->id;
             $browser->loginAs($this->lender)
                 ->visit(new BorrowingsHistoryPage())
-                ->assertSeeIn($rowSelector . '>.borrowing-borrower-cell', __('messages.borrowings_history.deleted_user'))
-                ->assertSeeIn($rowSelector . '>.borrowing-initial-lender-cell', __('messages.borrowings_history.deleted_user'))
-                ->assertSeeIn($rowSelector . '>.borrowing-return-lender-cell', __('messages.borrowings_history.deleted_user'));
+                ->assertSeeIn("{$rowSelector}>.borrowing-borrower-cell", __('messages.borrowings_history.deleted_user'))
+                ->assertSeeIn("{$rowSelector}>.borrowing-initial-lender-cell", __('messages.borrowings_history.deleted_user'))
+                ->assertSeeIn("{$rowSelector}>.borrowing-return-lender-cell", __('messages.borrowings_history.deleted_user'));
         });
 
         foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();

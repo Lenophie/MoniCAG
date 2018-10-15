@@ -102,7 +102,7 @@ class BorrowingsValidationTest extends TestCase
         $response = $this->json('PATCH', '/end-borrowing', [
             'selectedBorrowings' => $borrowingsIDs
         ]);
-        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors('selectedBorrowings.' . $i);
+        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("selectedBorrowings.{$i}");
     }
 
     /**

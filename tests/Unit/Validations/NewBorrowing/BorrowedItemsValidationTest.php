@@ -124,7 +124,7 @@ class BorrowedItemsValidationTest extends TestCase
         $response = $this->json('POST', '/new-borrowing', [
             'borrowedItems' => $multipleItemsToBorrowIDs
         ]);
-        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors('borrowedItems.' . $i);
+        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("borrowedItems.{$i}");
     }
 
     /**

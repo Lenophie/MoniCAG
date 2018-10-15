@@ -52,8 +52,8 @@ class ViewInventoryPageTest extends DuskTestCase
             $genreToSelect = $inventoryItems[0]->genres()->get()[0];
             $browser->visit(new ViewInventoryPage())
                 ->select('@genreSelect', $genreToSelect->id)
-                ->assertPresent('#inventory-item-' . $inventoryItems[0]->id)
-                ->assertMissing('#inventory-item-' . $inventoryItems[1]->id);
+                ->assertPresent("#inventory-item-{$inventoryItems[0]->id}")
+                ->assertMissing("#inventory-item-{$inventoryItems[1]->id}");
         });
 
         foreach ($inventoryItems as $inventoryItem) {
@@ -76,8 +76,8 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
-                '#inventory-item-' . $inventoryItems[0]->id,
-                '#inventory-item-' . $inventoryItems[1]->id
+                "#inventory-item-{$inventoryItems[0]->id}",
+                "#inventory-item-{$inventoryItems[1]->id}"
             ];
             $browser->visit(new ViewInventoryPage())
                 ->type('@durationInput', 20)
@@ -112,8 +112,8 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
-                '#inventory-item-' . $inventoryItems[0]->id,
-                '#inventory-item-' . $inventoryItems[1]->id
+                "#inventory-item-{$inventoryItems[0]->id}",
+                "#inventory-item-{$inventoryItems[1]->id}"
             ];
             $browser->visit(new ViewInventoryPage())
                 ->type('@playersInput', 5)

@@ -36,7 +36,7 @@ class NewBorrowingPageTest extends DuskTestCase
                 ->visit(new NewBorrowingPage());
 
             foreach ($this->inventoryItems as $inventoryItem) {
-                $browser->assertPresent('#inventory-item-button-' . $inventoryItem->id);
+                $browser->assertPresent("#inventory-item-button-{$inventoryItem->id}");
             }
         });
     }
@@ -85,7 +85,7 @@ class NewBorrowingPageTest extends DuskTestCase
                     $modal->waitForInventoryItemInBorrowingList($this->inventoryItems[0]->id)
                         ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[0]->id)
                         ->pause(1000)
-                        ->assertMissing('#to-borrow-list-element-' . $this->inventoryItems[0]->id)
+                        ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[0]->id}")
                         ->click('.close');
                 })
                 ->assertSeeIn('@checkoutCounter', 0);

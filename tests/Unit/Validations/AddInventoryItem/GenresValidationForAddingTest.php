@@ -99,7 +99,7 @@ class GenresValidationForAddingTest extends TestCase
         $response = $this->json('POST', '/edit-inventory', [
             'genres' => $genresIDs
         ]);
-        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors('genres.' . $i);
+        for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("genres.{$i}");
     }
 
     /**

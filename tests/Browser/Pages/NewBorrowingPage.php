@@ -44,16 +44,16 @@ class NewBorrowingPage extends Page
 
     public function clickOnInventoryItemButton(Browser $browser, $id)
     {
-        $browser->click('#inventory-item-button-' . $id);
+        $browser->press("#inventory-item-button-{$id}");
     }
 
     public function clickOnInventoryItemRemovalFromBorrowingButton(Browser $browser, $id)
     {
-        $browser->click('#remove-item-borrow-list-button-' . $id);
+        $browser->press("#remove-item-borrow-list-button-{$id}");
     }
 
     public function waitForInventoryItemInBorrowingList(Browser $browser, $id)
     {
-        $browser->waitFor('#remove-item-borrow-list-button-' . $id);
+        $browser->waitFor("#remove-item-borrow-list-button-{$id}");
     }
 }

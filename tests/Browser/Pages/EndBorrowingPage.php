@@ -44,6 +44,6 @@ class EndBorrowingPage extends Page
 
     public function clickOnBorrowingButton(Browser $browser, $id)
     {
-        $browser->click('#borrowings-list-element-' . $id);
+        $browser->click("#borrowings-list-element-{$id}");
     }
 }

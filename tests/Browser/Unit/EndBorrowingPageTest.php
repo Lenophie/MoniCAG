@@ -30,7 +30,7 @@ class EndBorrowingPageTest extends DuskTestCase
                 ->visit(new EndBorrowingPage());
 
             foreach ($borrowings as $borrowing) {
-                $browser->assertPresent('#borrowings-list-element-' . $borrowing->id);
+                $browser->assertPresent("#borrowings-list-element-{$borrowing->id}");
             }
         });
 
@@ -52,8 +52,8 @@ class EndBorrowingPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($onTimeBorrowing, $lateBorrowing) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage())
-                ->assertSeeIn('#borrowings-list-element-' . $lateBorrowing->id, __('messages.end_borrowing.late'))
-                ->assertDontSeeIn('#borrowings-list-element-' . $onTimeBorrowing->id, __('messages.end_borrowing.late'));
+                ->assertSeeIn("#borrowings-list-element-{$lateBorrowing->id}", __('messages.end_borrowing.late'))
+                ->assertDontSeeIn("#borrowings-list-element-{$onTimeBorrowing->id}", __('messages.end_borrowing.late'));
         });
 
         foreach ($borrowings as $borrowing) {
