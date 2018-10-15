@@ -8,7 +8,7 @@ use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\BorrowingsHistoryPage;
 use Tests\DuskTestCase;
 
-class BorrowingsHistoryPageUnitTests extends DuskTestCase
+class BorrowingsHistoryPageTest extends DuskTestCase
 {
     public $lender;
 
@@ -16,6 +16,10 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
+    }
+
+    protected function tearDown() {
+        $this->lender->delete();
     }
 
     public function testBorrowingsPresence() {
@@ -30,6 +34,14 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
                 $browser->assertPresent($rowSelector);
             }
         });
+
+        foreach ($borrowings as $borrowing) {
+            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+            $borrowing->inventoryItem()->first()->delete();
+            $borrowing->borrower()->first()->delete();
+            $borrowing->initialLender()->first()->delete();
+            $borrowing->delete();
+        }
     }
 
     public function testBorrowingsDetailPresence() {
@@ -48,6 +60,13 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
                 ->assertSeeIn($rowSelector, $borrowing->expected_return_date->format('d/m/Y'))
                 ->assertSeeIn($rowSelector, $borrowing->return_date->format('d/m/Y'));
         });
+
+        foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+        $borrowing->inventoryItem()->first()->delete();
+        $borrowing->borrower()->first()->delete();
+        $borrowing->initialLender()->first()->delete();
+        $borrowing->returnLender()->first()->delete();
+        $borrowing->delete();
     }
 
     public function testDeletedUserMessages() {
@@ -65,5 +84,9 @@ class BorrowingsHistoryPageUnitTests extends DuskTestCase
                 ->assertSeeIn($rowSelector . '>.borrowing-initial-lender-cell', __('messages.borrowings_history.deleted_user'))
                 ->assertSeeIn($rowSelector . '>.borrowing-return-lender-cell', __('messages.borrowings_history.deleted_user'));
         });
+
+        foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+        $borrowing->inventoryItem()->first()->delete();
+        $borrowing->delete();
     }
 }

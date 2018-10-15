@@ -7,7 +7,7 @@ use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\ViewInventoryPage;
 use Tests\DuskTestCase;
 
-class ViewInventoryPageUnitTests extends DuskTestCase
+class ViewInventoryPageTest extends DuskTestCase
 {
     public function testInventoryItemsPresence() {
         $inventoryItems = factory(InventoryItem::class, 3)->create();
@@ -19,6 +19,11 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 $browser->assertPresent('#inventory-item-' . $inventoryItem->id);
             }
         });
+
+        foreach ($inventoryItems as $inventoryItem) {
+            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+            $inventoryItem->delete();
+        }
     }
 
     public function testInventoryItemDescriptionPresence() {
@@ -35,10 +40,14 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 $browser->assertSeeIn($inventoryItemDivSelector, $genre->name);
             }
         });
+
+        foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+        $inventoryItem->delete();
     }
 
     public function testGenreFiltering() {
         $inventoryItems = factory(InventoryItem::class, 2)->create();
+
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $genreToSelect = $inventoryItems[0]->genres()->get()[0];
             $browser->visit(new ViewInventoryPage())
@@ -46,6 +55,11 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 ->assertPresent('#inventory-item-' . $inventoryItems[0]->id)
                 ->assertMissing('#inventory-item-' . $inventoryItems[1]->id);
         });
+
+        foreach ($inventoryItems as $inventoryItem) {
+            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+            $inventoryItem->delete();
+        }
     }
 
     public function testDurationFiltering() {
@@ -59,6 +73,7 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 'duration_max' => 20
             ])
         ];
+
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
                 '#inventory-item-' . $inventoryItems[0]->id,
@@ -75,6 +90,12 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 ->assertMissing($inventoryItemDivSelectors[0])
                 ->assertMissing($inventoryItemDivSelectors[1]);
         });
+
+
+        foreach ($inventoryItems as $inventoryItem) {
+            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+            $inventoryItem->delete();
+        }
     }
 
     public function testPlayersFiltering() {
@@ -88,6 +109,7 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 'players_max' => 20
             ])
         ];
+
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
                 '#inventory-item-' . $inventoryItems[0]->id,
@@ -104,5 +126,10 @@ class ViewInventoryPageUnitTests extends DuskTestCase
                 ->assertMissing($inventoryItemDivSelectors[0])
                 ->assertMissing($inventoryItemDivSelectors[1]);
         });
+
+        foreach ($inventoryItems as $inventoryItem) {
+            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+            $inventoryItem->delete();
+        }
     }
 }

@@ -8,11 +8,22 @@ use Tests\DuskTestCase;
 
 class PagesVisitsAsAdminTest extends DuskTestCase
 {
+    public $admin;
+
+    protected function setUp() {
+        Parent::setUp();
+        $admin = factory(User::class)->state('admin')->create();
+        $this->admin = $admin;
+    }
+
+    protected function tearDown() {
+        $this->admin->delete();
+    }
+
     public function testNewBorrowingPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/new-borrowing')
                 ->assertPathIs('/new-borrowing')
                 ->assertSee(__('messages.titles.perform_borrowing'));
@@ -21,9 +32,8 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 
     public function testEndBorrowingPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/end-borrowing')
                 ->assertPathIs('/end-borrowing')
                 ->assertSee(__('messages.titles.retrieve_borrowing'));
@@ -32,9 +42,8 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 
     public function testBorrowingsHistoryPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/borrowings-history')
                 ->assertPathIs('/borrowings-history')
                 ->assertSee(__('messages.titles.borrowings_history'));
@@ -43,9 +52,8 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 
     public function testViewInventoryPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/view-inventory')
                 ->assertPathIs('/view-inventory')
                 ->assertSee(__('messages.titles.inventory'));
@@ -54,9 +62,8 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 
     public function testEditInventoryPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/edit-inventory')
                 ->assertPathIs('/edit-inventory')
                 ->assertSee(__('messages.titles.edit_inventory'));
@@ -65,9 +72,8 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 
     public function testEditUsersPageVisit()
     {
-        $user = factory(User::class)->state('admin')->create();
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit('/edit-users')
                 ->assertPathIs('/edit-users')
                 ->assertSee(__('messages.titles.edit_users'));

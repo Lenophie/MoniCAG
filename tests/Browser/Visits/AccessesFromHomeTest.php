@@ -23,6 +23,8 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->assertPathIs('/new-borrowing');
         });
+
+        $lender->delete();
     }
 
     public function testAccessToEndBorrowingPage()
@@ -35,6 +37,8 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->assertPathIs('/end-borrowing');
         });
+
+        $lender->delete();
     }
 
     public function testAccessToBorrowingsHistoryPage()
@@ -47,6 +51,8 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::BORROWINGS_HISTORY)
                 ->assertPathIs('/borrowings-history');
         });
+
+        $lender->delete();
     }
 
     public function testAccessToViewInventoryPage()
@@ -60,26 +66,30 @@ class AccessesFromHomeTest extends DuskTestCase
 
     public function testAccessToEditInventoryPage()
     {
-        $user = factory(User::class)->state('admin')->create();
+        $admin = factory(User::class)->state('admin')->create();
 
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) use ($admin) {
+            $browser->loginAs($admin)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->assertPathIs('/edit-inventory');
         });
+
+        $admin->delete();
     }
 
     public function testAccessToEditUsersPage()
     {
-        $user = factory(User::class)->state('admin')->create();
+        $admin = factory(User::class)->state('admin')->create();
 
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) use ($admin) {
+            $browser->loginAs($admin)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->assertPathIs('/edit-users');
         });
+
+        $admin->delete();
     }
 
     public function testAccessToGithubPage()

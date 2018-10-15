@@ -14,28 +14,46 @@ use Tests\DuskTestCase;
 
 class RetrieveABorrowingTest extends DuskTestCase
 {
+    public $borrowings;
+    public $borrowingsToEnd;
+    public $lender;
+
     protected function setUp() {
         Parent::setUp();
-        exec('php artisan migrate:fresh --seed --env=testing');
+        $borrowings = factory(Borrowing::class, 20)->create();
+        $borrowingsToEnd = [$borrowings[8], $borrowings[1], $borrowings[2], $borrowings[19]];
+        $lender = factory(User::class)->state('lender')->create();
+
+        $this->borrowings = $borrowings;
+        $this->borrowingsToEnd = $borrowingsToEnd;
+        $this->lender = $lender;
+    }
+
+    protected function tearDown() {
+        foreach ($this->borrowings as $borrowing) {
+            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+            $borrowing->inventoryItem()->first()->delete();
+            $borrowing->borrower()->first()->delete();
+            $borrowing->initialLender()->first()->delete();
+            $borrowing->delete();
+        }
+
+        $this->lender->delete();
     }
 
     public function testReturnBorrowings()
     {
-        // Create the necessary preliminary database records
-        $borrowings = factory(Borrowing::class, 20)->create();
-        $borrowingsToEnd = [$borrowings[8], $borrowings[1], $borrowings[2], $borrowings[19]];
-        $lender = factory(User::class)->state('lender')->create();
         $currentDate = Carbon::now();
 
-        $this->browse(function (Browser $browser) use ($borrowingsToEnd, $lender) {
+        $this->browse(function (Browser $browser) {
             // Navigate to the end borrowing page
-            $browser->loginAs($lender)
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->on(new EndBorrowingPage());
 
             // Select borrowings to end by clicking on them
-            foreach ($borrowingsToEnd as $borrowingToEnd) {
+            foreach ($this->borrowingsToEnd as $borrowingToEnd) {
                 $browser->clickOnBorrowingButton($borrowingToEnd->id);
             }
 
@@ -49,14 +67,14 @@ class RetrieveABorrowingTest extends DuskTestCase
         });
 
         // Check the database for the changes
-        foreach ($borrowingsToEnd as $borrowingToEnd) {
+        foreach ($this->borrowingsToEnd as $borrowingToEnd) {
             // Check the return of borrowings
             $this->assertDatabaseHas('borrowings', [
                 'id' => $borrowingToEnd->id,
                 'inventory_item_id' => $borrowingToEnd->inventory_item_id,
                 'borrower_id' => $borrowingToEnd->borrower_id,
                 'initial_lender_id' => $borrowingToEnd->initial_lender_id,
-                'return_lender_id' => $lender->id,
+                'return_lender_id' => $this->lender->id,
                 'start_date' => $borrowingToEnd->start_date->format('Y-m-d'),
                 'expected_return_date' => $borrowingToEnd->expected_return_date->format('Y-m-d'),
                 'return_date' => $currentDate->format('Y-m-d'),
@@ -76,21 +94,17 @@ class RetrieveABorrowingTest extends DuskTestCase
 
     public function testLostBorrowings()
     {
-        // Create the necessary preliminary database records
-        $borrowings = factory(Borrowing::class, 20)->create();
-        $borrowingsToEnd = [$borrowings[8], $borrowings[1], $borrowings[2], $borrowings[19]];
-        $lender = factory(User::class)->state('lender')->create();
         $currentDate = Carbon::now();
 
-        $this->browse(function (Browser $browser) use ($borrowingsToEnd, $lender) {
+        $this->browse(function (Browser $browser) {
             // Navigate to the end borrowing page
-            $browser->loginAs($lender)
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->on(new EndBorrowingPage());
 
             // Select borrowings to end by clicking on them
-            foreach ($borrowingsToEnd as $borrowingToEnd) {
+            foreach ($this->borrowingsToEnd as $borrowingToEnd) {
                 $browser->clickOnBorrowingButton($borrowingToEnd->id);
             }
 
@@ -104,14 +118,14 @@ class RetrieveABorrowingTest extends DuskTestCase
         });
 
         // Check the database for the changes
-        foreach ($borrowingsToEnd as $borrowingToEnd) {
+        foreach ($this->borrowingsToEnd as $borrowingToEnd) {
             // Check the return of borrowings
             $this->assertDatabaseHas('borrowings', [
                 'id' => $borrowingToEnd->id,
                 'inventory_item_id' => $borrowingToEnd->inventory_item_id,
                 'borrower_id' => $borrowingToEnd->borrower_id,
                 'initial_lender_id' => $borrowingToEnd->initial_lender_id,
-                'return_lender_id' => $lender->id,
+                'return_lender_id' => $this->lender->id,
                 'start_date' => $borrowingToEnd->start_date->format('Y-m-d'),
                 'expected_return_date' => $borrowingToEnd->expected_return_date->format('Y-m-d'),
                 'return_date' => $currentDate->format('Y-m-d'),

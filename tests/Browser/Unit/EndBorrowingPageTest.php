@@ -8,7 +8,7 @@ use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EndBorrowingPage;
 use Tests\DuskTestCase;
 
-class EndBorrowingPageUnitTests extends DuskTestCase
+class EndBorrowingPageTest extends DuskTestCase
 {
     public $lender;
 
@@ -16,6 +16,10 @@ class EndBorrowingPageUnitTests extends DuskTestCase
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
+    }
+
+    protected function tearDown() {
+        $this->lender->delete();
     }
 
     public function testBorrowingsPresence() {
@@ -29,12 +33,21 @@ class EndBorrowingPageUnitTests extends DuskTestCase
                 $browser->assertPresent('#borrowings-list-element-' . $borrowing->id);
             }
         });
+
+        foreach ($borrowings as $borrowing) {
+            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+            $borrowing->inventoryItem()->first()->delete();
+            $borrowing->borrower()->first()->delete();
+            $borrowing->initialLender()->first()->delete();
+            $borrowing->delete();
+        }
     }
 
     public function testLateBorrowingsWarningsPresence()
     {
         $onTimeBorrowing = factory(Borrowing::class)->state('onTime')->create();
         $lateBorrowing = factory(Borrowing::class)->state('late')->create();
+        $borrowings = [$onTimeBorrowing, $lateBorrowing];
 
         $this->browse(function (Browser $browser) use ($onTimeBorrowing, $lateBorrowing) {
             $browser->loginAs($this->lender)
@@ -42,6 +55,14 @@ class EndBorrowingPageUnitTests extends DuskTestCase
                 ->assertSeeIn('#borrowings-list-element-' . $lateBorrowing->id, __('messages.end_borrowing.late'))
                 ->assertDontSeeIn('#borrowings-list-element-' . $onTimeBorrowing->id, __('messages.end_borrowing.late'));
         });
+
+        foreach ($borrowings as $borrowing) {
+            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+            $borrowing->inventoryItem()->first()->delete();
+            $borrowing->borrower()->first()->delete();
+            $borrowing->initialLender()->first()->delete();
+            $borrowing->delete();
+        }
     }
 
     public function testBorrowingAdditionToCheckoutModal()
@@ -57,5 +78,13 @@ class EndBorrowingPageUnitTests extends DuskTestCase
                     $modal->assertSee($borrowings[0]->inventoryItem()->first()->name);
                 });
         });
+
+        foreach ($borrowings as $borrowing) {
+            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
+            $borrowing->inventoryItem()->first()->delete();
+            $borrowing->borrower()->first()->delete();
+            $borrowing->initialLender()->first()->delete();
+            $borrowing->delete();
+        }
     }
 }

@@ -17,14 +17,13 @@ class PerformANewBorrowingTest extends DuskTestCase
 {
     use WithFaker;
 
+    public $lender;
+    public $borrowerPassword;
+    public $borrower;
+    public $inventoryItems;
+
     protected function setUp() {
         Parent::setUp();
-        exec('php artisan migrate:refresh --seed --env=testing');
-    }
-
-    public function testPerformANewBorrowing()
-    {
-        // Create the necessary preliminary database records
         $lender = factory(User::class)->state('lender')->create();
         $borrowerPassword = $this->faker->unique()->password;
         $borrower = factory(User::class)->create([
@@ -32,19 +31,40 @@ class PerformANewBorrowingTest extends DuskTestCase
         ]);
         $inventoryItems = factory(InventoryItem::class, 20)->create();
 
+        $this->lender = $lender;
+        $this->borrowerPassword = $borrowerPassword;
+        $this->borrower = $borrower;
+        $this->inventoryItems = $inventoryItems;
+    }
+
+    protected function tearDown() {
+        $this->lender->delete();
+        $this->borrower->delete();
+        foreach ($this->inventoryItems as $inventoryItem) {
+            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+            $inventoryItem->delete();
+        }
+    }
+
+    public function testPerformANewBorrowing()
+    {
         // Defining values to fill in the borrowing
         $fieldsValues = (object) [];
-        $fieldsValues->borrowerEmail = $borrower->email;
-        $fieldsValues->borrowerPassword = $borrowerPassword;
-        $fieldsValues->inventoryItemsToBorrow = [$inventoryItems[5], $inventoryItems[7], $inventoryItems[8], $inventoryItems[16]];
+        $fieldsValues->borrowerEmail = $this->borrower->email;
+        $fieldsValues->borrowerPassword = $this->borrowerPassword;
+        $fieldsValues->inventoryItemsToBorrow = [
+            $this->inventoryItems[5],
+            $this->inventoryItems[7],
+            $this->inventoryItems[8],
+            $this->inventoryItems[16]];
         $fieldsValues->startDate = Carbon::now();
         $fieldsValues->expectedReturnDate = $fieldsValues->startDate->copy()->addDays(5);
         $fieldsValues->guarantee = 15;
         $fieldsValues->notes = $this->faker->text;
 
-        $this->browse(function (Browser $browser) use ($lender,$fieldsValues) {
+        $this->browse(function (Browser $browser) use ($fieldsValues) {
             // Navigate to the new borrowing page
-            $browser->loginAs($lender)
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->on(new NewBorrowingPage());
@@ -75,8 +95,8 @@ class PerformANewBorrowingTest extends DuskTestCase
             // Check the creation of new borrowings
             $this->assertDatabaseHas('borrowings', [
                 'inventory_item_id' => $inventoryItemToBorrow->id,
-                'borrower_id' => $borrower->id,
-                'initial_lender_id' => $lender->id,
+                'borrower_id' => $this->borrower->id,
+                'initial_lender_id' => $this->lender->id,
                 'return_lender_id' => null,
                 'start_date' => $fieldsValues->startDate->format('Y-m-d'),
                 'expected_return_date' => $fieldsValues->expectedReturnDate->format('Y-m-d'),

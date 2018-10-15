@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * Home view
-    * Ids to buttons
+    * Added ids to buttons
 * Factories
     * Added "late" and "onTime" states to borrowing factory.
 * Testing
