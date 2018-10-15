@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 
 class PagesVisitsAsLenderTest extends DuskTestCase
 {
-    public $lender;
+    private $lender;
 
     protected function setUp() {
         Parent::setUp();

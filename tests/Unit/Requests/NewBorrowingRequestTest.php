@@ -13,7 +13,7 @@ class NewBorrowingRequestTest extends TestCase
     use DatabaseTransactions;
     use WithFaker;
 
-    public $lender;
+    private $lender;
 
     protected function setUp()
     {

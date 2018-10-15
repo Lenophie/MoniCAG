@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 
 class PagesVisitsAsUserTest extends DuskTestCase
 {
-    public $user;
+    private $user;
 
     protected function setUp() {
         Parent::setUp();

@@ -11,8 +11,8 @@ use Tests\DuskTestCase;
 
 class NewBorrowingPageTest extends DuskTestCase
 {
-    public $lender;
-    public $inventoryItems;
+    private $lender;
+    private $inventoryItems;
 
     protected function setUp() {
         Parent::setUp();

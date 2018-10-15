@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Inventory item buttons behaviour.
 * Password reset email
     * Improved template translation.
+* Testing
+    * Made test classes attributes private.
     
 ### Fixed
 

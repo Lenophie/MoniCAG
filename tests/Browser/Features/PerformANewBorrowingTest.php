@@ -17,10 +17,10 @@ class PerformANewBorrowingTest extends DuskTestCase
 {
     use WithFaker;
 
-    public $lender;
-    public $borrowerPassword;
-    public $borrower;
-    public $inventoryItems;
+    private $lender;
+    private $borrowerPassword;
+    private $borrower;
+    private $inventoryItems;
 
     protected function setUp() {
         Parent::setUp();

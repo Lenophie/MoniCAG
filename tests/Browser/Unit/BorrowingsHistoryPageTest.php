@@ -10,7 +10,7 @@ use Tests\DuskTestCase;
 
 class BorrowingsHistoryPageTest extends DuskTestCase
 {
-    public $lender;
+    private $lender;
 
     protected function setUp() {
         Parent::setUp();

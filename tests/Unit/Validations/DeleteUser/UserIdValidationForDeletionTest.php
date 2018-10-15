@@ -8,7 +8,7 @@ class UserIdValidationForDeletionTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public $admin;
+    private $admin;
 
     protected function setUp()
     {

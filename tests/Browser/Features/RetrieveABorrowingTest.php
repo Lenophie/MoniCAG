@@ -14,9 +14,9 @@ use Tests\DuskTestCase;
 
 class RetrieveABorrowingTest extends DuskTestCase
 {
-    public $borrowings;
-    public $borrowingsToEnd;
-    public $lender;
+    private $borrowings;
+    private $borrowingsToEnd;
+    private $lender;
 
     protected function setUp() {
         Parent::setUp();

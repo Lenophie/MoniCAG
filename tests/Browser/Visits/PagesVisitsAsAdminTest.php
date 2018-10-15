@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 
 class PagesVisitsAsAdminTest extends DuskTestCase
 {
-    public $admin;
+    private $admin;
 
     protected function setUp() {
         Parent::setUp();
