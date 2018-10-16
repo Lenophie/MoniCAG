@@ -39,6 +39,10 @@ class EditUsersPage extends Page
         ];
     }
 
+    public function pressOnConfirmButton(Browser $browser, $userId) {
+        $browser->press("#edit-user-{$userId}-button");
+    }
+
     public function pressOnDeleteUserButton(Browser $browser, $userId) {
         $browser->press("#delete-user-{$userId}-button");
     }

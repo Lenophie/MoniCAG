@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * "Edit inventory" page unit tests.
     * "Delete inventory item" feature test.
     * "Delete user" feature test
+    * "Patch user" feature test
 * Password resetting
     * Added authorization for users.
 * Validation
