@@ -36,7 +36,7 @@ class newBorrowingController extends Controller
                 'finished' => false,
                 'start_date' => Carbon::now(),
                 'expected_return_date' => $expectedReturnDate,
-                'notes_before' => request('notes')
+                'notes_before' => htmlspecialchars(request('notes'))
             ]);
             InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::BORROWED]);
         }

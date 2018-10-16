@@ -69,6 +69,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Fixed "Remove genre" buttons listeners
 * Redirections
     * Fixed redirections in "Reset password" and "Verification" controllers.
+* Security
+    * Prevented javascript injections when adding text to database.
 
 ## [0.13.0] - 2018-10-07
 

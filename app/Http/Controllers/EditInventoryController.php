@@ -27,8 +27,8 @@ class EditInventoryController extends Controller
     public function post(AddInventoryItemRequest $request)
     {
         InventoryItem::create([
-            'name_fr' => request('nameFr'),
-            'name_en' => request('nameEn'),
+            'name_fr' => htmlspecialchars(request('nameFr')),
+            'name_en' => htmlspecialchars(request('nameEn')),
             'duration_min' => request('durationMin'),
             'duration_max' => request('durationMax'),
             'players_max' => request('playersMax'),
@@ -41,8 +41,8 @@ class EditInventoryController extends Controller
     {
         InventoryItem::find(request('inventoryItemId'))
             ->update([
-                'name_fr' => request('nameFr'),
-                'name_en' => request('nameEn'),
+                'name_fr' => htmlspecialchars(request('nameFr')),
+                'name_en' => htmlspecialchars(request('nameEn')),
                 'duration_min' => request('durationMin'),
                 'duration_max' => request('durationMax'),
                 'players_max' => request('playersMax'),
