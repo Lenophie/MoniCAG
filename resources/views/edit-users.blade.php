@@ -54,10 +54,10 @@
                     </thead>
                     <tbody>
                     @foreach($users as $user)
-                       <tr>
-                           <td class="align-middle">{{$user->firstName}} {{$user->lastName}}</td>
-                           <td class="align-middle">{{$user->promotion}}</td>
-                           <td class="align-middle">{{$user->email}}</td>
+                       <tr id="user-row-{{$user->id}}">
+                           <td class="align-middle name-field">{{$user->firstName}} {{$user->lastName}}</td>
+                           <td class="align-middle promotion-field">{{$user->promotion}}</td>
+                           <td class="align-middle email-field">{{$user->email}}</td>
                            <td class="align-middle">
                                <div id="role-field-{{$user->id}}">
                                    <label class="input-group-text d-none" for="role-{{$user->id}}">
