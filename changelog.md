@@ -9,46 +9,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Home view
-    * Added ids to buttons
-* Factories
-    * Added "late" and "onTime" states to borrowing factory
 * Testing
     * Dusk setup
-    * Unit tests for pages visits
-    * Unit tests for pages accesses from home page
-    * "Perform new borrowing" feature test
-    * "Retrieve borrowing" feature test
-    * "New borrowing" page unit tests
-    * "End borrowing" page unit tests
-    * "Borrowings history" page unit tests
-    * "View inventory" page unit tests
-    * "Add new inventory item" feature test
-    * "Patch inventory item" feature test
-    * "Edit inventory" page unit tests
-    * "Delete inventory item" feature test
-    * "Delete user" feature test
-    * "Patch user" feature test
-    * "Edit user" page unit tests
+    * Unit tests
+        * For pages visits
+        * For pages accesses from home page
+        * For pages interactions
+    * Feature tests
+        * Perform new borrowing
+        * Retrieve borrowing
+        * Add new inventory item
+        * Patch inventory item
+        * Delete inventory item
+        * Patch user
+        * Delete user
+* Factories
+    * Added ```late``` and ```onTime``` states to borrowing factory
 * Password resetting
     * Added authorization for users
 * Validation
     * Added maximal value for borrowing guarantee
-* End borrowing view
-    * Added buttons blocking when no borrowing is selected
-* Borrowings history view
-    * Added more selection tags
-* Edit inventory view
-    * Changed redirection when completing action
-* Edit users view
-    * Added more tags
-* Passwords views
-    * Added header
+* Views
+    * Home view
+        * Added ids to buttons
+    * End borrowing view
+        * Added buttons blocking when no borrowing is selected
+    * Borrowings history view
+        * Added more selection tags
+    * Edit inventory view
+        * Changed redirection when completing action
+    * Edit users view
+        * Added more tags
+        * Changed redirection when modifying own role
+    * Passwords views
+        * Added header
 * TODO list
     * Moved TODO items to their own file
     * Added new TODO items
-* Edit users view
-    * Changed redirection when modifying own role
 * Readme
     * Basic use guide
     
@@ -68,11 +65,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Borrowing factory
     * The start date was mutated to generate the other dates
-* Borrowings history view
-    * "Deleted user" message wasn't in translation files
-* Edit inventory view
-    * Fixed tags hierarchy
-    * Fixed "Remove genre" buttons listeners
+* Views
+    * Borrowings history view
+        * "Deleted user" message wasn't in translation files
+    * Edit inventory view
+        * Fixed tags hierarchy
+        * Fixed "Remove genre" buttons listeners
 * Redirections
     * Fixed redirections in "Reset password" and "Verification" controllers
 * Security
