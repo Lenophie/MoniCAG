@@ -4,7 +4,6 @@ namespace Tests\Browser;
 
 use App\InventoryItem;
 use App\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditInventoryPage;
 use Tests\Browser\Pages\HomePage;
@@ -13,8 +12,6 @@ use Tests\DuskTestCase;
 
 class DeleteAnInventoryItemTest extends DuskTestCase
 {
-    use WithFaker;
-
     private $admin;
     private $inventoryItems;
     private $borrowedItem;

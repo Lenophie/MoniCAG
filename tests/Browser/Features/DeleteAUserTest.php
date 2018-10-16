@@ -3,7 +3,6 @@
 namespace Tests\Browser;
 
 use App\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditUsersPage;
 use Tests\Browser\Pages\HomePage;
@@ -12,8 +11,6 @@ use Tests\DuskTestCase;
 
 class DeleteAUserTest extends DuskTestCase
 {
-    use WithFaker;
-
     private $admin;
     private $otherAdmin;
     private $users;
