@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 * Moved ```public``` folder content to ```resources```.
+* Replacing ```Bootstrap``` with ```Bulma```.
 
 ## [0.14.0] - 2018-10-16
 

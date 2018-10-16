@@ -6,8 +6,7 @@ body
 
 header
 {
-	padding-top: 10px;
-	padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 #menu-return {
@@ -46,10 +45,8 @@ h1 {
 }
 
 .h1-hr {
-    margin-top: 0px;
-    margin-bottom: 3px;
-    border-color: black;
-    width: 50%;
+    margin: 0;
+    background-color: black;
 }
 
 .no-display {

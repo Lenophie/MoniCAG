@@ -1,21 +1,18 @@
-// Theme colors
-$new-borrowing-theme-color: #dd3232;
-$end-borrowing-theme-color: #f1bf34;
-$borrowings-history-theme-color: #dcdf2d;
-$view-inventory-theme-color: #a7885a;
-$edit-inventory-theme-color: #6c6c6c;
-$edit-users-theme-color: #6973f7;
-$good-color: #1fcc1f;
-$bad-color: #d60716;
+$new-borrowing: #dd3232;
+$end-borrowing: #f1bf34;
+$borrowings-history: #dcdf2d;
+$view-inventory: #a7885a;
+$edit-inventory: #6c6c6c;
+$edit-users: #6973f7;
+$good: #1fcc1f;
+$bad: #d60716;
 
-// Theme colors object used in bootstrap-theming.scss.
-$theme-colors: (
-  "new-borrowing": $new-borrowing-theme-color,
-  "end-borrowing": $end-borrowing-theme-color,
-  "borrowings-history": $borrowings-history-theme-color,
-  "view-inventory": $view-inventory-theme-color,
-  "edit-inventory": $edit-inventory-theme-color,
-  "edit-users": $edit-users-theme-color,
-  "good": $good-color,
-  "bad": $bad-color
+$colors: ("new-borrowing": ($new-borrowing, #fff),
+  "end-borrowing": ($end-borrowing, #fff),
+  "borrowings-history": ($borrowings-history, #fff),
+  "view-inventory": ($view-inventory, #fff),
+  "edit-inventory": ($edit-inventory, #fff),
+  "edit-users": ($edit-users, #fff),
+  "good": ($good, #fff),
+  "bad": ($bad, #fff)
 );

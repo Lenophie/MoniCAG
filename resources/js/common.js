@@ -1,9 +1,7 @@
-import '@babel/polyfill';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js';
-import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.min.css';
-import '@fortawesome/fontawesome-free/js/all.js';
+//import '@babel/polyfill';
+import 'bulma/css/bulma.css';
+import '@fortawesome/fontawesome-free/js/all.min.js';
 import 'flag-icon-css/css/flag-icon.min.css';
-import '../sass/bootstrap-theming.scss';
+import '../sass/bulma-theming.scss';
+import '../css/bulma-override.css';
 import '../css/common.css';
