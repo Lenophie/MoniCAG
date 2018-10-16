@@ -17,16 +17,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Dusk setup.
     * Unit tests for pages visits.
     * Unit tests for pages accesses from home page.
-    * Perform new borrowing feature test.
-    * Retrieve borrowing feature test.
+    * "Perform new borrowing" feature test.
+    * "Retrieve borrowing" feature test.
     * "New borrowing" page unit tests.
     * "End borrowing" page unit tests.
     * "Borrowings history" page unit tests.
     * "View inventory" page unit tests.
-    * Add new inventory item feature test.
-    * Patch inventory item feature test.
+    * "Add new inventory item" feature test.
+    * "Patch inventory item" feature test.
     * "Edit inventory" page unit tests.
-    * Delete an inventory item feature test.
+    * "Delete inventory item" feature test.
+    * "Delete user" feature test
 * Password resetting
     * Added authorization for users.
 * Validation
