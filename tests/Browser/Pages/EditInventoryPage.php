@@ -43,7 +43,8 @@ class EditInventoryPage extends Page
             '@newItemDurationMaxInput' => '#durationMax-new',
             '@newItemPlayersMinInput' => '#playersMin-new',
             '@newItemPlayersMaxInput' => '#playersMax-new',
-            '@newItemSubmitButton' => '#add-item-submit-button'
+            '@newItemSubmitButton' => '#add-item-submit-button',
+            '@deletionConfirmationModal' => '#delete-confirm-modal'
         ];
     }
 
@@ -53,5 +54,9 @@ class EditInventoryPage extends Page
 
     public function pressOnPatchItemButton(Browser $browser, $itemId) {
         $browser->press("#edit-item-{$itemId}-submit-button");
+    }
+
+    public function pressOnDeleteItemButton(Browser $browser, $itemId) {
+        $browser->press("#delete-button-{$itemId}");
     }
 }
