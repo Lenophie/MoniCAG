@@ -17,12 +17,15 @@ class DeleteAnInventoryItemTest extends DuskTestCase
 
     private $admin;
     private $inventoryItems;
+    private $borrowedItem;
     private $genresToDeleteInTearDown;
 
     protected function setUp() {
         Parent::setUp();
         $inventoryItems = factory(InventoryItem::class, 10)->create();
         $this->inventoryItems = $inventoryItems;
+        $borrowedItem = factory(InventoryItem::class)->state('borrowed')->create();
+        $this->borrowedItem = $borrowedItem;
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
         $this->genresToDeleteInTearDown = $this->inventoryItems[3]->genres()->get();
@@ -34,6 +37,8 @@ class DeleteAnInventoryItemTest extends DuskTestCase
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
             $inventoryItem->delete();
         }
+        foreach ($this->borrowedItem->genres()->get() as $genre) $genre->delete();
+        $this->borrowedItem->delete();
         foreach ($this->genresToDeleteInTearDown as $genre) $genre->delete();
     }
 
@@ -64,5 +69,23 @@ class DeleteAnInventoryItemTest extends DuskTestCase
                 'genre_id' => $genre->id
             ]);
         }
+    }
+
+    public function testDeleteABorrowedItemRejection() {
+        // Go to the edit inventory page and delete the inventory item
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new HomePage())
+                ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
+                ->on(new EditInventoryPage())
+                ->pressOnDeleteItemButton($this->borrowedItem->id)
+                ->whenAvailable('@deletionConfirmationModal', function($modal) {
+                    $modal->press("#delete-confirm-button-{$this->borrowedItem->id}");
+                })
+                ->assertSee(__('validation/deleteInventoryItem.inventoryItemId.inventory_item_not_borrowed'));
+        });
+
+        // Check record unaffected
+        $this->assertDatabaseHas('inventory_items', ['id' => $this->borrowedItem->id]);
     }
 }
