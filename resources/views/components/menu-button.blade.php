@@ -1,13 +1,15 @@
-<div class="{{$width}} mb-3">
-    <button class="btn btn-block {{$style}} menu-button" id="{{$id}}" onclick="{{$action ?? ''}}"
+<div class="{{$width}}">
+    <button class="button is-outlined {{$style}} menu-button is-fullwidth" id="{{$id}}" onclick="{{$action ?? ''}}"
             @buttonenabler
                 @slot('enablerCondition')
                     {{$enablerCondition}}
                 @endslot
             @endbuttonenabler
     >
-        <span class="menu-text">{{$title}}</span>
-        <br>
-        {{$icon}}
+        <div>
+            <span class="menu-text">{{$title}}</span>
+            <br>
+            {{$icon}}
+        </div>
     </button>
 </div>

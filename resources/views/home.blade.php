@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container is-fluid">
         @header
             @slot('leftIcon')
                 <i class="fas fa-eye"></i>
@@ -34,22 +34,24 @@
                 MoniCAG
             @endslot
         @endheader
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="row">
-                    <h2>{{__('messages.titles.borrowings_management')}}</h2>
+        <div class="columns">
+            <div class="column is-full">
+                <div class="columns">
+                    <h2 class="title is-3">{{__('messages.titles.borrowings_management')}}</h2>
                 </div>
-                <hr class="h2-hr">
-                <div class="row">
+                <div class="columns">
+                    <hr class="h2-hr">
+                </div>
+                <div class="columns">
                     @menubutton
                         @slot('width')
-                            col-md-4
+                            column is-4
                         @endslot
                         @slot('id')
                             new-borrowing-button
                         @endslot
                         @slot('style')
-                            btn-outline-new-borrowing
+                            is-new-borrowing
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.perform_borrowing'))}}
@@ -66,13 +68,13 @@
                     @endmenubutton
                     @menubutton
                         @slot('width')
-                            col-md-4
+                            column is-4
                         @endslot
                         @slot('id')
                             end-borrowing-button
                         @endslot
                         @slot('style')
-                            btn-outline-end-borrowing
+                            is-end-borrowing
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.retrieve_borrowing'))}}
@@ -89,13 +91,13 @@
                     @endmenubutton
                     @menubutton
                         @slot('width')
-                            col-md-4
+                            column is-4
                         @endslot
                         @slot('id')
                             borrowings-history-button
                         @endslot
                         @slot('style')
-                            btn-outline-borrowings-history
+                            is-borrowings-history
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.view_borrowings_history'))}}
@@ -113,22 +115,24 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="row">
-                    <h2>{{__('messages.titles.inventory_management')}}</h2>
+        <div class="columns">
+            <div class="column is-full">
+                <div class="columns">
+                    <h2 class="title is-3">{{__('messages.titles.inventory_management')}}</h2>
                 </div>
-                <hr class="h2-hr">
-                <div class="row">
+                <div class="columns">
+                    <hr class="h2-hr">
+                </div>
+                <div class="columns">
                     @menubutton
                         @slot('width')
-                            col-md-6
+                            column is-half
                         @endslot
                         @slot('id')
                             view-inventory-button
                         @endslot
                         @slot('style')
-                            btn-outline-view-inventory
+                            is-view-inventory
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.view_inventory'))}}
@@ -145,13 +149,13 @@
                     @endmenubutton
                     @menubutton
                         @slot('width')
-                            col-md-6
+                            column is-half
                         @endslot
                         @slot('id')
                             edit-inventory-button
                         @endslot
                         @slot('style')
-                            btn-outline-edit-inventory
+                            is-edit-inventory
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.edit_inventory'))}}
@@ -169,22 +173,24 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="row">
-                    <h2>{{__('messages.titles.users_management')}}</h2>
+        <div class="columns">
+            <div class="column is-full">
+                <div class="columns">
+                    <h2 class="title is-3">{{__('messages.titles.users_management')}}</h2>
                 </div>
-                <hr class="h2-hr">
-                <div class="row">
+                <div class="columns">
+                    <hr class="h2-hr">
+                </div>
+                <div class="columns">
                     @menubutton
                         @slot('width')
-                            col-md-12
+                            column is-full
                         @endslot
                         @slot('id')
                             edit-users-button
                         @endslot
                         @slot('style')
-                            btn-outline-edit-users
+                            is-edit-users
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.edit_users'))}}
