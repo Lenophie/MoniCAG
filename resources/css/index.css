@@ -1,0 +1,49 @@
+.flag-icon {
+    font-size: 20px;
+}
+
+/* SUB-TITLES */
+
+h2 {
+    margin-left: 35px;
+}
+
+.h2-hr {
+    margin: 0;
+    background-color: black;
+    width: 30%;
+}
+
+/* MENU */
+
+.menu-icon
+{
+    font-size: 60px;
+}
+
+.menu-text
+{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.menu-button
+{
+    padding-bottom: 30px !important;
+    padding-top: 20px !important;
+    white-space: normal !important;
+    height: 100% !important;
+}
+
+#footer-hr
+{
+    background-color: black;
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+#github-link
+{
+    float: right;
+    color: black;
+}
