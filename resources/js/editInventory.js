@@ -55,7 +55,7 @@ const handleAddItemFormSubmit = (e) => {
     const serializedForm = $('#add-item-form').serializeArray();
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
-    formattedForm.genres = $(`#genres-field-new .genre`).get().map(x => parseInt(x.id.slice('genre-'.length)));
+    formattedForm.genres = $(`#genres-field-new .genre-li`).get().map(x => parseInt(x.id.split('-')[1]));
     $('.error-text').remove();
     enableInputs(false);
 
@@ -173,16 +173,16 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
     if (submitType === submitTypes.POST) {
         const addGenreSelect = $('#genres-ul-new .plus-li');
         addGenreSelect.before(`
-            <li>
-                <span id="genre-${selectedGenre.id}" class="genre">${selectedGenre.name}</span>
-                <button class="btn btn-sm btn-danger remove-genre-button">
+            <li class="genre-li" id="genre-${selectedGenre.id}-for-new-li">
+                <span>${selectedGenre.name}</span>
+                <button class="btn btn-sm btn-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-new">
                     <i class="fas fa-times"></i>
                 </button>
             </li>
         `);
         $('#add-genre-select-new').val('default');
         $(`#add-genre-${selectedGenre.id}-to-new-option`).attr('disabled', 'disabled');
-        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, null));
+        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, 'new'));
     } else if (submitType === submitTypes.PATCH) {
         const addGenreSelect = $(`#genres-ul-${id} .plus-li`);
         addGenreSelect.before(`
