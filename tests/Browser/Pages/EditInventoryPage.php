@@ -38,6 +38,7 @@ class EditInventoryPage extends Page
             '@newItemFrenchNameInput' => '#nameFr-new',
             '@newItemEnglishNameInput' => '#nameEn-new',
             '@newItemGenreSelect' => '#add-genre-select-new',
+            '@newItemGenresList' => '#genres-ul-new',
             '@newItemDurationMinInput' => '#durationMin-new',
             '@newItemDurationMaxInput' => '#durationMax-new',
             '@newItemPlayersMinInput' => '#playersMin-new',
