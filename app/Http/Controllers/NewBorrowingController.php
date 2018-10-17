@@ -26,7 +26,7 @@ class newBorrowingController extends Controller
     public function store(NewBorrowingRequest $request)
     {
         foreach (request('borrowedItems') as $borrowedItem) {
-            $expectedReturnDate = Carbon::createFromFormat('d/m/Y', request('expectedReturnDate'));
+            $expectedReturnDate = Carbon::createFromFormat('Y-m-d', request('expectedReturnDate'));
             $borrowerId = User::where('email', request('borrowerEmail'))->select('id')->first()->id;
             Borrowing::create([
                 'inventory_item_id' => $borrowedItem,

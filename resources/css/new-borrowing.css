@@ -1,16 +1,6 @@
-/* SEARCH BAR BOX SHADOW */
-.form-control:focus {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    border-color: #dd3232 !important;
-}
-
 .remove-item-borrow-list-button {
     height: 20px;
     width: 20px;
-    padding: 0 !important;
-    font-size: 12px !important;
-    margin-bottom: 2px !important;
 }
 
 .inventory-item-button {

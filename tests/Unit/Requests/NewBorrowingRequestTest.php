@@ -49,7 +49,7 @@ class NewBorrowingRequestTest extends TestCase
             ],
             'borrowerEmail' => $borrower->email,
             'borrowerPassword' => $borrowerPassword,
-            'expectedReturnDate' => $expectedReturnDate->format('d/m/Y'),
+            'expectedReturnDate' => $expectedReturnDate->format('Y-m-d'),
             'guarantee' => $guarantee,
             'agreementCheck1' => 'on',
             'agreementCheck2' => 'on',

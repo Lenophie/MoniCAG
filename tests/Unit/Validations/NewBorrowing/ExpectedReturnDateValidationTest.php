@@ -35,7 +35,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     public function testExpectedReturnDateIncorrectFormatRejection()
     {
         $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => Carbon::now()->format('Y-m-d')
+            'expectedReturnDate' => Carbon::now()->format('d/m/Y')
         ]);
         $response->assertJsonValidationErrors('expectedReturnDate');
     }
@@ -48,7 +48,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     public function testExpectedReturnDateCanBeTodayValidation()
     {
         $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => Carbon::now()->format('d/m/Y')
+            'expectedReturnDate' => Carbon::now()->format('Y-m-d')
         ]);
         $response->assertJsonMissingValidationErrors('expectedReturnDate');
     }
@@ -62,7 +62,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     {
         $laterDate = Carbon::now()->addDay();
         $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => $laterDate->format('d/m/Y')
+            'expectedReturnDate' => $laterDate->format('Y-m-d')
         ]);
         $response->assertJsonMissingValidationErrors('expectedReturnDate');
     }
@@ -76,7 +76,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     {
         $earlierDate = Carbon::now()->subDay();
         $response = $this->json('POST', '/new-borrowing', [
-            'expectedReturnDate' => $earlierDate->format('d/m/Y')
+            'expectedReturnDate' => $earlierDate->format('Y-m-d')
         ]);
         $response->assertJsonValidationErrors('expectedReturnDate');
     }

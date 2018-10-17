@@ -33,7 +33,7 @@
             0
         @endslot
         @slot('checkoutTags')
-            data-toggle="modal" data-target="#new-borrowing-modal"
+            data-toggle="modal" data-target="new-borrowing-modal"
         @endslot
         @slot('title')
             {{__('messages.titles.perform_borrowing')}}
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="columns" id="inventory-item-buttons-list"></div>
+        <div class="columns is-multiline" id="inventory-item-buttons-list"></div>
     </div>
     @modal
         @slot('title')

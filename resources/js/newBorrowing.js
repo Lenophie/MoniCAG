@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Fuse from 'fuse.js';
+import './modal.js';
 
 const itemsToBorrow = [];
 
@@ -12,8 +13,7 @@ $().ready(() => {
 
 // Listeners setting
 const addListeners = () => {
-    // Show modal listener
-    $('#new-borrowing-modal').on('shown.bs.modal', () => handleBorrowingModalShow());
+    observeModal();
 
     // Search games listeners
     const searchGameField = $('#search-game-field');
@@ -25,6 +25,21 @@ const addListeners = () => {
 
     // Submit button listener
     $('#new-borrowing-submit').click(() => handleFormSubmit());
+};
+
+// Modal observation setup
+const observeModal = () => {
+    const newBorrowingModal = document.getElementById('new-borrowing-modal');
+    const observerConfig = {attributes: true};
+    const observeCallback = (mutationsList, observer) => {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.target.classList.contains('is-active')) {
+                handleBorrowingModalShow();
+            }
+        }
+    };
+    const observer = new MutationObserver(observeCallback);
+    observer.observe(newBorrowingModal, observerConfig);
 };
 
 const addInventoryItemButtonsListeners = () => {

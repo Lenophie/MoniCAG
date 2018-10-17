@@ -86,7 +86,7 @@ class NewBorrowingPageTest extends DuskTestCase
                         ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[0]->id)
                         ->pause(1000)
                         ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[0]->id}")
-                        ->click('.close');
+                        ->click('.delete');
                 })
                 ->assertSeeIn('@checkoutCounter', 0);
         });

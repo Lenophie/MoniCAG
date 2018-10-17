@@ -79,7 +79,7 @@ class PerformANewBorrowingTest extends DuskTestCase
                 ->whenAvailable('@newBorrowingModal', function($modal) use ($fieldsValues) {
                     $modal->type('borrowerEmail', $fieldsValues->borrowerEmail)
                         ->type('borrowerPassword', $fieldsValues->borrowerPassword)
-                        ->type('expectedReturnDate', $fieldsValues->expectedReturnDate->format('d/m/Y'))
+                        ->keys('#expectedReturnDate', $fieldsValues->expectedReturnDate->format('mdY'))
                         ->type('guarantee', $fieldsValues->guarantee)
                         ->type('notes', $fieldsValues->notes)
                         ->check('agreementCheck1')

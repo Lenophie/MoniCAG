@@ -31,7 +31,7 @@ class NewBorrowingRequest extends FormRequest
             'borrowedItems.*' => 'bail|integer|exists:inventory_items,id|distinct|inventory_item_available',
             'borrowerEmail' => 'required|email|exists:users,email',
             'borrowerPassword' => 'required|password_for:borrowerEmail',
-            'expectedReturnDate' => 'required|date_format:d/m/Y|after_or_equal:today',
+            'expectedReturnDate' => 'required|date_format:Y-m-d|after_or_equal:today',
             'guarantee' => 'required|numeric|regex:/^[0-9]+(.[0-9][0-9]?)?$/|max:1000',
             'agreementCheck1' => 'required|accepted',
             'agreementCheck2' => 'required|accepted',
