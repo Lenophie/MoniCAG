@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Fuse from "fuse.js";
 
 const gameSearchInput = $('#game-search-input');

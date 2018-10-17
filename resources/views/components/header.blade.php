@@ -1,9 +1,12 @@
 <header class="columns">
     <div class="column is-full">
-        <div class="columns">
+        <div class="columns is-vcentered">
             @if($hasReturnButton == 'true')
                 <div class="column is-2">
-                    <a id="menu-return" href="{{url('/')}}"><i class="fas fa-arrow-circle-left"></i> {{strtoupper(__('Menu'))}}</a>
+                    <a id="menu-return" href="{{url('/')}}">
+                        <i class="fas fa-arrow-circle-left"></i>
+                         {{strtoupper(__('Menu'))}}
+                    </a>
                 </div>
             @endif
             <div class="column {{$hasReturnButton == 'false' xor $hasCheckoutButton == 'false' ? 'is-offset-2' : ''}} {{$hasReturnButton == 'true' || $hasCheckoutButton == 'true' ? 'is-8' : 'is-full'}}">
@@ -11,10 +14,10 @@
             </div>
             @if($hasCheckoutButton == 'true')
                 <div class="column is-2" id="checkout-column">
-                    <span class="fa-layers fa-fw" id="checkout-link" {{$checkoutTags ?? ''}}>
+                    <a class="fa-layers fa-fw" id="checkout-link" {{$checkoutTags ?? ''}}>
                         <i class="fas fa-gift"></i>
                         <span class="fa-layers-counter" id="checkout-counter">{{$checkoutCounter}}</span>
-                    </span>
+                    </a>
                 </div>
             @endif
         </div>
@@ -49,7 +52,9 @@
                             @endslot
                         @endusericon
                          |
-                        <button class="button is-small is-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</button>
+                        <button class="button is-small is-link" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </button>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                 @endguest

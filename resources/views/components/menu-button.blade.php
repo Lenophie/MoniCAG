@@ -1,5 +1,5 @@
 <div class="{{$width}}">
-    <button class="button is-outlined {{$style}} menu-button is-fullwidth" id="{{$id}}" onclick="{{$action ?? ''}}"
+    <a class="button is-outlined {{$style}} menu-button is-fullwidth" id="{{$id}}" onclick="{{$action ?? ''}}"
             @buttonenabler
                 @slot('enablerCondition')
                     {{$enablerCondition}}
@@ -11,5 +11,5 @@
             <br>
             {{$icon}}
         </div>
-    </button>
+    </a>
 </div>

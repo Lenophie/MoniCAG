@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 // After page is loaded
 $().ready(() => {

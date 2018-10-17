@@ -1,6 +1,6 @@
 body
 {
-	min-width: 600px; 
+	min-width: 700px;
 	max-width: 100%;
 }
 
@@ -15,7 +15,7 @@ header
     text-decoration: none;
     color: #000000;
     white-space: nowrap;
-    margin-top: 5px;
+    margin-left: 15px;
 }
 
 #checkout-column {
@@ -26,6 +26,7 @@ header
     font-size: 50px;
     text-decoration: none;
     color: #000000;
+    margin-right: 15px;
 }
 
 #menu-return:hover, #checkout-link:hover {

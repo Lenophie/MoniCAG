@@ -39,18 +39,22 @@
             {{__('messages.titles.perform_borrowing')}}
         @endslot
     @endheader
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="input-group mb-3">
-                    <input type="text" id="search-game-field" class="form-control" placeholder="{{__('messages.new_borrowing.search_placeholder')}}...">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-new-borrowing" id="search-game-button" type="submit"><i class="fas fa-times"></i></button>
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-full">
+                <div class="field has-addons has-addons-centered">
+                    <div class="control">
+                        <input type="text" id="search-game-field" class="input" placeholder="{{__('messages.new_borrowing.search_placeholder')}}...">
+                    </div>
+                    <div class="control">
+                        <a class="button is-outlined is-danger" type="button" id="search-game-button">
+                            {{__('Clear')}}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="inventory-item-buttons-list"></div>
+        <div class="columns" id="inventory-item-buttons-list"></div>
     </div>
     @modal
         @slot('title')
@@ -58,7 +62,7 @@
         @endslot
         @slot('body')
             <div id="form-field-borrowedItems">
-                {{__('messages.new_borrowing.selected_list')}} :
+                <h5 class="title is-5">{{__('messages.new_borrowing.selected_list')}} :</h5>
                 <ul id="toBorrowList"></ul>
             </div>
             <hr>
@@ -68,7 +72,11 @@
             id="new-borrowing-modal"
         @endslot
         @slot('footer')
-            <button type="submit" class="btn btn-new-borrowing" id="new-borrowing-submit">{{__('Confirm')}}</button>
+            <div class="field is-grouped is-grouped-right" id="new-borrowing-modal-confirm-field">
+                <p class="control">
+                    <a type="submit" class="button is-link" id="new-borrowing-submit">{{__('Confirm')}}</a>
+                </p>
+            </div>
         @endslot
     @endmodal
 @endsection

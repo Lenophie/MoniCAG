@@ -67,12 +67,16 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     inventoryItemButtonsList.empty();
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.append(
-            `<div class="col-md-2 mb-1">
-                <button class="btn ${filteredInventoryItem.selected ? "btn-primary" : "btn-outline-primary"} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.status.id > 2 ? 'disabled' : ''}>
-                    ${filteredInventoryItem.name}
-                    <hr class="in-button-hr">
-                    <div class="inventory-item-button-footer">${filteredInventoryItem.status.name}</div>
-                </button>
+            `<div class="column is-2">
+                <a class="button is-link ${filteredInventoryItem.selected ? '' : 'is-outlined'} inventory-item-button" id="inventory-item-button-${filteredInventoryItem.id}" type="button" ${filteredInventoryItem.status.id > 2 ? 'disabled' : ''}>
+                    <div class="inventory-item-button-content">
+                        ${filteredInventoryItem.name}
+                        <hr class="in-button-hr">
+                        <div class="inventory-item-button-footer">
+                            ${filteredInventoryItem.status.name}
+                        </div>
+                    </div>
+                </a>
             </div>`)
     }
     addInventoryItemButtonsListeners();
@@ -161,13 +165,8 @@ const removeInventoryItemFromBorrowingList = (inventoryItem) => {
 
 const changeinventoryItemButtonState = (inventoryItem, bool) => {
     const inventoryItemButton = $(`#inventory-item-button-${inventoryItem.id}`);
-    if (bool) {
-        inventoryItemButton.removeClass('btn-outline-primary');
-        inventoryItemButton.addClass('btn-primary');
-    } else {
-        inventoryItemButton.addClass('btn-outline-primary');
-        inventoryItemButton.removeClass('btn-primary');
-    }
+    if (bool) inventoryItemButton.removeClass('is-outlined');
+    else inventoryItemButton.addClass('is-outlined');
 };
 
 const fillDisplayedToBorrowList = () => {
@@ -176,7 +175,7 @@ const fillDisplayedToBorrowList = () => {
     for (const itemToBorrow of itemsToBorrow) {
         toBorrowListDOMelem.append(
             `<li id="to-borrow-list-element-${itemToBorrow.id}">
-                ${itemToBorrow.name} <button class="btn btn-sm btn-danger remove-item-borrow-list-button" id="remove-item-borrow-list-button-${itemToBorrow.id}">
+                ${itemToBorrow.name} <button class="button is-small is-danger remove-item-borrow-list-button" id="remove-item-borrow-list-button-${itemToBorrow.id}">
                     <i class="fas fa-times"></i>
                 </button>
             </li>`);

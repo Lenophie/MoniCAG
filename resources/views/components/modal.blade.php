@@ -1,18 +1,15 @@
-<div class="modal fade" tabindex="-1" role="dialog" {{$tags ?? ''}} aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{$title}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{$body}}
-            </div>
-            <div class="modal-footer">
-                {{$footer}}
-            </div>
-        </div>
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">{{$title}}</p>
+            <a class="delete" aria-label="close"></a>
+        </header>
+        <section class="modal-card-body">
+            {{$body}}
+        </section>
+        <footer class="modal-card-foot">
+            {{$footer}}
+        </footer>
     </div>
 </div>

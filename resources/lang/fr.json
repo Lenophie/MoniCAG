@@ -19,6 +19,8 @@
   "You are receiving this email because we received a password reset request for your account.": "Vous avez reçu ce courriel parce que nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.",
   "Regards": "Salutations",
   "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser: [:actionURL](:actionURL)": "Si vous ne parvenez pas à cliquer sur le bouton \":actionText\", copiez et collez l'URL ci-dessous\ndans votre navigateur: [:actionURL](:actionURL)",
+  "Clear": "Effacer",
+  "Terms": "Modalités",
   "Borrowing": "Emprunt",
   "Borrower": "Emprunteur",
   "Game": "Jeu",
