@@ -15,11 +15,12 @@ This application aims at :
 
 *Just MoniCAG.*
 
-**Version :** *MoniCAG v0.14.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.15.0* - [Changelog](./changelog.md)
 
 **Work in progress :**
 
-* Browser unit and integration tests.
+* Replacing Bootstrap with Bulma.
+* Removing jQuery.
 
 ---
 

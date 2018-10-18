@@ -15,11 +15,12 @@ Cette application cherche à :
 
 *Juste MoniCAG.*
 
-**Version :** *MoniCAG v0.14.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.15.0* - [Changelog](./changelog.md)
 
 **Travail en cours :**
 
-* Tests unitaires et d'intégration sur navigateur
+* Remplacer Bootstrap par Bulma.
+* Retirer jQuery.
 
 ---
 
