@@ -6,7 +6,7 @@ const addListenersToModalTogglers = () => {
         const targetModalId = modalToggler.getAttribute("data-target");
         if (targetModalId != null) {
             const targetModal = document.getElementById(targetModalId);
-            modalToggler.addEventListener('click', () => toggleModal(targetModal));
+            modalToggler.addEventListener('click', () => {if (!isDisabled(modalToggler)) toggleModal(targetModal)});
         }
     }
 };
@@ -22,6 +22,11 @@ const closeModal = (event, targetModal) => {
     event.preventDefault();
     targetModal.classList.remove('is-active');
     html.classList.remove('is-clipped');
+};
+
+const isDisabled = (target) => {
+    const disabledAttribute = target.getAttribute('disabled');
+    return (disabledAttribute === 'disabled')
 };
 
 addListenersToModalTogglers();
