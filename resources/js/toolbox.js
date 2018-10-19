@@ -24,3 +24,7 @@ export const getByClass = (classname) => {
 export const getBySelector = (selector) => {
     return document.querySelector(selector);
 };
+
+export const getAllBySelector = (selector) => {
+    return document.querySelectorAll(selector);
+};
