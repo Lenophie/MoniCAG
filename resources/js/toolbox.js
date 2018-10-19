@@ -20,3 +20,7 @@ export const getById = (id) => {
 export const getByClass = (classname) => {
     return document.getElementsByClassName(classname);
 };
+
+export const getBySelector = (selector) => {
+    return document.querySelector(selector);
+};
