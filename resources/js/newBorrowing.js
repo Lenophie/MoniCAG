@@ -123,7 +123,6 @@ const handleFormSubmit = () => {
 };
 
 const handleFormErrors = (errors) => {
-    console.log(errors);
     for (const fieldName in errors) {
         for (const error of errors[fieldName]) {
             if (!fieldName.startsWith('borrowedItems.')) {
