@@ -1,6 +1,6 @@
 import './modal.js';
-import {ready, getById, getBySelector, getByClass} from './toolbox.js';
-import {HTTPVerbs, makeAjaxRequest} from "./ajax";
+import {getByClass, getById, getBySelector, ready} from './toolbox.js';
+import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
 let messages = {};
 const selectedBorrowings = [];

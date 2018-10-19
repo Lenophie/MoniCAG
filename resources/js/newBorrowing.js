@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
 import './modal.js';
-import {makeAjaxRequest, HTTPVerbs} from './ajax.js';
-import {ready, remove, getById, getByClass} from './toolbox.js';
+import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
+import {getByClass, getById, ready, remove} from './toolbox.js';
 
 const itemsToBorrow = [];
 
