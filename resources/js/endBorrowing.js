@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './modal.js';
 
 let messages = {};
 const selectedBorrowings = [];
@@ -33,19 +34,29 @@ const getTranslatedMessages = () => {
 const addListElements = (borrowings) => {
     for (const borrowing of borrowings) {
         $('#borrowings-list').append(
-            `<a id="borrowings-list-element-${borrowing.id}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-${borrowing.isLate ? 'bad' : 'good'}">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="borrowed-item-name mb-1">${borrowing.inventoryItem.name}</h5>
-                    ${borrowing.isLate ? `<small class="late-message">${messages.late}</small>` : ''}
-                    <small>
-                        <span class="borrow-date">${borrowing.startDate}</span>
-                         <i class="fas fa-arrow-right"></i> <span class="expected-return-date">${borrowing.expectedReturnDate}
-                        </span>
-                    </small>
+            `<a id="borrowings-list-element-${borrowing.id}" class="list-item has-background-${borrowing.isLate ? 'bad' : 'good'}">
+                <div class="level">
+                    <div class="level-left">
+                        <h5 class="borrowed-item-name level-item">${borrowing.inventoryItem.name}</h5>
+                    </div>
+                    ${borrowing.isLate ? `<small class="late-message level-item">${messages.late}</small>` : ''}
+                    <div class="level-right">
+                        <small class="level-item">
+                            <span>
+                                <span class="borrow-date">${borrowing.startDate}</span>
+                                 <i class="fas fa-arrow-right"></i>
+                                 <span class="expected-return-date">${borrowing.expectedReturnDate}</span>
+                            </span>
+                        </small>
+                    </div>
                 </div>
-                <div class="d-flex w-100 justify-content-between">
-                    <p class="mb-0">${messages.borrowedBy} ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) | ${messages.lentBy} ${borrowing.initialLender.firstName} ${borrowing.initialLender.lastName.toUpperCase()} (Promo ${borrowing.initialLender.promotion})</p>
-                    <small class="selection-span no-display">${messages.selectedTag}</small>
+                <div class="level">
+                    <div class="level-left">
+                        <p class="level-item">${messages.borrowedBy} ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) | ${messages.lentBy} ${borrowing.initialLender.firstName} ${borrowing.initialLender.lastName.toUpperCase()} (Promo ${borrowing.initialLender.promotion})</p>
+                    </div>
+                    <div class="level-right">
+                        <small class="level-item selection-span no-display">${messages.selectedTag}</small>
+                    </div>
                 </div>
             </a>`
         );
@@ -62,12 +73,17 @@ const addListeners = () => {
 
 
 const handleBorrowingsListElementClick = (borrowing) => {
+    const borrowingListElement = $(`#borrowings-list-element-${borrowing.id}`);
     if (borrowing.selected === false) {
-        $(`#borrowings-list-element-${borrowing.id}`).addClass('active');
+        borrowingListElement.addClass('is-active');
+        borrowingListElement.addClass(borrowing.isLate ? 'has-background-darker-bad' : 'has-background-darker-good');
+        borrowingListElement.removeClass(borrowing.isLate ? 'has-background-bad' : 'has-background-good');
         $(`#borrowings-list-element-${borrowing.id} .selection-span`).removeClass('no-display');
         addBorrowingToSelectedBorrowingsList(borrowing);
     } else {
-        $(`#borrowings-list-element-${borrowing.id}`).removeClass('active');
+        borrowingListElement.removeClass('is-active');
+        borrowingListElement.removeClass(borrowing.isLate ? 'has-background-darker-bad' : 'has-background-darker-good');
+        borrowingListElement.addClass(borrowing.isLate ? 'has-background-bad' : 'has-background-good');
         $(`#borrowings-list-element-${borrowing.id} .selection-span`).addClass('no-display');
         removeBorrowingFromSelectedBorrowingsList(borrowing);
     }
@@ -104,14 +120,14 @@ const handleReturnButtonClick = (buttonEnum) => {
       case buttonsEnum.END:
           modalTitle = messages.modal.title.returned;
           modalSubmitText = messages.modal.button.returned;
-          classToAddToSubmitButton = 'btn-good';
-          classToRemoveFromSubmitButton = 'btn-bad';
+          classToAddToSubmitButton = 'is-success';
+          classToRemoveFromSubmitButton = 'is-danger';
       break;
       case buttonsEnum.LOST:
           modalTitle = messages.modal.title.lost;
           modalSubmitText = messages.modal.button.lost;
-          classToAddToSubmitButton = 'btn-bad';
-          classToRemoveFromSubmitButton = 'btn-good';
+          classToAddToSubmitButton = 'is-success';
+          classToRemoveFromSubmitButton = 'is-danger';
       break;
     }
     $(`#end-borrowing-modal .modal-title`).html(modalTitle);

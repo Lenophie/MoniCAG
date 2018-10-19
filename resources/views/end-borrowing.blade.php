@@ -41,23 +41,23 @@
     <meta name="messages.modal.title.lost" content="{{__('messages.end_borrowing.modal.title.lost')}}">
     <meta name="messages.modal.button.returned" content="{{__('messages.end_borrowing.modal.button.returned')}}">
     <meta name="messages.modal.button.lost" content="{{__('messages.end_borrowing.modal.button.lost')}}">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-full">
                 {{__('messages.end_borrowing.declaration.content')}} :
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-good end-button" id="return-button" data-toggle="modal" data-target="#end-borrowing-modal" disabled>{{__('messages.end_borrowing.declaration.returned')}}</button>
+        <div class="columns">
+            <div class="column is-half">
+                <a class="button is-success end-button" id="return-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.returned')}}</a>
             </div>
-            <div class="col-md-6 text-center">
-                <button class="btn btn-return-borrowing btn-outline-bad end-button" id="lost-button" data-toggle="modal" data-target="#end-borrowing-modal" disabled>{{__('messages.end_borrowing.declaration.lost')}}</button>
+            <div class="column is-half">
+                <a class="button is-danger end-button" id="lost-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.lost')}}</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="list-group" id="borrowings-list"></ul>
+        <div class="columns">
+            <div class="column is-full">
+                <ul id="borrowings-list" class="list is-hoverable"></ul>
                 @if (count($borrowings) === 0) <div id="no-borrowing-div">{{__('messages.end_borrowing.no_current')}}</div> @endif
             </div>
         </div>
@@ -80,7 +80,7 @@
             id="end-borrowing-modal"
         @endslot
         @slot('footer')
-            <button type="submit" class="btn" id="end-borrowing-submit">Confirmer</button>
+            <button type="submit" class="button" id="end-borrowing-submit">Confirmer</button>
         @endslot
     @endmodal
 @endsection
