@@ -80,7 +80,11 @@
             id="end-borrowing-modal"
         @endslot
         @slot('footer')
-            <button type="submit" class="button" id="end-borrowing-submit">Confirmer</button>
+            <div class="field is-grouped is-grouped-right width-100">
+                <p class="control">
+                    <a type="submit" class="button" id="end-borrowing-submit">{{__('Confirm')}}</a>
+                </p>
+            </div>
         @endslot
     @endmodal
 @endsection

@@ -26,3 +26,7 @@
 #to-return-list {
     list-style: disc inside;
 }
+
+#end-borrowing-modal-confirm-field {
+    width: 100%;
+}
