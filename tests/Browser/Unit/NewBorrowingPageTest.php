@@ -80,12 +80,16 @@ class NewBorrowingPageTest extends DuskTestCase
             $browser->loginAs($this->lender)
                 ->visit(new NewBorrowingPage())
                 ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
+                ->clickOnInventoryItemButton($this->inventoryItems[1]->id)
                 ->click('@checkoutLink')
                 ->whenAvailable('@newBorrowingModal', function ($modal) {
                     $modal->waitForInventoryItemInBorrowingList($this->inventoryItems[0]->id)
+                        ->waitForInventoryItemInBorrowingList($this->inventoryItems[1]->id)
                         ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[0]->id)
+                        ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[1]->id)
                         ->pause(1000)
                         ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[0]->id}")
+                        ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[1]->id}")
                         ->click('.delete');
                 })
                 ->assertSeeIn('@checkoutCounter', 0);

@@ -182,13 +182,21 @@ const changeinventoryItemButtonState = (inventoryItem, bool) => {
 const fillDisplayedToBorrowList = () => {
     const toBorrowListDOMelem = getById('toBorrowList');
     toBorrowListDOMelem.innerHTML = '';
+    let toBorrowList = '';
+
+    // Add nodes
     for (const itemToBorrow of itemsToBorrow) {
-        toBorrowListDOMelem.innerHTML +=
+        toBorrowList +=
             `<li id="to-borrow-list-element-${itemToBorrow.id}">
                 ${itemToBorrow.name} <a class="button is-small is-danger remove-item-borrow-list-button" type="button" id="remove-item-borrow-list-button-${itemToBorrow.id}">
                     <i class="fas fa-times"></i>
                 </a>
             </li>`;
+    }
+    toBorrowListDOMelem.innerHTML = toBorrowList;
+
+    // Add listeners
+    for (const itemToBorrow of itemsToBorrow) {
         getById(`remove-item-borrow-list-button-${itemToBorrow.id}`).addEventListener('click', () => handleRemoveInventoryItemFromBorrowingButtonClick(itemToBorrow));
     }
 };
