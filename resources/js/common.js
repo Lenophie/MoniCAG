@@ -1,5 +1,5 @@
 //import '@babel/polyfill';
-import 'bulma/css/bulma.css';
+import 'bulma/css/bulma.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
 import 'flag-icon-css/css/flag-icon.min.css';
 import '../sass/bulma-theming.scss';

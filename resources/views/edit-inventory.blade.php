@@ -396,9 +396,9 @@
             id="delete-confirm-modal"
         @endslot
         @slot('footer')
-            <form class="delete-form" method="DELETE" action="{{url('/edit-inventory')}}">
+            <form id="delete-form" method="DELETE" action="{{url('/edit-inventory')}}">
                 @csrf
-                <button class="button is-danger is-fullwidth delete-confirm-button" type="submit">
+                <button class="button is-danger is-fullwidth" id="delete-confirm-button" type="submit">
                     {{__('Delete')}}
                 </button>
             </form>

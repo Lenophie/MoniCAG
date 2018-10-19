@@ -1,81 +1,67 @@
-import $ from 'jquery';
+import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
+import {getAllBySelector, getByClass, getById, ready, remove} from './toolbox.js';
 
 // After page is loaded
-$().ready(() => {
+ready(() => {
     addListeners();
 });
 
 // Listeners setting
 const addListeners = () => {
     for (const user of users) {
-        $(`#edit-user-${user.id}-button`).click((e) => handleEditUserButtonClick(e, user.id));
-        $(`#delete-user-${user.id}-button`).click((e) => handleDeleteUserButtonClick(e, user.id));
+        getById(`edit-user-${user.id}-button`).addEventListener('click', (e) => handleEditUserButtonClick(e, user.id));
+        getById(`delete-user-${user.id}-button`).addEventListener('click', (e) => handleDeleteUserButtonClick(e, user.id));
     }
 };
 
 // Listeners handlers
 const handleEditUserButtonClick = (e, id) => {
     e.preventDefault();
-    const serializedForm = $(`#edit-user-${id}-form`).serializeArray();
+    const serializedForm = Array.from(new FormData(getById(`edit-user-${id}-form`)));
     const formattedForm = {};
-    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.userId = id;
-    $('.error-text').remove();
+    remove(getByClass('error-text'));
     enableInputs(false);
 
-    $.ajax({
-        url: requestsURL,
-        type: 'PATCH',
-        data: formattedForm,
-        success: () => {
-            window.location.href = id === currentUserID ? '/' : '';
-        },
-        error: (response) => {
-            enableInputs(true);
-            handleFormErrors(response.responseJSON.errors, id);
-        }
-    });
+    const successCallback = () => window.location.href = id === currentUserID ? '/' : '';
+    const errorCallback = (response) => {
+        enableInputs(true);
+        handleFormErrors(JSON.parse(response).errors, id);
+    };
+    makeAjaxRequest(HTTPVerbs.PATCH, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleDeleteUserButtonClick = (e, id) => {
     e.preventDefault();
-    const serializedForm = $(`#delete-user-${id}-form`).serializeArray();
+    const serializedForm = Array.from(new FormData(getById(`delete-user-${id}-form`)));
     const formattedForm = {};
-    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.userId = id;
-    $('.error-text').remove();
+    remove(getByClass('error-text'));
     enableInputs(false);
 
-    $.ajax({
-        url: requestsURL,
-        type: 'DELETE',
-        data: formattedForm,
-        success: () => {
-            window.location.href = id === currentUserID ? '/' : '';
-        },
-        error: (response) => {
-            enableInputs(true);
-            handleFormErrors(response.responseJSON.errors, id);
-        }
-    });
+    const successCallback = () => window.location.href = id === currentUserID ? '/' : '';
+    const errorCallback = (response) => {
+        enableInputs(true);
+        handleFormErrors(JSON.parse(response).errors, id);
+    };
+    makeAjaxRequest(HTTPVerbs.DELETE, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleFormErrors = (errors, id) => {
     for (const fieldName in errors) {
         for (const error of errors[fieldName]) {
-            $(`#errors-field-${id}`).append(`<div class="error-text">${error}</div>`);
+            getById(`errors-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
         }
     }
 };
 
 const enableInputs = (bool) => {
-    const buttons = $('button');
-    const selects = $('select');
+    const elems = getAllBySelector('button, select');
     if (!bool) {
-        buttons.attr('disabled', 'disabled');
-        selects.attr('disabled', 'disabled');
+        for (const elem of elems) elem.setAttribute('disabled', 'disabled');
     } else {
-        buttons.removeAttr('disabled');
-        selects.removeAttr('disabled');
+        for (const elem of elems) elem.removeAttribute('disabled');
     }
 };

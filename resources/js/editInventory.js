@@ -1,5 +1,6 @@
-import $ from 'jquery';
 import './modal.js';
+import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
+import {getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 
 const submitTypes = {
     POST: 0,
@@ -7,8 +8,10 @@ const submitTypes = {
     DELETE: 2
 };
 
+let previousDeleteModalId = null;
+
 // After page is loaded
-$().ready(() => {
+ready(() => {
     addListeners();
 });
 
@@ -16,20 +19,21 @@ $().ready(() => {
 const addListeners = () => {
     const addGenreSelects = {};
     for (const inventoryItem of inventoryItems) {
-        $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
-        $(`#delete-button-${inventoryItem.id}`).click(() => {if (inventoryItem.status.id !== 3) handleDeleteModalOpening(inventoryItem.id)});
-        addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
-        addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(
+        getById(`edit-item-${inventoryItem.id}-submit-button`).addEventListener('click', (e) => handlePatchItemFormSubmit(e, inventoryItem.id));
+        getById(`delete-button-${inventoryItem.id}`).addEventListener('click', () => {if (inventoryItem.status.id !== 3) handleDeleteModalOpening(inventoryItem.id)});
+        addGenreSelects[inventoryItem.id] = getById(`add-genre-select-${inventoryItem.id}`);
+        addGenreSelects[inventoryItem.id].addEventListener('change', () => handleAddGenreSelectChange(
             submitTypes.PATCH,
             {
-                id: parseInt(addGenreSelects[inventoryItem.id].val()),
-                name: addGenreSelects[inventoryItem.id].find('option:selected').text()
+                id: parseInt(addGenreSelects[inventoryItem.id].value),
+                name: addGenreSelects[inventoryItem.id].options[addGenreSelects[inventoryItem.id].selectedIndex].innerHTML
             },
             inventoryItem.id
         ));
-        $(`#genres-ul-${inventoryItem.id} .remove-genre-button`).click((e) =>
+        const removeGenreButtons = getAllBySelector(`#genres-ul-${inventoryItem.id} .remove-genre-button`);
+        for (const button of removeGenreButtons) button.addEventListener('click', (e) =>
             {
-                const genreId = $(e.currentTarget.parentElement).attr('id').split('-')[1];
+                const genreId = e.currentTarget.parentElement.id.split('-')[1];
                 handleRemoveGenreButtonClick(
                     submitTypes.PATCH,
                     genreId,
@@ -38,13 +42,13 @@ const addListeners = () => {
             }
         );
     }
-    $('#add-item-submit-button').click((e) => handleAddItemFormSubmit(e));
-    addGenreSelects.new = $(`#add-genre-select-new`);
-    addGenreSelects.new.change(() => handleAddGenreSelectChange(
+    getById('add-item-submit-button').addEventListener('click', (e) => handleAddItemFormSubmit(e));
+    addGenreSelects.new = getById('add-genre-select-new');
+    addGenreSelects.new.addEventListener('change', () => handleAddGenreSelectChange(
         submitTypes.POST,
         {
-            id: parseInt(addGenreSelects.new.val()),
-            name: addGenreSelects.new.find('option:selected').text()
+            id: parseInt(addGenreSelects.new.value),
+            name: addGenreSelects.new.options[addGenreSelects.new.selectedIndex].innerHTML
         }
     ));
 };
@@ -52,90 +56,67 @@ const addListeners = () => {
 // Handlers
 const handleAddItemFormSubmit = (e) => {
     e.preventDefault();
-    const serializedForm = $('#add-item-form').serializeArray();
+    const serializedForm = Array.from(new FormData(getById('add-item-form')));
     const formattedForm = {};
-    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
-    formattedForm.genres = $(`#genres-field-new .genre-li`).get().map(x => parseInt(x.id.split('-')[1]));
-    $('.error-text').remove();
+    for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
+    formattedForm.genres = Array.from(getAllBySelector('#genres-field-new .genre-li')).map(x => parseInt(x.id.split('-')[1]));
+    remove(getByClass('error-text'));
     enableInputs(false);
+    const successCallback = () => window.location.href = successRedirectionURL;
+    const errorCallback = (response) => {
+        enableInputs(true);
+        handleFormErrors(submitTypes.POST, JSON.parse(response).errors)
+    };
 
-    $.ajax({
-        url: requestsURL,
-        type: 'POST',
-        data: formattedForm,
-        success: () => {
-            window.location.href = successRedirectionURL;
-        },
-        error: (response) => {
-            enableInputs(true);
-            handleFormErrors(submitTypes.POST, response.responseJSON.errors)
-        }
-    });
+    makeAjaxRequest(HTTPVerbs.POST, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handlePatchItemFormSubmit = (e, id) => {
     e.preventDefault();
-    const serializedForm = $(`#edit-item-${id}-form`).serializeArray();
+    const serializedForm = Array.from(new FormData(getById(`edit-item-${id}-form`)));
     const formattedForm = {};
-    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.inventoryItemId = id;
-    formattedForm.genres = $(`#genres-field-${id} .genre-li`).get().map(x => parseInt(x.id.split('-')[1]));
-    $('.error-text').remove();
+    formattedForm.genres = Array.from(getAllBySelector(`#genres-field-${id} .genre-li`)).map(x => parseInt(x.id.split('-')[1]));
+    remove(getByClass('error-text'));
     enableInputs(false);
+    const successCallback = () => window.location.href = successRedirectionURL;
+    const errorCallback = (response) => {
+        enableInputs(true);
+        handleFormErrors(submitTypes.PATCH, JSON.parse(response).errors, id);
+    };
 
-    $.ajax({
-        url: requestsURL,
-        type: 'PATCH',
-        data: formattedForm,
-        success: () => {
-            window.location.href = successRedirectionURL;
-        },
-        error: (response) => {
-            enableInputs(true);
-            handleFormErrors(submitTypes.PATCH, response.responseJSON.errors, id);
-        }
-    });
+    makeAjaxRequest(HTTPVerbs.PATCH, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleDeleteModalOpening = (id) => {
-    console.log('ho');
-    const deleteForm = $('.delete-form');
-    const deleteConfirmButtonByClass = $('.delete-confirm-button');
+    const deleteForm = getById('delete-form');
+    const deleteConfirmButtonByClass = getById('delete-confirm-button');
 
-    deleteForm.attr('id', `delete-item-${id}-form`);
-    deleteConfirmButtonByClass.attr('id', `delete-confirm-button-${id}`);
+    deleteForm.setAttribute('id', `delete-item-${id}-form`);
+    deleteConfirmButtonByClass.setAttribute('id', `delete-confirm-button-${id}`);
 
-    const deleteConfirmButton = $(`#delete-confirm-button-${id}`);
-    deleteConfirmButton.off();
-    deleteConfirmButton.click((e) => handleDeleteItemFormSubmit(e, id));
-    $('#delete-confirm-modal').on('hidden.bs.modal', () => {
-        deleteConfirmButton.off();
-        deleteForm.removeAttr('id');
-        deleteConfirmButtonByClass.removeAttr('id');
-    });
+    const deleteConfirmButton = getById(`delete-confirm-button-${id}`);
+    if (previousDeleteModalId != null) deleteConfirmButton.removeEventListener('click', (e) => handleDeleteItemFormSubmit(e, previousDeleteModalId));
+    previousDeleteModalId = id;
+    deleteConfirmButton.addEventListener('click', (e) => handleDeleteItemFormSubmit(e, id));
 };
 
 const handleDeleteItemFormSubmit = (e, id) => {
     e.preventDefault();
-    const serializedForm = $(`#delete-item-${id}-form`).serializeArray();
+    const serializedForm = Array.from(new FormData(getById(`delete-item-${id}-form`)));
     const formattedForm = {};
-    for (const elem of serializedForm) formattedForm[elem.name] = elem.value;
+    for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.inventoryItemId = id;
-    $('.error-text').remove();
+    remove(getByClass('error-text'));
     enableInputs(false);
+    const successCallback = () => window.location.href = successRedirectionURL;
+    const errorCallback = (response) => {
+        enableInputs(true);
+        handleFormErrors(submitTypes.DELETE, JSON.parse(response).errors);
+    };
 
-    $.ajax({
-        url: requestsURL,
-        type: 'DELETE',
-        data: formattedForm,
-        success: () => {
-            window.location.href = successRedirectionURL;
-        },
-        error: (response) => {
-            enableInputs(true);
-            handleFormErrors(submitTypes.DELETE, response.responseJSON.errors);
-        }
-    });
+    makeAjaxRequest(HTTPVerbs.DELETE, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleFormErrors = (submitType, errors, id) => {
@@ -143,9 +124,9 @@ const handleFormErrors = (submitType, errors, id) => {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
                 if (!fieldName.startsWith('genres.')) {
-                    $(`#${fieldName}-field-new`).append(`<div class="error-text">${error}</div>`);
+                    getById(`${fieldName}-field-new`).innerHTML += `<div class="error-text">${error}</div>`;
                 } else {
-                    $(`#genres-field-new`).append(`<div class="error-text">${error}</div>`);
+                    getById('genres-field-new').innerHTML += `<div class="error-text">${error}</div>`;
                 }
             }
         }
@@ -153,16 +134,16 @@ const handleFormErrors = (submitType, errors, id) => {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
                 if (!fieldName.startsWith('genres.')) {
-                    $(`#${fieldName}-field-${id}`).append(`<div class="error-text">${error}</div>`);
+                    getById(`${fieldName}-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
                 } else {
-                    $(`#genres-field-${id}`).append(`<div class="error-text">${error}</div>`);
+                    getById(`genres-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
                 }
             }
         }
     } else if (submitType === submitTypes.DELETE) {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
-                $('#delete-modal-body').append(`<div class="error-text">${error}</div>`);
+                getById('#delete-modal-body').innerHTML += `<div class="error-text">${error}</div>`;
             }
         }
     }
@@ -170,8 +151,8 @@ const handleFormErrors = (submitType, errors, id) => {
 
 const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
     if (submitType === submitTypes.POST) {
-        const addGenreSelect = $('#genres-ul-new .plus-li');
-        addGenreSelect.before(`
+        const addGenreSelect = getBySelector('#genres-ul-new .plus-li');
+        addGenreSelect.insertAdjacentHTML('beforebegin', `
             <li class="genre-li" id="genre-${selectedGenre.id}-for-new-li">
                 <span>${selectedGenre.name}</span>
                 <a class="button is-small is-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-new" type="button">
@@ -179,12 +160,12 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
                 </a>
             </li>
         `);
-        $('#add-genre-select-new').val('default');
-        $(`#add-genre-${selectedGenre.id}-to-new-option`).attr('disabled', 'disabled');
-        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, 'new'));
+        getById('add-genre-select-new').value = 'default';
+        getById(`add-genre-${selectedGenre.id}-to-new-option`).setAttribute('disabled', 'disabled');
+        addGenreSelect.previousElementSibling.querySelector('.remove-genre-button').addEventListener('click', () => handleRemoveGenreButtonClick(submitType, selectedGenre.id, 'new'));
     } else if (submitType === submitTypes.PATCH) {
-        const addGenreSelect = $(`#genres-ul-${id} .plus-li`);
-        addGenreSelect.before(`
+        const addGenreSelect = getBySelector(`#genres-ul-${id} .plus-li`);
+        addGenreSelect.insertAdjacentHTML('beforebegin', `
             <li class="genre-li" id="genre-${selectedGenre.id}-for-${id}-li">
                 <span>${selectedGenre.name}</span>
                 <button class="button is-small is-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-${id}">
@@ -192,32 +173,26 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
                 </button>
             </li>
         `);
-        $(`#add-genre-select-${id}`).val('default');
-        $(`#add-genre-${selectedGenre.id}-to-${id}-option`).attr('disabled', 'disabled');
-        addGenreSelect.prev().find('.remove-genre-button').click(() => handleRemoveGenreButtonClick(submitType, selectedGenre.id, id));
+        getById(`add-genre-select-${id}`).value = 'default';
+        getById(`add-genre-${selectedGenre.id}-to-${id}-option`).setAttribute('disabled', 'disabled');
+        addGenreSelect.previousElementSibling.querySelector('.remove-genre-button').addEventListener('click', () => handleRemoveGenreButtonClick(submitType, selectedGenre.id, id));
     }
 };
 
 const handleRemoveGenreButtonClick = (submitType, genreId, itemId) => {
-    $(`#genre-${genreId}-for-${itemId}-li`).remove();
+    remove(getById(`genre-${genreId}-for-${itemId}-li`));
     if (submitType === submitTypes.POST) {
-        $(`#add-genre-${genreId}-to-new-option`).removeAttr('disabled');
+        getById(`add-genre-${genreId}-to-new-option`).removeAttribute('disabled');
     } else if (submitType === submitTypes.PATCH) {
-        $(`#add-genre-${genreId}-to-${itemId}-option`).removeAttr('disabled');
+        getById(`add-genre-${genreId}-to-${itemId}-option`).removeAttribute('disabled');
     }
 };
 
 const enableInputs = (bool) => {
-  const buttons = $('button');
-  const selects = $('select');
-  const inputs = $('input');
+  const elems = getAllBySelector('button, select, input');
   if (!bool) {
-      buttons.attr('disabled', 'disabled');
-      selects.attr('disabled', 'disabled');
-      inputs.attr('disabled', 'disabled');
+      for (const elem of elems) elem.setAttribute('disabled', 'disabled');
   } else {
-      buttons.removeAttr('disabled');
-      selects.removeAttr('disabled');
-      inputs.removeAttr('disabled');
+      for (const elem of elems) elem.removeAttribute('disabled');
   }
 };
