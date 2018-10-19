@@ -47,8 +47,8 @@
                         <input type="text" id="search-game-field" class="input" placeholder="{{__('messages.new_borrowing.search_placeholder')}}...">
                     </div>
                     <div class="control">
-                        <a class="button is-outlined is-danger" type="button" id="search-game-button">
-                            {{__('Clear')}}
+                        <a class="button is-outlined is-danger height-100" type="button" id="search-game-button">
+                            <i class="fas fa-times"></i>
                         </a>
                     </div>
                 </div>
