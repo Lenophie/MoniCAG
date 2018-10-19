@@ -1,5 +1,5 @@
 import './modal.js';
-import {getByClass, getById, getBySelector, ready} from './toolbox.js';
+import {getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
 let messages = {};
@@ -137,14 +137,14 @@ const handleReturnButtonClick = (buttonEnum) => {
     modalSubmitButton.classList.add(classToAddToSubmitButton);
     modalSubmitButton.classList.remove(classToRemoveFromSubmitButton);
 
-    const toReturnListElement = getBySelector(`#end-borrowing-modal #to-return-list`);
+    const toReturnListElement = getBySelector('#end-borrowing-modal #to-return-list');
     toReturnListElement.innerHTML = '';
     for (const borrowing of selectedBorrowings) {
         toReturnListElement.innerHTML +=
             `<li>${borrowing.inventoryItem.name} ${messages.borrowedBy.toLowerCase()} ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`;
     }
 
-    getByClass('error-text').innerHTML = '';
+    remove(getByClass('error-text'));
     modalSubmitButton.removeEventListener('click', () => handleConfirmButtonClick(buttonsEnum.END));
     modalSubmitButton.removeEventListener('click', () => handleConfirmButtonClick(buttonsEnum.LOST));
     modalSubmitButton.addEventListener('click', () => handleConfirmButtonClick(buttonEnum));
@@ -160,7 +160,6 @@ const handleConfirmButtonClick = (buttonEnum) => {
     }
     const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? inventoryItemStatuses.RETURNED : inventoryItemStatuses.LOST;
     const csrfToken = Array.from(new FormData(getById('csrf-token')));
-    console.log(csrfToken);
     const data = {
         _token: csrfToken[0][1],
         selectedBorrowings: selectedBorrowingsIDs,
@@ -169,7 +168,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
     const successCallback = () => window.location.href = borrowingsHistoryUrl;
     const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);
 
-    getByClass('error-text').innerHTML = '';
+    remove(getByClass('error-text'));
     makeAjaxRequest(HTTPVerbs.PATCH, endBorrowingUrl, JSON.stringify(data), successCallback, errorCallback);
 };
 

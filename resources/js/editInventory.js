@@ -1,6 +1,6 @@
 import './modal.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
-import {getByClass, getAllBySelector, getBySelector, getById, ready, remove} from './toolbox.js';
+import {getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 
 const submitTypes = {
     POST: 0,
@@ -59,9 +59,8 @@ const handleAddItemFormSubmit = (e) => {
     const serializedForm = Array.from(new FormData(getById('add-item-form')));
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
-    console.log(getAllBySelector('#genres-field-new .genre-li'));
     formattedForm.genres = Array.from(getAllBySelector('#genres-field-new .genre-li')).map(x => parseInt(x.id.split('-')[1]));
-    getByClass('error-text').innerHTML = '';
+    remove(getByClass('error-text'));
     enableInputs(false);
     const successCallback = () => window.location.href = successRedirectionURL;
     const errorCallback = (response) => {
@@ -79,7 +78,7 @@ const handlePatchItemFormSubmit = (e, id) => {
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.inventoryItemId = id;
     formattedForm.genres = Array.from(getAllBySelector(`#genres-field-${id} .genre-li`)).map(x => parseInt(x.id.split('-')[1]));
-    getByClass('.error-text').innerHTML = '';
+    remove(getByClass('error-text'));
     enableInputs(false);
     const successCallback = () => window.location.href = successRedirectionURL;
     const errorCallback = (response) => {
@@ -109,7 +108,7 @@ const handleDeleteItemFormSubmit = (e, id) => {
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
     formattedForm.inventoryItemId = id;
-    getByClass('error-text').innerHTML = '';
+    remove(getByClass('error-text'));
     enableInputs(false);
     const successCallback = () => window.location.href = successRedirectionURL;
     const errorCallback = (response) => {

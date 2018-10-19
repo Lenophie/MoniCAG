@@ -25,7 +25,7 @@ const addListeners = () => {
     });
 
     // Submit button listener
-    getById('new-borrowing-submit').addEventListener('click', () => handleFormSubmit());
+    getById('new-borrowing-submit').addEventListener('click', handleFormSubmit);
 };
 
 // Modal observation setup
@@ -115,7 +115,7 @@ const handleFormSubmit = () => {
     formattedForm.borrowedItems = itemsToBorrowIDs;
 
     if (formattedForm.guarantee != null && /^[0-9]+([.,][0-9][0-9]?)?$/.test(formattedForm.guarantee)) formattedForm.guarantee = parseFloat(formattedForm.guarantee.replace(',', '.'));
-    getByClass('error-text').innerHTML = '';
+    remove(getByClass('error-text'));
 
     const successCallback = () => window.location.href = borrowingsHistoryUrl;
     const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);

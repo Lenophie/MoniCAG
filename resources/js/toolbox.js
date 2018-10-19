@@ -10,7 +10,9 @@ export const ready = (fn) => {
 };
 
 export const remove = (element) => {
-    element.parentNode.removeChild(element);
+    if (NodeList.prototype.isPrototypeOf(element) || HTMLCollection.prototype.isPrototypeOf(element)) {
+        Array.from(element).forEach((item) => item.parentNode.removeChild(item));
+    } else element.parentNode.removeChild(element);
 };
 
 export const getById = (id) => {
