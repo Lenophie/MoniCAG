@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Fuse from "fuse.js";
 
 const gameSearchInput = $('#search-game-field');

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import Fuse from 'fuse.js';
 import './modal.js';
 

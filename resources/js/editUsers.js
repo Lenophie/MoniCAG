@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 // After page is loaded
 $().ready(() => {
     addListeners();
