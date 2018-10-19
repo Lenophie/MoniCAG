@@ -1,13 +1,11 @@
 .remove-genre-button {
     height: 20px;
     width: 20px;
-    padding: 0 !important;
-    font-size: 12px !important;
-    margin-bottom: 2px !important;
 }
 
 .plus-li {
     list-style: none !important;
+    white-space: nowrap;
 }
 
 .plus-li:before {
@@ -25,4 +23,12 @@ ul {
 
 .table-edit-inventory {
     min-width: 1400px;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.small-margin-bottom {
+    margin-bottom: 2px;
 }

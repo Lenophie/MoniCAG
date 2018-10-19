@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './modal.js';
 
 const submitTypes = {
     POST: 0,
@@ -16,7 +17,7 @@ const addListeners = () => {
     const addGenreSelects = {};
     for (const inventoryItem of inventoryItems) {
         $(`#edit-item-${inventoryItem.id}-submit-button`).click((e) => handlePatchItemFormSubmit(e, inventoryItem.id));
-        $(`#delete-button-${inventoryItem.id}`).click(() => handleDeleteModalOpening(inventoryItem.id));
+        $(`#delete-button-${inventoryItem.id}`).click(() => {if (inventoryItem.status.id !== 3) handleDeleteModalOpening(inventoryItem.id)});
         addGenreSelects[inventoryItem.id] = $(`#add-genre-select-${inventoryItem.id}`);
         addGenreSelects[inventoryItem.id].change(() => handleAddGenreSelectChange(
             submitTypes.PATCH,
@@ -97,11 +98,10 @@ const handlePatchItemFormSubmit = (e, id) => {
 };
 
 const handleDeleteModalOpening = (id) => {
-    const deleteConfirmModal = $(`#delete-confirm-modal`);
+    console.log('ho');
     const deleteForm = $('.delete-form');
     const deleteConfirmButtonByClass = $('.delete-confirm-button');
 
-    deleteConfirmModal.modal();
     deleteForm.attr('id', `delete-item-${id}-form`);
     deleteConfirmButtonByClass.attr('id', `delete-confirm-button-${id}`);
 
@@ -174,9 +174,9 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
         addGenreSelect.before(`
             <li class="genre-li" id="genre-${selectedGenre.id}-for-new-li">
                 <span>${selectedGenre.name}</span>
-                <button class="btn btn-sm btn-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-new">
+                <a class="button is-small is-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-new" type="button">
                     <i class="fas fa-times"></i>
-                </button>
+                </a>
             </li>
         `);
         $('#add-genre-select-new').val('default');
@@ -187,7 +187,7 @@ const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
         addGenreSelect.before(`
             <li class="genre-li" id="genre-${selectedGenre.id}-for-${id}-li">
                 <span>${selectedGenre.name}</span>
-                <button class="btn btn-sm btn-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-${id}">
+                <button class="button is-small is-danger remove-genre-button" id="button-remove-genre-${selectedGenre.id}-for-${id}">
                     <i class="fas fa-times"></i>
                 </button>
             </li>

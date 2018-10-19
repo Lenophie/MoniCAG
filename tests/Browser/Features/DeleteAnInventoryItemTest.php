@@ -67,22 +67,4 @@ class DeleteAnInventoryItemTest extends DuskTestCase
             ]);
         }
     }
-
-    public function testDeleteABorrowedItemRejection() {
-        // Go to the edit inventory page and delete the inventory item
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(new HomePage())
-                ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
-                ->on(new EditInventoryPage())
-                ->pressOnDeleteItemButton($this->borrowedItem->id)
-                ->whenAvailable('@deletionConfirmationModal', function($modal) {
-                    $modal->press("#delete-confirm-button-{$this->borrowedItem->id}");
-                })
-                ->assertSee(__('validation/deleteInventoryItem.inventoryItemId.inventory_item_not_borrowed'));
-        });
-
-        // Check record unaffected
-        $this->assertDatabaseHas('inventory_items', ['id' => $this->borrowedItem->id]);
-    }
 }

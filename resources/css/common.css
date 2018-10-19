@@ -66,3 +66,7 @@ h1 {
 .width-100 {
     width: 100%;
 }
+
+.no-mb {
+    margin-bottom: 0 !important;
+}
