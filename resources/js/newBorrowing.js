@@ -53,11 +53,13 @@ const addInventoryItemButtonsListeners = () => {
 
 // Listeners handlers
 const handleInventoryItemButtonClick = (inventoryItem) => {
-    inventoryItem.selected = !inventoryItem.selected;
-    if (inventoryItem.selected) addInventoryItemToBorrowingList(inventoryItem);
-    else removeInventoryItemFromBorrowingList(inventoryItem);
-    changeinventoryItemButtonState(inventoryItem, inventoryItem.selected);
-    updateCheckoutCounter();
+    if (inventoryItem.status.id < 3) {
+        inventoryItem.selected = !inventoryItem.selected;
+        if (inventoryItem.selected) addInventoryItemToBorrowingList(inventoryItem);
+        else removeInventoryItemFromBorrowingList(inventoryItem);
+        changeinventoryItemButtonState(inventoryItem, inventoryItem.selected);
+        updateCheckoutCounter();
+    }
 };
 
 const handleBorrowingModalShow = () => {
