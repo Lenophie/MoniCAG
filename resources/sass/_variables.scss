@@ -4,6 +4,7 @@ $borrowings-history: #dcdf2d;
 $view-inventory: #a7885a;
 $edit-inventory: #6c6c6c;
 $edit-users: #6973f7;
+$edit-users-light: #7cc1f7;
 $good: rgba(30, 172, 30, 0.8);
 $darker-good: #168C16;
 $bad: rgba(205, 7, 24, 0.8);
@@ -15,6 +16,7 @@ $colors: ("new-borrowing": ($new-borrowing, #fff),
   "view-inventory": ($view-inventory, #fff),
   "edit-inventory": ($edit-inventory, #fff),
   "edit-users": ($edit-users, #fff),
+  "edit-users-light": ($edit-users-light, #fff),
   "good": ($good, #fff),
   "darker-good": ($darker-good, #fff),
   "bad": ($bad, #fff),

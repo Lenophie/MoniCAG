@@ -33,17 +33,17 @@
             {{__('messages.titles.edit_users')}}
         @endslot
     @endheader
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 table-responsive">
-                <table class="table table-striped table-edit-users">
-                    <thead class="thead-light">
-                        <tr>
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-12">
+                <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                    <thead>
+                        <tr class="has-background-edit-users">
                             <th colspan="3" class="border-right">{{__('User')}}</th>
                             <th colspan="2" class="border-right">{{__('messages.edit_users.change_role')}}</th>
                             <th colspan="1">{{__('Delete')}}</th>
                         </tr>
-                        <tr>
+                        <tr class="has-background-edit-users-light">
                             <th scope="col">{{__('Name')}}</th>
                             <th scope="col">{{__('Promotion')}}</th>
                             <th scope="col" class="border-right">{{__('E-mail address')}}</th>
@@ -55,45 +55,47 @@
                     <tbody>
                     @foreach($users as $user)
                        <tr id="user-row-{{$user->id}}">
-                           <td class="align-middle name-field">{{$user->firstName}} {{$user->lastName}}</td>
-                           <td class="align-middle promotion-field">{{$user->promotion}}</td>
-                           <td class="align-middle email-field">{{$user->email}}</td>
-                           <td class="align-middle">
-                               <div id="role-field-{{$user->id}}">
-                                   <label class="input-group-text d-none" for="role-{{$user->id}}">
+                           <td class="name-field">{{$user->firstName}} {{$user->lastName}}</td>
+                           <td class="promotion-field">{{$user->promotion}}</td>
+                           <td class="email-field">{{$user->email}}</td>
+                           <td>
+                               <div id="control is-expanded role-field-{{$user->id}}">
+                                   <label class="is-hidden" for="role-{{$user->id}}">
                                        {{__('Role')}}
                                    </label>
-                                   <select id="role-{{$user->id}}" name="role" class="custom-select form-control" autocomplete="off" form="edit-user-{{$user->id}}-form">
-                                       @foreach($userRoles as $userRole)
-                                           <option value="{{$userRole->id}}"
-                                                   @if($user->role->id === $userRole->id)
-                                                       selected
-                                                   @endif
-                                                   @if($user->role->id === \App\UserRole::ADMINISTRATOR
-                                                       && $userRole->id !== \App\UserRole::ADMINISTRATOR
-                                                       && $user->id !== Auth::user()->id)
-                                                        disabled
-                                                   @endif
-                                           >
-                                               {{$userRole->name}}
-                                           </option>
-                                       @endforeach
-                                   </select>
+                                   <div class="select is-fullwidth is-small">
+                                       <select id="role-{{$user->id}}" name="role" autocomplete="off" form="edit-user-{{$user->id}}-form">
+                                           @foreach($userRoles as $userRole)
+                                               <option value="{{$userRole->id}}"
+                                                       @if($user->role->id === $userRole->id)
+                                                           selected
+                                                       @endif
+                                                       @if($user->role->id === \App\UserRole::ADMINISTRATOR
+                                                           && $userRole->id !== \App\UserRole::ADMINISTRATOR
+                                                           && $user->id !== Auth::user()->id)
+                                                            disabled
+                                                       @endif
+                                               >
+                                                   {{$userRole->name}}
+                                               </option>
+                                           @endforeach
+                                       </select>
+                                   </div>
                                </div>
                                <div id="errors-field-{{$user->id}}"></div>
                            </td>
-                           <td class="align-middle border-right">
+                           <td class="border-right">
                                <form method="PATCH" action="{{url('/edit-users')}}" id="edit-user-{{$user->id}}-form">
                                    @csrf
-                                   <button class="btn btn-sm btn-primary table-button" id="edit-user-{{$user->id}}-button">
+                                   <button class="button is-link is-small is-fullwidth" id="edit-user-{{$user->id}}-button">
                                        {{__('Confirm')}}
                                    </button>
                                </form>
                            </td>
-                           <td class="align-middle">
+                           <td>
                                <form method="DELETE" action="{{url('/edit-users')}}" id="delete-user-{{$user->id}}-form">
                                    @csrf
-                                   <button class="btn btn-sm btn-danger table-button" id="delete-user-{{$user->id}}-button">
+                                   <button class="button is-danger is-small is-fullwidth" id="delete-user-{{$user->id}}-button">
                                        {{__('Delete')}}
                                    </button>
                                </form>
