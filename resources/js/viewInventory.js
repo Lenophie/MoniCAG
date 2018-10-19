@@ -1,56 +1,57 @@
 import Fuse from "fuse.js";
+import {getById, getBySelector, ready} from './toolbox.js';
 
-const gameSearchInput = $('#search-game-field');
-const cancelGameSearchButton = $('#cancel-game-search-button');
-const genreFilteringSelect = $('#genre-select');
-const cancelGenreFilteringButton = $('#cancel-genre-filtering-button');
-const durationFilteringInput = $('#duration-input');
-const cancelDurationFilteringButton = $('#cancel-duration-filtering-button');
-const playersFilteringInput = $('#players-input');
-const cancelPlayersFilteringButton = $('#cancel-players-filtering-button');
-const displayedInventoryItemsList = $('#inventory-items-list');
+const gameSearchInput = getById('search-game-field');
+const cancelGameSearchButton = getById('cancel-game-search-button');
+const genreFilteringSelect = getById('genre-select');
+const cancelGenreFilteringButton = getById('cancel-genre-filtering-button');
+const durationFilteringInput = getById('duration-input');
+const cancelDurationFilteringButton = getById('cancel-duration-filtering-button');
+const playersFilteringInput = getById('players-input');
+const cancelPlayersFilteringButton = getById('cancel-players-filtering-button');
+const displayedInventoryItemsList = getById('inventory-items-list');
 let messages = {};
 
 // After page is loaded
-$().ready(() => {
-    messages.players = $("meta[name='players']").attr('content');
-    messages.min = $("meta[name='min']").attr('content');
+ready(() => {
+    messages.players = getBySelector("meta[name='players']").getAttribute('content');
+    messages.min = getBySelector("meta[name='min']").getAttribute('content');
     handleSearchFieldsUpdate();
     addListeners();
 });
 
 // Handlers
 const addListeners = () => {
-    gameSearchInput.keyup(() => handleSearchFieldsUpdate());
-    genreFilteringSelect.change(() => handleSearchFieldsUpdate());
-    durationFilteringInput.keyup(() => handleSearchFieldsUpdate());
-    durationFilteringInput.change(() => handleSearchFieldsUpdate());
-    playersFilteringInput.keyup(() => handleSearchFieldsUpdate());
+    gameSearchInput.addEventListener('keyup', handleSearchFieldsUpdate);
+    genreFilteringSelect.addEventListener('change', handleSearchFieldsUpdate);
+    durationFilteringInput.addEventListener('keyup', handleSearchFieldsUpdate);
+    durationFilteringInput.addEventListener('change', handleSearchFieldsUpdate);
+    playersFilteringInput.addEventListener('keyup', handleSearchFieldsUpdate);
 
-    cancelGameSearchButton.click(() => {
-        gameSearchInput.val('');
+    cancelGameSearchButton.addEventListener('click', () => {
+        gameSearchInput.value = '';
         handleSearchFieldsUpdate();
     });
-    cancelDurationFilteringButton.click(() => {
-        durationFilteringInput.val('');
+    cancelDurationFilteringButton.addEventListener('click', () => {
+        durationFilteringInput.value = '';
         handleSearchFieldsUpdate();
     });
-    cancelGenreFilteringButton.click(() => {
-        genreFilteringSelect.val('');
+    cancelGenreFilteringButton.addEventListener('click', () => {
+        genreFilteringSelect.value = '';
         handleSearchFieldsUpdate();
     });
-    cancelPlayersFilteringButton.click(() => {
-        playersFilteringInput.val('');
+    cancelPlayersFilteringButton.addEventListener('click', () => {
+        playersFilteringInput.value = '';
         handleSearchFieldsUpdate();
     });
 };
 
 const handleSearchFieldsUpdate = () => {
     const searchParameters = {
-        game : gameSearchInput.val(),
-        genre : genreFilteringSelect.val(),
-        duration : durationFilteringInput.val(),
-        playersNumber : playersFilteringInput.val()
+        game : gameSearchInput.value,
+        genre : genreFilteringSelect.value,
+        duration : durationFilteringInput.value,
+        playersNumber : playersFilteringInput.value
     };
 
     for (const key in searchParameters) {
@@ -120,14 +121,17 @@ const filterInventoryItemsByPlayers = (desiredPlayersCount, eligibleInventoryIte
 };
 
 const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
-    displayedInventoryItemsList.empty();
+    displayedInventoryItemsList.innerHTML = '';
     for (const inventoryItem of inventoryItemsToDisplay) {
         const isThereDurationInfo = inventoryItem.duration.min !== null || inventoryItem.duration.max !== null;
         const isTherePlayersInfo = inventoryItem.players.min !== null || inventoryItem.players.max !== null;
-        displayedInventoryItemsList.append(
+        displayedInventoryItemsList.innerHTML +=
             `<div class="column is-2">
                 <div class="inventory-item" id="inventory-item-${inventoryItem.id}">
-                    <div class="inventory-item-name">${inventoryItem.name}<hr class="item-hr"></div>
+                    <div class="inventory-item-name">
+                        ${inventoryItem.name}
+                        <hr class="item-hr">
+                    </div>
                     <div class="inventory-item-precision">
                         <i class="fas fa-trophy"></i> ${formatGenresList(inventoryItem.genres)}
                         ${isThereDurationInfo ? 
@@ -141,7 +145,7 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
                         ${inventoryItem.status.name}
                     </div>
                 </div>
-            </div>`)
+            </div>`;
     }
 };
 
