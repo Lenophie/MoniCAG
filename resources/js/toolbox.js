@@ -13,3 +13,10 @@ export const remove = (element) => {
     element.parentNode.removeChild(element);
 };
 
+export const getById = (id) => {
+    return document.getElementById(id);
+};
+
+export const getByClass = (classname) => {
+    return document.getElementsByClassName(classname);
+};

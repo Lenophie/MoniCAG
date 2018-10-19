@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
 import './modal.js';
 import {makeAjaxRequest, HTTPVerbs} from './ajax.js';
-import {ready, remove} from './toolbox.js';
+import {ready, remove, getById, getByClass} from './toolbox.js';
 
 const itemsToBorrow = [];
 
@@ -17,20 +17,20 @@ const addListeners = () => {
     observeModal();
 
     // Search games listeners
-    const searchGameField = document.getElementById('search-game-field');
+    const searchGameField = getById('search-game-field');
     searchGameField.addEventListener('keyup', () => handleSearchFieldUpdate(searchGameField.value));
-    document.getElementById('search-game-button').addEventListener('click', () => {
+    getById('search-game-button').addEventListener('click', () => {
         searchGameField.value = '';
         handleSearchFieldUpdate('');
     });
 
     // Submit button listener
-    document.getElementById('new-borrowing-submit').addEventListener('click', () => handleFormSubmit());
+    getById('new-borrowing-submit').addEventListener('click', () => handleFormSubmit());
 };
 
 // Modal observation setup
 const observeModal = () => {
-    const newBorrowingModal = document.getElementById('new-borrowing-modal');
+    const newBorrowingModal = getById('new-borrowing-modal');
     const observerConfig = {attributes: true};
     const observeCallback = (mutationsList, observer) => {
         for (const mutation of mutationsList) {
@@ -44,7 +44,7 @@ const observeModal = () => {
 };
 
 const addInventoryItemButtonsListeners = () => {
-    const inventoryItemButtons = document.getElementsByClassName('inventory-item-button');
+    const inventoryItemButtons = getByClass('inventory-item-button');
     for (const inventoryItemButton of inventoryItemButtons) {
         const id = inventoryItemButton.id.slice('inventory-item-button-'.length);
         const inventoryItem = getInventoryItemById(parseInt(id));
@@ -64,7 +64,7 @@ const handleInventoryItemButtonClick = (inventoryItem) => {
 };
 
 const handleBorrowingModalShow = () => {
-    document.getElementsByClassName('.error-text').innerHTML = '';
+    getByClass('.error-text').innerHTML = '';
     fillDisplayedToBorrowList();
 };
 
@@ -73,7 +73,7 @@ const handleRemoveInventoryItemFromBorrowingButtonClick = (inventoryItem) => {
     removeInventoryItemFromBorrowingList(inventoryItem);
     changeinventoryItemButtonState(inventoryItem, false);
     updateCheckoutCounter();
-    const listElementToRemove = document.getElementById(`to-borrow-list-element-${inventoryItem.id}`);
+    const listElementToRemove = getById(`to-borrow-list-element-${inventoryItem.id}`);
     remove(listElementToRemove);
 };
 
@@ -81,7 +81,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
     let filteredInventoryItems = [];
     if (gamesQuery.length > 0) filteredInventoryItems = getInventoryItemsByName(gamesQuery);
     else filteredInventoryItems = inventoryItems;
-    const inventoryItemButtonsList = document.getElementById('inventory-item-buttons-list');
+    const inventoryItemButtonsList = getById('inventory-item-buttons-list');
     inventoryItemButtonsList.innerHTML = '';
     for (const filteredInventoryItem of filteredInventoryItems) {
         inventoryItemButtonsList.innerHTML +=
@@ -101,7 +101,7 @@ const handleSearchFieldUpdate = (gamesQuery) => {
 };
 
 const handleFormSubmit = () => {
-    const newBorrowingForm = document.getElementById('new-borrowing-form');
+    const newBorrowingForm = getById('new-borrowing-form');
     const itemsToBorrowIDs = {};
     let i = 0;
 
@@ -115,7 +115,7 @@ const handleFormSubmit = () => {
     formattedForm.borrowedItems = itemsToBorrowIDs;
 
     if (formattedForm.guarantee != null && /^[0-9]+([.,][0-9][0-9]?)?$/.test(formattedForm.guarantee)) formattedForm.guarantee = parseFloat(formattedForm.guarantee.replace(',', '.'));
-    document.getElementsByClassName('error-text').innerHTML = '';
+    getByClass('error-text').innerHTML = '';
 
     const successCallback = () => window.location.href = borrowingsHistoryUrl;
     const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);
@@ -127,9 +127,9 @@ const handleFormErrors = (errors) => {
     for (const fieldName in errors) {
         for (const error of errors[fieldName]) {
             if (!fieldName.startsWith('borrowedItems.')) {
-                document.getElementById(`form-field-${fieldName}`).innerHTML += `<div class="error-text">${error}</div>`;
+                getById(`form-field-${fieldName}`).innerHTML += `<div class="error-text">${error}</div>`;
             } else {
-                document.getElementById(`form-field-borrowedItems`).innerHTML += `<div class="error-text">${error}</div>`;
+                getById(`form-field-borrowedItems`).innerHTML += `<div class="error-text">${error}</div>`;
             }
         }
     }
@@ -174,25 +174,25 @@ const removeInventoryItemFromBorrowingList = (inventoryItem) => {
 };
 
 const changeinventoryItemButtonState = (inventoryItem, bool) => {
-    const inventoryItemButton = document.getElementById(`inventory-item-button-${inventoryItem.id}`);
+    const inventoryItemButton = getById(`inventory-item-button-${inventoryItem.id}`);
     if (bool) inventoryItemButton.classList.remove('is-outlined');
     else inventoryItemButton.classList.add('is-outlined');
 };
 
 const fillDisplayedToBorrowList = () => {
-    const toBorrowListDOMelem = document.getElementById('toBorrowList');
+    const toBorrowListDOMelem = getById('toBorrowList');
     toBorrowListDOMelem.innerHTML = '';
     for (const itemToBorrow of itemsToBorrow) {
         toBorrowListDOMelem.innerHTML +=
             `<li id="to-borrow-list-element-${itemToBorrow.id}">
-                ${itemToBorrow.name} <button class="button is-small is-danger remove-item-borrow-list-button" id="remove-item-borrow-list-button-${itemToBorrow.id}">
+                ${itemToBorrow.name} <a class="button is-small is-danger remove-item-borrow-list-button" type="button" id="remove-item-borrow-list-button-${itemToBorrow.id}">
                     <i class="fas fa-times"></i>
-                </button>
+                </a>
             </li>`;
-        document.getElementById(`remove-item-borrow-list-button-${itemToBorrow.id}`).addEventListener('click', () => handleRemoveInventoryItemFromBorrowingButtonClick(itemToBorrow));
+        getById(`remove-item-borrow-list-button-${itemToBorrow.id}`).addEventListener('click', () => handleRemoveInventoryItemFromBorrowingButtonClick(itemToBorrow));
     }
 };
 
 const updateCheckoutCounter = () => {
-    document.getElementById('checkout-counter').innerHTML = itemsToBorrow.length;
+    getById('checkout-counter').innerHTML = itemsToBorrow.length;
 };
