@@ -19,7 +19,6 @@ Cette application cherche à :
 
 **Travail en cours :**
 
-* Remplacer Bootstrap par Bulma.
 * Retirer jQuery.
 
 ---

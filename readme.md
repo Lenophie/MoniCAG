@@ -19,7 +19,6 @@ This application aims at :
 
 **Work in progress :**
 
-* Replacing Bootstrap with Bulma.
 * Removing jQuery.
 
 ---

@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-* Moved ```public``` folder content to ```resources```.
-* Replacing ```Bootstrap``` with ```Bulma```.
+* Moved ```public``` folder content to ```resources```
+* Replaced ```Bootstrap``` with ```Bulma```
+* Removing jQuery
 
 ## [0.14.0] - 2018-10-16
 
