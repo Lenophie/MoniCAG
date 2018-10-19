@@ -86,7 +86,7 @@
                                 </a>
                             </div>
                             <div class="control is-expanded">
-                                    <input id="duration-input" type="number" min="0" class="input" placeholder="{{__("messages.view_inventory.filter_duration_placeholder")}}">
+                                <input id="duration-input" type="number" min="0" class="input" placeholder="{{__("messages.view_inventory.filter_duration_placeholder")}}">
                             </div>
                             <div class="control">
                                 <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-duration-filtering-button">
