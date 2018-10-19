@@ -33,16 +33,16 @@
             {{__('messages.titles.borrowings_history')}}
         @endslot
     @endheader
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 table-responsive">
-                <table class="table table-striped table-borrowings-history">
-                    <thead class="thead-light">
-                        <tr>
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-12">
+                <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                    <thead>
+                        <tr class="has-background-grey">
                             <th colspan="5" class="border-right">{{__('Borrowing')}}</th>
                             <th colspan="3">{{__('Return')}}</th>
                         </tr>
-                        <tr>
+                        <tr class="has-background-grey-light">
                             <th scope="col">{{__('Borrowing date')}}</th>
                             <th scope="col">{{__('Borrower')}}</th>
                             <th scope="col">{{__('Game')}}</th>
