@@ -20,6 +20,8 @@
         * Logging
             * Inventory movements
             * Users modification
+        * Testing
+            * Add unit tests for error displaying in views
         * Confirmation modal when modifying own role in "Edit users" view
         * Confirmation modal when deleting a user in "Edit users" view
         * SMS borrowings reminder
