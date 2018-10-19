@@ -35,74 +35,87 @@
     @endheader
     <meta name="players" content="{{__('Players')}}">
     <meta name="min" content="{{__('Min')}}">
-    <div class="ml-3 mr-3">
-        <div class="container-fluid border rounded">
-            <div class="row mt-3">
-                <div class="col-md-8 offset-md-2">
-                    <div class="input-group mb-0">
-                        <input type="text" class="form-control" id="game-search-input" placeholder="{{__("messages.view_inventory.filter_game_placeholder")}}">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-view-inventory" id="cancel-game-search-button" type="submit"><i class="fas fa-times"></i></button>
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-12 search-section">
+                <div class="columns no-mb">
+                    <div class="column is-8 is-offset-2">
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control is-expanded">
+                                <input type="text" id="search-game-field" class="input" placeholder="{{__('messages.view_inventory.filter_game_placeholder')}}">
+                            </div>
+                            <div class="control">
+                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-game-search-button">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row mb-3">
-                <div class="col-lg-4 mb-3 mb-lg-0">
-                    <div class="input-group mb-0">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="genre-select">
-                                <i class="fas fa-trophy"></i>
-                            </label>
-                        </div>
-                        <select id="genre-select" class="custom-select">
-                            <option value="" selected>{{__("messages.view_inventory.filter_genre_placeholder")}}</option>
-                            @foreach ($genres as $genre)
-                                <option value="{{$genre->id}}">{{$genre->name}}</option>
-                            @endforeach
-                        </select>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-view-inventory" id="cancel-genre-filtering-button" type="submit"><i class="fas fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-3 mb-lg-0">
-                    <div class="input-group mb-0">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="duration-input">
-                                <i class="far fa-clock"></i>
-                            </label>
-                        </div>
-                        <input id="duration-input" type="number" min="0" class="form-control" placeholder="{{__("messages.view_inventory.filter_duration_placeholder")}}">
-                        <div class="input-group-append">
-                            <label class="input-group-text" for="duration-input">
-                                {{strtolower(__('Minutes'))}}
-                            </label>
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-view-inventory" id="cancel-duration-filtering-button" type="submit"><i class="fas fa-times"></i></button>
+                <hr id="search-hr">
+                <div class="columns">
+                    <div class="column is-4">
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control">
+                                <a class="button is-static height-100">
+                                    <i class="fas fa-trophy"></i>
+                                </a>
+                            </div>
+                            <div class="control is-expanded">
+                                <div class="select is-fullwidth">
+                                    <select id="genre-select">
+                                        <option value="" selected>{{__("messages.view_inventory.filter_genre_placeholder")}}</option>
+                                        @foreach ($genres as $genre)
+                                            <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-genre-filtering-button">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="input-group mb-0">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="players-input">
-                                <i class="fas fa-users"></i>
-                            </label>
+                    <div class="column is-4">
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control">
+                                <a class="button is-static height-100">
+                                    <i class="fas fa-clock"></i>
+                                </a>
+                            </div>
+                            <div class="control is-expanded">
+                                    <input id="duration-input" type="number" min="0" class="input" placeholder="{{__("messages.view_inventory.filter_duration_placeholder")}}">
+                            </div>
+                            <div class="control">
+                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-duration-filtering-button">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
                         </div>
-                        <input id="players-input" type="number" min="1" class="form-control" placeholder="{{__("messages.view_inventory.filter_players_placeholder")}}">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-view-inventory" id="cancel-players-filtering-button" type="submit"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="column is-4">
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control">
+                                <a class="button is-static height-100">
+                                    <i class="fas fa-users"></i>
+                                </a>
+                            </div>
+                            <div class="control is-expanded">
+                                <input id="players-input" type="number" min="1" class="input" placeholder="{{__("messages.view_inventory.filter_players_placeholder")}}">
+                            </div>
+                            <div class="control">
+                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-players-filtering-button">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid mt-3">
-        <div class="row" id="inventory-items-list"></div>
+        <div class="columns is-multiline" id="inventory-items-list"></div>
     </div>
 @endsection
 

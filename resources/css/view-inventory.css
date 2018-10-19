@@ -17,6 +17,11 @@
     height: 100%;
     padding: 6px 12px 6px 12px;
     color: #a7885a;
+    border: #a7885a 1px solid;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .inventory-item-footer {
@@ -35,7 +40,21 @@
 }
 
 .item-hr {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 3px;
     border-color: #a7885a;
+}
+
+#search-hr {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.no-mb {
+    margin-bottom: 0 !important;
+}
+
+.search-section {
+    border: #a7885a 1px solid;
+    border-radius: 7px;
 }

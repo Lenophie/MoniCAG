@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Fuse from "fuse.js";
 
-const gameSearchInput = $('#game-search-input');
+const gameSearchInput = $('#search-game-field');
 const cancelGameSearchButton = $('#cancel-game-search-button');
 const genreFilteringSelect = $('#genre-select');
 const cancelGenreFilteringButton = $('#cancel-genre-filtering-button');
@@ -126,8 +126,8 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
         const isThereDurationInfo = inventoryItem.duration.min !== null || inventoryItem.duration.max !== null;
         const isTherePlayersInfo = inventoryItem.players.min !== null || inventoryItem.players.max !== null;
         displayedInventoryItemsList.append(
-            `<div class="col-md-2 mb-1">
-                <div class="inventory-item border border-view-inventory rounded d-flex flex-column justify-content-between" id="inventory-item-${inventoryItem.id}">
+            `<div class="column is-2">
+                <div class="inventory-item" id="inventory-item-${inventoryItem.id}">
                     <div class="inventory-item-name">${inventoryItem.name}<hr class="item-hr"></div>
                     <div class="inventory-item-precision">
                         <i class="fas fa-trophy"></i> ${formatGenresList(inventoryItem.genres)}
@@ -138,7 +138,7 @@ const updateDisplayedInventoryItems = (inventoryItemsToDisplay) => {
                             `<br/><i class="fas fa-users"></i> ${inventoryItem.players.min !== null ? inventoryItem.players.min : '?'} - ${inventoryItem.players.max !== null ? inventoryItem.players.max : '?'} ${messages.players.toLowerCase()}`
                             : ''}
                     </div>
-                    <div class="inventory-item-footer align-self-end">
+                    <div class="inventory-item-footer">
                         ${inventoryItem.status.name}
                     </div>
                 </div>
