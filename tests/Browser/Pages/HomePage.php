@@ -41,7 +41,9 @@ class HomePage extends Page
             '@viewInventoryButton' => '#view-inventory-button',
             '@editInventoryButton' => '#edit-inventory-button',
             '@editUsersButton' => '#edit-users-button',
-            '@githubLink' => '#github-link'
+            '@githubLink' => '#github-link',
+            '@englishLink' => '#english-link',
+            '@frenchLink' => '#french-link'
         ];
     }
 
@@ -67,6 +69,17 @@ class HomePage extends Page
                 break;
             case PagesFromHomeEnum::GITHUB:
                 $browser->click('@githubLink');
+                break;
+        }
+    }
+
+    public function changeLocale(Browser $browser, $locale) {
+        switch ($locale) {
+            case 'gb': case 'en':
+                $browser->click('@englishLink');
+                break;
+            case 'fr':
+                $browser->click('@frenchLink');
                 break;
         }
     }

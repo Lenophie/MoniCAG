@@ -28,4 +28,3 @@
 # Testing
 * Setup continuous integration
 * Add unit tests for error displaying in views
-* Add unit tests for language switch
