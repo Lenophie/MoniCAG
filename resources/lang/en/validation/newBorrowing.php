@@ -14,6 +14,7 @@ return [
     'borrowerPassword.password_for' => 'The password is incorrect.',
     'expectedReturnDate.required' => 'Choose the borrowing\'s expected return date.',
     'expectedReturnDate.after_or_equal' => 'The borrowing\'s expected return date must be superior or equal to the current date.',
+    'expectedReturnDate.before_or_equal' => 'The borrowing must last a month at most.',
     'guarantee.required' => 'Fill in the guarantee.',
     'guarantee.numeric' => 'The guarantee must be a positive number.',
     'guarantee.regex' => 'The guarantee must be a positive number with at most 2 decimals.',

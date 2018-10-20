@@ -14,6 +14,7 @@ return [
     'borrowerPassword.password_for' => 'Ce mot de passe est incorrect.',
     'expectedReturnDate.required' => 'Renseignez une date de retour prévu.',
     'expectedReturnDate.after_or_equal' => 'La date de retour prévu doit être supérieure ou égale à la date d\'emprunt.',
+    'expectedReturnDate.before_or_equal' => 'L\'emprunt doit durer au maximum un mois.',
     'guarantee.required' => 'Renseignez la caution.',
     'guarantee.numeric' => 'La caution doit être un nombre positif.',
     'guarantee.regex' => 'La caution doit être un nombre positif à deux décimales maximum.',

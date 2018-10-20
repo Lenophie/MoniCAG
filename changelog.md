@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Replaced ```Bootstrap``` with ```Bulma```
     * Removed ```jQuery```
 * Validation
+    * New borrowing
+        * The expected return date can be at most one month away.
     * Delete user
         * The user must not be involved in an ongoing borrowing.
 
