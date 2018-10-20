@@ -1,0 +1,23 @@
+html, input, .modal-card-body, textarea, select {
+    background-color: #ffffff !important;
+}
+
+.modal-card-head, .modal-card-foot {
+    background-color: #ededed !important;
+}
+
+body, input, ::placeholder, .label, .title, .modal-card-title, select {
+    color: #323232 !important;
+}
+
+#menu-return, #checkout-link, #github-link, #connection-row {
+    color: #000000;
+}
+
+#menu-return:hover, #checkout-link:hover, #github-link:hover {
+    color: #626262;
+}
+
+.h1-hr, .h2-hr, #footer-hr {
+    background-color: #000000;
+}

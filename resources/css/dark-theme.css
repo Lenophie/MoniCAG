@@ -1,0 +1,27 @@
+html, input, .modal-card-body, textarea, select {
+    background-color: #414141 !important;
+}
+
+.modal-card-head, .modal-card-foot, .card {
+    background-color: #575757 !important;
+}
+
+body, input, ::placeholder, .label, .title, .modal-card-title, select, .card, .button.is-text {
+    color: #ffffff !important;
+}
+
+#menu-return, #checkout-link, #github-link, #connection-row {
+    color: #ffffff;
+}
+
+#menu-return:hover, #checkout-link:hover, #github-link:hover {
+    color: #fff77c;
+}
+
+.h1-hr, .h2-hr, #footer-hr {
+    background-color: #ffffff;
+}
+
+.button.is-text:hover {
+    background-color: #676767 !important;
+}

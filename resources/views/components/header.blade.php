@@ -42,7 +42,7 @@
                         </form>
                     </div>
                 @else
-                    <div class="column is-full" align="center">
+                    <div class="column is-full" align="center" id="connection-row">
                         {{__('Connected as')}}
                         {{Auth::user()->first_name}}
                         {{Auth::user()->last_name}}

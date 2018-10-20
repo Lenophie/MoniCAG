@@ -4,7 +4,6 @@
 
 #footer-hr
 {
-    background-color: black;
     margin-top: 0;
     margin-bottom: 2px;
 }
@@ -22,5 +21,4 @@
 #github-link
 {
     float: right;
-    color: black;
 }

@@ -13,7 +13,6 @@ header
     font-weight: bold !important;
     font-size: 30px;
     text-decoration: none;
-    color: #000000;
     white-space: nowrap;
     margin-left: 15px;
 }
@@ -25,13 +24,11 @@ header
 #checkout-link {
     font-size: 50px;
     text-decoration: none;
-    color: #000000;
     margin-right: 15px;
 }
 
 #menu-return:hover, #checkout-link:hover {
     text-decoration: none;
-    color: #626262;
 }
 
 #checkout-counter {
@@ -47,7 +44,6 @@ h1 {
 
 .h1-hr {
     margin: 0;
-    background-color: black;
 }
 
 .no-display {

@@ -9,7 +9,6 @@
         * Personal logs
     * Allow easy profile deletion
 ## Minor
-* Night theme
 * Search features and pagination in "Borrowings History" view
 * Add a super admin role who can only remove admins
 * Toggle display of before and after notes in "Borrowings History" view

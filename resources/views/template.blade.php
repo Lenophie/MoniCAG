@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Lenophie" />
+        @if (\Illuminate\Support\Facades\Session::get('theme') === 'dark')
+            <link href="{{ asset('css/dark-theme.css') }}" rel="stylesheet" />
+        @else
+            <link href="{{ asset('css/light-theme.css') }}" rel="stylesheet" />
+        @endif
         <link href="@yield('stylesheet')" rel="stylesheet" />
         <link rel="shortcut icon" href="@yield('favicon')" />
         <title>@yield('title')</title>
