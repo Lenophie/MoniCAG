@@ -24,7 +24,6 @@
         "laravel-mix": "^2.1.14"
     },
     "dependencies": {
-        "@babel/polyfill": "^7.0.0",
         "bulma": "^0.7.2",
         "fuse.js": "^3.2.1"
     }

@@ -17,12 +17,6 @@ This application aims at :
 
 **Version :** *MoniCAG v0.15.0* - [Changelog](./changelog.md)
 
-**Work in progress :**
-
-* Minor refactoring and improvements.
-
----
-
 # How to use
 
 * Install ```Composer``` and ```npm```
@@ -41,7 +35,6 @@ This application aims at :
 * Run ```vendor\bin\phpunit tests\Unit``` to perform unit tests
 * Run ```php artisan dusk tests\Browser``` to perform browser tests
 
----
 
 # License
 

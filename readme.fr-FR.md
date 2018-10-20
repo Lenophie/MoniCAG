@@ -17,12 +17,6 @@ Cette application cherche à :
 
 **Version :** *MoniCAG v0.15.0* - [Changelog](./changelog.md)
 
-**Travail en cours :**
-
-* Réusinage de code et améliorations mineurs.
-
----
-
 # Utilisation
 
 * Installer ```Composer``` et ```npm```
@@ -40,8 +34,6 @@ Cette application cherche à :
     * Actuellement, la base de données de test n'est exploitée que par les tests unitaires
 * Exécuter ```vendor\bin\phpunit tests\Unit``` pour réaliser les tests unitaires
 * Exécuter ```php artisan dusk tests\Browser``` pour réaliser les tests de navigation
-
----
 
 # Licence
 

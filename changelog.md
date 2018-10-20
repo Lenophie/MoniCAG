@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.15.0] - Unreleased
+## [0.15.0] - 2018-10-20
 
 ### Changed
 
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Replaced ```Bootstrap``` with ```Bulma```
     * Removed ```jQuery```
     * Replaced ```flag-icon-css``` with a custom lighter build
+    * Removed ```@babel/polyfill```
 * Validation
     * New borrowing
         * The expected return date can be at most one month away.
