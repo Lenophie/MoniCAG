@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Moved ```public``` folder content to ```resources```
     * Replaced ```Bootstrap``` with ```Bulma```
     * Removed ```jQuery```
+    * Replaced ```flag-icon-css``` with a custom lighter build
 * Validation
     * New borrowing
         * The expected return date can be at most one month away.
