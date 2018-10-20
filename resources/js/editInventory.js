@@ -1,4 +1,3 @@
-import '../css/flag-icon.min.css';
 import './modal.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 import {getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';

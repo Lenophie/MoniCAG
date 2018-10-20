@@ -1,7 +1,3 @@
-.flag-icon {
-    font-size: 20px;
-}
-
 /* SUB-TITLES */
 
 h2 {
@@ -33,17 +29,4 @@ h2 {
     padding-top: 20px !important;
     white-space: normal !important;
     height: 100% !important;
-}
-
-#footer-hr
-{
-    background-color: black;
-    margin-top: 0;
-    margin-bottom: 2px;
-}
-
-#github-link
-{
-    float: right;
-    color: black;
 }

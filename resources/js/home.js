@@ -1,4 +1,3 @@
-import '../css/flag-icon.min.css';
 import {getById, ready} from './toolbox.js';
 
 const buttonsLinks = {
