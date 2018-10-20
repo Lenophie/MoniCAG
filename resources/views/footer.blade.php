@@ -8,12 +8,15 @@
             <a id="english-link" href="{{ url('/lang/en') }}">
                 <i class="flag-icon flag-icon-gb footer-icon"></i>
             </a>
-            <a id="dark-theme-link">
-                <i class="footer-icon fas fa-moon"></i> {{__('messages.footer.dark_theme')}}
-            </a>
-            <a id="light-theme-link">
-                <i class="footer-icon fas fa-sun"></i> {{__('messages.footer.light_theme')}}
-            </a>
+            @if (\Illuminate\Support\Facades\Session::get('theme') === 'dark')
+                <a id="light-theme-link" href="{{ url('/theme/light') }}">
+                    <i class="footer-icon fas fa-sun"></i> {{__('messages.footer.light_theme')}}
+                </a>
+            @else
+                <a id="dark-theme-link" href="{{ url('/theme/dark') }}">
+                    <i class="footer-icon fas fa-moon"></i> {{__('messages.footer.dark_theme')}}
+                </a>
+            @endif
             <a id="github-link" href="https://www.github.com/Lenophie/MoniCAG/">
                 {{__('messages.footer.github')}} <i class="fab fa-github"></i>
             </a>
