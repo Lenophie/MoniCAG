@@ -50,6 +50,13 @@ class User extends Authenticatable implements CanResetPassword
         return $this->belongsTo('App\Borrowing', 'id', 'borrower_id');
     }
 
+    /**
+     * Get the user's lendings.
+     */
+    public function lendings() {
+        return $this->belongsTo('App\Borrowing', 'id', 'initial_lender_id');
+    }
+
     public function role() {
         return $this->hasOne('App\UserRole', 'id', 'role_id')
             ->select('id', 'name_'.App::getLocale().' AS name');

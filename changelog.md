@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-* Moved ```public``` folder content to ```resources```
-* Replaced ```Bootstrap``` with ```Bulma```
-* Removed ```jQuery```
+* Environment
+    * Moved ```public``` folder content to ```resources```
+    * Replaced ```Bootstrap``` with ```Bulma```
+    * Removed ```jQuery```
+* Validation
+    * Delete user
+        * The user must not be involved in an ongoing borrowing.
 
 ## [0.14.0] - 2018-10-16
 

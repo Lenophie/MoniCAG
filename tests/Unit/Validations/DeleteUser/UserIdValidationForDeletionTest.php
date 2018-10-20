@@ -1,5 +1,6 @@
 <?php
 
+use App\Borrowing;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -121,5 +122,25 @@ class UserIdValidationForDeletionTest extends TestCase
             'userId' => $this->admin->id
         ]);
         $response->assertStatus(200);
+    }
+
+    /**
+     * Tests the rejection of the deletion of a user involved in an ongoing borrowing.
+     *
+     * @return void
+     */
+    public function testUserInvolvedInACurrentBorrowingDeletionRejection() {
+        $borrowing = factory(Borrowing::class)->create();
+        $borrower = $borrowing->borrower()->first();
+        $initialLender = $borrowing->initialLender()->first();
+
+        $response = $this->json('DELETE', '/edit-users', [
+            'userId' => $borrower->id
+        ]);
+        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('DELETE', '/edit-users', [
+            'userId' => $initialLender->id
+        ]);
+        $response->assertJsonValidationErrors('userId');
     }
 }

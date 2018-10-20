@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('unchanged_during_borrowing', 'App\Validators\UnchangedDuringBorrowing@validate');
         Validator::extend('not_changed_to_borrowed', 'App\Validators\NotChangedToBorrowed@validate');
         Validator::extend('unchanged_if_other_admin', 'App\Validators\UnchangedIfOtherAdmin@validate');
+        Validator::extend('not_involved_in_a_current_borrowing', 'App\Validators\NotInvolvedInACurrentBorrowing@validate');
 
         Validator::replacer('distinct', 'App\Validators\Distinct@replacer');
     }
