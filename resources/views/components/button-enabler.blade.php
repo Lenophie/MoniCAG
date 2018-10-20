@@ -2,13 +2,13 @@
     @switch($enablerCondition)
         @case(''.\App\UserRole::ADMINISTRATOR)
             @if (Auth::user()->role_id !== \App\UserRole::ADMINISTRATOR)
-                disabled
+                disabled=disabled
             @endif
         @break
 
         @case(''.\App\UserRole::LENDER)
             @if (Auth::user()->role_id !== \App\UserRole::ADMINISTRATOR && Auth::user()->role_id !== \App\UserRole::LENDER)
-                disabled
+                disabled=disabled
             @endif
         @break
 
@@ -17,10 +17,10 @@
         @break
 
         @default
-            disabled
+            disabled=disabled
     @endswitch
 @else
     @if($enablerCondition != ''.\App\UserRole::NONE)
-        disabled
+        disabled=disabled
     @endif
 @endif

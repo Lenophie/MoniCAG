@@ -56,9 +56,6 @@
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.perform_borrowing'))}}
                         @endslot
-                        @slot('action')
-                            location.href='{{url('new-borrowing')}}'
-                        @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::LENDER}}
                         @endslot
@@ -79,9 +76,6 @@
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.retrieve_borrowing'))}}
                         @endslot
-                        @slot('action')
-                            location.href='{{url('end-borrowing')}}'
-                        @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::LENDER}}
                         @endslot
@@ -101,9 +95,6 @@
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.view_borrowings_history'))}}
-                        @endslot
-                        @slot('action')
-                            location.href='{{url('borrowings-history')}}'
                         @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::LENDER}}
@@ -137,9 +128,6 @@
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.view_inventory'))}}
                         @endslot
-                        @slot('action')
-                            location.href='{{url('view-inventory')}}'
-                        @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::NONE}}
                         @endslot
@@ -159,9 +147,6 @@
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.edit_inventory'))}}
-                        @endslot
-                        @slot('action')
-                            location.href='{{url('edit-inventory')}}'
                         @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::ADMINISTRATOR}}
@@ -194,9 +179,6 @@
                         @endslot
                         @slot('title')
                             {{mb_strtoupper(__('messages.titles.edit_users'))}}
-                        @endslot
-                        @slot('action')
-                            location.href='{{url('edit-users')}}'
                         @endslot
                         @slot('enablerCondition')
                             {{\App\UserRole::ADMINISTRATOR}}
