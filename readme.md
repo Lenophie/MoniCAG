@@ -19,7 +19,7 @@ This application aims at :
 
 **Work in progress :**
 
-* Removing jQuery.
+* Minor refactoring and improvements.
 
 ---
 

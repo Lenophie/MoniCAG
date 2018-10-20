@@ -19,7 +19,7 @@ Cette application cherche à :
 
 **Travail en cours :**
 
-* Retirer jQuery.
+* Réusinage de code et améliorations mineurs.
 
 ---
 
