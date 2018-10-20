@@ -9,6 +9,16 @@
     margin-bottom: 2px;
 }
 
+#dark-theme-link
+{
+    color: darkblue;
+}
+
+#light-theme-link
+{
+    color: lightgoldenrodyellow;
+}
+
 #github-link
 {
     float: right;

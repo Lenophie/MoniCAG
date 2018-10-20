@@ -13,8 +13,12 @@ return [
         'edit_users' => 'Manage users',
         'borrowings_management' => 'Borrowings management',
         'inventory_management' => 'Inventory management',
-        'users_management' => 'Users management',
+        'users_management' => 'Users management'
+    ],
+    'footer' => [
         'github' => 'Checkout MoniCAG on GitHub',
+        'dark_theme' => 'Night theme',
+        'light_theme' => 'Light theme'
     ],
     'new_borrowing' => [
         'search_placeholder' => 'Find a game to borrow',

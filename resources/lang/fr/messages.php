@@ -13,8 +13,12 @@ return [
         'edit_users' => 'Gérer les utilisateurs',
         'borrowings_management' => 'Gestion des emprunts',
         'inventory_management' => "Gestion de l'inventaire",
-        'users_management' => 'Gestion des utilisateurs',
+        'users_management' => 'Gestion des utilisateurs'
+    ],
+    'footer' => [
         'github' => 'Retrouve MoniCAG sur GitHub',
+        'dark_theme' => 'Thème sombre',
+        'light_theme' => 'Thème lumineux'
     ],
     'new_borrowing' => [
         'search_placeholder' => 'Chercher un jeu à emprunter',
