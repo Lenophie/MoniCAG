@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.15.0] - 2018-10-20
 
+### Added
+
+* Validation rules
+    * New borrowing
+        * The expected return date can be at most one month away.
+    * Delete user
+        * The user must not be involved in an ongoing borrowing.
+
 ### Changed
 
 * Environment
@@ -15,11 +23,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Removed ```jQuery```
     * Replaced ```flag-icon-css``` with a custom lighter build
     * Removed ```@babel/polyfill```
-* Validation
-    * New borrowing
-        * The expected return date can be at most one month away.
-    * Delete user
-        * The user must not be involved in an ongoing borrowing.
 
 ## [0.14.0] - 2018-10-16
 
