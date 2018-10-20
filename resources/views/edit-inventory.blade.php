@@ -59,7 +59,7 @@
                                     <div class="field has-addons has-addons-centered">
                                         <div class="control">
                                             <a class="button is-static height-100">
-                                                <i class="flag-icon flag-icon-fr flag-icon-squared"></i>
+                                                <i class="field-flag flag-icon flag-icon-fr flag-icon-squared"></i>
                                             </a>
                                         </div>
                                         <div class="control is-expanded">
@@ -71,7 +71,7 @@
                                     <div class="field has-addons has-addons-centered">
                                         <div class="control">
                                             <a class="button is-static height-100">
-                                                <i class="flag-icon flag-icon-gb flag-icon-squared"></i>
+                                                <i class="field-flag flag-icon flag-icon-gb flag-icon-squared"></i>
                                             </a>
                                         </div>
                                         <div class="control is-expanded">
@@ -213,7 +213,7 @@
                                         <div class="field has-addons has-addons-centered">
                                             <div class="control">
                                                 <a class="button is-static height-100">
-                                                    <i class="flag-icon flag-icon-fr flag-icon-squared"></i>
+                                                    <i class="field-flag flag-icon flag-icon-fr flag-icon-squared"></i>
                                                 </a>
                                             </div>
                                             <div class="control is-expanded">
@@ -225,7 +225,7 @@
                                         <div class="field has-addons has-addons-centered">
                                             <div class="control">
                                                 <a class="button is-static height-100">
-                                                    <i class="flag-icon flag-icon-gb flag-icon-squared"></i>
+                                                    <i class="field-flag flag-icon flag-icon-gb flag-icon-squared"></i>
                                                 </a>
                                             </div>
                                             <div class="control is-expanded">
