@@ -30,16 +30,10 @@
             @if($hasAuthBar == 'true')
                 @guest
                     <div class="column is-2 is-offset-4" align="center">
-                        <form action="{{ route('login') }}">
-                            @csrf
-                            <button class="button is-small is-link" type="submit">{{ __('Login') }}</button>
-                        </form>
+                        <a class="button is-small is-link" href="{{ route('login') }}" type="submit">{{ __('Login') }}</a>
                     </div>
                     <div class="column is-2" align="center">
-                        <form action="{{ route('register') }}">
-                            @csrf
-                            <button class="button is-small is-link" type="submit">{{ __('Register') }}</button>
-                        </form>
+                        <a class="button is-small is-link" href="{{ route('register') }}" type="submit">{{ __('Register') }}</a>
                     </div>
                 @else
                     <div class="column is-full" align="center" id="connection-row">
@@ -52,9 +46,9 @@
                             @endslot
                         @endusericon
                          |
-                        <button class="button is-small is-link" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a class="button is-small is-link" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
-                        </button>
+                        </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                 @endguest
