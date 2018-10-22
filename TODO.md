@@ -10,6 +10,7 @@
     * Allow easy profile deletion
 ## Minor
 * Search features and pagination in "Borrowings History" view
+* Enable blacklisting users from making borrowings
 * Add a super admin role who can only remove admins
 * Toggle display of before and after notes in "Borrowings History" view
 * Display before notes in "End Borrowing" view
@@ -27,3 +28,5 @@
 # Testing
 * Setup continuous integration
 * Add unit tests for error displaying in views
+# Bug fixes
+* Event listeners not correctly removed in "End borrowing" view
