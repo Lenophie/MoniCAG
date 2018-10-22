@@ -13,7 +13,8 @@ return [
         'edit_users' => 'Manage users',
         'borrowings_management' => 'Borrowings management',
         'inventory_management' => 'Inventory management',
-        'users_management' => 'Users management'
+        'users_management' => 'Users management',
+        'account' => 'Personal space'
     ],
     'footer' => [
         'github' => 'Checkout MoniCAG on GitHub',

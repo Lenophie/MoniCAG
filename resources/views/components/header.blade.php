@@ -46,7 +46,11 @@
                             @endslot
                         @endusericon
                          |
-                        <a class="button is-small is-link" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a class="button is-small is-link" href="{{ route('account') }}" type="button">
+                            <span><i class="fas fa-user"></i> {{ __('messages.titles.account') }}</span>
+                        </a>
+                         |
+                        <a class="button is-small is-danger" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>

@@ -1,0 +1,20 @@
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-decoration: underline;
+    margin-bottom: 5px !important;
+}
+
+li {
+    list-style: disc inside;
+}
+
+#no-borrowing-div {
+    font-style: italic;
+}
+
+#info-card {
+    margin-bottom: 10px;
+}

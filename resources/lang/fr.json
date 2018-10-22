@@ -54,5 +54,12 @@
   "French name": "Nom français",
   "User": "Utilisateur",
   "Actions": "Actions",
-  "Role": "Rôle"
+  "Role": "Rôle",
+  "Welcome": "Bienvenue",
+  "My info": "Mes informations",
+  "Modify my E-mail address": "Modifier mon adresse mail",
+  "Modify my password": "Modifier mon mot de passe",
+  "Delete my account": "Supprimer mon compte",
+  "My ongoing borrowings": "Mes emprunts en cours",
+  "Until": "Jusqu'au"
 }

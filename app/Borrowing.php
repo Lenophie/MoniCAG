@@ -125,6 +125,21 @@ class Borrowing extends Model
         return $borrowings;
     }
 
+    public static function userCurrentHistory($userId) {
+        $borrowings = Borrowing::completeJoin()
+            ->where([
+                'borrower_id' => $userId,
+                'finished' => 0])
+            ->orderByDate()
+            ->get();
+
+        foreach($borrowings as $borrowing) {
+            self::removeIds($borrowing);
+        }
+
+        return $borrowings;
+    }
+
     private static function initialJoin() {
         return Borrowing::with(['initialLender', 'borrower', 'inventoryItem'])
             ->select('id',

@@ -19,5 +19,6 @@ Route::patch('/edit-users', 'EditUsersController@patch');
 Route::delete('/edit-users', 'EditUsersController@delete');
 Route::get('/lang/{locale}', 'LanguagesController@change');
 Route::get('/theme/{name}', 'ThemesController@change');
+Route::get('/account', 'AccountController@index')->name('account');
 
 Auth::routes();

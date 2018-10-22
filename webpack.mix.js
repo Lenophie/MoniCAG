@@ -17,7 +17,8 @@ mix.copy('resources/css/index.css', 'public/css')
     .copy('resources/css/edit-users.css', 'public/css')
     .copy('resources/css/flag-icon.min.css', 'public/css')
     .copy('resources/css/light-theme.css', 'public/css')
-    .copy('resources/css/dark-theme.css', 'public/css');
+    .copy('resources/css/dark-theme.css', 'public/css')
+    .copy('resources/css/account.css', 'public/css');
 
 mix.copyDirectory('resources/favicons', 'public/favicons');
 

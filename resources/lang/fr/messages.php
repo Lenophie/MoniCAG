@@ -13,7 +13,8 @@ return [
         'edit_users' => 'Gérer les utilisateurs',
         'borrowings_management' => 'Gestion des emprunts',
         'inventory_management' => "Gestion de l'inventaire",
-        'users_management' => 'Gestion des utilisateurs'
+        'users_management' => 'Gestion des utilisateurs',
+        'account' => 'Espace perso'
     ],
     'footer' => [
         'github' => 'Retrouve MoniCAG sur GitHub',
