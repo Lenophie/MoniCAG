@@ -33,3 +33,7 @@ body, input, ::placeholder, .label, .title, .modal-card-title, select, .card, .b
 .card-footer-item:not(:last-child) {
     border-right-color: #414141 !important;
 }
+
+.custom-hover-color:hover {
+    color: #ffffff;
+}
