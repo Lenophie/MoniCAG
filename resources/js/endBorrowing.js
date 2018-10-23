@@ -1,5 +1,5 @@
 import './modal.js';
-import {getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
+import {cloneAndReplace, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
 let messages = {};
@@ -145,9 +145,8 @@ const handleReturnButtonClick = (buttonEnum) => {
     }
 
     remove(getByClass('error-text'));
-    modalSubmitButton.removeEventListener('click', () => handleConfirmButtonClick(buttonsEnum.END));
-    modalSubmitButton.removeEventListener('click', () => handleConfirmButtonClick(buttonsEnum.LOST));
-    modalSubmitButton.addEventListener('click', () => handleConfirmButtonClick(buttonEnum));
+    const newModalSubmitButton = cloneAndReplace(modalSubmitButton);
+    newModalSubmitButton.addEventListener('click', () => handleConfirmButtonClick(buttonEnum));
 };
 
 const handleConfirmButtonClick = (buttonEnum) => {

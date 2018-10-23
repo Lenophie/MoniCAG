@@ -1,6 +1,6 @@
 import './modal.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
-import {getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
+import {cloneAndReplace, getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 
 const submitTypes = {
     POST: 0,
@@ -96,8 +96,8 @@ const handleDeleteModalOpening = (id) => {
     deleteForm.setAttribute('id', `delete-item-${id}-form`);
     deleteConfirmButtonByClass.setAttribute('id', `delete-confirm-button-${id}`);
 
-    const deleteConfirmButton = getById(`delete-confirm-button-${id}`);
-    if (previousDeleteModalId != null) deleteConfirmButton.removeEventListener('click', (e) => handleDeleteItemFormSubmit(e, previousDeleteModalId));
+    let deleteConfirmButton = getById(`delete-confirm-button-${id}`);
+    if (previousDeleteModalId != null) deleteConfirmButton = cloneAndReplace(deleteConfirmButton);
     previousDeleteModalId = id;
     deleteConfirmButton.addEventListener('click', (e) => handleDeleteItemFormSubmit(e, id));
 };
@@ -189,7 +189,7 @@ const handleRemoveGenreButtonClick = (submitType, genreId, itemId) => {
 };
 
 const enableInputs = (bool) => {
-  const elems = getAllBySelector('button, select, input');
+  const elems = getAllBySelector('.button, select, input');
   if (!bool) {
       for (const elem of elems) elem.setAttribute('disabled', 'disabled');
   } else {

@@ -30,3 +30,9 @@ export const getBySelector = (selector) => {
 export const getAllBySelector = (selector) => {
     return document.querySelectorAll(selector);
 };
+
+export const cloneAndReplace = (oldElement) => {
+    const newElement = oldElement.cloneNode(true);
+    oldElement.parentNode.replaceChild(newElement, oldElement);
+    return newElement;
+};

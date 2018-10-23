@@ -58,7 +58,7 @@ const handleFormErrors = (errors, id) => {
 };
 
 const enableInputs = (bool) => {
-    const elems = getAllBySelector('button, select');
+    const elems = getAllBySelector('.button, select');
     if (!bool) {
         for (const elem of elems) elem.setAttribute('disabled', 'disabled');
     } else {
