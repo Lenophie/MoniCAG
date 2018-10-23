@@ -51,7 +51,7 @@
                                 <label for="email" class="label">{{ __('New E-mail address') }}</label>
 
                                 <div class="control">
-                                    <input id="email" type="password" class="input {{ $errors->has('email') ? ' is-danger' : '' }}" name="email" required>
+                                    <input id="email" type="email" class="input {{ $errors->has('email') ? ' is-danger' : '' }}" name="email" required>
                                 </div>
                                 @if ($errors->has('email'))
                                     <p class="help is-danger">{{ $errors->first('email') }}</p>
