@@ -1,13 +1,9 @@
 <?php
 
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class PagesAccessForGuestTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
      * Tests home page access for guests.
      *
