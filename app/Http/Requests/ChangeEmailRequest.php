@@ -26,7 +26,7 @@ class ChangeEmailRequest extends FormRequest
     {
         return [
             'password' => 'required|current_user_password',
-            'email' => 'required|email'
+            'email' => 'required|email|unique:users,email'
         ];
     }
 
