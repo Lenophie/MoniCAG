@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Delete account
 * Testing
     * Locale setting unit test
+    * Session settings (locale and theme) unit test
     
 ### Changed
 

@@ -43,7 +43,9 @@ class HomePage extends Page
             '@editUsersButton' => '#edit-users-button',
             '@githubLink' => '#github-link',
             '@englishLink' => '#english-link',
-            '@frenchLink' => '#french-link'
+            '@frenchLink' => '#french-link',
+            '@lightThemeLink' => '#light-theme-link',
+            '@darkThemeLink' => '#dark-theme-link',
         ];
     }
 
@@ -80,6 +82,17 @@ class HomePage extends Page
                 break;
             case 'fr':
                 $browser->click('@frenchLink');
+                break;
+        }
+    }
+
+    public function changeTheme(Browser $browser, $theme) {
+        switch ($theme) {
+            case 'light':
+                $browser->click('@lightThemeLink');
+                break;
+            case 'dark':
+                $browser->click('@darkThemeLink');
                 break;
         }
     }
