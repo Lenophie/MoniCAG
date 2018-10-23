@@ -44,7 +44,7 @@ class AuthRequestsForGuestTest extends TestCase
      */
     public function testNoAccountDeletionForGuest()
     {
-        $response = $this->json('DELETE', '/account/delete', []);
+        $response = $this->json('DELETE', '/account', []);
         $response->assertStatus(401);
     }
 

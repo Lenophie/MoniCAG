@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Borrowing;
+use App\Http\Requests\DeleteAccountRequest;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -16,5 +18,10 @@ class AccountController extends Controller
     {
         $userBorrowings = Borrowing::userCurrentHistory(Auth::user()->id);
         return view('account', compact('userBorrowings'));
+    }
+
+    public function delete(DeleteAccountRequest $request)
+    {
+        User::destroy(Auth::user()->id);
     }
 }

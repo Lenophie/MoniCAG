@@ -55,7 +55,7 @@ class AuthRequestsForAuthUserTest extends TestCase
      */
     public function testAccountDeletionAllowedForAuthUsers()
     {
-        $response = $this->json('DELETE', '/account/delete', []);
+        $response = $this->json('DELETE', '/account', []);
         $response->assertStatus(422);
     }
 
