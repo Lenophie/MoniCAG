@@ -37,7 +37,7 @@
                         <form method="POST" action="{{ route('email.change') }}">
                             @csrf
                             <div class="field">
-                                <label for="password" class="label">{{ __('Password') }}</label>
+                                <label for="password" class="label">{{ __('Confirm password') }}</label>
 
                                 <div class="control">
                                     <input id="password" type="password" class="input {{ $errors->has('password') ? ' is-danger' : '' }}" name="password" required>

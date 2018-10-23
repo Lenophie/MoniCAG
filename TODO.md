@@ -3,11 +3,6 @@
 * Add games proposal page
     * Handle partnerships with local games stores ?
 * Handle inventory items condition
-* Add account personal space
-    * Display all personal information
-        * Current and past borrowings
-        * Personal logs
-    * Allow easy profile deletion
 ## Minor
 * Search features and pagination in "Borrowings History" view
 * Enable blacklisting users from making borrowings
@@ -25,8 +20,9 @@
 * Translations
     * Chinese
     * Brazilian
+* Personal information
+    * Display past borrowings
+    * Display logs
 # Testing
 * Setup continuous integration
 * Add unit tests for error displaying in views
-# Bug fixes
-* Event listeners not correctly removed in "End borrowing" view

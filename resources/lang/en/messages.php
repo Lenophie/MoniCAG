@@ -65,9 +65,13 @@ return [
         'edit_items' => 'Edit items',
         'add_item' => 'Add item',
         'deletion_title' => 'Confirm deletion',
-        'deletion_warning' => "Deleting an item should only be done if the item doesn't, and never did, correspond to an actual inventory item.\nIf the item was lost, you should rather change its status.\nAfter deleting an item, all its borrowings will be deleted as well from the database.\nThis deletion can't be undone."
+        'deletion_warning' => "Deleting an item should only be done if the item doesn't, and never did, correspond to an actual inventory item.</br>If the item was lost, you should rather change its status.</br>After deleting an item, all its borrowings will be deleted as well from the database.</br><b>This deletion can't be undone.</b>"
     ],
     'edit_users' => [
         'change_role' => 'Change role'
-    ]
+    ],
+    'account' => [
+        'deletion_title' => 'Confirm account deletion',
+        'deletion_warning' => "Your account will be deleted along with all your personal data.<br/><b>This deletetion can't be undone.</b>"
+    ],
 ];

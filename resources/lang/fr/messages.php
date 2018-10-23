@@ -69,5 +69,9 @@ return [
     ],
     'edit_users' => [
         'change_role' => 'Changer le rôle'
-    ]
+    ],
+    'account' => [
+        'deletion_title' => 'Confirmer la suppression du compte',
+        'deletion_warning' => "Votre compte et l'intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>."
+    ],
 ];

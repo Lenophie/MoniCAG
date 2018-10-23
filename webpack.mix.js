@@ -6,7 +6,8 @@ mix.js('resources/js/common.js', 'public/js')
     .js('resources/js/viewInventory.js', 'public/js')
     .js('resources/js/editInventory.js', 'public/js')
     .js('resources/js/editUsers.js', 'public/js')
-    .js('resources/js/home.js', 'public/js');
+    .js('resources/js/home.js', 'public/js')
+    .js('resources/js/account.js', 'public/js');
 
 mix.copy('resources/css/index.css', 'public/css')
     .copy('resources/css/new-borrowing.css', 'public/css')

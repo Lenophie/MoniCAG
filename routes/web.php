@@ -26,3 +26,4 @@ Route::get('/password/change', 'Auth\ChangePasswordController@index');
 Route::post('/password/change', 'Auth\ChangePasswordController@post')->name('password.change');
 Route::get('/email/change', 'Auth\ChangeEmailController@index');
 Route::post('/email/change', 'Auth\ChangeEmailController@post')->name('email.change');
+Route::delete('/account/delete', 'Auth\DeleteAccountController@delete')->name('account.delete');

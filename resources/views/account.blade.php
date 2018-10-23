@@ -49,7 +49,7 @@
                     <footer class="card-footer">
                         <a class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
                         <a class="custom-hover-color card-footer-item" href="{{ url('/password/change') }}">{{__('Modify my password')}}</a>
-                        <a class="card-footer-item has-text-danger">{{__('Delete my account')}}</a>
+                        <a class="card-footer-item has-text-danger" data-toggle="modal" data-target="delete-confirm-modal">{{__('Delete my account')}}</a>
                     </footer>
                 </div>
                 <div class="card">
@@ -69,4 +69,43 @@
             </div>
         </div>
     </div>
+    @modal
+    @slot('title')
+        {{__('messages.account.deletion_title')}}
+    @endslot
+    @slot('body')
+        <div id="delete-modal-body">
+            <p>{!!__('messages.account.deletion_warning')!!}</p>
+            <hr>
+            <form id="delete-form" method="DELETE" action="{{ route('account.delete') }}" autocomplete="off">
+                @csrf
+                <div class="field">
+                    <label class="label" for="password">{{__('Confirm password')}}</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="password" id="password" name="password" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                </div>
+                <div id="errors-field-password"></div>
+            </form>
+        </div>
+    @endslot
+    @slot('tags')
+        id="delete-confirm-modal"
+    @endslot
+    @slot('footer')
+        <a class="button is-danger" id="delete-confirm-button">
+            {{__('Delete')}}
+        </a>
+    @endslot
+    @endmodal
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        const deleteRequestURL = {!! json_encode(route('account.delete'))!!};
+    </script>
+    <script type="text/javascript" src="{{asset('js/account.js')}}"></script>
+@endpush
