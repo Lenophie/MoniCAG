@@ -66,3 +66,7 @@ h1 {
 .no-mb {
     margin-bottom: 0 !important;
 }
+
+button:focus {
+    outline: none
+}

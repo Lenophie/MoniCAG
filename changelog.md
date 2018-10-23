@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Light and dark themes
 * Transaction wrapping for coupled requests
+* Personal space
+    * Display personal info
+    * Change password
 * Testing
     * Locale setting unit test
     

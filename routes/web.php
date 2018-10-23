@@ -22,3 +22,5 @@ Route::get('/theme/{name}', 'ThemesController@change');
 Route::get('/account', 'AccountController@index')->name('account');
 
 Auth::routes();
+Route::get('/password/change', 'Auth\ChangePasswordController@index');
+Route::post('/password/change', 'Auth\ChangePasswordController@post')->name('password.change');
