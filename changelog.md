@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Personal space
     * Display personal info
     * Change password
+    * Change email
 * Testing
     * Locale setting unit test
     
