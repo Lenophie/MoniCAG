@@ -36,3 +36,8 @@ export const cloneAndReplace = (oldElement) => {
     oldElement.parentNode.replaceChild(newElement, oldElement);
     return newElement;
 };
+
+export const isDisabled = (target) => {
+    const disabledAttribute = target.getAttribute('disabled');
+    return (disabledAttribute === 'disabled')
+};

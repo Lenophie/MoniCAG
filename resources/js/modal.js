@@ -1,3 +1,5 @@
+import {isDisabled} from './toolbox.js';
+
 const html = document.querySelector('html');
 
 const addListenersToModalTogglers = () => {
@@ -22,11 +24,6 @@ const closeModal = (event, targetModal) => {
     event.preventDefault();
     targetModal.classList.remove('is-active');
     html.classList.remove('is-clipped');
-};
-
-const isDisabled = (target) => {
-    const disabledAttribute = target.getAttribute('disabled');
-    return (disabledAttribute === 'disabled')
 };
 
 addListenersToModalTogglers();
