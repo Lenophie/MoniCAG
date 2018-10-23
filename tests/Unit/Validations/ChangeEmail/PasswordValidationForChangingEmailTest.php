@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class PasswordValidationTest extends TestCase
+class PasswordValidationForChangingEmailTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Auth requests unit tests
     * "Change email" request and validation tests
     * "Change password" request and validation tests
+    * "Delete account" request and validation tests
     
 ### Changed
 
