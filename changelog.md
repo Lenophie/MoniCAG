@@ -21,7 +21,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Session settings (locale and theme) unit test
     * Auth pages access unit tests
     * Auth requests unit tests
-    * Change email request and validation tests
+    * "Change email" request and validation tests
+    * "Change password" request and validation tests
     
 ### Changed
 
