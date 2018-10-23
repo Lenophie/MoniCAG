@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Locale setting unit test
     * Session settings (locale and theme) unit test
     * Auth pages access unit tests
+    * Auth requests unit tests
     
 ### Changed
 
