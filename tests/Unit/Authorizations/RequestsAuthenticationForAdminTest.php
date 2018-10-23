@@ -16,77 +16,77 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests lender allowed to post a new borrowing.
+     * Tests admin allowed to post a new borrowing.
      *
      * @return void
      */
-    public function testNewBorrowingRequestAllowedForLender()
+    public function testNewBorrowingRequestAllowedForAdmin()
     {
         $response = $this->json('POST', '/new-borrowing', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender allowed to end a borrowing.
+     * Tests admin allowed to end a borrowing.
      *
      * @return void
      */
-    public function testEndBorrowingRequestAllowedForLender()
+    public function testEndBorrowingRequestAllowedForAdmin()
     {
         $response = $this->json('PATCH', '/end-borrowing', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender prevented from adding a new inventory item.
+     * Tests admin prevented from adding a new inventory item.
      *
      * @return void
      */
-    public function testNoAddInventoryItemRequestAllowedForLender()
+    public function testNoAddInventoryItemRequestAllowedForAdmin()
     {
         $response = $this->json('POST', '/edit-inventory', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender prevented from deleting an inventory item.
+     * Tests admin prevented from deleting an inventory item.
      *
      * @return void
      */
-    public function testNoDeleteInventoryItemRequestAllowedForLender()
+    public function testNoDeleteInventoryItemRequestAllowedForAdmin()
     {
         $response = $this->json('DELETE', '/edit-inventory', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender prevented from patching an inventory item.
+     * Tests admin prevented from patching an inventory item.
      *
      * @return void
      */
-    public function testNoPatchInventoryItemRequestAllowedForLender()
+    public function testNoPatchInventoryItemRequestAllowedForAdmin()
     {
         $response = $this->json('PATCH', '/edit-inventory', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender prevented from patching a user.
+     * Tests admin prevented from patching a user.
      *
      * @return void
      */
-    public function testNoPatchUserRequestAllowedForLender()
+    public function testNoPatchUserRequestAllowedForAdmin()
     {
         $response = $this->json('PATCH', '/edit-users', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests lender prevented from deleting a user.
+     * Tests admin prevented from deleting a user.
      *
      * @return void
      */
-    public function testNoDeleteUserRequestAllowedForLender()
+    public function testNoDeleteUserRequestAllowedForAdmin()
     {
         $response = $this->json('DELETE', '/edit-users', []);
         $response->assertStatus(422);

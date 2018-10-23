@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Views
     * Made home footer a common footer for every page
+    
+### Fixed
+
+* Typos in some testing functions names and comments.
 
 ## [0.15.0] - 2018-10-20
 
