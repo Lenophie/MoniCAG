@@ -97,7 +97,7 @@
     @endslot
     @slot('footer')
         <a class="button is-danger" id="delete-confirm-button">
-            {{__('Delete')}}
+            {{__('Delete my account')}}
         </a>
     @endslot
     @endmodal
