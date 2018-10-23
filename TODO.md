@@ -26,3 +26,4 @@
 # Testing
 * Setup continuous integration
 * Add unit tests for error displaying in views
+* Move cascading deletion assertions present in requests tests to their own unit test.
