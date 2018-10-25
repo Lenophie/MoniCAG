@@ -35,7 +35,16 @@ class AccountPage extends Page
     public function elements()
     {
         return [
-
+            '@modifyEmailLink' => '#modify-email-link',
+            '@modifyPasswordLink' => '#modify-password-link'
         ];
+    }
+
+    public function navigateToModifyEmailPage(Browser $browser) {
+        $browser->click('@modifyEmailLink');
+    }
+
+    public function navigateToModifyPasswordPage(Browser $browser) {
+        $browser->click('@modifyPasswordLink');
     }
 }

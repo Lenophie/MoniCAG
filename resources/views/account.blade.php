@@ -47,9 +47,9 @@
                         <div>{{ __('Role') }} : {{Auth::user()->role->name}}</div>
                     </div>
                     <footer class="card-footer">
-                        <a class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
-                        <a class="custom-hover-color card-footer-item" href="{{ url('/password/change') }}">{{__('Modify my password')}}</a>
-                        <a class="card-footer-item has-text-danger" data-toggle="modal" data-target="delete-confirm-modal">{{__('Delete my account')}}</a>
+                        <a id="modify-email-link" class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
+                        <a id="modify-password-link" class="custom-hover-color card-footer-item" href="{{ url('/password/change') }}">{{__('Modify my password')}}</a>
+                        <a id="delete-account-link" class="card-footer-item has-text-danger" data-toggle="modal" data-target="delete-confirm-modal">{{__('Delete my account')}}</a>
                     </footer>
                 </div>
                 <div class="card">
