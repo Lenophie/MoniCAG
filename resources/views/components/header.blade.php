@@ -46,7 +46,7 @@
                             @endslot
                         @endusericon
                          |
-                        <a class="button is-small is-link" href="{{ route('account') }}" type="button">
+                        <a class="button is-small is-link" href="{{ route('account') }}" id="account-link" type="button">
                             <span><i class="fas fa-user"></i> {{ __('messages.titles.account') }}</span>
                         </a>
                          |

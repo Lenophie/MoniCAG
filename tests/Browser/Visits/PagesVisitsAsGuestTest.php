@@ -55,4 +55,12 @@ class PagesVisitsAsGuestTest extends DuskTestCase
                 ->assertPathIs('/login');
         });
     }
+
+    public function testAccountPageVisit()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/account')
+                ->assertPathIs('/login');
+        });
+    }
 }

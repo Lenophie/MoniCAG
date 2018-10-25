@@ -79,4 +79,14 @@ class PagesVisitsAsUserTest extends DuskTestCase
                 ->assertSee(403);
         });
     }
+
+    public function testAccountPageVisit()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->user)
+                ->visit('/account')
+                ->assertPathIs('/account')
+                ->assertSee(__('messages.titles.account'));
+        });
+    }
 }

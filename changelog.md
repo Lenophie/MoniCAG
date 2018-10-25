@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * "Change email" request and validation tests
     * "Change password" request and validation tests
     * "Delete account" request and validation tests
+    * Access to account page browser test
     
 ### Changed
 

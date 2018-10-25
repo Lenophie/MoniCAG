@@ -101,4 +101,16 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->assertPathIs('/Lenophie/MoniCAG/');
         });
     }
+
+    public function testAccessToAccountPage()
+    {
+        $admin = factory(User::class)->state('admin')->create();
+
+        $this->browse(function (Browser $browser) use ($admin) {
+            $browser->loginAs($admin)
+                ->visit(new HomePage())
+                ->navigateTo(PagesFromHomeEnum::ACCOUNT)
+                ->assertPathIs('/account');
+        });
+    }
 }

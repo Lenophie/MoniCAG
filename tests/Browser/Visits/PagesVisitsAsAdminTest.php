@@ -79,4 +79,14 @@ class PagesVisitsAsAdminTest extends DuskTestCase
                 ->assertSee(__('messages.titles.edit_users'));
         });
     }
+
+    public function testAccountPageVisit()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit('/account')
+                ->assertPathIs('/account')
+                ->assertSee(__('messages.titles.account'));
+        });
+    }
 }

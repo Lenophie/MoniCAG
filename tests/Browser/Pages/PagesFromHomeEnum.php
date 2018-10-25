@@ -13,5 +13,6 @@ abstract class PagesFromHomeEnum extends HomePage
     const EDIT_INVENTORY = 4;
     const EDIT_USERS = 5;
     const GITHUB = 6;
+    const ACCOUNT = 7;
 
 }

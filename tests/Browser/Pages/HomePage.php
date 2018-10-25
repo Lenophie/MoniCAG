@@ -46,6 +46,7 @@ class HomePage extends Page
             '@frenchLink' => '#french-link',
             '@lightThemeLink' => '#light-theme-link',
             '@darkThemeLink' => '#dark-theme-link',
+            '@accountButton' => '#account-link'
         ];
     }
 
@@ -68,6 +69,9 @@ class HomePage extends Page
                 break;
             case PagesFromHomeEnum::EDIT_USERS:
                 $browser->click('@editUsersButton');
+                break;
+            case PagesFromHomeEnum::ACCOUNT:
+                $browser->click('@accountButton');
                 break;
             case PagesFromHomeEnum::GITHUB:
                 $browser->click('@githubLink');
