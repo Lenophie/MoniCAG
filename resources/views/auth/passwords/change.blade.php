@@ -68,7 +68,7 @@
 
                             <div class="field">
                                 <div class=control">
-                                    <button type="submit" class="button is-link">
+                                    <button type="submit" class="button is-link" id="confirm-change-password">
                                         {{__('Modify my password')}}
                                     </button>
                                 </div>
