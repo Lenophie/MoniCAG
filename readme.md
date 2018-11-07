@@ -15,7 +15,7 @@ This application aims at :
 
 *Just MoniCAG.*
 
-**Version :** *MoniCAG v0.16.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.16.1* - [Changelog](./changelog.md)
 
 # How to use
 
@@ -23,6 +23,9 @@ This application aims at :
 * Run ```composer install``` to install ```PHP``` dependencies
 * Run ```npm install``` to install ```js``` dependencies
 * Setup a local-hosted ```MariaDB``` database named ```monicag```
+* Create a ```.env``` file at the root of the project
+    * Use the ```.env.example``` file as a template
+    * Fill it with your own settings
 * Run ```php artisan migrate --seed``` to migrate the database
 * Run ```php artisan serve``` to serve the application
 * Run ```npm run watch``` to bundle the ```js``` resources
@@ -30,6 +33,9 @@ This application aims at :
 
 # How to test
 * Setup a local-hosted ```MariaDB``` database named ```monicag_testing```
+* Create a ```.env.testing``` file at the root of the project
+    * Use the ```.env.testing.example``` file as a template
+    * Fill it with your own settings
 * Run ```php artisan migrate --seed --env=testing``` to migrate the testing database
     * The testing database is currently only used for unit tests
 * Run ```vendor\bin\phpunit tests\Unit``` to perform unit tests

@@ -15,7 +15,7 @@ Cette application cherche à :
 
 *Juste MoniCAG.*
 
-**Version :** *MoniCAG v0.16.0* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v0.16.1* - [Changelog](./changelog.md)
 
 # Utilisation
 
@@ -23,6 +23,9 @@ Cette application cherche à :
 * Exécuter ```composer install``` pour installer les dépendances ```PHP```
 * Exécuter ```npm install``` pour installer les dépendances ```js```
 * Mettre en place une base de données ```MariaDB``` s'appelant ```monicag``` hébergée localement
+* Créer un fichier ```.env``` à la racine du projet
+    * Utiliser le fichier ```.env.example``` comme template
+    * Le remplir avec ses propres paramètres
 * Exécuter ```php artisan migrate --seed``` pour migrer la base de données
 * Exécuter ```php artisan serve``` pour servir l'application
 * Exécuter ```npm run watch``` pour bundle les ressources ```js```
@@ -30,6 +33,9 @@ Cette application cherche à :
 
 # Réalisation des tests
 * Mettre en place une base de données ```MariaDB``` s'appelant ```monicag_testing``` hébergée localement
+* Créer un fichier ```.env.testing``` à la racine du projet
+    * Utiliser le fichier ```.env.testing.example``` comme template
+    * Le remplir avec ses propres paramètres
 * Exécuter ```php artisan migrate --seed --env=testing``` pour migrer la base de données de test
     * Actuellement, la base de données de test n'est exploitée que par les tests unitaires
 * Exécuter ```vendor\bin\phpunit tests\Unit``` pour réaliser les tests unitaires
