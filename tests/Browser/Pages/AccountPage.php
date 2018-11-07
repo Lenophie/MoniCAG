@@ -36,7 +36,10 @@ class AccountPage extends Page
     {
         return [
             '@modifyEmailLink' => '#modify-email-link',
-            '@modifyPasswordLink' => '#modify-password-link'
+            '@modifyPasswordLink' => '#modify-password-link',
+            '@deleteAccountLink' => '#delete-account-link',
+            '@accountDeletionModal' => '#delete-confirm-modal',
+            '@accountDeletionConfirmationButton' => '#delete-confirm-button'
         ];
     }
 
@@ -46,5 +49,9 @@ class AccountPage extends Page
 
     public function navigateToModifyPasswordPage(Browser $browser) {
         $browser->click('@modifyPasswordLink');
+    }
+
+    public function openAccountDeletionModal(Browser $browser) {
+        $browser->click('@deleteAccountLink');
     }
 }

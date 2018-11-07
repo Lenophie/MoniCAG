@@ -17,15 +17,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Change email
     * Delete account
 * Testing
-    * Locale setting unit test
-    * Session settings (locale and theme) unit test
-    * Auth pages access unit tests
-    * Auth requests unit tests
-    * "Change email" request and validation tests
-    * "Change password" request and validation tests
-    * "Delete account" request and validation tests
-    * Access to account page browser test
-    * Account page browser tests
+    * Unit tests
+        * Locale setting
+        * Session settings (locale and theme)
+        * Auth pages access
+        * Auth requests
+        * "Change email" request and validation
+        * "Change password" request and validation
+        * "Delete account" request and validation
+        * Access to account page browser test
+        * Account page browser tests
+    * Feature tests
+        * Account deletion
     
 ### Changed
 
