@@ -5,7 +5,7 @@
 Historically, the club was managing its assets and borrowings with paperwork. More recently, the club started using a *Google Form* paired with a *Google Sheet* to declare and track borrowings.  
 
 This application aims at :
-* Simplying the borrowing process
+* Simplifying the borrowing process
 * Creating a persistent database for the inventory
 * Facilitating the club's annual audit
 * Allowing every student from *Centrale Lille* to easily check out the available games

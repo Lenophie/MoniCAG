@@ -35,7 +35,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     
 ### Fixed
 
-* Typos in some testing functions names and comments.
+* Typos in some testing functions names and comments
+* Typo in README file
 
 ## [0.15.0] - 2018-10-20
 
@@ -43,9 +44,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Validation rules
     * New borrowing
-        * The expected return date can be at most one month away.
+        * The expected return date can be at most one month away
     * Delete user
-        * The user must not be involved in an ongoing borrowing.
+        * The user must not be involved in an ongoing borrowing
 
 ### Changed
 
