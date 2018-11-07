@@ -60,7 +60,7 @@
 
                             <div class="field">
                                 <div class=control">
-                                    <button type="submit" class="button is-link">
+                                    <button type="submit" class="button is-link" id="confirm-email-change">
                                         {{__('Modify my E-mail address')}}
                                     </button>
                                 </div>
