@@ -3,6 +3,8 @@ php:
 - "7.2"
 - "7.3"
 cache: npm
+env:
+- TRAVIS_NODE_VERSION="11"
 
 services:
 - docker
