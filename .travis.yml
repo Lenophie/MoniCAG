@@ -21,3 +21,6 @@ before_script:
 - mysql -e "grant all on monicag.* to 'monika'@'localhost';"
 - composer install
 - npm ci
+
+script:
+- set -e # Prevent default Travis testing behaviour
