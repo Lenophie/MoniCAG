@@ -15,6 +15,7 @@ addons:
 before_script:
 - set -e
 - cp .env.travis .env
+- nvm install $TRAVIS_NODE_VERSION
 - mysql -e 'create database monicag'
 - mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
 - mysql -e "grant all on monicag.* to 'monika'@'localhost';"
