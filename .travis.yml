@@ -1,0 +1,18 @@
+language: php
+php:
+- "7.0"
+cache: npm
+
+services:
+- docker
+- mysql
+addons:
+  mariadb: '10.3'
+
+before_script:
+- set -e
+- mysql -e 'create database monicag'
+- mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
+- mysql -e "grant all on monicag.* to 'monika'@'localhost';"
+- composer install
+- npm ci
