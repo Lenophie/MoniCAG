@@ -19,11 +19,14 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.4.2",
         "cross-env": "^5.2.0",
-        "laravel-mix": "^4.0.15"
+        "vue-template-compiler": "^2.6.10",
+        "laravel-mix": "^4.0.15",
+        "node-sass": "^4.11.0",
+        "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.4.2",
         "bulma": "^0.7.2",
         "fuse.js": "^3.3.0"
     }
