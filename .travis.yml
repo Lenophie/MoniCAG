@@ -27,7 +27,7 @@ before_script:
 - php artisan key:generate
 - php artisan migrate --seed &
   php artisan migrate --seed --env=testing &
-- php artisan serve
+- php artisan serve &
 - npm ci
 - npm run production
 
