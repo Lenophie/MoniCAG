@@ -41,6 +41,12 @@
         }
     },
     "scripts": {
+        "phpunit": [
+            "phpunit tests/Unit"
+        ],
+        "dusk": [
+            "php artisan dusk tests/Browser"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
