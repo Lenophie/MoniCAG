@@ -25,8 +25,8 @@ before_script:
 - mysql -e "grant all on monicag_testing.* to 'monika'@'localhost';"
 - travis_retry composer install --no-interaction --prefer-dist --no-suggest
 - php artisan key:generate
-- php artisan migrate --seed
-  php artisan migrate --seed --env=testing
+- php artisan migrate --seed &
+  php artisan migrate --seed --env=testing &
 - php artisan serve
 - npm ci
 - npm run production
