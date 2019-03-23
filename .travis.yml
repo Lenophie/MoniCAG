@@ -30,7 +30,7 @@ before_script:
   php artisan migrate --seed --env=testing &
 - npm ci
 - npm run production
-- php artisan serve &
+- php artisan serve >& /dev/null &
 
 script:
 - set -e
