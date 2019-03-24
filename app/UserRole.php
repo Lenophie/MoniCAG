@@ -12,6 +12,15 @@ class UserRole extends Model
     public const LENDER = 2;
     public const ADMINISTRATOR = 3;
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     public static function allTranslated() {
         $userRoles = UserRole::select('id', 'name_'.App::getLocale().' AS name')
             ->orderBy('id')

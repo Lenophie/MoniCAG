@@ -53,6 +53,8 @@ class Borrowing extends Model
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
+        'guarantee' => 'double',
         'startDate' => 'date:d/m/Y',
         'expectedReturnDate' => 'date:d/m/Y',
         'returnDate' => 'date:d/m/Y'

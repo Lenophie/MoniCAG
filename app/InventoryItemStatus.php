@@ -14,6 +14,16 @@ class InventoryItemStatus extends Model
     public const LOST = 4;
     public const UNKNOWN = 5;
 
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     public static function allTranslated() {
         $statuses = InventoryItemStatus::select('id', 'name_'.App::getLocale().' AS name')
             ->get();

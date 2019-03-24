@@ -9,6 +9,15 @@ class Genre extends Model
 {
     public $timestamps = false;
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     public static function allTranslated() {
         $genres = Genre::select('id', 'name_'.App::getLocale().' AS name')
             ->orderBy('name')

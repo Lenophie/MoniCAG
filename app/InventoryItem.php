@@ -23,6 +23,18 @@ class InventoryItem extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'duration_min' => 'integer',
+        'duration_max' => 'integer',
+        'status_id' => 'integer'
+    ];
+
+    /**
      * Always capitalize the first letter of each word of the french name when setting it
      */
     public function setNameFrAttribute($value) {

@@ -30,6 +30,17 @@ class User extends Authenticatable implements CanResetPassword
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'promotion' => 'integer',
+        'role_id' => 'integer',
+    ];
+
+    /**
      * Always capitalize the first letter of the first name when we retrieve it
      */
     public function setFirstNameAttribute($value) {
