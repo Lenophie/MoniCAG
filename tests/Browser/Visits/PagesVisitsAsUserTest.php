@@ -19,7 +19,7 @@ class PagesVisitsAsUserTest extends DuskTestCase
     protected function tearDown() {
         $this->user->delete();
     }
-    
+
     public function testNewBorrowingPageVisit()
     {
         $this->browse(function (Browser $browser) {
@@ -36,7 +36,7 @@ class PagesVisitsAsUserTest extends DuskTestCase
             $browser->loginAs($this->user)
                 ->visit('/end-borrowing')
                 ->assertPathIs('/end-borrowing')
-                ->assertSee(403);;
+                ->assertSee(403);
         });
     }
 
@@ -46,7 +46,7 @@ class PagesVisitsAsUserTest extends DuskTestCase
             $browser->loginAs($this->user)
                 ->visit('/borrowings-history')
                 ->assertPathIs('/borrowings-history')
-                ->assertSee(403);;
+                ->assertSee(403);
         });
     }
 
