@@ -36,10 +36,10 @@ Cette application cherche à :
 * Créer un fichier ```.env.testing``` à la racine du projet
     * Utiliser le fichier ```.env.testing.example``` comme template
     * Le remplir avec ses propres paramètres
+* Copier-coller ```.env.testing``` et renommer la copie ```.env.dusk.local```
 * Exécuter ```php artisan migrate --seed --env=testing``` pour migrer la base de données de test
-    * Actuellement, la base de données de test n'est exploitée que par les tests unitaires
-* Exécuter ```vendor\bin\phpunit tests\Unit``` pour réaliser les tests unitaires
-* Exécuter ```php artisan dusk tests\Browser``` pour réaliser les tests de navigation
+* Exécuter ```composer unit``` pour réaliser les tests unitaires
+* Exécuter ```php artisan serve --env=dusk.local``` et ```composer dusk``` pour réaliser les tests d'intégration
 
 # Licence
 

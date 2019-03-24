@@ -15,22 +15,20 @@ addons:
 
 before_script:
 - set -e
+- travis_retry composer install --no-interaction --prefer-dist --no-suggest
+- php artisan key:generate --env=travis
 - cp .env.travis .env
-- cp .env.travis.testing .env.testing
+- cp .env.travis .env.testing
+- cp .env.travis .env.dusk.local
 - nvm install $TRAVIS_NODE_VERSION
-- mysql -e 'create database monicag' # Used by Dusk
-- mysql -e 'create database monicag_testing' # Used by PHPUnit
+- mysql -e 'create database monicag' # Used by PHPUnit
 - mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
 - mysql -e "grant all on monicag.* to 'monika'@'localhost';"
-- mysql -e "grant all on monicag_testing.* to 'monika'@'localhost';"
-- travis_retry composer install --no-interaction --prefer-dist --no-suggest
-- php artisan key:generate
-- php artisan key:generate --env=testing
 - php artisan migrate --seed &
   php artisan migrate --seed --env=testing &
 - npm ci
 - npm run production
-- php artisan serve >& /dev/null &
+- php artisan serve --env=dusk.local >& /dev/null &
 
 script:
 - set -e

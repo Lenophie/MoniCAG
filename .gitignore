@@ -13,6 +13,6 @@ yarn-error.log
 .env*
 !.env.example
 !.env.testing.example
-!.env.travis*
+!.env.travis
 .phpunit.result.cache
 phpunit*.xml
