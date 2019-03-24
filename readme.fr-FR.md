@@ -19,27 +19,27 @@ Cette application cherche à :
 
 # Utilisation
 
-* Installer ```Composer``` et ```npm```
-* Exécuter ```composer install``` pour installer les dépendances ```PHP```
-* Exécuter ```npm install``` pour installer les dépendances ```js```
-* Mettre en place une base de données ```MariaDB``` s'appelant ```monicag``` hébergée localement
-* Créer un fichier ```.env``` à la racine du projet
-    * Utiliser le fichier ```.env.example``` comme template
+* Installer `Composer` et `npm`
+* Exécuter `composer install` pour installer les dépendances `PHP`
+* Exécuter `npm install` pour installer les dépendances `js`
+* Mettre en place une base de données `MariaDB` s'appelant `monicag` hébergée localement
+* Créer un fichier `.env` à la racine du projet
+    * Utiliser le fichier `.env.example` comme template
     * Le remplir avec ses propres paramètres
-* Exécuter ```php artisan migrate --seed``` pour migrer la base de données
-* Exécuter ```php artisan serve``` pour servir l'application
-* Exécuter ```npm run watch``` pour bundle les ressources ```js```
-* Se rendre à ```localhost:8000``` avec un navigateur web
+* Exécuter `php artisan migrate --seed` pour migrer la base de données
+* Exécuter `php artisan serve` pour servir l'application
+* Exécuter `npm run watch` pour bundle les ressources `js`
+* Se rendre à `localhost:8000` avec un navigateur web
 
 # Réalisation des tests
-* Mettre en place une base de données ```MariaDB``` s'appelant ```monicag_testing``` hébergée localement
-* Créer un fichier ```.env.testing``` à la racine du projet
-    * Utiliser le fichier ```.env.testing.example``` comme template
+* Mettre en place une base de données `MariaDB` s'appelant `monicag_testing` hébergée localement
+* Créer un fichier `.env.testing` à la racine du projet
+    * Utiliser le fichier `.env.testing.example` comme template
     * Le remplir avec ses propres paramètres
-* Copier-coller ```.env.testing``` et renommer la copie ```.env.dusk.local```
-* Exécuter ```php artisan migrate --seed --env=testing``` pour migrer la base de données de test
-* Exécuter ```composer unit``` pour réaliser les tests unitaires
-* Exécuter ```php artisan serve --env=dusk.local``` et ```composer dusk``` pour réaliser les tests d'intégration
+* Copier-coller `.env.testing` et renommer la copie `.env.dusk.local`
+* Exécuter `php artisan migrate --seed --env=testing` pour migrer la base de données de test
+* Exécuter `composer unit` pour réaliser les tests unitaires
+* Exécuter `php artisan serve --env=dusk.local` et `composer dusk` pour réaliser les tests d'intégration
 
 # Licence
 

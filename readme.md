@@ -19,27 +19,27 @@ This application aims at :
 
 # How to use
 
-* Install ```Composer``` and ```npm```
-* Run ```composer install``` to install ```PHP``` dependencies
-* Run ```npm install``` to install ```js``` dependencies
-* Setup a local-hosted ```MariaDB``` database named ```monicag```
-* Create a ```.env``` file at the root of the project
-    * Use the ```.env.example``` file as a template
+* Install `Composer` and `npm`
+* Run `composer install` to install `PHP` dependencies
+* Run `npm install` to install `js` dependencies
+* Setup a local-hosted `MariaDB` database named `monicag`
+* Create a `.env` file at the root of the project
+    * Use the `.env.example` file as a template
     * Fill it with your own settings
-* Run ```php artisan migrate --seed``` to migrate the database
-* Run ```php artisan serve``` to serve the application
-* Run ```npm run watch``` to bundle the ```js``` resources
-* Go to ```localhost:8000``` with a web navigator
+* Run `php artisan migrate --seed` to migrate the database
+* Run `php artisan serve` to serve the application
+* Run `npm run watch` to bundle the `js` resources
+* Go to `localhost:8000` with a web navigator
 
 # How to test
-* Setup a local-hosted ```MariaDB``` database named ```monicag_testing```
-* Create a ```.env.testing``` file at the root of the project
-    * Use the ```.env.testing.example``` file as a template
+* Setup a local-hosted `MariaDB` database named `monicag_testing`
+* Create a `.env.testing` file at the root of the project
+    * Use the `.env.testing.example` file as a template
     * Fill it with your own settings
-* Copy-paste ```.env.testing``` and rename the copy ```.env.dusk.local```
-* Run ```php artisan migrate --seed --env=testing``` to migrate the testing database
-* Run ```composer phpunit``` to perform unit tests
-* Run ```php artisan serve --env=dusk.local``` ```composer dusk``` to perform browser tests
+* Copy-paste `.env.testing` and rename the copy `.env.dusk.local`
+* Run `php artisan migrate --seed --env=testing` to migrate the testing database
+* Run `composer phpunit` to perform unit tests
+* Run `php artisan serve --env=dusk.local` `composer dusk` to perform browser tests
 
 
 # License
