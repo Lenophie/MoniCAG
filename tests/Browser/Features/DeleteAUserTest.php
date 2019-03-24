@@ -58,6 +58,7 @@ class DeleteAUserTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->on(new EditUsersPage())
                 ->pressOnDeleteUserButton($this->otherAdmin->id)
+                ->pause(2000)
                 ->assertSee(__('validation/deleteUser.userId.unchanged_if_other_admin'));
         });
 
