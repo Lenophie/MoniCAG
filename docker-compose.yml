@@ -3,7 +3,29 @@ version: "3"
 services:
   web:
     image: monicag:latest
+    depends_on:
+      - mariadb
     ports:
-    - 8000:8000
-    volumes:
-    - ./:/app
+      - 8000:8000
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: MoniCAG
+      DB_USERNAME: Monika
+      DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      local:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: MoniCAG
+      MYSQL_USER: Monika
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - local
+
+networks:
+  local:
