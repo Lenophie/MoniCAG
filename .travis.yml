@@ -18,7 +18,7 @@ before_script:
 - cp .env.travis .env # Composer reads APP_ENV, it assumes production by default which would prevent Dusk installation
 - travis_retry composer install --no-interaction --prefer-dist --no-suggest
 - cp .env.travis .env.testing
-- cp .env.travis .env.dusk.local
+- cp .env.dusk.local.example .env.dusk.local
 - nvm install $TRAVIS_NODE_VERSION
 - mysql -e 'create database monicag' # Used by PHPUnit
 - mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
@@ -26,8 +26,8 @@ before_script:
 - php artisan key:generate
 - php artisan key:generate --env=testing
 - php artisan key:generate --env=dusk.local
-- php artisan migrate --seed &
   php artisan migrate --seed --env=testing &
+- php artisan migrate --seed --env=dusk.local &
 - npm ci
 - npm run production
 - php artisan serve --env=dusk.local >& /dev/null &

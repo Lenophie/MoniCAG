@@ -32,15 +32,23 @@ This application aims at :
 * Go to `localhost:8000` with a web navigator
 
 # How to test
+
+## Unit testing
+
 * Setup a local-hosted `MariaDB` database named `monicag_testing`
 * Create a `.env.testing` file at the root of the project
     * Use the `.env.testing.example` file as a template
     * Fill it with your own settings
-* Copy-paste `.env.testing` and rename the copy `.env.dusk.local`
 * Run `php artisan migrate --seed --env=testing` to migrate the testing database
-* Run `composer phpunit` to perform unit tests
-* Run `php artisan serve --env=dusk.local` `composer dusk` to perform browser tests
+* Run `composer phpunit` to perform the tests
 
+## Browser testing
+
+* Install `php7.2-sqlite3`
+* Copy-paste `.env.dusk.local.example` and rename the copy `.env.dusk.local`
+* Create a file named `dusk.sqlite` in the `database` folder
+* Run `php artisan migrate --seed --env=dusk.local` to migrate the testing database
+* Run `php artisan serve --env=dusk.local` `composer dusk` to perform the tests
 
 # License
 

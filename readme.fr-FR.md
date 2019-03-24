@@ -32,13 +32,22 @@ Cette application cherche à :
 * Se rendre à `localhost:8000` avec un navigateur web
 
 # Réalisation des tests
+
+## Tests unitaires
+
 * Mettre en place une base de données `MariaDB` s'appelant `monicag_testing` hébergée localement
 * Créer un fichier `.env.testing` à la racine du projet
     * Utiliser le fichier `.env.testing.example` comme template
     * Le remplir avec ses propres paramètres
-* Copier-coller `.env.testing` et renommer la copie `.env.dusk.local`
 * Exécuter `php artisan migrate --seed --env=testing` pour migrer la base de données de test
 * Exécuter `composer unit` pour réaliser les tests unitaires
+
+## Tests d'intégration
+
+* Installer `php7.2-sqlite3`
+* Copier-coller `.env.dusk.local.example` et renommer la copie `.env.dusk.local`
+* Créer un fichier nommé `dusk.sqlite` dans le dossier `database`
+* Exécuter `php artisan migrate --seed --env=dusk.local` pour migrer la base de données de test
 * Exécuter `php artisan serve --env=dusk.local` et `composer dusk` pour réaliser les tests d'intégration
 
 # Licence

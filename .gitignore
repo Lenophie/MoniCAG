@@ -13,5 +13,6 @@ yarn-error.log
 .env*
 !.env.example
 !.env.testing.example
+!.env.dusk.local.example
 !.env.travis
 .phpunit.result.cache
