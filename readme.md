@@ -32,6 +32,7 @@ This application aims at :
 * Go to `localhost:8000` with a web navigator
 
 # How to test
+
 * Setup a local-hosted `MariaDB` database named `monicag_testing`
 * Create a `.env.testing` file at the root of the project
     * Use the `.env.testing.example` file as a template
@@ -39,7 +40,13 @@ This application aims at :
 * Copy-paste `.env.testing` and rename the copy `.env.dusk.local`
 * Run `php artisan migrate --seed --env=testing` to migrate the testing database
 * Run `composer phpunit` to perform unit tests
-* Run `php artisan serve --env=dusk.local` `composer dusk` to perform browser tests
+* Run `php artisan serve --env=dusk.local` and `composer dusk` to perform browser tests
+
+# Local deployment
+
+* [Install Docker CE](https://docs.docker.com/install/)
+* [Install docker-compose](https://docs.docker.com/compose/install/)
+* Run `sudo docker-compose -f docker-compose.yml up --build`
 
 
 # License

@@ -32,6 +32,7 @@ Cette application cherche à :
 * Se rendre à `localhost:8000` avec un navigateur web
 
 # Réalisation des tests
+
 * Mettre en place une base de données `MariaDB` s'appelant `monicag_testing` hébergée localement
 * Créer un fichier `.env.testing` à la racine du projet
     * Utiliser le fichier `.env.testing.example` comme template
@@ -40,6 +41,12 @@ Cette application cherche à :
 * Exécuter `php artisan migrate --seed --env=testing` pour migrer la base de données de test
 * Exécuter `composer unit` pour réaliser les tests unitaires
 * Exécuter `php artisan serve --env=dusk.local` et `composer dusk` pour réaliser les tests d'intégration
+
+# Déploiement local
+
+* [Installer Docker CE](https://docs.docker.com/install/)
+* [Installer docker-compose](https://docs.docker.com/compose/install/)
+* Exécuter `sudo docker-compose -f docker-compose.yml up --build`
 
 # Licence
 
