@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Fideloper\Proxy\TrustProxies as Middleware;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
 
 class TrustProxies extends Middleware
 {
@@ -13,6 +14,13 @@ class TrustProxies extends Middleware
      * @var array
      */
     protected $proxies;
+
+    public function __construct(Repository $config)
+    {
+        parent::__construct($config);
+        $this->proxies = config('app.trusted_proxies');
+    }
+
 
     /**
      * The headers that should be used to detect proxies.

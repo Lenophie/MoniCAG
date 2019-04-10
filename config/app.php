@@ -120,6 +120,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'trusted_proxies' => explode(',', env('TRUSTED_PROXIES')),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
