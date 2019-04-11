@@ -123,30 +123,34 @@ const handleFormErrors = (submitType, errors, id) => {
     if (submitType === submitTypes.POST) {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
-                if (!fieldName.startsWith('genres.')) {
-                    getById(`${fieldName}-field-new`).innerHTML += `<div class="error-text">${error}</div>`;
-                } else {
-                    getById('genres-field-new').innerHTML += `<div class="error-text">${error}</div>`;
-                }
+                const errorDiv = createErrorDiv(error);
+                if (!fieldName.startsWith('genres.')) getById(`${fieldName}-field-new`).appendChild(errorDiv);
+                else getById('genres-field-new').appendChild(errorDiv);
             }
         }
     } else if (submitType === submitTypes.PATCH) {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
-                if (!fieldName.startsWith('genres.')) {
-                    getById(`${fieldName}-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
-                } else {
-                    getById(`genres-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
-                }
+                const errorDiv = createErrorDiv(error);
+                if (!fieldName.startsWith('genres.')) getById(`${fieldName}-field-${id}`).appendChild(errorDiv);
+                else getById(`genres-field-${id}`).appendChild(errorDiv);
             }
         }
     } else if (submitType === submitTypes.DELETE) {
         for (const fieldName in errors) {
             for (const error of errors[fieldName]) {
-                getById('#delete-modal-body').innerHTML += `<div class="error-text">${error}</div>`;
+                const errorDiv = createErrorDiv(error);
+                getById('delete-modal-body').appendChild(errorDiv);
             }
         }
     }
+};
+
+const createErrorDiv = (content) => {
+  const errorDiv = document.createElement('div');
+  errorDiv.classList.add('error-text');
+  errorDiv.innerHTML = content;
+  return errorDiv;
 };
 
 const handleAddGenreSelectChange = (submitType, selectedGenre, id) => {
