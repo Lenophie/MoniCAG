@@ -81,6 +81,20 @@ class EditInventoryPageTest extends DuskTestCase
         });
     }
 
+    public function testGenreAdditionToNewInventoryItemAfterGenresError() {
+        $genreToAdd = $this->additionalGenres[1];
+        $this->browse(function (Browser $browser) use ($genreToAdd) {
+            $liElement = "#genre-{$genreToAdd->id}-for-new-li";
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage())
+                ->press('@newItemSubmitButton')
+                ->pause(500)
+                ->select('@newItemGenreSelect', $genreToAdd->id)
+                ->assertPresent($liElement)
+                ->assertSeeIn($liElement, $genreToAdd->{'name_' . App::getLocale()});
+        });
+    }
+
     public function testGenreAdditionToExistingInventoryItem() {
         $genreToAdd = $this->additionalGenres[1];
         $inventoryItemToPatch = $this->inventoryItems[1];
@@ -89,6 +103,24 @@ class EditInventoryPageTest extends DuskTestCase
             $browser->loginAs($this->admin)
                 ->visit(new EditInventoryPage())
                 ->assertMissing($liElement)
+                ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToAdd->id)
+                ->assertPresent($liElement)
+                ->assertSeeIn($liElement, $genreToAdd->{'name_' . App::getLocale()});
+        });
+    }
+
+    public function testGenreAdditionToExistingInventoryItemAfterGenresError() {
+        $genreToAdd = $this->additionalGenres[1];
+        $inventoryItemToPatch = $this->inventoryItems[1];
+        $this->browse(function (Browser $browser) use ($genreToAdd, $inventoryItemToPatch) {
+            $liElement = "#genre-{$genreToAdd->id}-for-{$inventoryItemToPatch->id}-li";
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage());
+            foreach ($inventoryItemToPatch->genres()->get() as $genre) {
+                $browser->pressOnRemoveGenreButton($inventoryItemToPatch->id, $genre->id);
+            }
+            $browser->pressOnPatchItemButton($inventoryItemToPatch->id)
+                ->pause(500)
                 ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToAdd->id)
                 ->assertPresent($liElement)
                 ->assertSeeIn($liElement, $genreToAdd->{'name_' . App::getLocale()});
