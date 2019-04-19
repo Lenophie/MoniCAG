@@ -39,6 +39,7 @@
             {{__('messages.titles.perform_borrowing')}}
         @endslot
     @endheader
+    <!--suppress JSUnusedLocalSymbols -->
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-full">

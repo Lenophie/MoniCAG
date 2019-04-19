@@ -33,6 +33,7 @@
             {{__('messages.titles.inventory')}}
         @endslot
     @endheader
+    <!-- suppress JSUnusedLocalSymbols -->
     <meta name="players" content="{{__('Players')}}">
     <meta name="min" content="{{__('Min')}}">
     <div class="container is-fluid">

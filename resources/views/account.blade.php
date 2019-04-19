@@ -33,6 +33,7 @@
         {{__('messages.titles.account')}}
     @endslot
     @endheader
+    <!-- suppress JSUnusedLocalSymbols -->
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-12">

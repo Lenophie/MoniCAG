@@ -33,6 +33,7 @@
             {{__('messages.titles.retrieve_borrowing')}}
         @endslot
     @endheader
+    <!-- suppress JSUnusedLocalSymbols -->
     <meta name="messages.late" content="{{__('messages.end_borrowing.late')}}">
     <meta name="messages.borrowed_by" content="{{__('Borrowed by')}}">
     <meta name="messages.lent_by" content="{{__('Lent by')}}">
