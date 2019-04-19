@@ -1,4 +1,4 @@
-# MoniCAG - Monitor CAG Inventory !
+# MoniCAG - Monitor CAG Inventory ! · [![Build Status](https://travis-ci.com/Lenophie/MoniCAG.svg?branch=master)](https://travis-ci.com/Lenophie/MoniCAG)
 
 *MoniCAG* est une application web destinée à *Centr'All Games* (*CAG*) afin de gérer son inventaire et suivre ses emprunts.  
 *Centr'All Games* est un club de jeux de l'*École Centrale de Lille*. Tous les étudiants de l'école peuvent venir jouer aux jeux du club ou les emprunter pour y jouer chez eux.  
