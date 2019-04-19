@@ -23,6 +23,7 @@ class PatchAnInventoryItemTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $inventoryItems = factory(InventoryItem::class, 10)->create();
         $this->inventoryItems = $inventoryItems;
         $additionalGenres = factory(Genre::class, 5)->create();

@@ -13,6 +13,11 @@ class AccessesFromHomeTest extends DuskTestCase
 {
     use WithFaker;
 
+    protected function setUp() {
+        Parent::setUp();
+        $this->faker->seed(0);
+    }
+
     public function testAccessToNewBorrowingPage()
     {
         $lender = factory(User::class)->state('lender')->create();
@@ -112,5 +117,7 @@ class AccessesFromHomeTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->assertPathIs('/account');
         });
+
+        $admin->delete();
     }
 }

@@ -18,6 +18,7 @@ class EndBorrowingRequestTest extends TestCase
     protected function setUp()
     {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $this->actingAs($lender);
         $this->lender = $lender;
@@ -119,7 +120,7 @@ class EndBorrowingRequestTest extends TestCase
 
         // Check response
         $response->assertStatus(200);
-        
+
         foreach([0, 2] as $i) {
             // Check inventory items status updates
             $this->assertDatabaseHas('inventory_items', [
@@ -143,7 +144,7 @@ class EndBorrowingRequestTest extends TestCase
                 'finished' => 1
             ]);
         }
-        
+
         foreach([1, 3, 4] as $i) {
             // Check other borrowed inventory items unaffected
             $this->assertDatabaseHas('inventory_items', [

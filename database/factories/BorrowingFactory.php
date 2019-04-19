@@ -6,6 +6,8 @@ use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
+$factory->faker->seed(0);
+
 $factory->define(Borrowing::class, function (Faker $faker) {
     $startDate = Carbon::now()->subDays(rand(1, 10));
     return [

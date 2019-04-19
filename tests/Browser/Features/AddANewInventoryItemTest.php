@@ -22,6 +22,7 @@ class AddANewInventoryItemTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $genres = factory(Genre::class, 5)->create();
         $this->genres = $genres;
         $admin = factory(User::class)->state('admin')->create();

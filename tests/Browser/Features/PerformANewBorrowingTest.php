@@ -24,6 +24,7 @@ class PerformANewBorrowingTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $borrowerPassword = $this->faker->unique()->password;
         $borrower = factory(User::class)->create([

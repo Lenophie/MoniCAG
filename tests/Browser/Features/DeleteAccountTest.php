@@ -20,6 +20,7 @@ class DeleteAccountTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $userToDeletePassword = $this->faker->unique()->password;
         $this->userToDeletePassword = $userToDeletePassword;
         $this->userToDelete = factory(User::class)->create([

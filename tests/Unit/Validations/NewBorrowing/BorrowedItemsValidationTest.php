@@ -12,7 +12,6 @@ class BorrowedItemsValidationTest extends TestCase
     protected function setUp()
     {
         Parent::setUp();
-
         $lender = factory(User::class)->state('lender')->create();
         $this->actingAs($lender);
     }

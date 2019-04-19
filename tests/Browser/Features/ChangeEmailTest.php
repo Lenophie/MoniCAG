@@ -21,6 +21,7 @@ class ChangeEmailTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $userPassword = $this->faker->unique()->password;
         $userEmail = $this->faker->unique()->safeEmail;
         $this->userPassword = $userPassword;

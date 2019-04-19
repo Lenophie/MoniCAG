@@ -21,6 +21,7 @@ class ChangePasswordTest extends DuskTestCase
 
     protected function setUp() {
         Parent::setUp();
+        $this->faker->seed(0);
         $userPassword = $this->faker->unique()->password;
         $this->userPassword = $userPassword;
         $this->user = factory(User::class)->create([

@@ -5,6 +5,8 @@ use App\UserRole;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
+$factory->faker->seed(0);
+
 $factory->define(User::class, function (Faker $faker) {
     $year = Carbon::now()->year;
     return [

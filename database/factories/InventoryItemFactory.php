@@ -5,6 +5,8 @@ use App\InventoryItem;
 use App\InventoryItemStatus;
 use Faker\Generator as Faker;
 
+$factory->faker->seed(0);
+
 $factory->define(InventoryItem::class, function (Faker $faker) {
     $durationMin = rand(1, 20);
     $durationMax = rand($durationMin, 180);

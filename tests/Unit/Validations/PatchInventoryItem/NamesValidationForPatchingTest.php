@@ -14,9 +14,9 @@ class NamesValidationForPatchingTest extends TestCase
     protected function setUp()
     {
         Parent::setUp();
+        $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
         $this->actingAs($admin);
-        $this->faker->seed(0);
     }
 
     /**

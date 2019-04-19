@@ -18,6 +18,7 @@ class NewBorrowingRequestTest extends TestCase
     protected function setUp()
     {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $this->actingAs($lender);
         $this->lender = $lender;
