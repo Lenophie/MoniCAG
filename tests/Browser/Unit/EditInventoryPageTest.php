@@ -247,7 +247,7 @@ class EditInventoryPageTest extends DuskTestCase
                })
                ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
                ->whenAvailable('@deletionConfirmationModal', function($modal) {
-                   $modal->press("#delete-confirm-button");
+                   $modal->press("@deletionConfirmationButton");
                })
                ->waitForReload();
         });

@@ -50,7 +50,7 @@ class DeleteAnInventoryItemTest extends DuskTestCase
                 ->on(new EditInventoryPage())
                 ->pressOnDeleteItemButton($inventoryItemToDelete->id)
                 ->whenAvailable('@deletionConfirmationModal', function($modal) use ($inventoryItemToDelete) {
-                    $modal->press('#delete-confirm-button');
+                    $modal->press('@deletionConfirmationButton');
                 })
                 ->waitForReload()
                 ->assertPathIs('/edit-inventory');
