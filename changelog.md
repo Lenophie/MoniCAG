@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Dependencies update
 * Dusk environment setup
+* Replaced triple backticks by single backticks in changelog
 
 ### Fixed
 
@@ -29,8 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 * Environment setup instructions
-    * Added templates for ```.env``` files
-    * Added ```.env``` files setup instructions in README instructions
+    * Added templates for `.env` files
+    * Added `.env` files setup instructions in README instructions
 
 ## [0.16.0] - 2018-11-07
 
@@ -83,11 +84,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 * Environment
-    * Moved ```public``` folder content to ```resources```
-    * Replaced ```Bootstrap``` with ```Bulma```
-    * Removed ```jQuery```
-    * Replaced ```flag-icon-css``` with a custom lighter build
-    * Removed ```@babel/polyfill```
+    * Moved `public` folder content to `resources`
+    * Replaced `Bootstrap` with `Bulma`
+    * Removed `jQuery`
+    * Replaced `flag-icon-css` with a custom lighter build
+    * Removed `@babel/polyfill`
 
 ## [0.14.0] - 2018-10-16
 
@@ -108,7 +109,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Patch user
         * Delete user
 * Factories
-    * Added ```late``` and ```onTime``` states to borrowing factory
+    * Added `late` and `onTime` states to borrowing factory
 * Password resetting
     * Added authorization for users
 * Validation
@@ -215,7 +216,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Validation
     * General
         * Custom messages for integers in arrays validation
-        * ```bail``` validation rule for fields with custom validations rules
+        * `bail` validation rule for fields with custom validations rules
         * Reworded some custom messages
         * Inverted order of exist and distinct rules to prevent errors in replacers
     * Register
@@ -236,11 +237,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 * End borrowing routes
-    * HTTP verb ```POST``` to ```PATCH```
-    * Refactored the two previously-```POST``` routes to one
+    * HTTP verb `POST` to `PATCH`
+    * Refactored the two previously-`POST` routes to one
 * Validation
     * General
-        * Simplified some custom validators thanks to ```bail``` rule addition for relevant fiels
+        * Simplified some custom validators thanks to `bail` rule addition for relevant fiels
     * New borrowing
         * Simplified regex validation for guarantee
     * Add inventory item
@@ -255,11 +256,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Problem : The app doesn't correctly handle delayed borrowings as it is setting the items as borrowed when creating the borrowing regardless of the start date
         * Solution : Forbid having a start date different from the current date when creating a borrowing
         * Implementation : Remove the field from the form and update its related model attribute setting, validation rules and translation files
-    * Error in custom validator ```InventoryItemAvailable```
+    * Error in custom validator `InventoryItemAvailable`
         * Problem : When a non-integer is fed to the validator, an error is thrown when trying to find the corresponding inventory item
         * Solution : Prevent non-integers from being fed to the validator
-        * Implementation : Add ```bail``` rule to relevant field in ```NewBorrowingRequest```
-    * Inventory item name not being displayed in ```InventoryItemAvailable``` error message
+        * Implementation : Add `bail` rule to relevant field in `NewBorrowingRequest`
+    * Inventory item name not being displayed in `InventoryItemAvailable` error message
 * Edit inventory view
     * Typo in deletion warning message
     * Line breaks in deletion warning message
@@ -307,7 +308,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * When patching existing item
     * When deleting existing item
 * Edit inventory routing
-    * ```POST```, ```PATCH``` and ```DELETE``` routes
+    * `POST`, `PATCH` and `DELETE` routes
 * End borrowing validation
     * Check if the borrowed items' new status is correct
 * Translation files
@@ -331,8 +332,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 
-* Compiled ```js``` files from ```git``` tracking
-    * Added ```.gitignore``` file for future commits
+* Compiled `js` files from `git` tracking
+    * Added `.gitignore` file for future commits
 
 ## [0.9.0] - 2018-09-26
 
@@ -341,7 +342,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * End borrowing view
     * Message when no current borrowing
 * Home view
-    * MoniCAG ```GitHub``` link
+    * MoniCAG `GitHub` link
 * Authentication
     * Laravel built-in tools
     * Pages access
@@ -444,12 +445,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 * Seeds
-    * User role for user seeding wasn't a constant from ```UserRole```
+    * User role for user seeding wasn't a constant from `UserRole`
     
 ### Removed
 
 * Database / Model
-    * Removed borrowing statuses in favor of a boolean ```finished```
+    * Removed borrowing statuses in favor of a boolean `finished`
 
 ## [0.5.0] - 2018-09-16
 
@@ -475,7 +476,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Reference tables seeding
     * Inventory items and users seeding for local environment
 * Public
-    * ```CSS``` for new borrowing view
+    * `CSS` for new borrowing view
 
 ### Changed
 
@@ -509,43 +510,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Main menu
   * Inventory buttons layout
 * Documentation
-  * ```UML``` diagram
+  * `UML` diagram
 
 ## [0.3.2] - 2018-09-04
 
 ### Fixed
 
 * Documentation
-  * ```UML``` diagram
+  * `UML` diagram
 
 ## [0.3.1] - 2018-09-04
 
 ### Changed
 
 * Project Architecture
-  * ```ESDoc``` sources for manuals are now approprietaly in the ```src``` folder
+  * `ESDoc` sources for manuals are now approprietaly in the `src` folder
 
 ### Fixed
 
 * Documentation
-  * ```UML``` diagram
+  * `UML` diagram
 
 ## [0.3.0] - 2018-09-04
 
 ### Added
 
 * Back-End
-  * Database ```SQL``` seed
+  * Database `SQL` seed
 * Documentation
-  * ```ESDoc``` setup
-  * ```UML``` diagram
+  * `ESDoc` setup
+  * `UML` diagram
 
 ## [0.2.1] - 2018-09-03
 
 ### Added
 
 * Development environment
-  * ```VSCode``` project settings
+  * `VSCode` project settings
 
 ### Fixed
 
@@ -556,9 +557,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * Development environment
-  * ```Webpack```
-  * ```ESLint```
-  * ```Babeljs```
+  * `Webpack`
+  * `ESLint`
+  * `Babeljs`
 * Main menu
   * Layout
   * Colors
