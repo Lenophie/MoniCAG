@@ -9,17 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Docker setup
-* Travis setup
+* `Docker` setup
+* `Travis` setup
 * Trusted proxies environment variable
 * Comments in `js` files
-* PHP extensions requirements in `composer.json`
+* `PHP` extensions requirements in `composer.json`
 
 ### Changed
 
 * Dependencies update
 * Dusk environment setup
-* Started using @json Blade directive
+* Started using @json `Blade` directive
 * Replaced triple backticks by single backticks in changelog
 
 ### Fixed
@@ -29,6 +29,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Opening and closing the deletion modal for multiple games then deleting one would affect the first game the modal was opened for, not the current one
 * Views
     * Incorrect method attribute for some forms
+* Tests
+    * Tests are now fully deterministic
+        * Fakers are seeded for both factories and tests
+        * Added missing tear down statements to fully clean the database between tests
+* Development
+    * Suppressed some `PHPStorm` warnings
 
 ## [0.16.1] - 2018-11-07
 
