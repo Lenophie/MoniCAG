@@ -11,9 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * `Docker` setup
 * `Travis` setup
+    * Added Travis badge to readme
 * Trusted proxies environment variable
 * Comments in `js` files
 * `PHP` extensions requirements in `composer.json`
+* Link to french readme in readme
 
 ### Changed
 
