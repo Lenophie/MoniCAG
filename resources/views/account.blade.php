@@ -77,7 +77,7 @@
         <div id="delete-modal-body">
             <p>{!!__('messages.account.deletion_warning')!!}</p>
             <hr>
-            <form id="delete-form" method="DELETE" action="{{ route('account.delete') }}" autocomplete="off">
+            <form id="delete-form" method="POST" action="{{ route('account.delete') }}" autocomplete="off">
                 @csrf
                 <div class="field">
                     <label class="label" for="password">{{__('Confirm password')}}</label>

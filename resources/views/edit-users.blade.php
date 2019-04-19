@@ -85,7 +85,7 @@
                                <div id="errors-field-{{$user->id}}"></div>
                            </td>
                            <td class="border-right">
-                               <form method="PATCH" action="{{url('/edit-users')}}" id="edit-user-{{$user->id}}-form">
+                               <form method="POST" action="{{url('/edit-users')}}" id="edit-user-{{$user->id}}-form">
                                    @csrf
                                    <button class="button is-link is-small is-fullwidth" id="edit-user-{{$user->id}}-button">
                                        {{__('Confirm')}}
@@ -93,7 +93,7 @@
                                </form>
                            </td>
                            <td>
-                               <form method="DELETE" action="{{url('/edit-users')}}" id="delete-user-{{$user->id}}-form">
+                               <form method="POST" action="{{url('/edit-users')}}" id="delete-user-{{$user->id}}-form">
                                    @csrf
                                    <button class="button is-danger is-small is-fullwidth" id="delete-user-{{$user->id}}-button">
                                        {{__('Delete')}}

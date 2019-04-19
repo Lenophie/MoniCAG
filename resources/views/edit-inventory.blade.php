@@ -369,7 +369,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form method="PATCH" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
+                                    <form method="POST" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
                                         @csrf
                                         <a class="button is-link is-fullwidth" id="edit-item-{{$inventoryItem->id}}-submit-button" type="submit">
                                             {{__('Confirm')}}
@@ -396,7 +396,7 @@
             id="delete-confirm-modal"
         @endslot
         @slot('footer')
-            <form id="delete-form" method="DELETE" action="{{url('/edit-inventory')}}">
+            <form id="delete-form" method="POST" action="{{url('/edit-inventory')}}">
                 @csrf
                 <button class="button is-danger is-fullwidth" id="delete-confirm-button" type="submit">
                     {{__('Delete')}}
