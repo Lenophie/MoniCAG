@@ -1,3 +1,10 @@
+/**
+ * @typedef {string} HTTPVerb
+ **/
+
+/**
+ * @enum HTTPVerb
+ */
 export const HTTPVerbs = {
     GET: 'GET',
     POST: 'POST',
@@ -6,6 +13,11 @@ export const HTTPVerbs = {
     DELETE: 'DELETE'
 };
 
+/**
+ * Determines whether or not a string is a valid HTTP verb
+ * @param {string} method A string to compare to the HTTP verbs enum
+ * @returns {boolean}
+ */
 const isMethodInEnum = (method) => {
     for (const methodFromEnum in HTTPVerbs) {
         if (method === HTTPVerbs[methodFromEnum]) return true;
@@ -13,6 +25,15 @@ const isMethodInEnum = (method) => {
     return false;
 };
 
+
+/**
+ * An Ajax request wrapper
+ * @param {HTTPVerb} method The HTTP verb used to make the request
+ * @param {string} url The URL at which the request is made
+ * @param {JSON} data The payload to send along the request
+ * @param {function} successCallback The function to call in case of success
+ * @param {function} errorCallback The function to call in case of error
+ */
 export const makeAjaxRequest = (method, url, data, successCallback, errorCallback) => {
     if (isMethodInEnum(method) && typeof(url) === 'string') {
         const request = new XMLHttpRequest();
