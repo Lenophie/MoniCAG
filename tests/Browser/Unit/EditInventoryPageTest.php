@@ -215,6 +215,28 @@ class EditInventoryPageTest extends DuskTestCase
         $inventoryItemToPatch->delete();
     }
 
+    public function testDeletionModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage())
+                ->assertMissing('@deletionConfirmationModal')
+                ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
+                ->assertVisible('@deletionConfirmationModal');
+        });
+    }
+
+    public function testDeletionModalClosing() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage())
+                ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
+                ->whenAvailable('@deletionConfirmationModal', function($modal) {
+                    $modal->press("header a:first-of-type");
+                })
+                ->assertMissing('@deletionConfirmationModal');
+        });
+    }
+
     public function testCorrectItemBeingDeletedWhenOpeningSeveralModals() {
         $this->browse(function (Browser $browser) {
            $browser->loginAs($this->admin)
