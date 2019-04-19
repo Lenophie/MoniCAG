@@ -214,4 +214,27 @@ class EditInventoryPageTest extends DuskTestCase
         foreach ($inventoryItemToPatch->genres()->get() as $genre) $genre->delete();
         $inventoryItemToPatch->delete();
     }
+
+    public function testCorrectItemBeingDeletedWhenOpeningSeveralModals() {
+        $this->browse(function (Browser $browser) {
+           $browser->loginAs($this->admin)
+               ->visit(new EditInventoryPage())
+               ->pressOnDeleteItemButton($this->inventoryItems[0]->id)
+               ->whenAvailable('@deletionConfirmationModal', function($modal) {
+                   $modal->press("header a:first-of-type");
+               })
+               ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
+               ->whenAvailable('@deletionConfirmationModal', function($modal) {
+                   $modal->press("#delete-confirm-button");
+               })
+               ->waitForReload();
+        });
+
+        // Check the record deletion from the database
+        $this->assertDatabaseMissing('inventory_items', ['id' => $this->inventoryItems[1]->id]);
+
+        // Check the other record presence
+        $this->assertDatabaseHas('inventory_items', ['id' => $this->inventoryItems[0]->id]);
+
+    }
 }
