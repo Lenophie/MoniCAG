@@ -231,7 +231,7 @@ class EditInventoryPageTest extends DuskTestCase
                 ->visit(new EditInventoryPage())
                 ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
                 ->whenAvailable('@deletionConfirmationModal', function($modal) {
-                    $modal->press("header a:first-of-type");
+                    $modal->press("@deletionConfirmationModalCloseButton");
                 })
                 ->assertMissing('@deletionConfirmationModal');
         });
@@ -243,7 +243,7 @@ class EditInventoryPageTest extends DuskTestCase
                ->visit(new EditInventoryPage())
                ->pressOnDeleteItemButton($this->inventoryItems[0]->id)
                ->whenAvailable('@deletionConfirmationModal', function($modal) {
-                   $modal->press("header a:first-of-type");
+                   $modal->press("@deletionConfirmationModalCloseButton");
                })
                ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
                ->whenAvailable('@deletionConfirmationModal', function($modal) {

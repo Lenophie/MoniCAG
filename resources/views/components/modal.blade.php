@@ -3,7 +3,7 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">{{$title}}</p>
-            <a class="delete" aria-label="close"></a>
+            <a class="delete" {{$closeButtonTags ?? ''}} aria-label="close"></a>
         </header>
         <section class="modal-card-body">
             {{$body}}

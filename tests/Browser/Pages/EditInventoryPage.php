@@ -45,7 +45,8 @@ class EditInventoryPage extends Page
             '@newItemPlayersMaxInput' => '#playersMax-new',
             '@newItemSubmitButton' => '#add-item-submit-button',
             '@deletionConfirmationModal' => '#delete-confirm-modal',
-            '@deletionConfirmationButton' => '#delete-confirm-button'
+            '@deletionConfirmationButton' => '#delete-confirm-button',
+            '@deletionConfirmationModalCloseButton' => '#delete-confirm-modal-close-button'
         ];
     }
 

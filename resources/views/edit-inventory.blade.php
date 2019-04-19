@@ -395,6 +395,9 @@
         @slot('tags')
             id="delete-confirm-modal"
         @endslot
+        @slot('closeButtonTags')
+            id="delete-confirm-modal-close-button"
+        @endslot
         @slot('footer')
             <form id="delete-form" method="POST" action="{{url('/edit-inventory')}}">
                 @csrf
