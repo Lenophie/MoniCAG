@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Dusk environment setup
 * Started using @json `Blade` directive
 * Replaced triple backticks by single backticks in changelog
+* Improved instructions in readme
 
 ### Fixed
 
@@ -37,6 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Added missing tear down statements to fully clean the database between tests
 * Development
     * Suppressed some `PHPStorm` warnings
+* Readme
+    * Typos
 
 ## [0.16.1] - 2018-11-07
 

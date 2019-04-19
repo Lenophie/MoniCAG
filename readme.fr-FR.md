@@ -8,7 +8,7 @@ Cette application cherche à :
 * Simplifier le processus d'emprunt
 * Créer une base de données persistente de l'inventaire
 * Faciliter l'audit annuel du club
-* Permetter à tous les étudiants de *Centrale Lille* de facilement accéder à la liste des jeux du club
+* Permettre à tous les étudiants de *Centrale Lille* de facilement accéder à la liste des jeux du club
 * Remédier aux mauvaises pratiques liées à la déclaration d'emprunts
 
 ---
@@ -26,6 +26,7 @@ Cette application cherche à :
 * Créer un fichier `.env` à la racine du projet
     * Utiliser le fichier `.env.example` comme template
     * Le remplir avec ses propres paramètres
+* Exécuter `php artisan key:generate` pour générer une clé (stockée dans `.env`)
 * Exécuter `php artisan migrate --seed` pour migrer la base de données
 * Exécuter `php artisan serve` pour servir l'application
 * Exécuter `npm run watch` pour bundle les ressources `js`
@@ -38,9 +39,12 @@ Cette application cherche à :
     * Utiliser le fichier `.env.testing.example` comme template
     * Le remplir avec ses propres paramètres
 * Copier-coller `.env.testing` et renommer la copie `.env.dusk.local`
+* Exécuter `php artisan key:generate --env=testing` pour générer une clé (stockée dans `.env.testing`)
+* Exécuter `php artisan key:generate --env=dusk.local` pour générer une clé (stockée dans `.env.dusk.local`)
 * Exécuter `php artisan migrate --seed --env=testing` pour migrer la base de données de test
 * Exécuter `composer unit` pour réaliser les tests unitaires
 * Exécuter `php artisan serve --env=dusk.local` et `composer dusk` pour réaliser les tests d'intégration
+    * *Attention à ne pas lancer les tests unitaires et les tests d'intégration en même temps, ils partagent la même base de données !*
 
 # Déploiement local
 

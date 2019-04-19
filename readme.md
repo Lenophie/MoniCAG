@@ -26,6 +26,7 @@ This application aims at :
 * Create a `.env` file at the root of the project
     * Use the `.env.example` file as a template
     * Fill it with your own settings
+* Run `php artisan key:generate` to create generate an application key (stored in `.env`)
 * Run `php artisan migrate --seed` to migrate the database
 * Run `php artisan serve` to serve the application
 * Run `npm run watch` to bundle the `js` resources
@@ -38,9 +39,12 @@ This application aims at :
     * Use the `.env.testing.example` file as a template
     * Fill it with your own settings
 * Copy-paste `.env.testing` and rename the copy `.env.dusk.local`
+* Run `php artisan key:generate --env=testing` to create generate an application key (stored in `.env.testing`)
+* Run `php artisan key:generate --env=dusk.local` to create generate an application key (stored in `.env.dusk.local`)
 * Run `php artisan migrate --seed --env=testing` to migrate the testing database
 * Run `composer phpunit` to perform unit tests
 * Run `php artisan serve --env=dusk.local` and `composer dusk` to perform browser tests
+    * *Don't perform unit and browser tests at the same time, they share the same database !*
 
 # Local deployment
 
