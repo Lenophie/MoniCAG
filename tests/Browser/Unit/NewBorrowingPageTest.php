@@ -87,7 +87,7 @@ class NewBorrowingPageTest extends DuskTestCase
                         ->waitForInventoryItemInBorrowingList($this->inventoryItems[1]->id)
                         ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[0]->id)
                         ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[1]->id)
-                        ->pause(1000)
+                        ->pause(200)
                         ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[0]->id}")
                         ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[1]->id}")
                         ->click('.delete');

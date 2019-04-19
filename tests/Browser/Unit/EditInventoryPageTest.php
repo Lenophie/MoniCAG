@@ -88,7 +88,7 @@ class EditInventoryPageTest extends DuskTestCase
             $browser->loginAs($this->admin)
                 ->visit(new EditInventoryPage())
                 ->press('@newItemSubmitButton')
-                ->pause(500)
+                ->pause(200)
                 ->select('@newItemGenreSelect', $genreToAdd->id)
                 ->assertPresent($liElement)
                 ->assertSeeIn($liElement, $genreToAdd->{'name_' . App::getLocale()});
@@ -120,7 +120,7 @@ class EditInventoryPageTest extends DuskTestCase
                 $browser->pressOnRemoveGenreButton($inventoryItemToPatch->id, $genre->id);
             }
             $browser->pressOnPatchItemButton($inventoryItemToPatch->id)
-                ->pause(500)
+                ->pause(200)
                 ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToAdd->id)
                 ->assertPresent($liElement)
                 ->assertSeeIn($liElement, $genreToAdd->{'name_' . App::getLocale()});
