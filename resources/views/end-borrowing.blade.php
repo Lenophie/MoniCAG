@@ -91,10 +91,10 @@
 
 @push('scripts')
     <script type="text/javascript">
-        const borrowings = {!! json_encode($borrowings)!!};
-        const inventoryItemStatuses = {!! json_encode($inventoryItemStatuses) !!};
-        const endBorrowingUrl = {!! json_encode(url('/end-borrowing')) !!};
-        const borrowingsHistoryUrl = {!! json_encode(url('/borrowings-history')) !!};
+        const borrowings = @json($borrowings);
+        const inventoryItemStatuses = @json($inventoryItemStatuses);
+        const endBorrowingUrl = @json(url('/end-borrowing'));
+        const borrowingsHistoryUrl = @json(url('/borrowings-history'));
     </script>
     <script type="text/javascript" src="{{asset('js/endBorrowing.js')}}"></script>
 @endpush

@@ -121,7 +121,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        const inventoryItems = {!! json_encode($inventoryItems)!!};
+        const inventoryItems = @json($inventoryItems);
     </script>
     <script type="text/javascript" src="{{asset('js/viewInventory.js')}}"></script>
 @endpush

@@ -105,7 +105,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        const deleteRequestURL = {!! json_encode(route('account.delete'))!!};
+        const deleteRequestURL = @json(route('account.delete'));
     </script>
     <script type="text/javascript" src="{{asset('js/account.js')}}"></script>
 @endpush

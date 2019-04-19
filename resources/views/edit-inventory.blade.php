@@ -408,9 +408,9 @@
 
 @push('scripts')
     <script type="text/javascript">
-        const inventoryItems = {!! json_encode($inventoryItems)!!};
-        const requestsURL = {!! json_encode(url('/edit-inventory')) !!};
-        const successRedirectionURL = {!! json_encode(url('/edit-inventory')) !!};
+        const inventoryItems = @json($inventoryItems);
+        const requestsURL = @json(url('/edit-inventory'));
+        const successRedirectionURL = @json(url('/edit-inventory'));
     </script>
     <script type="text/javascript" src="{{asset('js/editInventory.js')}}"></script>
 @endpush
