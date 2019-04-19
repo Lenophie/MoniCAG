@@ -18,12 +18,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Dependencies update
 * Dusk environment setup
+* Started using @json Blade directive
 * Replaced triple backticks by single backticks in changelog
 
 ### Fixed
 
 * Edit inventory view
     * New genres couldn't be added after receiving an error related to genres
+* Views
+    * Incorrect method attribute for some forms
 
 ## [0.16.1] - 2018-11-07
 
