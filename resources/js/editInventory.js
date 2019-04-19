@@ -1,14 +1,19 @@
 import './modal.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
-import {cloneAndReplace, getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
+import {getAllBySelector, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 
+/**
+ * @typedef {number} submitType
+ */
+
+/**
+ * @enum submitType
+ */
 const submitTypes = {
     POST: 0,
     PATCH: 1,
     DELETE: 2
 };
-
-let previousDeleteModalId = null;
 
 // After page is loaded
 ready(() => {
@@ -19,8 +24,15 @@ ready(() => {
 const addListeners = () => {
     const addGenreSelects = {};
     for (const inventoryItem of inventoryItems) {
-        getById(`edit-item-${inventoryItem.id}-submit-button`).addEventListener('click', (e) => handlePatchItemFormSubmit(e, inventoryItem.id));
-        getById(`delete-button-${inventoryItem.id}`).addEventListener('click', () => {if (inventoryItem.status.id !== 3) handleDeleteModalOpening(inventoryItem.id)});
+        // Add inventory item buttons listeners
+        getById(`edit-item-${inventoryItem.id}-submit-button`)
+            .addEventListener('click', (e) => handlePatchItemFormSubmit(e, inventoryItem.id));
+        getById(`delete-button-${inventoryItem.id}`)
+            .addEventListener('click', () => {
+                if (inventoryItem.status.id !== 3) getById('item-to-delete-id-field').value = inventoryItem.id;
+            });
+
+        // Reference the item's genre select in the genre selects list
         addGenreSelects[inventoryItem.id] = getById(`add-genre-select-${inventoryItem.id}`);
         addGenreSelects[inventoryItem.id].addEventListener('change', () => handleAddGenreSelectChange(
             submitTypes.PATCH,
@@ -51,6 +63,9 @@ const addListeners = () => {
             name: addGenreSelects.new.options[addGenreSelects.new.selectedIndex].innerHTML
         }
     ));
+
+    // Add item deletion button event listener
+    getById('delete-confirm-button').addEventListener('click', e => handleDeleteItemFormSubmit(e));
 };
 
 // Handlers
@@ -89,25 +104,12 @@ const handlePatchItemFormSubmit = (e, id) => {
     makeAjaxRequest(HTTPVerbs.PATCH, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
-const handleDeleteModalOpening = (id) => {
-    const deleteForm = getById('delete-form');
-    const deleteConfirmButtonByClass = getById('delete-confirm-button');
-
-    deleteForm.setAttribute('id', `delete-item-${id}-form`);
-    deleteConfirmButtonByClass.setAttribute('id', `delete-confirm-button-${id}`);
-
-    let deleteConfirmButton = getById(`delete-confirm-button-${id}`);
-    if (previousDeleteModalId != null) deleteConfirmButton = cloneAndReplace(deleteConfirmButton);
-    previousDeleteModalId = id;
-    deleteConfirmButton.addEventListener('click', (e) => handleDeleteItemFormSubmit(e, id));
-};
-
-const handleDeleteItemFormSubmit = (e, id) => {
+const handleDeleteItemFormSubmit = (e) => {
     e.preventDefault();
-    const serializedForm = Array.from(new FormData(getById(`delete-item-${id}-form`)));
+    const serializedForm = Array.from(new FormData(getById('delete-form')));
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
-    formattedForm.inventoryItemId = id;
+    formattedForm.inventoryItemId = parseInt(formattedForm.inventoryItemId);
     remove(getByClass('error-text'));
     enableInputs(false);
     const successCallback = () => window.location.href = successRedirectionURL;

@@ -398,6 +398,7 @@
         @slot('footer')
             <form id="delete-form" method="POST" action="{{url('/edit-inventory')}}">
                 @csrf
+                <input type="hidden" name="inventoryItemId" id="item-to-delete-id-field">
                 <button class="button is-danger is-fullwidth" id="delete-confirm-button" type="submit">
                     {{__('Delete')}}
                 </button>

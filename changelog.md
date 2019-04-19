@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Edit inventory view
     * New genres couldn't be added after receiving an error related to genres
+    * Opening and closing the deletion modal for multiple games then deleting one would affect the first game the modal was opened for, not the current one
 * Views
     * Incorrect method attribute for some forms
 
