@@ -179,7 +179,7 @@ class Borrowing extends Model
     }
 
     public static function scopeOrderByDate($query) {
-        return $query->orderBy('expectedReturnDate', 'asc')
-            ->orderBy('startDate', 'asc');
+        return $query->orderBy('expectedReturnDate', 'desc')
+            ->orderBy('startDate', 'desc');
     }
 }
