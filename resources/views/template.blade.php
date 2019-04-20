@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Lenophie" />
+        <meta name="CSRF-TOKEN" content="{{ csrf_token() }}">
         @if (\Illuminate\Support\Facades\Session::get('theme') === 'dark')
             <link href="{{ asset('css/dark-theme.css') }}" rel="stylesheet" />
         @else

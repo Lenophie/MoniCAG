@@ -53,7 +53,7 @@
                         <a class="button is-small is-danger" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"></form>
                     </div>
                 @endguest
             @endif

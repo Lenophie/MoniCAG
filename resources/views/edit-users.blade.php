@@ -87,7 +87,6 @@
                            </td>
                            <td class="border-right">
                                <form method="POST" action="{{url('/edit-users')}}" id="edit-user-{{$user->id}}-form">
-                                   @csrf
                                    <button class="button is-link is-small is-fullwidth" id="edit-user-{{$user->id}}-button">
                                        {{__('Confirm')}}
                                    </button>
@@ -95,7 +94,6 @@
                            </td>
                            <td>
                                <form method="POST" action="{{url('/edit-users')}}" id="delete-user-{{$user->id}}-form">
-                                   @csrf
                                    <button class="button is-danger is-small is-fullwidth" id="delete-user-{{$user->id}}-button">
                                        {{__('Delete')}}
                                    </button>

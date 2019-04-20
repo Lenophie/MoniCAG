@@ -35,8 +35,6 @@
                 <div class="card">
                     <div class="card-content">
                         <form method="POST" action="{{ route('register') }}">
-                            @csrf
-
                             <div class="field">
                                 <label for="firstName" class="label">{{ __('First name') }}</label>
 

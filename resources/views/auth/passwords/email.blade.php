@@ -41,8 +41,6 @@
                         @endif
 
                         <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
-
                             <div class="field">
                                 <label for="email" class="label">{{ __('E-mail address') }}</label>
 

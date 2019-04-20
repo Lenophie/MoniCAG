@@ -35,8 +35,6 @@
                 <div class="card">
                     <div class="card-content">
                         <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
                             <div class="field">
                                 <label for="email" class="label">{{ __('E-mail address') }}</label>
                                 <div class="control">

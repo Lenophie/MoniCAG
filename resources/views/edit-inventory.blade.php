@@ -175,7 +175,6 @@
                             </td>
                             <td>
                                 <form method="POST" action="{{url('/edit-inventory')}}" id="add-item-form">
-                                    @csrf
                                     <a class="button is-link is-fullwidth" id="add-item-submit-button" type="submit">
                                         {{__('Add')}}
                                     </a>
@@ -371,7 +370,6 @@
                                 </td>
                                 <td>
                                     <form method="POST" action="{{url('/edit-inventory')}}" id="edit-item-{{$inventoryItem->id}}-form">
-                                        @csrf
                                         <a class="button is-link is-fullwidth" id="edit-item-{{$inventoryItem->id}}-submit-button" type="submit">
                                             {{__('Confirm')}}
                                         </a>
@@ -401,7 +399,6 @@
         @endslot
         @slot('footer')
             <form id="delete-form" method="POST" action="{{url('/edit-inventory')}}">
-                @csrf
                 <input type="hidden" name="inventoryItemId" id="item-to-delete-id-field">
                 <button class="button is-danger is-fullwidth" id="delete-confirm-button" type="submit">
                     {{__('Delete')}}

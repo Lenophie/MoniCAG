@@ -35,7 +35,6 @@
                 <div class="card">
                     <div class="card-content">
                         <form method="POST" action="{{ route('email.change') }}">
-                            @csrf
                             <div class="field">
                                 <label for="password" class="label">{{ __('Confirm password') }}</label>
 

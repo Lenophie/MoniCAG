@@ -1,5 +1,4 @@
 <form method="POST" action="/new-borrowing" id="new-borrowing-form" autocomplete="off">
-    @csrf
     <h5 class="title is-5">{{__('Borrower')}}</h5>
     <div class="field" id="form-field-borrowerEmail">
         <label class="label" for="borrowerEmail">{{__('E-mail address')}}</label>

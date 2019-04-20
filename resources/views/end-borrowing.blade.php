@@ -73,9 +73,6 @@
                 <ul id="to-return-list"></ul>
                 <div id="form-field-selectedBorrowings"></div>
             </div>
-            <form id="csrf-token">
-                @csrf
-            </form>
         @endslot
         @slot('tags')
             id="end-borrowing-modal"

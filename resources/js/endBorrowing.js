@@ -158,9 +158,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
         i++;
     }
     const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? inventoryItemStatuses.RETURNED : inventoryItemStatuses.LOST;
-    const csrfToken = Array.from(new FormData(getById('csrf-token')));
     const data = {
-        _token: csrfToken[0][1],
         selectedBorrowings: selectedBorrowingsIDs,
         newInventoryItemsStatus: newInventoryItemsStatus
     };
