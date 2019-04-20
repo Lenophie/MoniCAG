@@ -35,6 +35,7 @@
                 <div class="card">
                     <div class="card-content">
                         <form method="POST" action="{{ route('password.change') }}">
+                            @csrf
                             <div class="field">
                                 <label for="oldPassword" class="label">{{ __('Current password') }}</label>
 
