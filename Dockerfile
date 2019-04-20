@@ -18,6 +18,7 @@ RUN composer install \
     --prefer-dist
 COPY . .
 RUN rm ./bootstrap/cache/* # Laravel may try to access some dev dependencies otherwise
+RUN rm -rf ./tests/
 
 CMD php artisan serve --host=0.0.0.0 --port=8000
 EXPOSE 8000
