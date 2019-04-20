@@ -35,7 +35,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $user_role_id = $this->auth->getUser()->role_id;
+        $user_role_id = $this->auth->user()->role_id;
         if ($user_role_id !== UserRole::ADMINISTRATOR) {
             abort(403, 'Unauthorized action.');
         }
