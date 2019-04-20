@@ -85,8 +85,8 @@
 @push('scripts')
     <script type="text/javascript">
         const inventoryItems = @json($inventoryItems);
-        const newBorrowingUrl = @json(url('/new-borrowing'));
-        const borrowingsHistoryUrl = @json(url('/borrowings-history'));
+        const borrowingsApiUrl = @json(route('borrowings.index'));
+        const borrowingsHistoryUrl = @json(route('borrowings-history'));
     </script>
     <script type="text/javascript" src="{{asset('js/newBorrowing.js')}}"></script>
 @endpush

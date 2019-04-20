@@ -119,7 +119,7 @@ const handleFormSubmit = () => {
 
     const successCallback = () => window.location.href = borrowingsHistoryUrl;
     const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);
-    makeAjaxRequest(HTTPVerbs.POST, newBorrowingUrl, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.POST, borrowingsApiUrl, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleFormErrors = (errors) => {
