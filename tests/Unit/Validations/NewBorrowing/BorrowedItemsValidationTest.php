@@ -13,7 +13,7 @@ class BorrowedItemsValidationTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -23,9 +23,9 @@ class BorrowedItemsValidationTest extends TestCase
      */
     public function testBorrowedItemsRequirement()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertJsonValidationErrors('borrowedItems');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => []
         ]);
         $response->assertJsonValidationErrors('borrowedItems');
@@ -36,15 +36,15 @@ class BorrowedItemsValidationTest extends TestCase
      */
     public function testBorrowedItemsNotAnArrayRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('borrowedItems');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => 1
         ]);
         $response->assertJsonValidationErrors('borrowedItems');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => null
         ]);
         $response->assertJsonValidationErrors('borrowedItems');
@@ -55,15 +55,15 @@ class BorrowedItemsValidationTest extends TestCase
      */
     public function testBorrowedItemValueNotAnIntegerRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [null]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [[0]]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
@@ -78,7 +78,7 @@ class BorrowedItemsValidationTest extends TestCase
         $someInventoryItemsIDs = [];
         foreach ($someInventoryItems as $inventoryItem) array_push($someInventoryItemsIDs, $inventoryItem->id);
         $nonExistenceInventoryItemID = max($someInventoryItemsIDs) + 1;
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [$nonExistenceInventoryItemID]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
@@ -90,7 +90,7 @@ class BorrowedItemsValidationTest extends TestCase
     public function testBorrowingOfDuplicateItemRejection()
     {
         $singleItemToBorrow = factory(InventoryItem::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [$singleItemToBorrow->id, $singleItemToBorrow->id]
         ]);
         $response->assertJsonValidationErrors('borrowedItems.0');
@@ -104,7 +104,7 @@ class BorrowedItemsValidationTest extends TestCase
     public function testBorrowingOfSingleBorrowedItemValidation()
     {
         $singleItemToBorrow = factory(InventoryItem::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [$singleItemToBorrow->id]
         ]);
         $response->assertJsonMissingValidationErrors('borrowedItems.0');
@@ -120,7 +120,7 @@ class BorrowedItemsValidationTest extends TestCase
         $multipleItemsToBorrow = factory(InventoryItem::class, 5)->create();
         $multipleItemsToBorrowIDs = [];
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => $multipleItemsToBorrowIDs
         ]);
         for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("borrowedItems.{$i}");
@@ -140,7 +140,7 @@ class BorrowedItemsValidationTest extends TestCase
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
         array_push($multipleItemsToBorrowIDs, $alreadyBorrowedItem->id);
 
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => $multipleItemsToBorrowIDs
         ]);
         $response->assertJsonValidationErrors('borrowedItems.5');
@@ -160,7 +160,7 @@ class BorrowedItemsValidationTest extends TestCase
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
         array_push($multipleItemsToBorrowIDs, $lostItem->id);
 
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => $multipleItemsToBorrowIDs
         ]);
         $response->assertJsonValidationErrors('borrowedItems.5');
@@ -180,7 +180,7 @@ class BorrowedItemsValidationTest extends TestCase
         foreach ($multipleItemsToBorrow as $itemToBorrow) array_push($multipleItemsToBorrowIDs, $itemToBorrow->id);
         array_push($multipleItemsToBorrowIDs, $unknownLocationItem->id);
 
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => $multipleItemsToBorrowIDs
         ]);
         $response->assertJsonValidationErrors('borrowedItems.5');

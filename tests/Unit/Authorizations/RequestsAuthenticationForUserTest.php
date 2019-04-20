@@ -12,9 +12,9 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         Parent::setUp();
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
     }
-    
+
     /**
      * Tests basic user prevented from posting a new borrowing.
      *
@@ -22,7 +22,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoNewBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertStatus(403);
     }
 

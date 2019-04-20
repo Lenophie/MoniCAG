@@ -15,7 +15,7 @@ class BorrowerPasswordValidationTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -26,7 +26,7 @@ class BorrowerPasswordValidationTest extends TestCase
     public function testBorrowerPasswordRequirement()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $user->email
         ]);
         $response->assertJsonValidationErrors('borrowerPassword');
@@ -41,7 +41,7 @@ class BorrowerPasswordValidationTest extends TestCase
     {
         $borrowerPassword = $this->faker->unique()->password;
         $user = factory(User::class)->create(['password' => bcrypt($borrowerPassword)]);
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $user->email,
             'borrowerPassword' => $borrowerPassword
         ]);
@@ -56,7 +56,7 @@ class BorrowerPasswordValidationTest extends TestCase
     public function testIncorrectBorrowerPasswordRejection()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $user->email,
             'borrowerPassword' => $this->faker->unique()->password
         ]);
@@ -72,7 +72,7 @@ class BorrowerPasswordValidationTest extends TestCase
         $borrower = factory(User::class)->create();
         $otherUserPassword = $this->faker->unique()->password;
         factory(User::class)->create(['password' => bcrypt($otherUserPassword)]);
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $borrower->email,
             'borrowerPassword' => $otherUserPassword
         ]);

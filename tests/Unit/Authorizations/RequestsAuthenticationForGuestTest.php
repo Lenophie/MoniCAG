@@ -11,7 +11,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoNewBorrowingRequestAllowedForGuest()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertStatus(401);
     }
 

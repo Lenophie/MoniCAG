@@ -12,7 +12,7 @@ class GuaranteeValidationTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -22,7 +22,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeRequirement()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertJsonValidationErrors('guarantee');
     }
 
@@ -33,19 +33,19 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeNumericValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('guarantee');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => null
         ]);
         $response->assertJsonValidationErrors('guarantee');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => true
         ]);
         $response->assertJsonValidationErrors('guarantee');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => array()
         ]);
         $response->assertJsonValidationErrors('guarantee');
@@ -58,7 +58,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeIntegerValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 10
         ]);
         $response->assertJsonMissingValidationErrors('guarantee');
@@ -71,7 +71,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeOverMaximalValueRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 1001
         ]);
         $response->assertJsonValidationErrors('guarantee');
@@ -84,7 +84,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeDecimalValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 10.5
         ]);
         $response->assertJsonMissingValidationErrors('guarantee');
@@ -97,7 +97,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeTwoDecimalsValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 10.75
         ]);
         $response->assertJsonMissingValidationErrors('guarantee');
@@ -110,7 +110,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testGuaranteeThreeDecimalsRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 10.865
         ]);
         $response->assertJsonValidationErrors('guarantee');
@@ -123,7 +123,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testNegativeGuaranteeRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => -10.75
         ]);
         $response->assertJsonValidationErrors('guarantee');
@@ -136,7 +136,7 @@ class GuaranteeValidationTest extends TestCase
      */
     public function testZeroGuaranteeValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'guarantee' => 0
         ]);
         $response->assertJsonMissingValidationErrors('guarantee');

@@ -12,7 +12,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -22,7 +22,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNewBorrowingRequestAllowedForLender()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertStatus(422);
     }
 

@@ -20,7 +20,7 @@ class NewBorrowingRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
         $this->lender = $lender;
     }
 
@@ -43,7 +43,7 @@ class NewBorrowingRequestTest extends TestCase
         $notes = $this->faker->text;
 
         // Create borrowing
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowedItems' => [
                 $inventoryItems[0]->id,
                 $inventoryItems[2]->id
@@ -58,7 +58,7 @@ class NewBorrowingRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(201);
 
         foreach([0, 2] as $i) {
             // Check inventory items status updates

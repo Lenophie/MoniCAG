@@ -12,7 +12,7 @@ class BeforeNotesValidationTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -22,7 +22,7 @@ class BeforeNotesValidationTest extends TestCase
      */
     public function testBeforeNotesNullability()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'notes' => null
         ]);
         $response->assertJsonMissingValidationErrors('notes');
@@ -35,11 +35,11 @@ class BeforeNotesValidationTest extends TestCase
      */
     public function testBeforeNotesNotAStringRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'notes' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('notes');
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'notes' => 1
         ]);
         $response->assertJsonValidationErrors('notes');
@@ -52,7 +52,7 @@ class BeforeNotesValidationTest extends TestCase
      */
     public function testCorrectBeforeNotesValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'notes' => 'I am a string'
         ]);
         $response->assertJsonMissingValidationErrors('notes');

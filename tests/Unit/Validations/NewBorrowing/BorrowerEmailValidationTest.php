@@ -15,7 +15,7 @@ class BorrowerEmailValidationTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -25,7 +25,7 @@ class BorrowerEmailValidationTest extends TestCase
      */
     public function testBorrowerEmailRequirementValidation()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertJsonValidationErrors('borrowerEmail');
     }
 
@@ -36,7 +36,7 @@ class BorrowerEmailValidationTest extends TestCase
      */
     public function testUnregisteredBorrowerEmailRejection()
     {
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $this->faker->unique()->safeEmail
         ]);
         $response->assertJsonValidationErrors('borrowerEmail');
@@ -50,7 +50,7 @@ class BorrowerEmailValidationTest extends TestCase
     public function testRegisteredBorrowerEmailValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/new-borrowing', [
+        $response = $this->json('POST', '/api/borrowings', [
             'borrowerEmail' => $user->email
         ]);
         $response->assertJsonMissingValidationErrors('borrowerEmail');

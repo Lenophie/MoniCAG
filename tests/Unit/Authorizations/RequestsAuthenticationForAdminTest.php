@@ -12,7 +12,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -22,7 +22,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testNewBorrowingRequestAllowedForAdmin()
     {
-        $response = $this->json('POST', '/new-borrowing', []);
+        $response = $this->json('POST', '/api/borrowings', []);
         $response->assertStatus(422);
     }
 
