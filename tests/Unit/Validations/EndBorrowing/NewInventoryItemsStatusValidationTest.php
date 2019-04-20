@@ -13,7 +13,7 @@ class NewInventoryItemsStatusValidationTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
     }
 
     /**
@@ -23,7 +23,7 @@ class NewInventoryItemsStatusValidationTest extends TestCase
      */
     public function testNewInventoryItemsStatusRequirement()
     {
-        $response = $this->json('PATCH', '/end-borrowing', []);
+        $response = $this->json('PATCH', '/api/borrowings', []);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
     }
 
@@ -34,15 +34,15 @@ class NewInventoryItemsStatusValidationTest extends TestCase
      */
     public function testNewInventoryItemsStatusNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => []
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => null
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
@@ -54,15 +54,15 @@ class NewInventoryItemsStatusValidationTest extends TestCase
      * @return void
      */
     public function testForbiddenNewInventoryItemsStatusRejection() {
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => InventoryItemStatus::BORROWED
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => InventoryItemStatus::IN_F2
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => InventoryItemStatus::UNKNOWN
         ]);
         $response->assertJsonValidationErrors('newInventoryItemsStatus');
@@ -74,11 +74,11 @@ class NewInventoryItemsStatusValidationTest extends TestCase
      * @return void
      */
     public function testCorrectNewInventoryItemsStatusction() {
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => InventoryItemStatus::IN_LCR_D4
         ]);
         $response->assertJsonMissingValidationErrors('newInventoryItemsStatus');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'newInventoryItemsStatus' => InventoryItemStatus::LOST
         ]);
         $response->assertJsonMissingValidationErrors('newInventoryItemsStatus');

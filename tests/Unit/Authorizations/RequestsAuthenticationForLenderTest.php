@@ -33,7 +33,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testEndBorrowingRequestAllowedForLender()
     {
-        $response = $this->json('PATCH', '/end-borrowing', []);
+        $response = $this->json('PATCH', '/api/borrowings', []);
         $response->assertStatus(422);
     }
 

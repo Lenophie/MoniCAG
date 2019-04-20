@@ -22,7 +22,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoEndBorrowingRequestAllowedForGuest()
     {
-        $response = $this->json('PATCH', '/end-borrowing', []);
+        $response = $this->json('PATCH', '/api/borrowings', []);
         $response->assertStatus(401);
     }
 

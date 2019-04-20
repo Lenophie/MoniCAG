@@ -33,7 +33,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testEndBorrowingRequestAllowedForAdmin()
     {
-        $response = $this->json('PATCH', '/end-borrowing', []);
+        $response = $this->json('PATCH', '/api/borrowings', []);
         $response->assertStatus(422);
     }
 

@@ -15,7 +15,7 @@ class BorrowingsValidationTest extends TestCase
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
         $this->returnLender = $lender;
     }
 
@@ -26,9 +26,9 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testSelectedBorrowingsRequirement()
     {
-        $response = $this->json('PATCH', '/end-borrowing', []);
+        $response = $this->json('PATCH', '/api/borrowings', []);
         $response->assertJsonValidationErrors('selectedBorrowings');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => []
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings');
@@ -41,15 +41,15 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testSelectedBorrowingsNotAnArrayRejection()
     {
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => 0
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => null
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings');
@@ -62,15 +62,15 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testSelectedBorrowingValueNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [[0]]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [null]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
@@ -83,7 +83,7 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testEndingOfSingleBorrowingValidation() {
         $borrowing = factory(Borrowing::class)->create();
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [$borrowing->id]
         ]);
         $response->assertJsonMissingValidationErrors('selectedBorrowings.0');
@@ -99,7 +99,7 @@ class BorrowingsValidationTest extends TestCase
         $borrowingsIDs = [];
         foreach ($borrowings as $borrowing) array_push($borrowingsIDs, $borrowing->id);
 
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => $borrowingsIDs
         ]);
         for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("selectedBorrowings.{$i}");
@@ -112,7 +112,7 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testEndingOfAlreadyFinishedBorrowingRejection() {
         $borrowing = factory(Borrowing::class)->state('finished')->create();
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [$borrowing->id]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
@@ -125,7 +125,7 @@ class BorrowingsValidationTest extends TestCase
      */
     public function testEndingOfDuplicateBorrowingsRejection() {
         $borrowing = factory(Borrowing::class)->create();
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [$borrowing->id, $borrowing->id]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
@@ -142,7 +142,7 @@ class BorrowingsValidationTest extends TestCase
         foreach ($someBorrowings as $borrowing) array_push($someBorrowingsIDs, $borrowing->id);
         $nonExistentBorrowingID = max($someBorrowingsIDs) + 1;
 
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [$nonExistentBorrowingID]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');
@@ -157,7 +157,7 @@ class BorrowingsValidationTest extends TestCase
         $borrowing = factory(Borrowing::class)->create([
             'borrower_id' => $this->returnLender->id
         ]);
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [$borrowing->id]
         ]);
         $response->assertJsonValidationErrors('selectedBorrowings.0');

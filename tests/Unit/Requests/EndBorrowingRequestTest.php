@@ -20,7 +20,7 @@ class EndBorrowingRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
-        $this->actingAs($lender);
+        $this->actingAs($lender, 'api');
         $this->lender = $lender;
     }
 
@@ -37,7 +37,7 @@ class EndBorrowingRequestTest extends TestCase
         // $notes = $this->faker->text;
 
         // Return borrowings
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [
                 $borrowings[0]->id,
                 $borrowings[2]->id
@@ -110,7 +110,7 @@ class EndBorrowingRequestTest extends TestCase
         // $notes = $this->faker->text;
 
         // Return borrowings
-        $response = $this->json('PATCH', '/end-borrowing', [
+        $response = $this->json('PATCH', '/api/borrowings', [
             'selectedBorrowings' => [
                 $borrowings[0]->id,
                 $borrowings[2]->id
