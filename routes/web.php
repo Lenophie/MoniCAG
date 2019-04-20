@@ -23,7 +23,9 @@ Route::get('/account', 'AccountController@index')->name('account');
 Route::delete('/account', 'AccountController@delete')->name('account.delete');
 
 Auth::routes();
-Route::get('/password/change', 'Auth\ChangePasswordController@index');
-Route::post('/password/change', 'Auth\ChangePasswordController@post')->name('password.change');
-Route::get('/email/change', 'Auth\ChangeEmailController@index');
-Route::post('/email/change', 'Auth\ChangeEmailController@post')->name('email.change');
+Route::namespace('Auth')->group(function() {
+    Route::get('/password/change', 'ChangePasswordController@index');
+    Route::post('/password/change', 'ChangePasswordController@post')->name('password.change');
+    Route::get('/email/change', 'ChangeEmailController@index');
+    Route::post('/email/change', 'ChangeEmailController@post')->name('email.change');
+});
