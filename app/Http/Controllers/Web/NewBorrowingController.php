@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Borrowing;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\NewBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;

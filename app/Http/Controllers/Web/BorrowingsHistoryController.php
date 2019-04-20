@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Borrowing;
+use App\Http\Controllers\Controller;
 
 class BorrowingsHistoryController extends Controller
 {

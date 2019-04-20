@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Genre;
+use App\Http\Controllers\Controller;
 use App\InventoryItem;
 
 class ViewInventoryController extends Controller

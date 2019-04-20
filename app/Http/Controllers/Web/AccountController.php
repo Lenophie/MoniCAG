@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 
 use App\Borrowing;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteAccountRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;

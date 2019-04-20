@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Genre;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AddInventoryItemRequest;
 use App\Http\Requests\DeleteInventoryItemRequest;
 use App\Http\Requests\PatchInventoryItemRequest;
