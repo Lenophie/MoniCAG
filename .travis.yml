@@ -23,6 +23,7 @@ before_script:
 - mysql -e 'create database monicag' # Used by PHPUnit
 - mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
 - mysql -e "grant all on monicag.* to 'monika'@'localhost';"
+- php artisan passport:install
 - php artisan key:generate
 - php artisan key:generate --env=testing
 - php artisan key:generate --env=dusk.local
