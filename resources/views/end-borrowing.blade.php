@@ -91,7 +91,7 @@
     <script type="text/javascript">
         const borrowings = @json($borrowings);
         const inventoryItemStatuses = @json($inventoryItemStatuses);
-        const endBorrowingUrl = @json(url('/end-borrowing'));
+        const borrowingsApiUrl = @json(route('borrowings.index'));
         const borrowingsHistoryUrl = @json(url('/borrowings-history'));
     </script>
     <script type="text/javascript" src="{{asset('js/endBorrowing.js')}}"></script>

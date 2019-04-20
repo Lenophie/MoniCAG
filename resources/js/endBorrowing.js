@@ -166,7 +166,7 @@ const handleConfirmButtonClick = (buttonEnum) => {
     const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);
 
     remove(getByClass('error-text'));
-    makeAjaxRequest(HTTPVerbs.PATCH, endBorrowingUrl, JSON.stringify(data), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.PATCH, borrowingsApiUrl, JSON.stringify(data), successCallback, errorCallback);
 };
 
 const handleFormErrors = (errors) => {

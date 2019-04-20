@@ -7,7 +7,6 @@ Route::namespace('Web')->group(function() {
     Route::get('/', 'HomeController@index');
     Route::get('/new-borrowing', 'NewBorrowingController@index');
     Route::get('/end-borrowing', 'EndBorrowingController@index');
-    Route::patch('/end-borrowing', 'EndBorrowingController@patch');
     Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('borrowings-history');
     Route::get('/view-inventory', 'ViewInventoryController@index');
     Route::get('/edit-inventory', 'EditInventoryController@index');
