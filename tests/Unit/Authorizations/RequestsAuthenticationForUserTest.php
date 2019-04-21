@@ -45,7 +45,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoAddInventoryItemRequestAllowedForUser()
     {
-        $response = $this->json('POST', '/edit-inventory', []);
+        $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(403);
     }
 

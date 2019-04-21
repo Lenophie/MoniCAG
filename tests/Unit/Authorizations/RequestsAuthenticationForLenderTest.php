@@ -45,7 +45,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNoAddInventoryItemRequestAllowedForLender()
     {
-        $response = $this->json('POST', '/edit-inventory', []);
+        $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(403);
     }
 

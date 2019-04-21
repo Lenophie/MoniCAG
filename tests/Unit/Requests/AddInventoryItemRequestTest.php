@@ -17,7 +17,7 @@ class AddInventoryItemRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -39,7 +39,7 @@ class AddInventoryItemRequestTest extends TestCase
         foreach ($genresCollection as $genre) array_push($genres, $genre->id);
 
         // Create inventory item
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'durationMin' => $durationMin,
             'durationMax' => $durationMax,
             'playersMin' => $playersMin,
@@ -50,7 +50,7 @@ class AddInventoryItemRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(201);
 
         // Check inventory item creation in database
         $this->assertDatabaseHas('inventory_items', [

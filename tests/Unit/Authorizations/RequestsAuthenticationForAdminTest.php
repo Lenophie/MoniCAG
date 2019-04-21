@@ -45,7 +45,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testAddInventoryItemRequestAllowedForAdmin()
     {
-        $response = $this->json('POST', '/edit-inventory', []);
+        $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(422);
     }
 

@@ -16,7 +16,7 @@ class NamesValidationForAddingTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -26,7 +26,7 @@ class NamesValidationForAddingTest extends TestCase
      */
     public function testNamesRequirement()
     {
-        $response = $this->json('POST', '/edit-inventory', []);
+        $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -38,19 +38,19 @@ class NamesValidationForAddingTest extends TestCase
      */
     public function testNamesNotStringsRejection()
     {
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'nameFr' => ['I am a string'],
             'nameEn' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'nameFr' => null,
             'nameEn' => null
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'nameFr' => 1,
             'nameEn' => 1
         ]);
@@ -66,7 +66,7 @@ class NamesValidationForAddingTest extends TestCase
     public function testNamesNotUniquesRejection()
     {
         $inventoryItems = factory(InventoryItem::class, 2)->create();
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'nameFr' => $inventoryItems[0]->name_fr,
             'nameEn' => $inventoryItems[1]->name_en
         ]);
@@ -81,7 +81,7 @@ class NamesValidationForAddingTest extends TestCase
      */
     public function testCorrectNamesValidation()
     {
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);

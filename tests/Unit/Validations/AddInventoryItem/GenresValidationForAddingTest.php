@@ -13,7 +13,7 @@ class GenresValidationForAddingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -23,9 +23,9 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenresRequirement()
     {
-        $response = $this->json('POST', '/edit-inventory', []);
+        $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => []
         ]);
         $response->assertJsonValidationErrors('genres');
@@ -38,15 +38,15 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenresNotAnArrayRejection()
     {
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => 1
         ]);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => null
         ]);
         $response->assertJsonValidationErrors('genres');
@@ -59,15 +59,15 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenreValueNotAnIntegerRejection()
     {
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('genres.0');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [null]
         ]);
         $response->assertJsonValidationErrors('genres.0');
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [[0]]
         ]);
         $response->assertJsonValidationErrors('genres.0');
@@ -80,7 +80,7 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testSingleGenreValidation() {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [$genre->id]
         ]);
         $response->assertJsonMissingValidationErrors('genres.0');
@@ -96,7 +96,7 @@ class GenresValidationForAddingTest extends TestCase
         $genresIDs = [];
         foreach($genres as $genre) array_push($genresIDs, $genre->id);
 
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => $genresIDs
         ]);
         for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("genres.{$i}");
@@ -113,7 +113,7 @@ class GenresValidationForAddingTest extends TestCase
         foreach($genres as $genre) array_push($genresIDs, $genre->id);
         $nonExistentGenreID = max($genresIDs) + 1;
 
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [$nonExistentGenreID]
         ]);
         $response->assertJsonValidationErrors('genres.0');
@@ -126,7 +126,7 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testDuplicateGenreRejection() {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('POST', '/edit-inventory', [
+        $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [$genre->id, $genre->id]
         ]);
         $response->assertJsonValidationErrors('genres.0');
