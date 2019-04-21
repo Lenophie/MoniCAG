@@ -10,6 +10,7 @@ class ExplorationController extends Controller
     {
         return [
             'borrowings' => route('borrowings.index'),
+            'inventoryItems' => route('inventoryItems.index')
         ];
     }
 }
