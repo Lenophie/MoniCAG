@@ -16,5 +16,7 @@ return [
     'genres.*.distinct' => 'Le genre :genre a été renseigné plusieurs fois.',
     'genres.*.exists' => 'Un genre sélectionné (:value) n\'existe plus.',
     'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
-    'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.'
+    'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',
+    'nameFr.unique' => 'Le nom du jeu doit être unique.',
+    'nameEn.unique' => 'Le nom du jeu doit être unique.',
 ];

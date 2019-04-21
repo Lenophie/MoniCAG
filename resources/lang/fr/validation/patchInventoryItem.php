@@ -19,6 +19,8 @@ return [
     'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',
     'nameFr.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié.',
     'nameEn.unchanged_during_borrowing' => 'Le nom d\'un jeu en cours d\'emprunt ne peut pas être modifié.',
+    'nameFr.unique' => 'Le nom du jeu doit être unique.',
+    'nameEn.unique' => 'Le nom du jeu doit être unique.',
     'statusId.required' => 'Veuillez renseigner le statut actuel du jeu.',
     'statusId.integer' => 'Veuillez renseigner un statut valide par son id.',
     'statusId.exists' => 'Le statut renseigné n\'existe pas dans notre base de données.',

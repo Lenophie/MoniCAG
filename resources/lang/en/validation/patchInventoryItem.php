@@ -19,6 +19,8 @@ return [
     'nameEn.required' => 'Please fill in the item\'s english name.',
     'nameFr.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
     'nameEn.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
+    'nameFr.unique' => 'The game\'s name must be unique.',
+    'nameEn.unique' => 'The game\'s name must be unique.',
     'statusId.required' => 'Please fill in the item\'s current status.',
     'statusId.integer' => 'Please fill in a valid item status by its id.',
     'statusId.exists' => 'The selected status doesn\'t exist in out database.',

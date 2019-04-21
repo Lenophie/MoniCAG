@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Tests are now fully deterministic
         * Fakers are seeded for both factories and tests
         * Added missing tear down statements to fully clean the database between tests
+* Validation
+    * Missing error messages when naming inventory items
 * Development
     * Suppressed some `PHPStorm` warnings
 * Readme

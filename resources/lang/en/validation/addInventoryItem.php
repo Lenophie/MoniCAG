@@ -16,5 +16,7 @@ return [
     'genres.*.distinct' => 'The genre :genre was filled in multiple times.',
     'genres.*.exists' => 'A genre (:value) doesn\'t exist anymore.',
     'nameFr.required' => 'Please fill in the item\'s french name.',
-    'nameEn.required' => 'Please fill in the item\'s english name.'
+    'nameEn.required' => 'Please fill in the item\'s english name.',
+    'nameFr.unique' => 'The game\'s name must be unique.',
+    'nameEn.unique' => 'The game\'s name must be unique.'
 ];
