@@ -1,9 +1,6 @@
 <?php
 
 return [
-    'inventoryItemId.required' => 'Veuillez sélectionner un jeu à modifier.',
-    'inventoryItemId.integer' => 'Veuillez sélectionner, par son id, un jeu valide à modifier.',
-    'inventoryItemId.exists' => 'Le jeu sélectionné n\'existe pas dans notre base de données',
     'durationMin.integer' => 'La durée minimale doit être un entier.',
     'durationMin.min' => 'La durée minimale doit être positive.',
     'durationMax.integer' => 'La durée maximale doit être un entier.',

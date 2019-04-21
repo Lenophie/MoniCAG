@@ -411,7 +411,6 @@
 @push('scripts')
     <script type="text/javascript">
         const inventoryItems = @json($inventoryItems);
-        const requestsURL = @json(url('/edit-inventory'));
         const inventoryItemsApiUrl = @json(route('inventoryItems.index'));
         const successRedirectionURL = @json(url('/edit-inventory'));
     </script>

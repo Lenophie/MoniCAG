@@ -1,9 +1,6 @@
 <?php
 
 return [
-    'inventoryItemId.required' => 'Please select an inventory item to modify.',
-    'inventoryItemId.integer' => 'Please select, by its id, a valid inventory item to modify.',
-    'inventoryItemId.exists' => 'The select inventory item doesn\'t exist in our database.',
     'durationMin.integer' => 'The minimal duration must be an integer.',
     'durationMin.min' => 'The minimal duration must be positive.',
     'durationMax.integer' => 'The maximal duration must be an integer.',

@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\InventoryItem;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
 
 class PatchInventoryItemRequest extends FormRequest
 {
@@ -20,6 +20,13 @@ class PatchInventoryItemRequest extends FormRequest
         return Auth::user()->role_id === UserRole::ADMINISTRATOR;
     }
 
+    protected function validationData()
+    {
+        return array_merge($this->request->all(), [
+            'inventoryItem' => Route::input('inventoryItem')
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,16 +35,15 @@ class PatchInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'inventoryItemId' => 'required|integer|exists:inventory_items,id',
             'durationMin' => 'nullable|integer|min:0',
             'durationMax' => 'nullable|integer|min:0',
             'playersMin' => 'nullable|integer|min:1',
             'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
-            'nameFr' => 'bail|required|string|unchanged_during_borrowing:inventoryItemId',
-            'nameEn' => 'bail|required|string|unchanged_during_borrowing:inventoryItemId',
-            'statusId' => 'bail|required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItemId|not_changed_to_borrowed:inventoryItemId'
+            'nameFr' => 'bail|required|string|unchanged_during_borrowing:inventoryItem',
+            'nameEn' => 'bail|required|string|unchanged_during_borrowing:inventoryItem',
+            'statusId' => 'bail|required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItem|not_changed_to_borrowed:inventoryItem'
         ];
     }
 
@@ -55,19 +61,12 @@ class PatchInventoryItemRequest extends FormRequest
         ->sometimes('playersMax', 'gte:playersMin', function ($input) {
             return gettype($input->playersMin) !== 'NULL';
         })
+        // If the name is different from the current, check if it is unique
         ->sometimes('nameFr', 'unique:inventory_items,name_fr', function ($input) {
-            if (gettype($input->inventoryItemId) === 'integer') {
-                $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
-                if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_fr !== $input->nameFr;
-            }
-            return false;
+            return $input->inventoryItem->name_fr !== $input->nameFr;
         })
         ->sometimes('nameEn', 'unique:inventory_items,name_en', function ($input) {
-            if (gettype($input->inventoryItemId) === 'integer') {
-                $inventoryItemToPatch = InventoryItem::find($input->inventoryItemId);
-                if ($inventoryItemToPatch !== null) return $inventoryItemToPatch->name_en !== $input->nameEn;
-            }
-            return false;
+            return $input->inventoryItem->name_en !== $input->nameEn;
         });
     }
 

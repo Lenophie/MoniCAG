@@ -121,7 +121,6 @@ const handlePatchItemFormSubmit = (e, id) => {
     const serializedForm = Array.from(new FormData(getById(`edit-item-${id}-form`)));
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
-    formattedForm.inventoryItemId = id;
     formattedForm.genres = Array.from(getAllBySelector(`#genres-field-${id} .genre-li`))
         .map(x => parseInt(x.id.split('-')[1]));
 
@@ -139,7 +138,7 @@ const handlePatchItemFormSubmit = (e, id) => {
     };
 
     // Make the request
-    makeAjaxRequest(HTTPVerbs.PATCH, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.PATCH, `${inventoryItemsApiUrl}/${id}`, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 /**
