@@ -1,5 +1,6 @@
 <?php
 
+use App\InventoryItem;
 use Tests\TestCase;
 
 class RequestsAuthenticationForGuestTest extends TestCase
@@ -44,7 +45,8 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoDeleteInventoryItemRequestAllowedForGuest()
     {
-        $response = $this->json('DELETE', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertStatus(401);
     }
 
