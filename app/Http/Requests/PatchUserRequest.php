@@ -6,6 +6,7 @@ use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
 
 class PatchUserRequest extends FormRequest
 {
@@ -19,6 +20,13 @@ class PatchUserRequest extends FormRequest
         return Auth::user()->role_id === UserRole::ADMINISTRATOR;
     }
 
+    protected function validationData()
+    {
+        return array_merge($this->request->all(), [
+            'user' => Route::input('user'),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +35,7 @@ class PatchUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'bail|required|integer|exists:users,id|unchanged_if_other_admin',
+            'user' => 'unchanged_if_other_admin',
             'role' => 'required|integer|exists:user_roles,id'
         ];
     }

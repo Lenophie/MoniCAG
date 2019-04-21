@@ -11,8 +11,6 @@ Route::namespace('Web')->group(function() {
     Route::get('/view-inventory', 'ViewInventoryController@index');
     Route::get('/edit-inventory', 'EditInventoryController@index');
     Route::get('/edit-users', 'EditUsersController@index');
-    Route::patch('/edit-users', 'EditUsersController@patch');
-    Route::delete('/edit-users', 'EditUsersController@delete');
     Route::get('/lang/{locale}', 'LanguagesController@change');
     Route::get('/theme/{name}', 'ThemesController@change');
     Route::get('/account', 'AccountController@index')->name('account');

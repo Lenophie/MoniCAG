@@ -83,4 +83,19 @@ class User extends Authenticatable implements CanResetPassword
         }
         return $users;
     }
+
+    public static function findWithBorrowingHistory($id) {
+        $user = User::with('role', 'borrowings')
+            ->where('id', $id)
+            ->select(
+                'id',
+                'first_name AS firstName',
+                'last_name AS lastName',
+                'promotion',
+                'email',
+                'role_id')
+            ->get();
+        unset($user->role_id);
+        return $user;
+    }
 }

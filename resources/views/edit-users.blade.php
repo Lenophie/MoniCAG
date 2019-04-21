@@ -112,7 +112,7 @@
     <script type="text/javascript">
         const users = @json($users);
         const currentUserID = @json(Auth::user()->id);
-        const requestsURL = @json(url('/edit-users'));
+        const usersApiUrl = @json(url('/api/users'));
     </script>
     <script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
 @endpush

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\PatchUserRequest;
 use App\User;
 use App\UserRole;
 
@@ -20,18 +18,5 @@ class EditUsersController extends Controller
         $users = User::allSelected();
         $userRoles = UserRole::allTranslated();
         return view('edit-users', compact('users', 'userRoles'));
-    }
-
-    public function patch(PatchUserRequest $request)
-    {
-        User::find(request('userId'))
-            ->update([
-                'role_id' => request('role')
-            ]);
-    }
-
-    public function delete(DeleteUserRequest $request)
-    {
-        User::destroy(request('userId'));
     }
 }

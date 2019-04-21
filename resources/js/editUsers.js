@@ -20,7 +20,6 @@ const handleEditUserButtonClick = (e, id) => {
     const serializedForm = Array.from(new FormData(getById(`edit-user-${id}-form`)));
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
-    formattedForm.userId = id;
     remove(getByClass('error-text'));
     enableInputs(false);
 
@@ -29,7 +28,7 @@ const handleEditUserButtonClick = (e, id) => {
         enableInputs(true);
         handleFormErrors(JSON.parse(response).errors, id);
     };
-    makeAjaxRequest(HTTPVerbs.PATCH, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.PATCH, `${usersApiUrl}/${id}/role`, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleDeleteUserButtonClick = (e, id) => {
@@ -37,7 +36,6 @@ const handleDeleteUserButtonClick = (e, id) => {
     const serializedForm = Array.from(new FormData(getById(`delete-user-${id}-form`)));
     const formattedForm = {};
     for (const elem of serializedForm) formattedForm[elem[0]] = elem[1];
-    formattedForm.userId = id;
     remove(getByClass('error-text'));
     enableInputs(false);
 
@@ -46,7 +44,7 @@ const handleDeleteUserButtonClick = (e, id) => {
         enableInputs(true);
         handleFormErrors(JSON.parse(response).errors, id);
     };
-    makeAjaxRequest(HTTPVerbs.DELETE, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.DELETE, `${usersApiUrl}/${id}`, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 const handleFormErrors = (errors, id) => {
