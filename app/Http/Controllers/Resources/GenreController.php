@@ -38,7 +38,7 @@ class GenreController extends Controller
             'name_fr' => htmlspecialchars(request('nameFr')),
             'name_en' => htmlspecialchars(request('nameEn')),
         ]);
-        return response(null, 201);
+        return response([], 201);
     }
 
     /**
