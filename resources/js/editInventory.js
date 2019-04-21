@@ -106,7 +106,7 @@ const handleAddItemFormSubmit = (e) => {
     };
 
     // Make the request
-    makeAjaxRequest(HTTPVerbs.POST, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.POST, inventoryItemsApiUrl, JSON.stringify(formattedForm), successCallback, errorCallback);
 };
 
 /**
