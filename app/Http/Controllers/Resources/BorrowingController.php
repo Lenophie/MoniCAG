@@ -21,7 +21,7 @@ class BorrowingController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of borrowings.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +32,7 @@ class BorrowingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created borrowing in storage.
      *
      * @param  \App\Http\Requests\NewBorrowingRequest  $request
      * @return \Illuminate\Http\Response
@@ -59,6 +59,12 @@ class BorrowingController extends Controller
         return response(null, 201);
     }
 
+    /**
+     * Return the specified borrowings in storage.
+     *
+     * @param  \App\Http\Requests\EndBorrowingRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function return(EndBorrowingRequest $request)
     {
         $newInventoryItemsStatus = (int) request('newInventoryItemsStatus');
@@ -94,5 +100,6 @@ class BorrowingController extends Controller
                 });
             }
         } else abort(422);
+        return response(null, 200);
     }
 }
