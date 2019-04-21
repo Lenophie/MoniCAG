@@ -9,8 +9,10 @@
 * Allow users to ask for admin or lender rights
 * Add validation messages after being redirected
     * "Borrowing successfully store", "Game information successfully modified", "Password changed"...
-* Lost password recuperation
 ## Minor
+* Finish Docker setup
+    * Cache routes
+    * Migrate database
 * Add games' language
 * Improve games naming system
     * Instead of forcing users to enter the games names in each language, allow to add alternate titles
