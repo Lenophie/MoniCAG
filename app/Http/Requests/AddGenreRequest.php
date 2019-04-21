@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AddGenreRequest extends FormRequest
 {
@@ -29,5 +30,15 @@ class AddGenreRequest extends FormRequest
             'nameFr' => 'required|string|unique:genres,name_fr',
             'nameEn' => 'required|string|unique:genres,name_en'
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return Lang::get('validation/addGenre');
     }
 }
