@@ -68,7 +68,8 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNoPatchInventoryItemRequestAllowedForLender()
     {
-        $response = $this->json('PATCH', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertStatus(403);
     }
 

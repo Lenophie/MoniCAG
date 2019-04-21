@@ -14,7 +14,7 @@ class StatusValidationTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -24,7 +24,8 @@ class StatusValidationTest extends TestCase
      */
     public function testStatusRequirement()
     {
-        $response = $this->json('PATCH', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertJsonValidationErrors('statusId');
     }
 
@@ -35,15 +36,16 @@ class StatusValidationTest extends TestCase
      */
     public function testStatusNotIntegerRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => []
         ]);
         $response->assertJsonValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => null
         ]);
         $response->assertJsonValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('statusId');
@@ -56,7 +58,8 @@ class StatusValidationTest extends TestCase
      */
     public function testIncorrectStatusRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => 200
         ]);
         $response->assertJsonValidationErrors('statusId');
@@ -69,24 +72,20 @@ class StatusValidationTest extends TestCase
      */
     public function testStatusChangedDuringBorrowingRejecion()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::IN_LCR_D4
         ]);
         $response->assertJsonValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::IN_F2
         ]);
         $response->assertJsonValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::LOST
         ]);
         $response->assertJsonValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::UNKNOWN
         ]);
         $response->assertJsonValidationErrors('statusId');
@@ -99,9 +98,8 @@ class StatusValidationTest extends TestCase
      */
     public function testSameStatusDuringBorrowingValidation()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::BORROWED
         ]);
         $response->assertJsonMissingValidationErrors('statusId');
@@ -114,24 +112,20 @@ class StatusValidationTest extends TestCase
      */
     public function testCorrectStatusChangeValidation()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::IN_LCR_D4
         ]);
         $response->assertJsonMissingValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::IN_F2
         ]);
         $response->assertJsonMissingValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::LOST
         ]);
         $response->assertJsonMissingValidationErrors('statusId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::UNKNOWN
         ]);
         $response->assertJsonMissingValidationErrors('statusId');
@@ -144,9 +138,8 @@ class StatusValidationTest extends TestCase
      */
     public function testStatusChangeToBorrowedRejection()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'statusId' => InventoryItemStatus::BORROWED
         ]);
         $response->assertJsonValidationErrors('statusId');

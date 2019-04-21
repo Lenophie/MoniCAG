@@ -1,5 +1,6 @@
 <?php
 
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -12,7 +13,7 @@ class DurationsValidationForPatchingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -22,7 +23,8 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testDurationsNullability()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => null,
             'durationMax' => null
         ]);
@@ -37,13 +39,14 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testDurationsNotIntegersRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => 'I am a string',
             'durationMax' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('durationMin');
         $response->assertJsonValidationErrors('durationMax');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => [],
             'durationMax' => []
         ]);
@@ -58,7 +61,8 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testDurationsInferiorToZeroRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => -1,
             'durationMax' => -1
         ]);
@@ -73,7 +77,8 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testMaxDurationInferiorToMinDurationRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => 20,
             'durationMax' => 5
         ]);
@@ -87,12 +92,13 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testSingleDurationFillingValidation()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => 5
         ]);
         $response->assertJsonMissingValidationErrors('durationMin');
         $response->assertJsonMissingValidationErrors('durationMax');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMax' => 5
         ]);
         $response->assertJsonMissingValidationErrors('durationMin');
@@ -106,7 +112,8 @@ class DurationsValidationForPatchingTest extends TestCase
      */
     public function testCorrectDurationsValidation()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'durationMin' => 5,
             'durationMax' => 20
         ]);

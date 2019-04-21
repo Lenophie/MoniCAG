@@ -13,18 +13,7 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
-    }
-
-    /**
-     * Tests inventory item requirement.
-     *
-     * @return void
-     */
-    public function testInventoryItemRequirement()
-    {
-        $response = $this->json('PATCH', '/edit-inventory', []);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -34,18 +23,8 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
      */
     public function testInventoryItemIdNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => 'I am a string'
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => null
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => []
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $response = $this->json('PATCH', '/api/inventoryItems/string', []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -60,10 +39,8 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
         foreach ($inventoryItems as $inventoryItem) array_push($inventoryItemsIDs, $inventoryItem->id);
         $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
 
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $nonExistentInventoryItemID
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -74,9 +51,7 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
     public function testPatchingOfCorrectInventoryItemValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItem->id
-        ]);
-        $response->assertJsonMissingValidationErrors('inventoryItemId');
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response->assertStatus(422);
     }
 }

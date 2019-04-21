@@ -1,5 +1,6 @@
 <?php
 
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -12,7 +13,7 @@ class PlayersValidationForPatchingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -22,7 +23,8 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testPlayersCountsNullability()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => null,
             'playersMax' => null
         ]);
@@ -37,13 +39,14 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testPlayersCountsNotIntegersRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => 'I am a string',
             'playersMax' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('playersMin');
         $response->assertJsonValidationErrors('playersMax');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => [],
             'playersMax' => []
         ]);
@@ -58,7 +61,8 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testPlayersCountsInferiorToZeroRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => -1,
             'playersMax' => -1
         ]);
@@ -73,7 +77,8 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testMaxPlayersCountInferiorToMinPlayersCountRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => 20,
             'playersMax' => 5
         ]);
@@ -87,12 +92,13 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testSinglePlayersCountFillingValidation()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => 5
         ]);
         $response->assertJsonMissingValidationErrors('playersMin');
         $response->assertJsonMissingValidationErrors('playersMax');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMax' => 5
         ]);
         $response->assertJsonMissingValidationErrors('playersMin');
@@ -106,7 +112,8 @@ class PlayersValidationForPatchingTest extends TestCase
      */
     public function testCorrectPlayersCountsValidation()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'playersMin' => 5,
             'playersMax' => 20
         ]);

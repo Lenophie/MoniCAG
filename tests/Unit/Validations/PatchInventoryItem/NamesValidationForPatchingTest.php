@@ -16,7 +16,7 @@ class NamesValidationForPatchingTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -26,7 +26,9 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testNamesRequirement()
     {
-        $response = $this->json('PATCH', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -38,22 +40,26 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testNamesNotStringsRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => ['I am a string'],
             'nameEn' => ['I am a string']
         ]);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => null,
             'nameEn' => null
         ]);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => 1,
             'nameEn' => 1
         ]);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -65,11 +71,12 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testNamesNotUniquesRejection()
     {
-        $inventoryItems = factory(InventoryItem::class, 2)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItems = factory(InventoryItem::class, 3)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItems[2]->id, [
             'nameFr' => $inventoryItems[0]->name_fr,
             'nameEn' => $inventoryItems[1]->name_en
         ]);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -81,12 +88,12 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testNamesChangedDuringBorrowingRejecion()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);
+        $response->assertStatus(422);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -98,12 +105,12 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testCorrectNamesValidation()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);
+        $response->assertStatus(422);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
     }
@@ -115,11 +122,10 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testSameNamesValidation()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
-            'nameFr' => $patchedInventoryItem->name_fr,
-            'nameEn' => $patchedInventoryItem->name_en
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+            'nameFr' => $inventoryItem->name_fr,
+            'nameEn' => $inventoryItem->name_en
         ]);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
@@ -132,12 +138,12 @@ class NamesValidationForPatchingTest extends TestCase
      */
     public function testSameNamesDuringBorrowingValidation()
     {
-        $patchedInventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $patchedInventoryItem->id,
-            'nameFr' => $patchedInventoryItem->name_fr,
-            'nameEn' => $patchedInventoryItem->name_en
+        $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+            'nameFr' => $inventoryItem->name_fr,
+            'nameEn' => $inventoryItem->name_en
         ]);
+        $response->assertStatus(422);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
     }

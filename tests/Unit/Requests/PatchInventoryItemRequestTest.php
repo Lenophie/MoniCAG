@@ -18,7 +18,7 @@ class PatchInventoryItemRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -44,8 +44,7 @@ class PatchInventoryItemRequestTest extends TestCase
         foreach ($genresCollection as $genre) array_push($genres, $genre->id);
 
         // Patch inventory item
-        $response = $this->json('PATCH', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItemToPatch->id,
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItemToPatch->id, [
             'durationMin' => $durationMin,
             'durationMax' => $durationMax,
             'playersMin' => $playersMin,

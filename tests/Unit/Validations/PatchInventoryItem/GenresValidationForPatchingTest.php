@@ -1,6 +1,7 @@
 <?php
 
 use App\Genre;
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class GenresValidationForPatchingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -23,9 +24,10 @@ class GenresValidationForPatchingTest extends TestCase
      */
     public function testGenresRequirement()
     {
-        $response = $this->json('PATCH', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => []
         ]);
         $response->assertJsonValidationErrors('genres');
@@ -38,15 +40,16 @@ class GenresValidationForPatchingTest extends TestCase
      */
     public function testGenresNotAnArrayRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => 1
         ]);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('genres');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => null
         ]);
         $response->assertJsonValidationErrors('genres');
@@ -59,15 +62,16 @@ class GenresValidationForPatchingTest extends TestCase
      */
     public function testGenreValueNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('genres.0');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => [null]
         ]);
         $response->assertJsonValidationErrors('genres.0');
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => [[0]]
         ]);
         $response->assertJsonValidationErrors('genres.0');
@@ -79,8 +83,9 @@ class GenresValidationForPatchingTest extends TestCase
      * @return void
      */
     public function testSingleGenreValidation() {
+        $inventoryItem = factory(InventoryItem::class)->create();
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => [$genre->id]
         ]);
         $response->assertJsonMissingValidationErrors('genres.0');
@@ -92,11 +97,12 @@ class GenresValidationForPatchingTest extends TestCase
      * @return void
      */
     public function testMultipleGenresValidation() {
+        $inventoryItem = factory(InventoryItem::class)->create();
         $genres = factory(Genre::class, 5)->create();
         $genresIDs = [];
         foreach($genres as $genre) array_push($genresIDs, $genre->id);
 
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => $genresIDs
         ]);
         for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("genres.{$i}");
@@ -108,12 +114,13 @@ class GenresValidationForPatchingTest extends TestCase
      * @return void
      */
     public function testNonExistentGenreRejection() {
+        $inventoryItem = factory(InventoryItem::class)->create();
         $genres = factory(Genre::class, 5)->create();
         $genresIDs = [];
         foreach($genres as $genre) array_push($genresIDs, $genre->id);
         $nonExistentGenreID = max($genresIDs) + 1;
 
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => [$nonExistentGenreID]
         ]);
         $response->assertJsonValidationErrors('genres.0');
@@ -125,8 +132,9 @@ class GenresValidationForPatchingTest extends TestCase
      * @return void
      */
     public function testDuplicateGenreRejection() {
+        $inventoryItem = factory(InventoryItem::class)->create();
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/edit-inventory', [
+        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'genres' => [$genre->id, $genre->id]
         ]);
         $response->assertJsonValidationErrors('genres.0');
