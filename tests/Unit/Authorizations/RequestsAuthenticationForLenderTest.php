@@ -80,7 +80,8 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNoPatchUserRequestAllowedForLender()
     {
-        $response = $this->json('PATCH', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
         $response->assertStatus(403);
     }
 
@@ -91,7 +92,8 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNoDeleteUserRequestAllowedForLender()
     {
-        $response = $this->json('DELETE', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(403);
     }
 }

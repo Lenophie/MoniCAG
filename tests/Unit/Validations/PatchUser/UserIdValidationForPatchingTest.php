@@ -14,19 +14,8 @@ class UserIdValidationForPatchingTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
         $this->admin = $admin;
-    }
-
-    /**
-     * Tests user id requirement.
-     *
-     * @return void
-     */
-    public function testUserIdRequirementValidation()
-    {
-        $response = $this->json('PATCH', '/edit-users', []);
-        $response->assertJsonValidationErrors('userId');
     }
 
     /**
@@ -36,18 +25,8 @@ class UserIdValidationForPatchingTest extends TestCase
      */
     public function testUserIdNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => 'I am a string'
-        ]);
-        $response->assertJsonValidationErrors('userId');
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => null
-        ]);
-        $response->assertJsonValidationErrors('userId');
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => [0]
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/string/role', []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -62,10 +41,8 @@ class UserIdValidationForPatchingTest extends TestCase
         foreach($users as $user) array_push($usersIDs, $user->id);
         $nonExistentUserID = max($usersIDs) + 1;
 
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $nonExistentUserID
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/' . $nonExistentUserID . '/role', []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -76,10 +53,8 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfOtherAdminRejection()
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $otherAdmin->id
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/' . $otherAdmin->id . '/role', []);
+        $response->assertJsonValidationErrors('user');
     }
 
     /**
@@ -90,10 +65,8 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfLenderValidation()
     {
         $user = factory(User::class)->state('lender')->create();
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $user->id
-        ]);
-        $response->assertJsonMissingValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
+        $response->assertJsonMissingValidationErrors('user');
     }
 
     /**
@@ -104,10 +77,8 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfBasicUserValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $user->id
-        ]);
-        $response->assertJsonMissingValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/' . $user . '/role', []);
+        $response->assertJsonMissingValidationErrors('user');
     }
 
     /**
@@ -117,9 +88,7 @@ class UserIdValidationForPatchingTest extends TestCase
      */
     public function testModificationOfSelfValidation()
     {
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $this->admin->id
-        ]);
-        $response->assertJsonMissingValidationErrors('userId');
+        $response = $this->json('PATCH', '/api/users/' . $this->admin->id . '/role', []);
+        $response->assertJsonMissingValidationErrors('user');
     }
 }

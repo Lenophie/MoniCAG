@@ -1,10 +1,14 @@
 <?php
 
 use App\InventoryItem;
+use App\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class RequestsAuthenticationForGuestTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Tests guest prevented from posting a new borrowing.
      *
@@ -69,7 +73,8 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoPatchUserRequestAllowedForGuest()
     {
-        $response = $this->json('PATCH', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
         $response->assertStatus(401);
     }
 
@@ -80,7 +85,8 @@ class RequestsAuthenticationForGuestTest extends TestCase
      */
     public function testNoDeleteUserRequestAllowedForGuest()
     {
-        $response = $this->json('DELETE', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(401);
     }
 }

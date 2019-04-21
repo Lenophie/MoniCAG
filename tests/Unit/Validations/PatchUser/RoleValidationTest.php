@@ -13,7 +13,7 @@ class RoleValidationTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -23,7 +23,8 @@ class RoleValidationTest extends TestCase
      */
     public function testRoleRequirement()
     {
-        $response = $this->json('PATCH', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
         $response->assertJsonValidationErrors('role');
     }
 
@@ -34,15 +35,16 @@ class RoleValidationTest extends TestCase
      */
     public function testRoleNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/edit-users', [
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => 'I am a string'
         ]);
         $response->assertJsonValidationErrors('role');
-        $response = $this->json('PATCH', '/edit-users', [
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => null
         ]);
         $response->assertJsonValidationErrors('role');
-        $response = $this->json('PATCH', '/edit-users', [
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => [0]
         ]);
         $response->assertJsonValidationErrors('role');
@@ -55,15 +57,16 @@ class RoleValidationTest extends TestCase
      */
     public function testCorrectRoleValidation()
     {
-        $response = $this->json('PATCH', '/edit-users', [
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => UserRole::NONE
         ]);
         $response->assertJsonMissingValidationErrors('role');
-        $response = $this->json('PATCH', '/edit-users', [
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => UserRole::LENDER
         ]);
         $response->assertJsonMissingValidationErrors('role');
-        $response = $this->json('PATCH', '/edit-users', [
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => UserRole::ADMINISTRATOR
         ]);
         $response->assertJsonMissingValidationErrors('role');
@@ -76,7 +79,8 @@ class RoleValidationTest extends TestCase
      */
     public function testIncorrectRoleRejection()
     {
-        $response = $this->json('PATCH', '/edit-users', [
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', [
             'role' => 250
         ]);
         $response->assertJsonValidationErrors('role');

@@ -16,7 +16,7 @@ class DeleteUserRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -30,9 +30,7 @@ class DeleteUserRequestTest extends TestCase
         $users = factory(User::class, 3)->create();
 
         // Delete user
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $users[1]->id
-        ]);
+        $response = $this->json('DELETE', '/api/users/' . $users[1]->id, []);
 
         // Check response
         $response->assertStatus(200);
@@ -71,9 +69,7 @@ class DeleteUserRequestTest extends TestCase
         ]);
 
         // Delete user
-        $this->json('DELETE', '/edit-users', [
-            'userId' => $user->id
-        ]);
+        $this->json('DELETE', '/api/users/' . $user->id, []);
 
         // Check cascading
         $this->assertDatabaseHas('borrowings', [

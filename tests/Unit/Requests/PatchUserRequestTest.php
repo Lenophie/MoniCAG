@@ -16,7 +16,7 @@ class PatchUserRequestTest extends TestCase
         Parent::setUp();
         $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -31,8 +31,7 @@ class PatchUserRequestTest extends TestCase
         $newRole = UserRole::LENDER;
 
         // Patch user
-        $response = $this->json('PATCH', '/edit-users', [
-            'userId' => $userToPatch->id,
+        $response = $this->json('PATCH', '/api/users/' . $userToPatch->id . '/role', [
             'role' => $newRole
         ]);
 

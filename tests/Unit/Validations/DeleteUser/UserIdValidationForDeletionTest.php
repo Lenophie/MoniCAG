@@ -15,20 +15,10 @@ class UserIdValidationForDeletionTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
         $this->admin = $admin;
     }
 
-    /**
-     * Tests user id requirement.
-     *
-     * @return void
-     */
-    public function testUserIdRequirementValidation()
-    {
-        $response = $this->json('DELETE', '/edit-users', []);
-        $response->assertJsonValidationErrors('userId');
-    }
 
     /**
      * Tests user id not an integer rejection.
@@ -37,18 +27,8 @@ class UserIdValidationForDeletionTest extends TestCase
      */
     public function testUserIdNotAnIntegerRejection()
     {
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => 'I am a string'
-        ]);
-        $response->assertJsonValidationErrors('userId');
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => null
-        ]);
-        $response->assertJsonValidationErrors('userId');
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => [0]
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('DELETE', '/api/users/string', []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -63,10 +43,8 @@ class UserIdValidationForDeletionTest extends TestCase
         foreach($users as $user) array_push($usersIDs, $user->id);
         $nonExistentUserID = max($usersIDs) + 1;
 
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $nonExistentUserID
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('DELETE', '/api/users/' . $nonExistentUserID, []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -77,10 +55,8 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testModificationOfOtherAdminRejection()
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $otherAdmin->id
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('DELETE', '/api/users/' . $otherAdmin->id, []);
+        $response->assertJsonValidationErrors('user');
     }
 
     /**
@@ -91,9 +67,7 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testModificationOfLenderValidation()
     {
         $user = factory(User::class)->state('lender')->create();
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $user->id
-        ]);
+        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(200);
     }
 
@@ -105,9 +79,7 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testModificationOfBasicUserValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $user->id
-        ]);
+        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(200);
     }
 
@@ -118,9 +90,7 @@ class UserIdValidationForDeletionTest extends TestCase
      */
     public function testModificationOfSelfValidation()
     {
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $this->admin->id
-        ]);
+        $response = $this->json('DELETE', '/api/users/' . $this->admin->id, []);
         $response->assertStatus(200);
     }
 
@@ -134,13 +104,9 @@ class UserIdValidationForDeletionTest extends TestCase
         $borrower = $borrowing->borrower()->first();
         $initialLender = $borrowing->initialLender()->first();
 
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $borrower->id
-        ]);
-        $response->assertJsonValidationErrors('userId');
-        $response = $this->json('DELETE', '/edit-users', [
-            'userId' => $initialLender->id
-        ]);
-        $response->assertJsonValidationErrors('userId');
+        $response = $this->json('DELETE', '/api/users/' . $borrower->id, []);
+        $response->assertJsonValidationErrors('user');
+        $response = $this->json('DELETE', '/api/users/' . $initialLender->id, []);
+        $response->assertJsonValidationErrors('user');
     }
 }

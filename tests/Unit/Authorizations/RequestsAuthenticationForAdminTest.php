@@ -80,7 +80,8 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testPatchUserRequestAllowedForAdmin()
     {
-        $response = $this->json('PATCH', '/edit-users', []);
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
         $response->assertStatus(422);
     }
 
@@ -91,7 +92,8 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testDeleteUserRequestAllowedForAdmin()
     {
-        $response = $this->json('DELETE', '/edit-users', []);
-        $response->assertStatus(422);
+        $user = factory(User::class)->create();
+        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
+        $response->assertStatus(200);
     }
 }
