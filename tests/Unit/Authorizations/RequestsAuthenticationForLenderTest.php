@@ -1,5 +1,6 @@
 <?php
 
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -55,7 +56,8 @@ class RequestsAuthenticationForLenderTest extends TestCase
      */
     public function testNoDeleteInventoryItemRequestAllowedForLender()
     {
-        $response = $this->json('DELETE', '/edit-inventory', []);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertStatus(403);
     }
 

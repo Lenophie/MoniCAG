@@ -1,5 +1,6 @@
 <?php
 
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -38,55 +39,56 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests admin prevented from adding a new inventory item.
+     * Tests admin allowed to add a new inventory item.
      *
      * @return void
      */
-    public function testNoAddInventoryItemRequestAllowedForAdmin()
+    public function testAddInventoryItemRequestAllowedForAdmin()
     {
         $response = $this->json('POST', '/edit-inventory', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests admin prevented from deleting an inventory item.
+     * Tests admin allowed to delete an inventory item.
      *
      * @return void
      */
-    public function testNoDeleteInventoryItemRequestAllowedForAdmin()
+    public function testDeleteInventoryItemRequestAllowedForAdmin()
     {
-        $response = $this->json('DELETE', '/edit-inventory', []);
-        $response->assertStatus(422);
+        $inventoryItem = factory(InventoryItem::class)->create();
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response->assertStatus(200);
     }
 
     /**
-     * Tests admin prevented from patching an inventory item.
+     * Tests admin allowed to patch an inventory item.
      *
      * @return void
      */
-    public function testNoPatchInventoryItemRequestAllowedForAdmin()
+    public function testPatchInventoryItemRequestAllowedForAdmin()
     {
         $response = $this->json('PATCH', '/edit-inventory', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests admin prevented from patching a user.
+     * Tests admin allowed to patch a user.
      *
      * @return void
      */
-    public function testNoPatchUserRequestAllowedForAdmin()
+    public function testPatchUserRequestAllowedForAdmin()
     {
         $response = $this->json('PATCH', '/edit-users', []);
         $response->assertStatus(422);
     }
 
     /**
-     * Tests admin prevented from deleting a user.
+     * Tests admin allowed to delete a user.
      *
      * @return void
      */
-    public function testNoDeleteUserRequestAllowedForAdmin()
+    public function testDeleteUserRequestAllowedForAdmin()
     {
         $response = $this->json('DELETE', '/edit-users', []);
         $response->assertStatus(422);

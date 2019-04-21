@@ -13,18 +13,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
-    }
-
-    /**
-     * Tests inventory item requirement.
-     *
-     * @return void
-     */
-    public function testInventoryItemRequirement()
-    {
-        $response = $this->json('DELETE', '/edit-inventory', []);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -34,18 +23,8 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
      */
     public function testInventoryItemIdNotAnIntegerRejection()
     {
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => 'I am a string'
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => null
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => []
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $response = $this->json('DELETE', '/api/inventoryItems/string', []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -60,10 +39,8 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
         foreach ($inventoryItems as $inventoryItem) array_push($inventoryItemsIDs, $inventoryItem->id);
         $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
 
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => $nonExistentInventoryItemID
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
+        $response->assertStatus(404);
     }
 
     /**
@@ -74,10 +51,8 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     public function testDeletionOfCurrentlyBorrowedInventoryItemRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItem->id
-        ]);
-        $response->assertJsonValidationErrors('inventoryItemId');
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response->assertJsonValidationErrors('inventoryItem');
     }
 
     /**
@@ -88,9 +63,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     public function testDeletionOfCorrectInventoryItemValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItem->id
-        ]);
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
         $response->assertStatus(200);
     }
 }

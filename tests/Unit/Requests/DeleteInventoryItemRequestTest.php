@@ -14,7 +14,7 @@ class DeleteInventoryItemRequestTest extends TestCase
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'api');
     }
 
     /**
@@ -31,9 +31,7 @@ class DeleteInventoryItemRequestTest extends TestCase
         foreach ($genresCollection as $genre) array_push($genres, $genre->id);
 
         // Delete inventory item
-        $response = $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItems[1]->id
-        ]);
+        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItems[1]->id, []);
 
         // Check response
         $response->assertStatus(200);
