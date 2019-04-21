@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * `Docker` setup
 * `Travis` setup
     * Added Travis badge to readme
+* `Laravel Passport` setup
 * Trusted proxies environment variable
 * Comments in `js` files
 * `PHP` extensions requirements in `composer.json`
@@ -19,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+* Re-organised routes and controllers to separate web and API logic
 * Dependencies update
 * Dusk environment setup
 * Started using @json `Blade` directive
