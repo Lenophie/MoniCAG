@@ -6,6 +6,7 @@ use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
 
 class DeleteInventoryItemRequest extends FormRequest
 {
@@ -19,6 +20,13 @@ class DeleteInventoryItemRequest extends FormRequest
         return Auth::user()->role_id === UserRole::ADMINISTRATOR;
     }
 
+    protected function validationData()
+    {
+        return array_merge($this->request->all(), [
+            'inventoryItem' => Route::input('inventoryItem'),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +35,7 @@ class DeleteInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'inventoryItemId' => 'bail|required|integer|exists:inventory_items,id|inventory_item_not_borrowed'
+            'inventoryItem' => 'inventory_item_not_borrowed'
         ];
     }
 

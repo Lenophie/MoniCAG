@@ -169,7 +169,13 @@ const handleDeleteItemFormSubmit = (e) => {
     };
 
     // Make the request
-    makeAjaxRequest(HTTPVerbs.DELETE, requestsURL, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(
+        HTTPVerbs.DELETE,
+        `${inventoryItemsApiUrl}/${formattedForm.inventoryItemId}`,
+        null,
+        successCallback,
+        errorCallback
+    );
 };
 
 /**

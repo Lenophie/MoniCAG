@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Web;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddInventoryItemRequest;
-use App\Http\Requests\DeleteInventoryItemRequest;
 use App\Http\Requests\PatchInventoryItemRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
@@ -55,10 +54,5 @@ class EditInventoryController extends Controller
             InventoryItem::find(request('inventoryItemId'))
                 ->genres()->sync(request('genres'));
         });
-    }
-
-    public function delete(DeleteInventoryItemRequest $request)
-    {
-        InventoryItem::destroy(request('inventoryItemId'));
     }
 }

@@ -398,7 +398,7 @@
             id="delete-confirm-modal-close-button"
         @endslot
         @slot('footer')
-            <form id="delete-form" method="POST" action="{{url('/edit-inventory')}}">
+            <form id="delete-form" method="POST">
                 <input type="hidden" name="inventoryItemId" id="item-to-delete-id-field">
                 <button class="button is-danger is-fullwidth" id="delete-confirm-button" type="submit">
                     {{__('Delete')}}
@@ -412,6 +412,7 @@
     <script type="text/javascript">
         const inventoryItems = @json($inventoryItems);
         const requestsURL = @json(url('/edit-inventory'));
+        const inventoryItemsApiUrl = @json(route('inventoryItems.index'));
         const successRedirectionURL = @json(url('/edit-inventory'));
     </script>
     <script type="text/javascript" src="{{asset('js/editInventory.js')}}"></script>
