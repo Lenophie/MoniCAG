@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\App;
 
 class Genre extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name_fr',
+        'name_en'
+    ];
+
     public $timestamps = false;
 
     public static function allTranslated() {

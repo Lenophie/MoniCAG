@@ -8,3 +8,4 @@ Route::patch('borrowings', 'BorrowingController@return')->name('borrowings.retur
 Route::apiResource('inventoryItems', 'InventoryItemController')->except(['show']);
 Route::apiResource('users', 'UserController')->only(['destroy']);
 Route::patch('users/{user}/role', 'UserController@changeRole')->name('user.changeRole');
+Route::apiResource('genres', 'GenreController')->except(['show']);
