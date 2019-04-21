@@ -89,4 +89,15 @@ class RequestsAuthenticationForGuestTest extends TestCase
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(401);
     }
+
+    /**
+     * Tests guest prevented from adding a genre.
+     *
+     * @return void
+     */
+    public function testNoAddGenreAllowedForGuest()
+    {
+        $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(401);
+    }
 }

@@ -96,4 +96,15 @@ class RequestsAuthenticationForAdminTest extends TestCase
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(200);
     }
+
+    /**
+     * Tests admin allowed to add a genre.
+     *
+     * @return void
+     */
+    public function testAddGenreAllowedForAdmin()
+    {
+        $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(422);
+    }
 }

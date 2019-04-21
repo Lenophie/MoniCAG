@@ -96,4 +96,15 @@ class RequestsAuthenticationForLenderTest extends TestCase
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(403);
     }
+
+    /**
+     * Tests lender prevented from adding a genre.
+     *
+     * @return void
+     */
+    public function testNoAddGenreAllowedForLender()
+    {
+        $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(403);
+    }
 }

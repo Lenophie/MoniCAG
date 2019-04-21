@@ -96,4 +96,15 @@ class RequestsAuthenticationForUserTest extends TestCase
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
         $response->assertStatus(403);
     }
+
+    /**
+     * Tests basic user prevented from adding a genre.
+     *
+     * @return void
+     */
+    public function testNoAddGenreAllowedForUser()
+    {
+        $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(403);
+    }
 }
