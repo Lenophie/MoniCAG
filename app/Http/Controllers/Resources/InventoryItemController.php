@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Resources;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddInventoryItemRequest;
+use App\Http\Requests\CreateInventoryItemRequest;
 use App\Http\Requests\DeleteInventoryItemRequest;
-use App\Http\Requests\PatchInventoryItemRequest;
+use App\Http\Requests\UpdateInventoryItemRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use Illuminate\Support\Facades\DB;
@@ -32,10 +32,10 @@ class InventoryItemController extends Controller
     /**
      * Store a newly created inventory item in storage.
      *
-     * @param  \App\Http\Requests\AddInventoryItemRequest  $request
+     * @param  \App\Http\Requests\CreateInventoryItemRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddInventoryItemRequest $request)
+    public function store(CreateInventoryItemRequest $request)
     {
         InventoryItem::create([
             'name_fr' => htmlspecialchars(request('nameFr')),
@@ -52,11 +52,11 @@ class InventoryItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\PatchInventoryItemRequest  $request
+     * @param  \App\Http\Requests\UpdateInventoryItemRequest  $request
      * @param  \App\InventoryItem  $inventoryItem
      * @return \Illuminate\Http\Response
      */
-    public function update(PatchInventoryItemRequest $request, InventoryItem $inventoryItem)
+    public function update(UpdateInventoryItemRequest $request, InventoryItem $inventoryItem)
     {
         DB::transaction(function () use ($inventoryItem) {
             $inventoryItem->update([

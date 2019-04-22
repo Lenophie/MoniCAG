@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
-class AddGenreRequest extends FormRequest
+class CreateGenreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -39,6 +39,6 @@ class AddGenreRequest extends FormRequest
      */
     public function messages()
     {
-        return Lang::get('validation/addGenre');
+        return Lang::get('validation/createGenre');
     }
 }

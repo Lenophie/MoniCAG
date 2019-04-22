@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Resources;
 
 use App\Borrowing;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateBorrowingRequest;
 use App\Http\Requests\EndBorrowingRequest;
-use App\Http\Requests\NewBorrowingRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
@@ -34,10 +34,10 @@ class BorrowingController extends Controller
     /**
      * Store a newly created borrowing in storage.
      *
-     * @param  \App\Http\Requests\NewBorrowingRequest  $request
+     * @param  \App\Http\Requests\CreateBorrowingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NewBorrowingRequest $request)
+    public function store(CreateBorrowingRequest $request)
     {
         DB::transaction(function() {
             foreach (request('borrowedItems') as $borrowedItem) {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Resources;
 
 use App\Genre;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddGenreRequest;
+use App\Http\Requests\CreateGenreRequest;
 use App\Http\Requests\DeleteGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
 
@@ -33,7 +33,7 @@ class GenreController extends Controller
      * @paramU  \App\Http\Requests\AddGenreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddGenreRequest $request)
+    public function store(CreateGenreRequest $request)
     {
         Genre::create([
             'name_fr' => htmlspecialchars(request('nameFr')),

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
-class NewBorrowingRequest extends FormRequest
+class CreateBorrowingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -46,6 +46,6 @@ class NewBorrowingRequest extends FormRequest
      */
     public function messages()
     {
-        return Lang::get('validation/newBorrowing');
+        return Lang::get('validation/createBorrowing');
     }
 }

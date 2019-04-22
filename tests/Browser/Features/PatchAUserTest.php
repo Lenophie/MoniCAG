@@ -85,7 +85,7 @@ class PatchAUserTest extends DuskTestCase
                 ->on(new EditUsersPage())
                 ->select("#role-{$this->otherAdmin->id}", UserRole::NONE)
                 ->pressOnConfirmButton($this->otherAdmin->id)
-                ->waitForText(__('validation/patchUser.user.unchanged_if_other_admin'));
+                ->waitForText(__('validation/updateUserRole.user.unchanged_if_other_admin'));
         });
 
         // Check record unchanged in the database

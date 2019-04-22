@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
-class PatchInventoryItemRequest extends FormRequest
+class UpdateInventoryItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -77,6 +77,6 @@ class PatchInventoryItemRequest extends FormRequest
      */
     public function messages()
     {
-        return Lang::get('validation/patchInventoryItem');
+        return Lang::get('validation/updateInventoryItem');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
-class PatchUserRequest extends FormRequest
+class UpdateUserRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -47,6 +47,6 @@ class PatchUserRequest extends FormRequest
      */
     public function messages()
     {
-        return Lang::get('validation/patchUser');
+        return Lang::get('validation/updateUserRole');
     }
 }

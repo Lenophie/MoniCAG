@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Resources;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\PatchUserRequest;
+use App\Http\Requests\UpdateUserRoleRequest;
 use App\User;
 
 class UserController extends Controller
@@ -14,7 +14,7 @@ class UserController extends Controller
         $this->middleware('admin');
     }
 
-    public function changeRole(PatchUserRequest $request, User $user) {
+    public function changeRole(UpdateUserRoleRequest $request, User $user) {
         $user->update(['role_id' => request('role')]);
         return response([], 200);
     }

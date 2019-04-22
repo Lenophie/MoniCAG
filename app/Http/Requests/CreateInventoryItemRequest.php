@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
-class AddInventoryItemRequest extends FormRequest
+class CreateInventoryItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -61,6 +61,6 @@ class AddInventoryItemRequest extends FormRequest
      */
     public function messages()
     {
-        return Lang::get('validation/addInventoryItem');
+        return Lang::get('validation/createInventoryItem');
     }
 }
