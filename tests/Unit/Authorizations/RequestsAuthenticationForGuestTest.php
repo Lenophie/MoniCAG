@@ -107,10 +107,22 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteGenreAllowedForGuest()
+    public function testNoUpdateGenreAllowedForGuest()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
+        $response->assertStatus(401);
+    }
+
+    /**
+     * Tests guest prevented from deleting a genre.
+     *
+     * @return void
+     */
+    public function testNoDeleteGenreAllowedForGuest()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
         $response->assertStatus(401);
     }
 }

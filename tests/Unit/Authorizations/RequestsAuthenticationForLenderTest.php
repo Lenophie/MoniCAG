@@ -120,4 +120,16 @@ class RequestsAuthenticationForLenderTest extends TestCase
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(403);
     }
+
+    /**
+     * Tests lender prevented from deleting a delete.
+     *
+     * @return void
+     */
+    public function testNoDeleteGenreAllowedForLender()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
+        $response->assertStatus(403);
+    }
 }

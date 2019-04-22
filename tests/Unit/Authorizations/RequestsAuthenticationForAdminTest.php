@@ -120,4 +120,16 @@ class RequestsAuthenticationForAdminTest extends TestCase
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(422);
     }
+
+    /**
+     * Tests admin allowed to delete a genre.
+     *
+     * @return void
+     */
+    public function testDeleteGenreAllowedForAdmin()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
+        $response->assertStatus(200);
+    }
 }

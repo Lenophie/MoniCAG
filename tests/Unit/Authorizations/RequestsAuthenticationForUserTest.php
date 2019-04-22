@@ -120,4 +120,16 @@ class RequestsAuthenticationForUserTest extends TestCase
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(403);
     }
+
+    /**
+     * Tests basic user prevented from deleting a genre.
+     *
+     * @return void
+     */
+    public function testNoDeleteGenreAllowedForUser()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
+        $response->assertStatus(403);
+    }
 }
