@@ -56,7 +56,7 @@ class BorrowingController extends Controller
                 InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::BORROWED]);
             }
         });
-        return response(null, 201);
+        return response([], 201);
     }
 
     /**
@@ -100,6 +100,6 @@ class BorrowingController extends Controller
                 });
             }
         } else abort(422);
-        return response(null, 200);
+        return response([], 200);
     }
 }

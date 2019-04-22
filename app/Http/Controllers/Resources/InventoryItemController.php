@@ -46,7 +46,7 @@ class InventoryItemController extends Controller
             'players_min' => request('playersMin'),
             'status_id' => InventoryItemStatus::IN_LCR_D4
         ])->genres()->attach(request('genres'));
-        return response(null, 201);
+        return response([], 201);
     }
 
     /**
@@ -70,7 +70,7 @@ class InventoryItemController extends Controller
             ]);
             $inventoryItem->genres()->sync(request('genres'));
         });
-        return response(null, 200);
+        return response([], 200);
     }
 
     /**
@@ -83,6 +83,6 @@ class InventoryItemController extends Controller
     public function destroy(DeleteInventoryItemRequest $request, InventoryItem $inventoryItem)
     {
         $inventoryItem->delete();
-        return response(null, 200);
+        return response([], 200);
     }
 }
