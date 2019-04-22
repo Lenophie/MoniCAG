@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('unchanged_if_other_admin', 'App\Validators\UnchangedIfOtherAdmin@validate');
         Validator::extend('not_involved_in_a_current_borrowing', 'App\Validators\NotInvolvedInACurrentBorrowing@validate');
         Validator::extend('current_user_password', 'App\Validators\CurrentUserPassword@validate');
+        Validator::extend('not_the_only_genre_of_an_inventory_item', 'App\Validators\NotTheOnlyGenreOfAnInventoryItem@validate');
 
         Validator::replacer('distinct', 'App\Validators\Distinct@replacer');
     }

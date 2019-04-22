@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddGenreRequest;
+use App\Http\Requests\DeleteGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
 
 class GenreController extends Controller
@@ -29,7 +30,7 @@ class GenreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\AddGenreRequest  $request
+     * @paramU  \App\Http\Requests\AddGenreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AddGenreRequest $request)
@@ -60,11 +61,13 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\Http\Requests\DeleteGenreRequest $request
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genre $genre)
+    public function destroy(DeleteGenreRequest $request, Genre $genre)
     {
-        //
+        $genre->delete();
+        return response([], 200);
     }
 }
