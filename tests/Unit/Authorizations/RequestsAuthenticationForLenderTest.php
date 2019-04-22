@@ -1,5 +1,6 @@
 <?php
 
+use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -105,6 +106,18 @@ class RequestsAuthenticationForLenderTest extends TestCase
     public function testNoAddGenreAllowedForLender()
     {
         $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Tests lender prevented from updating a genre.
+     *
+     * @return void
+     */
+    public function testNoUpdateGenreAllowedForLender()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(403);
     }
 }

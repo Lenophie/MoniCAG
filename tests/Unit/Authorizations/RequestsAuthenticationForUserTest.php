@@ -1,5 +1,6 @@
 <?php
 
+use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -105,6 +106,18 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testNoAddGenreAllowedForUser()
     {
         $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Tests basic user prevented from updating a genre.
+     *
+     * @return void
+     */
+    public function testNoUpdateGenreAllowedForUser()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(403);
     }
 }

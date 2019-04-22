@@ -1,5 +1,6 @@
 <?php
 
+use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -105,6 +106,18 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testAddGenreAllowedForAdmin()
     {
         $response = $this->json('POST', 'api/genres/', []);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * Tests admin allowed to update a genre.
+     *
+     * @return void
+     */
+    public function testUpdateGenreAllowedForAdmin()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
         $response->assertStatus(422);
     }
 }
