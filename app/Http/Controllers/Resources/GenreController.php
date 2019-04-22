@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Resources;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddGenreRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateGenreRequest;
 
 class GenreController extends Controller
 {
@@ -44,13 +44,17 @@ class GenreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateGenreRequest  $request
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        $genre->update([
+            'name_fr' => htmlspecialchars(request('nameFr')),
+            'name_en' => htmlspecialchars(request('nameEn')),
+        ]);
+        return response([], 200);
     }
 
     /**
