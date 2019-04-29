@@ -31,6 +31,8 @@
 * Display before notes in "End Borrowing" view
 * Allow games evaluation by users
 * Display server error messages (>500)
+* Prevent browsers autofill of password and email fields when registering and creating a new borrowing
+* Re-arrange mobile version, especially inventory edition page
 * Logging
     * Inventory movements
     * Users modification
