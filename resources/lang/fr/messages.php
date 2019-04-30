@@ -65,13 +65,14 @@ return [
         'edit_items' => 'Modifier les jeux',
         'add_item' => 'Ajouter un jeu',
         'deletion_title' => 'Confirmer la suppression',
-        'deletion_warning' => "Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n'a jamais correspondu, à un réel jeu de l'inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>."
-    ],
+        'deletion_warning' => 'Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n\&#039;a jamais correspondu, à un réel jeu de l\&#039;inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>.'
+    ], // Escape only quotes so this string gets properly injected in Vue props
+    // TODO: Adapt translation string service provider to automatically escape quotes
     'edit_users' => [
         'change_role' => 'Changer le rôle'
     ],
     'account' => [
         'deletion_title' => 'Confirmer la suppression du compte',
-        'deletion_warning' => "Votre compte et l'intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>."
+        'deletion_warning' => 'Votre compte et l\&#039;intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>.'
     ],
 ];
