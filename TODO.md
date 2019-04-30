@@ -46,6 +46,8 @@
     * Display past borrowings
     * Display logs
 * Inject request method in forms with @method
+* Fix API localization : https://medium.com/teknomuslim/multi-language-api-response-messages-in-laravel-5c9029a32e5c
+* Replace {{__()}} statements with @lang directive in Blade templates when possible
 # Testing
 * Add unit tests for error displaying in views
 * Move cascading deletion assertions present in requests tests to their own unit test.
