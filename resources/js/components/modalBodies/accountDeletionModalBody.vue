@@ -1,24 +1,38 @@
 <template>
-    <div id="delete-modal-body">
+    <div>
         <p><span v-html="message"></span></p>
         <hr>
-        <form id="delete-form" autocomplete="off">
+        <form :action="accountDeletionRoute" autocomplete="off" v-on:submit.prevent="submit">
             <div class="field">
-                <label class="label" for="password">{{confirmPasswordLabel}}</label>
+                <label class="label" for="account-deletion-confirm-password-input">{{confirmPasswordLabel}}</label>
                 <div class="control has-icons-left">
-                    <input class="input" type="password" id="password" name="password" required>
+                    <input
+                        class="input"
+                        type="password"
+                        id="account-deletion-confirm-password-input"
+                        name="password"
+                        @input="$emit('input', $event.target.value)"
+                        :disabled=accountDeletionRequest.isProcessing
+                        required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-key"></i>
                     </span>
                 </div>
             </div>
-            <div id="errors-field-password"></div>
+            <div v-if="Object.keys(accountDeletionRequest.errors).length > 0" id="account-deletion-errors">
+                <ul>
+                    <li v-for="error in accountDeletionRequest.errors.password" class="error-text">{{error}}</li>
+                </ul>
+            </div>
         </form>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['message', 'confirmPasswordLabel']
+        props: ['message', 'confirmPasswordLabel', 'accountDeletionRoute', 'accountDeletionRequest', 'submit'],
+        mounted() {
+            this.$emit('ready', this.accountDeletionRoute)
+        }
     }
 </script>

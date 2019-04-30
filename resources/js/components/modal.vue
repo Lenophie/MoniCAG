@@ -18,6 +18,17 @@
 
 <script>
     export default {
-        props: ['title']
+        props: ['title'],
+        created () {
+            document.addEventListener('keydown', this.onkey)
+        },
+        beforeDestroy () {
+            document.removeEventListener('keydown', this.onkey)
+        },
+        methods: {
+            onkey(e) {
+                if (e.key === 'Escape') this.$emit('close');
+            }
+        }
     }
 </script>

@@ -50,7 +50,7 @@
                     <footer class="card-footer">
                         <a id="modify-email-link" class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
                         <a id="modify-password-link" class="custom-hover-color card-footer-item" href="{{ url('/password/change') }}">{{__('Modify my password')}}</a>
-                        <a id="delete-account-link" class="card-footer-item has-text-danger" data-toggle="modal" data-target="delete-confirm-modal">{{__('Delete my account')}}</a>
+                        <a id="delete-account-link" class="card-footer-item has-text-danger" @click="showModal = true">{{__('Delete my account')}}</a>
                     </footer>
                 </div>
                 <div class="card">
@@ -70,42 +70,37 @@
             </div>
         </div>
     </div>
-    @modal
-    @slot('title')
-        {{__('messages.account.deletion_title')}}
-    @endslot
-    @slot('body')
-        <div id="delete-modal-body">
-            <p>{!!__('messages.account.deletion_warning')!!}</p>
-            <hr>
-            <form id="delete-form" method="POST" action="{{ route('account.delete') }}" autocomplete="off">
-                <div class="field">
-                    <label class="label" for="password">{{__('Confirm password')}}</label>
-                    <div class="control has-icons-left">
-                        <input class="input" type="password" id="password" name="password" required>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-key"></i>
-                        </span>
-                    </div>
-                </div>
-                <div id="errors-field-password"></div>
-            </form>
-        </div>
-    @endslot
-    @slot('tags')
-        id="delete-confirm-modal"
-    @endslot
-    @slot('footer')
-        <a class="button is-danger" id="delete-confirm-button">
-            {{__('Delete my account')}}
-        </a>
-    @endslot
-    @endmodal
+    <modal
+        :id="'account-deletion-confirmation-modal'"
+        :title="'@lang("messages.account.deletion_title")'"
+        v-if="showModal || accountDeletionRequest.isProcessing"
+        @close="showModal = false"
+    >
+        <template v-slot:body>
+            <account-deletion-modal-body
+                 :message="'{!! __("messages.account.deletion_warning") !!}'"
+                 :confirm-password-label="'@lang("Confirm password")'"
+                 :account-deletion-route="'{{route("account.delete")}}'"
+                 :account-deletion-request="accountDeletionRequest"
+                 :errors="accountDeletionRequest.errors"
+                 :submit="requestAccountDeletion"
+                 @ready="accountDeletionRequest.route = $event"
+                 v-model="accountDeletionRequest.params.password"
+            ></account-deletion-modal-body>
+        </template>
+        <template v-slot:footer>
+            <a
+                class="button is-danger"
+                id="account-deletion-confirmation-button"
+                :disabled=accountDeletionRequest.isProcessing
+                @click="requestAccountDeletion"
+            >
+                @lang('Delete my account')
+            </a>
+        </template>
+    </modal>
 @endsection
 
 @push('scripts')
-    <script type="text/javascript">
-        const deleteRequestURL = @json(route('account.delete'));
-    </script>
     <script type="text/javascript" src="{{asset('js/account.js')}}"></script>
 @endpush
