@@ -1,8 +1,10 @@
 import {HTTPVerbs, makeAjaxRequest} from "./ajax.js";
+import modal from './components/modal.vue';
+import accountDeletionModalBody from './components/modalBodies/accountDeletionModalBody.vue';
 
 window.Vue = require('vue');
-Vue.component('modal', require('./components/modal.vue').default);
-Vue.component('account-deletion-modal-body', require('./components/modalBodies/accountDeletionModalBody.vue').default);
+Vue.component('modal', modal);
+Vue.component('account-deletion-modal-body', accountDeletionModalBody);
 
 new Vue({
     el: '#app',
