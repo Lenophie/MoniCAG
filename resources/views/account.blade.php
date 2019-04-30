@@ -81,11 +81,10 @@
                  :confirm-password-label="'@lang("Confirm password")'"
                  :account-deletion-route="'{{route("account.delete")}}'"
                  :account-deletion-request="accountDeletionRequest"
-                 :errors="accountDeletionRequest.errors"
                  :submit="requestAccountDeletion"
                  @ready="accountDeletionRequest.route = $event"
                  v-model="accountDeletionRequest.params.password"
-            ></account-deletion-modal-body>
+            />
         </template>
         <template v-slot:footer>
             <a
