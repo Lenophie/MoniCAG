@@ -40,6 +40,14 @@ new Vue({
                 JSON.stringify(this.accountDeletionRequest.params),
                 successCallback,
                 errorCallback);
+        },
+
+        /**
+         * Handles account deletion modal closing
+         */
+        closeAccountDeletionModal () {
+            this.showModal = false;
+            this.accountDeletionRequest.errors = {};
         }
     }
 });

@@ -33,7 +33,6 @@
         {{__('messages.titles.account')}}
     @endslot
     @endheader
-    <!-- suppress JSUnusedLocalSymbols -->
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-12">
@@ -74,7 +73,7 @@
         :id="'account-deletion-confirmation-modal'"
         :title="'@lang("messages.account.deletion_title")'"
         v-if="showModal || accountDeletionRequest.isProcessing"
-        @close="showModal = false"
+        @close="closeAccountDeletionModal"
     >
         <template v-slot:body>
             <account-deletion-modal-body
