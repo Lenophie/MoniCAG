@@ -13,7 +13,7 @@
         "ext-zip": "*",
         "caouecs/laravel-lang": "~3.0",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/passport": "^7.2",
         "laravel/tinker": "^1.0"
     },
@@ -21,10 +21,10 @@
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
-        "laravel/dusk": "^4.0",
+        "laravel/dusk": "5.0.x-dev",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "classmap": [

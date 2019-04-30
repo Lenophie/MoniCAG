@@ -20,10 +20,10 @@
     "license": "MIT",
     "devDependencies": {
         "cross-env": "^5.2.0",
-        "vue-template-compiler": "^2.6.10",
         "laravel-mix": "^4.0.15",
-        "node-sass": "^4.11.0",
-        "sass-loader": "^7.1.0"
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.1.0",
+        "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.4.2",
