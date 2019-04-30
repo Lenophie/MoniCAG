@@ -15,7 +15,7 @@ class EndBorrowingRequestTest extends TestCase
 
     private $lender;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $this->faker->seed(0);

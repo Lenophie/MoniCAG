@@ -10,13 +10,13 @@ class PagesVisitsAsAdminTest extends DuskTestCase
 {
     private $admin;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
     }
 

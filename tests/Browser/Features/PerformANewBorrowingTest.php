@@ -22,7 +22,7 @@ class PerformANewBorrowingTest extends DuskTestCase
     private $borrower;
     private $inventoryItems;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
@@ -38,7 +38,7 @@ class PerformANewBorrowingTest extends DuskTestCase
         $this->inventoryItems = $inventoryItems;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->lender->delete();
         $this->borrower->delete();
         foreach ($this->inventoryItems as $inventoryItem) {

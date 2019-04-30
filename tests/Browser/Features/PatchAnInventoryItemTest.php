@@ -21,7 +21,7 @@ class PatchAnInventoryItemTest extends DuskTestCase
     private $inventoryItems;
     private $additionalGenres;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $inventoryItems = factory(InventoryItem::class, 10)->create();
@@ -32,7 +32,7 @@ class PatchAnInventoryItemTest extends DuskTestCase
         $this->admin = $admin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         foreach ($this->inventoryItems as $inventoryItem) {
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();

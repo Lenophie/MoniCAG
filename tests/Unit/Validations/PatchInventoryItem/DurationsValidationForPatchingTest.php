@@ -9,7 +9,7 @@ class DurationsValidationForPatchingTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();

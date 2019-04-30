@@ -19,7 +19,7 @@ class ChangeEmailTest extends DuskTestCase
     private $userPassword;
     private $userEmail;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $userPassword = $this->faker->unique()->password;
@@ -32,7 +32,7 @@ class ChangeEmailTest extends DuskTestCase
         ]);
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->user->delete();
     }
 

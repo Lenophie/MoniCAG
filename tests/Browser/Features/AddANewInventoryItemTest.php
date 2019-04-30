@@ -20,7 +20,7 @@ class AddANewInventoryItemTest extends DuskTestCase
     private $admin;
     private $genres;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $genres = factory(Genre::class, 5)->create();
@@ -29,7 +29,7 @@ class AddANewInventoryItemTest extends DuskTestCase
         $this->admin = $admin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         foreach ($this->genres as $genre) $genre->delete();
     }

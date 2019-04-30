@@ -10,13 +10,13 @@ class PagesVisitsAsUserTest extends DuskTestCase
 {
     private $user;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $user = factory(User::class)->create();
         $this->user = $user;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->user->delete();
     }
 

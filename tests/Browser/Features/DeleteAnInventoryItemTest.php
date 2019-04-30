@@ -17,7 +17,7 @@ class DeleteAnInventoryItemTest extends DuskTestCase
     private $borrowedItem;
     private $genresToDeleteInTearDown;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $inventoryItems = factory(InventoryItem::class, 10)->create();
         $this->inventoryItems = $inventoryItems;
@@ -28,7 +28,7 @@ class DeleteAnInventoryItemTest extends DuskTestCase
         $this->genresToDeleteInTearDown = $this->inventoryItems[3]->genres()->get();
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         foreach ($this->inventoryItems as $inventoryItem) {
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();

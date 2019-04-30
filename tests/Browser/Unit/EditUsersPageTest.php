@@ -14,7 +14,7 @@ class EditUsersPageTest extends DuskTestCase
     private $otherAdmin;
     private $users;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
@@ -24,7 +24,7 @@ class EditUsersPageTest extends DuskTestCase
         $this->otherAdmin = $otherAdmin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         $this->otherAdmin->delete();
         foreach ($this->users as $user) $user->delete();

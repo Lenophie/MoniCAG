@@ -11,7 +11,7 @@ class NamesValidationForPatchingTest extends TestCase
     use DatabaseTransactions;
     use WithFaker;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $this->faker->seed(0);

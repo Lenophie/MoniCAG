@@ -18,7 +18,7 @@ class DeleteAccountTest extends DuskTestCase
     private $otherUsers;
     private $userToDeletePassword;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $userToDeletePassword = $this->faker->unique()->password;
@@ -30,7 +30,7 @@ class DeleteAccountTest extends DuskTestCase
         $this->otherUsers = $otherUsers;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         foreach ($this->otherUsers as $user) $user->delete();
     }
 

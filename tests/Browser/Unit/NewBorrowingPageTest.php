@@ -14,7 +14,7 @@ class NewBorrowingPageTest extends DuskTestCase
     private $lender;
     private $inventoryItems;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
@@ -22,7 +22,7 @@ class NewBorrowingPageTest extends DuskTestCase
         $this->inventoryItems = $inventoryItems;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         foreach ($this->inventoryItems as $inventoryItem) {
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
             $inventoryItem->delete();

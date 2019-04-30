@@ -11,7 +11,7 @@ class UserIdValidationForDeletionTest extends TestCase
 
     private $admin;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();

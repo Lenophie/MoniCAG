@@ -17,7 +17,7 @@ class EditInventoryPageTest extends DuskTestCase
     private $inventoryItems;
     private $additionalGenres;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
@@ -27,7 +27,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->additionalGenres = $additionalGenres;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         foreach ($this->inventoryItems as $inventoryItem) {
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
             $inventoryItem->delete();

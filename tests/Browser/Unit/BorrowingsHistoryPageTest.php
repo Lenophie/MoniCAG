@@ -12,13 +12,13 @@ class BorrowingsHistoryPageTest extends DuskTestCase
 {
     private $lender;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->lender->delete();
     }
 

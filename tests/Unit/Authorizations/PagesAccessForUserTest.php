@@ -8,7 +8,7 @@ class PagesAccessForUserTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $user = factory(User::class)->create();

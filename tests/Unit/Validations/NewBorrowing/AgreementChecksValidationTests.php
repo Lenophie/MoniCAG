@@ -8,7 +8,7 @@ class AgreementChecksValidationTests extends TestCase
 {
     use DatabaseTransactions;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Parent::setUp();
         $lender = factory(User::class)->state('lender')->create();

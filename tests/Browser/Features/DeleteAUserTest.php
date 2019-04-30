@@ -15,7 +15,7 @@ class DeleteAUserTest extends DuskTestCase
     private $otherAdmin;
     private $users;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $users = factory(User::class, 5)->create();
         $this->users = $users;
@@ -25,7 +25,7 @@ class DeleteAUserTest extends DuskTestCase
         $this->otherAdmin = $otherAdmin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         $this->otherAdmin->delete();
         foreach ($this->users as $user) $user->delete();

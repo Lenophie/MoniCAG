@@ -13,7 +13,7 @@ class AccessesFromHomeTest extends DuskTestCase
 {
     use WithFaker;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
     }

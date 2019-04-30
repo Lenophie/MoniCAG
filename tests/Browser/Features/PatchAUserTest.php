@@ -17,7 +17,7 @@ class PatchAUserTest extends DuskTestCase
     private $lender;
     private $user;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $user = factory(User::class)->create();
         $this->user = $user;
@@ -29,7 +29,7 @@ class PatchAUserTest extends DuskTestCase
         $this->otherAdmin = $otherAdmin;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         $this->admin->delete();
         $this->otherAdmin->delete();
         $this->lender->delete();

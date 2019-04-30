@@ -18,7 +18,7 @@ class RetrieveABorrowingTest extends DuskTestCase
     private $borrowingsToEnd;
     private $lender;
 
-    protected function setUp() {
+    protected function setUp(): void {
         Parent::setUp();
         $borrowings = factory(Borrowing::class, 20)->create();
         $borrowingsToEnd = [$borrowings[8], $borrowings[1], $borrowings[2], $borrowings[19]];
@@ -29,7 +29,7 @@ class RetrieveABorrowingTest extends DuskTestCase
         $this->lender = $lender;
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
         foreach ($this->borrowings as $borrowing) {
             foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
             $borrowing->inventoryItem()->first()->delete();
