@@ -32,7 +32,7 @@ const isMethodInEnum = (method) => {
  * An Ajax request wrapper
  * @param {HTTPVerb} method The HTTP verb used to make the request
  * @param {string} url The URL at which the request is made
- * @param {JSON} data The payload to send along the request
+ * @param {string} data The payload to send along the request
  * @param {function} successCallback The function to call in case of success
  * @param {function} errorCallback The function to call in case of error
  */
