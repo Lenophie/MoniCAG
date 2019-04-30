@@ -17,8 +17,10 @@
     </head>
 
     <body>
-        @yield('content')
-        @include('footer')
+        <div id="app">
+            @yield('content')
+            @include('footer')
+        </div>
     </body>
 
     <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
