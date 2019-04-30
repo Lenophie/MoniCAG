@@ -38,8 +38,8 @@ class AccountPage extends Page
             '@modifyEmailLink' => '#modify-email-link',
             '@modifyPasswordLink' => '#modify-password-link',
             '@deleteAccountLink' => '#delete-account-link',
-            '@accountDeletionModal' => '#delete-confirm-modal',
-            '@accountDeletionConfirmationButton' => '#delete-confirm-button'
+            '@accountDeletionModal' => '#account-deletion-confirmation-modal',
+            '@accountDeletionConfirmationButton' => '#account-deletion-confirmation-button'
         ];
     }
 
