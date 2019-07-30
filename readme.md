@@ -20,14 +20,15 @@ This application aims at :
 # How to use
 
 * Install `Composer` and `npm`
-* Run `composer install` to install `PHP` dependencies
-* Run `npm install` to install `js` dependencies
-* Setup a local-hosted `MariaDB` database named `monicag`
 * Create a `.env` file at the root of the project
     * Use the `.env.example` file as a template
     * Fill it with your own settings
+* Run `composer install` to install `PHP` dependencies
+* Run `npm install` to install `js` dependencies
+* Setup a local-hosted `MariaDB` database named `monicag`
 * Run `php artisan key:generate` to create generate an application key (stored in `.env`)
 * Run `php artisan migrate --seed` to migrate the database
+* Run `php artisan passport:install` to migrate OAuth tables
 * Run `php artisan serve` to serve the application
 * Run `npm run watch` to bundle the `js` resources
 * Go to `localhost:8000` with a web navigator

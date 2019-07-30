@@ -20,14 +20,15 @@ Cette application cherche à :
 # Utilisation
 
 * Installer `Composer` et `npm`
-* Exécuter `composer install` pour installer les dépendances `PHP`
-* Exécuter `npm install` pour installer les dépendances `js`
-* Mettre en place une base de données `MariaDB` s'appelant `monicag` hébergée localement
 * Créer un fichier `.env` à la racine du projet
     * Utiliser le fichier `.env.example` comme template
     * Le remplir avec ses propres paramètres
+* Exécuter `composer install` pour installer les dépendances `PHP`
+* Exécuter `npm install` pour installer les dépendances `js`
+* Mettre en place une base de données `MariaDB` s'appelant `monicag` hébergée localement
 * Exécuter `php artisan key:generate` pour générer une clé (stockée dans `.env`)
 * Exécuter `php artisan migrate --seed` pour migrer la base de données
+* Exécuter `php artisan passport:install` pour migrer les tables de OAuth
 * Exécuter `php artisan serve` pour servir l'application
 * Exécuter `npm run watch` pour bundle les ressources `js`
 * Se rendre à `localhost:8000` avec un navigateur web
