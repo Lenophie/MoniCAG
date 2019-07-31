@@ -43,6 +43,7 @@ This application aims at :
 * Run `php artisan key:generate --env=testing` to create generate an application key (stored in `.env.testing`)
 * Run `php artisan key:generate --env=dusk.local` to create generate an application key (stored in `.env.dusk.local`)
 * Run `php artisan migrate --seed --env=testing` to migrate the testing database
+* Run `php artisan dusk:chrome-driver` to install the latest Chrome driver for Laravel Dusk
 * Run `composer phpunit` to perform unit tests
 * Run `php artisan serve --env=dusk.local` and `composer dusk` to perform browser tests
     * *Don't perform unit and browser tests at the same time, they share the same database !*

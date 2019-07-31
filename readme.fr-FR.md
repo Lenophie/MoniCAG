@@ -43,6 +43,7 @@ Cette application cherche à :
 * Exécuter `php artisan key:generate --env=testing` pour générer une clé (stockée dans `.env.testing`)
 * Exécuter `php artisan key:generate --env=dusk.local` pour générer une clé (stockée dans `.env.dusk.local`)
 * Exécuter `php artisan migrate --seed --env=testing` pour migrer la base de données de test
+* Exécuter `php artisan dusk:chrome-driver` pour installer le dernier driver Chrome pour Laravel Dusk
 * Exécuter `composer unit` pour réaliser les tests unitaires
 * Exécuter `php artisan serve --env=dusk.local` et `composer dusk` pour réaliser les tests d'intégration
     * *Attention à ne pas lancer les tests unitaires et les tests d'intégration en même temps, ils partagent la même base de données !*
