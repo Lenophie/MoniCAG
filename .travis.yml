@@ -29,6 +29,7 @@ before_script:
 - php artisan migrate --seed &
   php artisan migrate --seed --env=testing &
 - php artisan passport:install
+- php artisan dusk:chrome-driver
 - npm ci
 - npm run production
 - php artisan serve --env=dusk.local >& /dev/null &
