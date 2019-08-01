@@ -49,6 +49,14 @@ new Vue({
             this.showModal = false;
             this.accountDeletionRequest.params.password = '';
             this.accountDeletionRequest.errors = {};
+        },
+
+        /**
+         * Sets the account deletion request route
+         * @param route
+         */
+        setAccountDeletionRequestRoute(route) {
+            this.accountDeletionRequest.route = route;
         }
     }
 });

@@ -1,3 +1,4 @@
+<!--suppress XmlUnboundNsPrefix -->
 @extends('template')
 
 @section('stylesheet')
@@ -82,7 +83,7 @@
                  :account-deletion-route="'{{route("account.delete")}}'"
                  :account-deletion-request="accountDeletionRequest"
                  :submit="requestAccountDeletion"
-                 @ready="accountDeletionRequest.route = $event"
+                 @ready="setAccountDeletionRequestRoute"
             />
         </template>
         <template v-slot:footer>
