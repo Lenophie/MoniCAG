@@ -11,7 +11,7 @@
                         type="password"
                         id="account-deletion-confirm-password-input"
                         name="password"
-                        @input="$emit('input', $event.target.value)"
+                        v-model="accountDeletionRequest.params.password"
                         :disabled=accountDeletionRequest.isProcessing
                         required>
                     <span class="icon is-small is-left">
@@ -19,7 +19,7 @@
                     </span>
                 </div>
             </div>
-            <div v-if="Object.keys(accountDeletionRequest.errors).length > 0" id="account-deletion-errors">
+            <div v-if="Object.keys(accountDeletionRequest.errors).length > 0">
                 <ul>
                     <li v-for="error in accountDeletionRequest.errors.password" class="error-text">{{error}}</li>
                 </ul>

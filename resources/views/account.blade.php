@@ -83,7 +83,6 @@
                  :account-deletion-request="accountDeletionRequest"
                  :submit="requestAccountDeletion"
                  @ready="accountDeletionRequest.route = $event"
-                 v-model="accountDeletionRequest.params.password"
             />
         </template>
         <template v-slot:footer>
