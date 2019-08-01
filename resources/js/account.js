@@ -47,6 +47,7 @@ new Vue({
          */
         closeAccountDeletionModal () {
             this.showModal = false;
+            this.accountDeletionRequest.params.password = '';
             this.accountDeletionRequest.errors = {};
         }
     }
