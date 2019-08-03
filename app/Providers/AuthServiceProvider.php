@@ -26,5 +26,16 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Passport::tokensCan([
+            'see-borrowings' => 'see borrowings',
+            'edit-borrowings' => 'edit borrowings',
+            'see-inventory-items' => 'see inventory items',
+            'edit-inventory-items' => 'edit inventory items',
+            'see-users' => 'see users',
+            'edit-users' => 'edit users',
+            'see-genres' => 'see genres',
+            'edit-genres' => 'edit genres'
+        ]);
     }
 }

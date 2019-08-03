@@ -14,8 +14,9 @@ class InventoryItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index']);
-        $this->middleware('admin')->except(['index']);
+        $this->middleware('api.client:see-inventory-items')->only('index');
+        $this->middleware('api.client:edit-inventory-items')->except('index');
+        $this->middleware('admin')->except('index');
     }
 
     /**

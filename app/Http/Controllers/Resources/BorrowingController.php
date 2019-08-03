@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\DB;
 class BorrowingController extends Controller
 {
     public function __construct() {
-       $this->middleware('auth:api');
+       $this->middleware('api.client:see-borrowings')->only('index');
+       $this->middleware('api.client:edit-borrowings')->except('index');
        $this->middleware('lender');
     }
 

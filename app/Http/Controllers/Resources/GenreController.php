@@ -12,8 +12,9 @@ class GenreController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index']);
-        $this->middleware('admin')->except(['index']);
+        $this->middleware('client:see-genres')->only('index');
+        $this->middleware('api.client:edit-genres')->except('index');
+        $this->middleware('admin')->except('index');
     }
 
     /**
