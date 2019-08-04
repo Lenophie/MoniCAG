@@ -1,16 +1,17 @@
 <template>
     <div>
-        <p><span v-html="message"></span></p>
+        <p><span v-html="trans('messages.account.deletion_warning')"></span></p>
         <hr>
         <form :action="accountDeletionRoute" autocomplete="off" v-on:submit.prevent="submit">
             <div class="field">
-                <label class="label" for="account-deletion-confirm-password-input">{{confirmPasswordLabel}}</label>
+                <label class="label" for="account-deletion-confirm-password-input">{{ trans('Confirm password') }}</label>
                 <div class="control has-icons-left">
                     <input
                         class="input"
                         type="password"
                         id="account-deletion-confirm-password-input"
                         name="password"
+                        :placeholder="trans('Password')"
                         v-model="accountDeletionRequest.params.password"
                         :disabled=accountDeletionRequest.isProcessing
                         required>
@@ -30,7 +31,7 @@
 
 <script>
     export default {
-        props: ['message', 'confirmPasswordLabel', 'accountDeletionRoute', 'accountDeletionRequest', 'submit'],
+        props: ['accountDeletionRoute', 'accountDeletionRequest', 'submit'],
         mounted() {
             this.$emit('ready', this.accountDeletionRoute)
         }

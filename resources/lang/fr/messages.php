@@ -73,6 +73,6 @@ return [
     ],
     'account' => [
         'deletion_title' => 'Confirmer la suppression du compte',
-        'deletion_warning' => 'Votre compte et l\&#039;intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>.'
+        'deletion_warning' => "Votre compte et l'intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>."
     ],
 ];

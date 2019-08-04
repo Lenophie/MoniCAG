@@ -72,14 +72,12 @@
     </div>
     <modal
         :id="'account-deletion-confirmation-modal'"
-        :title="'@lang("messages.account.deletion_title")'"
+        :title="trans('messages.account.deletion_title')"
         v-if="showModal || accountDeletionRequest.isProcessing"
         @close="closeAccountDeletionModal"
     >
         <template v-slot:body>
             <account-deletion-modal-body
-                 :message="'{!! __("messages.account.deletion_warning") !!}'"
-                 :confirm-password-label="'@lang("Confirm password")'"
                  :account-deletion-route="'{{route("account.delete")}}'"
                  :account-deletion-request="accountDeletionRequest"
                  :submit="requestAccountDeletion"
