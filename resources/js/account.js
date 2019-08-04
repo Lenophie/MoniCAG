@@ -1,9 +1,11 @@
 import {HTTPVerbs, makeAjaxRequest} from "./ajax.js";
 import modal from './components/modal.vue';
 import accountDeletionModalBody from './components/modalBodies/accountDeletionModalBody.vue';
-import {trans} from "./trans";
+import {requestTranslationFile, trans} from "./trans";
 
 window.Vue = require('vue');
+
+requestTranslationFile();
 Vue.component('modal', modal);
 Vue.component('account-deletion-modal-body', accountDeletionModalBody);
 Vue.prototype.trans = trans;
