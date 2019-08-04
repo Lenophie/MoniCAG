@@ -5,3 +5,6 @@ import '../css/bulma-override.css';
 import '../css/common.css';
 import '../css/footer.css';
 import '../css/flag-icon.min.css';
+import {requestTranslationFile} from "./trans.js";
+
+requestTranslationFile();
