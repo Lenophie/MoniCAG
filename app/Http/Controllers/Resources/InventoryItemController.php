@@ -8,32 +8,34 @@ use App\Http\Requests\DeleteInventoryItemRequest;
 use App\Http\Requests\UpdateInventoryItemRequest;
 use App\InventoryItem;
 use App\InventoryItemStatus;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class InventoryItemController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index']);
-        $this->middleware('admin')->except(['index']);
     }
 
     /**
      * Display a listing of inventory items.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
+        abort_unless(Gate::allows('viewAny', InventoryItem::class), Response::HTTP_FORBIDDEN);
         $inventoryItems = InventoryItem::allJoined();
-        return response($inventoryItems, 200);
+        return response($inventoryItems, Response::HTTP_OK);
     }
 
     /**
      * Store a newly created inventory item in storage.
      *
-     * @param  \App\Http\Requests\CreateInventoryItemRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateInventoryItemRequest $request
+     * @return Response
      */
     public function store(CreateInventoryItemRequest $request)
     {
@@ -46,15 +48,15 @@ class InventoryItemController extends Controller
             'players_min' => request('playersMin'),
             'status_id' => InventoryItemStatus::IN_LCR_D4
         ])->genres()->attach(request('genres'));
-        return response([], 201);
+        return response([], Response::HTTP_CREATED);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateInventoryItemRequest  $request
-     * @param  \App\InventoryItem  $inventoryItem
-     * @return \Illuminate\Http\Response
+     * @param UpdateInventoryItemRequest $request
+     * @param InventoryItem $inventoryItem
+     * @return Response
      */
     public function update(UpdateInventoryItemRequest $request, InventoryItem $inventoryItem)
     {
@@ -70,19 +72,19 @@ class InventoryItemController extends Controller
             ]);
             $inventoryItem->genres()->sync(request('genres'));
         });
-        return response([], 200);
+        return response([], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Http\Requests\DeleteInventoryItemRequest
-     * @param  \App\InventoryItem $inventoryItem
-     * @return \Illuminate\Http\Response
+     * @param DeleteInventoryItemRequest
+     * @param InventoryItem $inventoryItem
+     * @return Response
      */
     public function destroy(DeleteInventoryItemRequest $request, InventoryItem $inventoryItem)
     {
         $inventoryItem->delete();
-        return response([], 200);
+        return response([], Response::HTTP_OK);
     }
 }

@@ -15,7 +15,7 @@ class BorrowingPolicy
      * Determine whether the user can view any borrowings.
      *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -27,7 +27,7 @@ class BorrowingPolicy
      *
      * @param User $user
      * @param Borrowing $borrowing
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Borrowing $borrowing)
     {
@@ -40,7 +40,7 @@ class BorrowingPolicy
      * Determine whether the user can create borrowings.
      *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -51,7 +51,7 @@ class BorrowingPolicy
      * Determine whether the user can return the borrowing.
      *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
     public function return(User $user)
     {
