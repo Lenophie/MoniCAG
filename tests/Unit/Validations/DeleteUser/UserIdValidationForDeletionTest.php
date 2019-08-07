@@ -3,6 +3,7 @@
 use App\Borrowing;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class UserIdValidationForDeletionTest extends TestCase
@@ -48,23 +49,23 @@ class UserIdValidationForDeletionTest extends TestCase
     }
 
     /**
-     * Tests modification of other admin rejection.
+     * Tests deletion of other admin rejection.
      *
      * @return void
      */
-    public function testModificationOfOtherAdminRejection()
+    public function testDeletionOfOtherAdminRejection()
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
         $response = $this->json('DELETE', '/api/users/' . $otherAdmin->id, []);
-        $response->assertJsonValidationErrors('user');
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
-     * Tests modification of lender validation.
+     * Tests deletion of lender validation.
      *
      * @return void
      */
-    public function testModificationOfLenderValidation()
+    public function testDeletionOfLenderValidation()
     {
         $user = factory(User::class)->state('lender')->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
@@ -72,11 +73,11 @@ class UserIdValidationForDeletionTest extends TestCase
     }
 
     /**
-     * Tests modification of basic user validation.
+     * Tests deletion of basic user validation.
      *
      * @return void
      */
-    public function testModificationOfBasicUserValidation()
+    public function testDeletionOfBasicUserValidation()
     {
         $user = factory(User::class)->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
@@ -84,11 +85,11 @@ class UserIdValidationForDeletionTest extends TestCase
     }
 
     /**
-     * Tests modification of self validation.
+     * Tests deletion of self validation.
      *
      * @return void
      */
-    public function testModificationOfSelfValidation()
+    public function testDeletionOfSelfValidation()
     {
         $response = $this->json('DELETE', '/api/users/' . $this->admin->id, []);
         $response->assertStatus(200);

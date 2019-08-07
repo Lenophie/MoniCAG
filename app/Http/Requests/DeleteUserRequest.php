@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +16,8 @@ class DeleteUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role_id === UserRole::ADMINISTRATOR;
+        $user = Route::input('user');
+        return Gate::allows('delete', $user);
     }
 
     protected function validationData()
@@ -35,7 +35,7 @@ class DeleteUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user' => 'unchanged_if_other_admin|not_involved_in_a_current_borrowing'
+            'user' => 'not_involved_in_a_current_borrowing'
         ];
     }
 

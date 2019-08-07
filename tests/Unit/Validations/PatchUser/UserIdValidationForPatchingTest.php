@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class UserIdValidationForPatchingTest extends TestCase
@@ -54,7 +55,7 @@ class UserIdValidationForPatchingTest extends TestCase
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
         $response = $this->json('PATCH', '/api/users/' . $otherAdmin->id . '/role', []);
-        $response->assertJsonValidationErrors('user');
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
