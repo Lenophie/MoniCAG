@@ -32,6 +32,7 @@ class User extends Authenticatable implements CanResetPassword
 
     /**
      * Always capitalize the first letter of the first name when we retrieve it
+     * @param $value
      */
     public function setFirstNameAttribute($value) {
         $this->attributes['first_name'] = ucwords(strtolower($value));
@@ -39,25 +40,29 @@ class User extends Authenticatable implements CanResetPassword
 
     /**
      * Always fully capitalize the last name when we retrieve it
+     * @param $value
      */
     public function setLastNameAttribute($value) {
         $this->attributes['last_name'] = strtoupper($value);
     }
 
     /**
-     * Get the user's borrowings.
+     * Get the user's borrowings
      */
     public function borrowings() {
         return $this->belongsTo('App\Borrowing', 'id', 'borrower_id');
     }
 
     /**
-     * Get the user's lendings.
+     * Get the user's lendings
      */
     public function lendings() {
         return $this->belongsTo('App\Borrowing', 'id', 'initial_lender_id');
     }
 
+    /**
+     * Get the user's role
+     */
     public function role() {
         return $this->hasOne('App\UserRole', 'id', 'role_id')
             ->select('id', 'name_'.App::getLocale().' AS name');
