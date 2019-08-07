@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Started using @json `Blade` directive
 * Replaced triple backticks by single backticks in changelog
 * Improved instructions in readme
+* Replaced middleware & resource authorizations with policies
 
 ### Fixed
 

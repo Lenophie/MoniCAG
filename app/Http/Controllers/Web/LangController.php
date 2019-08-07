@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class LangController extends Controller
 {
     // Credit to https://medium.com/@serhii.matrunchyk/using-laravel-localization-with-javascript-and-vuejs-23064d0c210e)
     /**
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -27,6 +28,6 @@ class LangController extends Controller
             $strings[$key] = $value;
         }
 
-        return response($strings, 200);
+        return response($strings, Response::HTTP_OK);
     }
 }
