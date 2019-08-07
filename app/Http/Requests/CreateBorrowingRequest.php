@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\UserRole;
+use App\Borrowing;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 
 class CreateBorrowingRequest extends FormRequest
@@ -16,7 +16,7 @@ class CreateBorrowingRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role_id === UserRole::LENDER || Auth::user()->role_id === UserRole::ADMINISTRATOR;
+        return Gate::allows('create', Borrowing::class);
     }
 
     /**

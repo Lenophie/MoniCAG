@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Borrowing;
 use App\InventoryItemStatus;
-use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 
@@ -18,7 +18,7 @@ class EndBorrowingRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role_id === UserRole::LENDER || Auth::user()->role_id === UserRole::ADMINISTRATOR;
+        return Gate::allows('return', Borrowing::class);
     }
 
     /**
