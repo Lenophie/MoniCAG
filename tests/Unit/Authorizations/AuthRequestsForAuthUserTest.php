@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AuthRequestsForAuthUserTest extends TestCase
@@ -23,7 +24,7 @@ class AuthRequestsForAuthUserTest extends TestCase
     public function testNoRegistrationForAuthUsers()
     {
         $response = $this->json('POST', '/register', []);
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -34,7 +35,7 @@ class AuthRequestsForAuthUserTest extends TestCase
     public function testNoLoginForAuthUsers()
     {
         $response = $this->json('POST', '/login', []);
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -45,7 +46,7 @@ class AuthRequestsForAuthUserTest extends TestCase
     public function testNoPasswordResetAllowedForAuthUsers()
     {
         $response = $this->json('POST', '/password/reset', []);
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -55,8 +56,8 @@ class AuthRequestsForAuthUserTest extends TestCase
      */
     public function testAccountDeletionAllowedForAuthUsers()
     {
-        $response = $this->json('DELETE', '/account', []);
-        $response->assertStatus(422);
+        $response = $this->json('DELETE', route('account'), []);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -67,7 +68,7 @@ class AuthRequestsForAuthUserTest extends TestCase
     public function testPasswordChangeAllowedForAuthUsers()
     {
         $response = $this->json('POST', '/password/change', []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -78,6 +79,6 @@ class AuthRequestsForAuthUserTest extends TestCase
     public function testEmailChangeAllowedForAuthUsers()
     {
         $response = $this->json('POST', '/email/change', []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

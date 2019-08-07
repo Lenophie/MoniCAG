@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class NewBorrowingRequestTest extends TestCase
@@ -58,7 +59,7 @@ class NewBorrowingRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
 
         foreach([0, 2] as $i) {
             // Check inventory items status updates

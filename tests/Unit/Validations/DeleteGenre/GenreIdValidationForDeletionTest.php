@@ -4,6 +4,7 @@ use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class GenreIdValidationForDeletionTest extends TestCase
@@ -28,7 +29,7 @@ class GenreIdValidationForDeletionTest extends TestCase
     public function testGenreIdNotAnIntegerRejection()
     {
         $response = $this->json('DELETE', '/api/genres/string', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -44,7 +45,7 @@ class GenreIdValidationForDeletionTest extends TestCase
         $nonExistentGenreID = max($genresIds) + 1;
 
         $response = $this->json('DELETE', '/api/genres/' . $nonExistentGenreID, []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -57,7 +58,7 @@ class GenreIdValidationForDeletionTest extends TestCase
         $genre = factory(Genre::class)->create();
         factory(InventoryItem::class)->create()->genres()->sync([$genre->id]);
         $response = $this->json('DELETE', '/api/genres/' . $genre->id, []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -70,7 +71,7 @@ class GenreIdValidationForDeletionTest extends TestCase
         $genres = factory(Genre::class, 2)->create();
         factory(InventoryItem::class)->create()->genres()->sync($genres->pluck('id'));
         $response = $this->json('DELETE', '/api/genres/' . $genres[0]->id, []);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +82,6 @@ class GenreIdValidationForDeletionTest extends TestCase
     public function testGenreWithNoitemValidation() {
         $genre = factory(Genre::class)->create();
         $response = $this->json('DELETE', '/api/genres/' . $genre->id, []);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

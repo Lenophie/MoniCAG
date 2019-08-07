@@ -6,6 +6,7 @@ use App\InventoryItemStatus;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PatchInventoryItemRequestTest extends TestCase
@@ -56,7 +57,7 @@ class PatchInventoryItemRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         // Check inventory item patching in database
         $this->assertDatabaseHas('inventory_items', [

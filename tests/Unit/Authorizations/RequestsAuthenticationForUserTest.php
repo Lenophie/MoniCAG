@@ -4,6 +4,7 @@ use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class RequestsAuthenticationForUserTest extends TestCase
@@ -25,7 +26,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testNoNewBorrowingRequestAllowedForUser()
     {
         $response = $this->json('POST', '/api/borrowings', []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -36,7 +37,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testNoEndBorrowingRequestAllowedForUser()
     {
         $response = $this->json('PATCH', '/api/borrowings', []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -47,7 +48,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testNoAddInventoryItemRequestAllowedForUser()
     {
         $response = $this->json('POST', '/api/inventoryItems', []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -59,7 +60,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -71,7 +72,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -83,7 +84,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $user = factory(User::class)->create();
         $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -95,7 +96,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $user = factory(User::class)->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -106,7 +107,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testNoAddGenreAllowedForUser()
     {
         $response = $this->json('POST', 'api/genres/', []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -118,7 +119,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -130,6 +131,6 @@ class RequestsAuthenticationForUserTest extends TestCase
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

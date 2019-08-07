@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PagesAccessForGuestTest extends TestCase
@@ -12,7 +13,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testHomePageAccessForGuest()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -23,7 +24,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testNewBorrowingPageAccessForGuest()
     {
         $response = $this->get('/new-borrowing');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -34,7 +35,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testEndBorrowingPageAccessForGuest()
     {
         $response = $this->get('/end-borrowing');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -45,7 +46,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testBorrowingsHistoryPageAccessForGuest()
     {
         $response = $this->get('/borrowings-history');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -56,7 +57,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testViewInventoryPageAccessForGuest()
     {
         $response = $this->get('/view-inventory');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -67,7 +68,7 @@ class PagesAccessForGuestTest extends TestCase
     public function testEditInventoryPageAccessForGuest()
     {
         $response = $this->get('/edit-inventory');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -78,6 +79,6 @@ class PagesAccessForGuestTest extends TestCase
     public function testEditUsersPageAccessForGuest()
     {
         $response = $this->get('/edit-users');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

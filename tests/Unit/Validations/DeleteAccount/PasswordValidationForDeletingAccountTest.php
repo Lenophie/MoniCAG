@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PasswordValidationForDeletingAccountTest extends TestCase
@@ -42,7 +43,7 @@ class PasswordValidationForDeletingAccountTest extends TestCase
         $response = $this->json('DELETE', '/account', [
             'password' => $userPassword
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**

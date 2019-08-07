@@ -4,6 +4,7 @@ use App\Borrowing;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class DeleteInventoryItemRequestTest extends TestCase
@@ -34,7 +35,7 @@ class DeleteInventoryItemRequestTest extends TestCase
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItems[1]->id, []);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         // Check inventory item deletion in database
         $this->assertDatabaseMissing('inventory_items', [

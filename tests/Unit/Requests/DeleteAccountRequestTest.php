@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class DeleteAccountRequestTest extends TestCase
@@ -35,7 +36,7 @@ class DeleteAccountRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         // Check user deleted from database
         $this->assertDatabaseMissing('users', [

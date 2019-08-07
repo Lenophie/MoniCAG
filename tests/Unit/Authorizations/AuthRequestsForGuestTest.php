@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AuthRequestsForGuestTest extends TestCase
@@ -12,7 +13,7 @@ class AuthRequestsForGuestTest extends TestCase
     public function testRegistrationAllowedForGuest()
     {
         $response = $this->json('POST', '/register', []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -23,7 +24,7 @@ class AuthRequestsForGuestTest extends TestCase
     public function testLoginAllowedForGuest()
     {
         $response = $this->json('POST', '/login', []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -34,7 +35,7 @@ class AuthRequestsForGuestTest extends TestCase
     public function testPasswordResetAllowedForGuest()
     {
         $response = $this->json('POST', '/password/reset', []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -44,8 +45,8 @@ class AuthRequestsForGuestTest extends TestCase
      */
     public function testNoAccountDeletionForGuest()
     {
-        $response = $this->json('DELETE', '/account', []);
-        $response->assertStatus(401);
+        $response = $this->json('DELETE', route('account'), []);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -56,7 +57,7 @@ class AuthRequestsForGuestTest extends TestCase
     public function testNoPasswordChangeForGuest()
     {
         $response = $this->json('POST', '/password/change', []);
-        $response->assertStatus(401);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -67,6 +68,6 @@ class AuthRequestsForGuestTest extends TestCase
     public function testNoEmailChangeForGuest()
     {
         $response = $this->json('POST', '/email/change', []);
-        $response->assertStatus(401);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 }

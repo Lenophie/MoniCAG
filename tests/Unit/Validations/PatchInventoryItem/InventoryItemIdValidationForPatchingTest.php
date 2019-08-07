@@ -3,6 +3,7 @@
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class InventoryItemIdValidationForPatchingTest extends TestCase
@@ -24,7 +25,7 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
     public function testInventoryItemIdNotAnIntegerRejection()
     {
         $response = $this->json('PATCH', '/api/inventoryItems/string', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -40,7 +41,7 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
         $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
 
         $response = $this->json('PATCH', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -52,6 +53,6 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

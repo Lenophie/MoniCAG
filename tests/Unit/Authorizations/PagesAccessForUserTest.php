@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PagesAccessForUserTest extends TestCase
@@ -23,7 +24,7 @@ class PagesAccessForUserTest extends TestCase
     public function testHomePageAccessForUser()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class PagesAccessForUserTest extends TestCase
     public function testNewBorrowingPageAccessForUser()
     {
         $response = $this->get('/new-borrowing');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -45,7 +46,7 @@ class PagesAccessForUserTest extends TestCase
     public function testEndBorrowingPageAccessForUser()
     {
         $response = $this->get('/end-borrowing');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -56,7 +57,7 @@ class PagesAccessForUserTest extends TestCase
     public function testBorrowingsHistoryPageAccessForUser()
     {
         $response = $this->get('/borrowings-history');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -67,7 +68,7 @@ class PagesAccessForUserTest extends TestCase
     public function testViewInventoryPageAccessForUser()
     {
         $response = $this->get('/view-inventory');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -78,7 +79,7 @@ class PagesAccessForUserTest extends TestCase
     public function testEditInventoryPageAccessForUser()
     {
         $response = $this->get('/edit-inventory');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -89,6 +90,6 @@ class PagesAccessForUserTest extends TestCase
     public function testEditUsersPageAccessForUser()
     {
         $response = $this->get('/edit-users');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

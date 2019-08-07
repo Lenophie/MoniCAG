@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class EndBorrowingRequestTest extends TestCase
@@ -46,7 +47,7 @@ class EndBorrowingRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         foreach([0, 2] as $i) {
             // Check inventory items status updates
@@ -119,7 +120,7 @@ class EndBorrowingRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         foreach([0, 2] as $i) {
             // Check inventory items status updates

@@ -3,6 +3,7 @@
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class InventoryItemIdValidationForDeletionTest extends TestCase
@@ -24,7 +25,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     public function testInventoryItemIdNotAnIntegerRejection()
     {
         $response = $this->json('DELETE', '/api/inventoryItems/string', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -40,7 +41,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
         $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
 
         $response = $this->json('DELETE', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -64,6 +65,6 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

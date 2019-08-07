@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PagesAccessForLenderTest extends TestCase
@@ -23,7 +24,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testHomePageAccessForLender()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testNewBorrowingPageAccessForLender()
     {
         $response = $this->get('/new-borrowing');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -45,7 +46,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testEndBorrowingPageAccessForLender()
     {
         $response = $this->get('/end-borrowing');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -56,7 +57,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testBorrowingsHistoryPageAccessForLender()
     {
         $response = $this->get('/borrowings-history');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -67,7 +68,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testViewInventoryPageAccessForLender()
     {
         $response = $this->get('/view-inventory');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -78,7 +79,7 @@ class PagesAccessForLenderTest extends TestCase
     public function testEditInventoryPageAccessForLender()
     {
         $response = $this->get('/edit-inventory');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -89,6 +90,6 @@ class PagesAccessForLenderTest extends TestCase
     public function testEditUsersPageAccessForLender()
     {
         $response = $this->get('/edit-users');
-        $response->assertStatus(403);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

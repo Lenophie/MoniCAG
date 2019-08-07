@@ -27,7 +27,7 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testUserIdNotAnIntegerRejection()
     {
         $response = $this->json('PATCH', '/api/users/string/role', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -43,7 +43,7 @@ class UserIdValidationForPatchingTest extends TestCase
         $nonExistentUserID = max($usersIDs) + 1;
 
         $response = $this->json('PATCH', '/api/users/' . $nonExistentUserID . '/role', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AuthPagesAccessForGuestTest extends TestCase
@@ -12,7 +13,7 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testLoginPageAccessForGuest()
     {
         $response = $this->get('/login');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -23,7 +24,7 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testRegisterPageAccessForGuest()
     {
         $response = $this->get('/register');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testPasswordResetPageAccessForGuest()
     {
         $response = $this->get('/password/reset');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -45,7 +46,7 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testPasswordChangePageAccessForGuest()
     {
         $response = $this->get('/password/change');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
     /**
      * Tests email change page access for guests.
@@ -55,7 +56,7 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testEmailChangePageAccessForGuest()
     {
         $response = $this->get('/email/change');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
 
@@ -67,6 +68,6 @@ class AuthPagesAccessForGuestTest extends TestCase
     public function testAccountPageAccessForGuest()
     {
         $response = $this->get('/account');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

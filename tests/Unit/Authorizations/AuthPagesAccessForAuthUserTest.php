@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AuthPagesAccessForAuthUserTest extends TestCase
@@ -23,7 +24,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
     public function testLoginPageAccessForAuthUsers()
     {
         $response = $this->get('/login');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -34,7 +35,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
     public function testRegisterPageAccessForAuthUsers()
     {
         $response = $this->get('/register');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -45,7 +46,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
     public function testPasswordResetPageAccessForAuthUsers()
     {
         $response = $this->get('/password/reset');
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -56,7 +57,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
     public function testPasswordChangePageAccessForAuthUsers()
     {
         $response = $this->get('/password/change');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
     /**
      * Tests email change page access for authenticated users.
@@ -66,7 +67,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
     public function testEmailChangePageAccessForAuthUsers()
     {
         $response = $this->get('/email/change');
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -76,7 +77,7 @@ class AuthPagesAccessForAuthUserTest extends TestCase
      */
     public function testAccountPageAccessForAuthUsers()
     {
-        $response = $this->get('/account');
-        $response->assertStatus(200);
+        $response = $this->get(route('account'));
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

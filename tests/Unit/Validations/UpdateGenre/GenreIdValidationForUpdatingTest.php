@@ -3,6 +3,7 @@
 use App\Genre;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class GenreIdValidationForUpdatingGenreTest extends TestCase
@@ -27,7 +28,7 @@ class GenreIdValidationForUpdatingGenreTest extends TestCase
     public function testGenreIdNotAnIntegerRejection()
     {
         $response = $this->json('PATCH', '/api/genres/string', []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -43,6 +44,6 @@ class GenreIdValidationForUpdatingGenreTest extends TestCase
         $nonExistentGenreID = max($genresIDs) + 1;
 
         $response = $this->json('PATCH', '/api/genres/' . $nonExistentGenreID, []);
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

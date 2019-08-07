@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class ChangeEmailRequestTest extends TestCase
@@ -37,7 +38,7 @@ class ChangeEmailRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
 
         // Check email modification in database
         $this->assertDatabaseHas('users', [

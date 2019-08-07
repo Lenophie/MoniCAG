@@ -4,6 +4,7 @@ use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class NamesValidationForPatchingTest extends TestCase
@@ -28,7 +29,7 @@ class NamesValidationForPatchingTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -45,21 +46,21 @@ class NamesValidationForPatchingTest extends TestCase
             'nameFr' => ['I am a string'],
             'nameEn' => ['I am a string']
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => null,
             'nameEn' => null
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
             'nameFr' => 1,
             'nameEn' => 1
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -76,7 +77,7 @@ class NamesValidationForPatchingTest extends TestCase
             'nameFr' => $inventoryItems[0]->name_fr,
             'nameEn' => $inventoryItems[1]->name_en
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -93,7 +94,7 @@ class NamesValidationForPatchingTest extends TestCase
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -110,7 +111,7 @@ class NamesValidationForPatchingTest extends TestCase
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
     }
@@ -143,7 +144,7 @@ class NamesValidationForPatchingTest extends TestCase
             'nameFr' => $inventoryItem->name_fr,
             'nameEn' => $inventoryItem->name_en
         ]);
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
     }

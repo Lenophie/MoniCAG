@@ -4,6 +4,7 @@ use App\User;
 use App\UserRole;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PatchUserRequestTest extends TestCase
@@ -36,7 +37,7 @@ class PatchUserRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         // Check user patching in database
         $this->assertDatabaseHas('users', [

@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AddGenreRequestTest extends TestCase
@@ -36,7 +37,7 @@ class AddGenreRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
 
         // Check inventory item creation in database
         $this->assertDatabaseHas('genres', [

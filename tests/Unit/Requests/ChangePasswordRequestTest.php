@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -39,7 +40,7 @@ class ChangePasswordRequestTest extends TestCase
         ]);
 
         // Check response
-        $response->assertStatus(302);
+        $response->assertStatus(Response::HTTP_FOUND);
 
         // Check new password set in database
         $newPasswordEntry = User::find($user->id)->select('password')->first()->password;

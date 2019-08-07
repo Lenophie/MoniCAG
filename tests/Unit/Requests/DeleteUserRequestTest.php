@@ -4,6 +4,7 @@ use App\Borrowing;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class DeleteUserRequestTest extends TestCase
@@ -33,7 +34,7 @@ class DeleteUserRequestTest extends TestCase
         $response = $this->json('DELETE', '/api/users/' . $users[1]->id, []);
 
         // Check response
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         // Check user deletion in database
         $this->assertDatabaseMissing('users', [
