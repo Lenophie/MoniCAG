@@ -10,6 +10,7 @@ use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,19 +23,19 @@ class BorrowingController extends Controller
     /**
      * Display a listing of borrowings.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $borrowings = Borrowing::history();
-        return response($borrowings, 200);
+        return response($borrowings, Response::HTTP_CONTINUE);
     }
 
     /**
      * Store a newly created borrowing in storage.
      *
-     * @param  \App\Http\Requests\CreateBorrowingRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateBorrowingRequest $request
+     * @return Response
      */
     public function store(CreateBorrowingRequest $request)
     {
@@ -55,50 +56,33 @@ class BorrowingController extends Controller
                 InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::BORROWED]);
             }
         });
-        return response([], 201);
+        return response([], Response::HTTP_CREATED);
     }
 
     /**
      * Return the specified borrowings in storage.
      *
-     * @param  \App\Http\Requests\EndBorrowingRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param EndBorrowingRequest $request
+     * @return Response
      */
     public function return(EndBorrowingRequest $request)
     {
         $newInventoryItemsStatus = (int) request('newInventoryItemsStatus');
-        if ($newInventoryItemsStatus === InventoryItemStatus::IN_LCR_D4) {
+        DB::transaction(function () use ($newInventoryItemsStatus) {
             foreach (request('selectedBorrowings') as $selectedBorrowing) {
-                DB::transaction(function() use ($selectedBorrowing) {
-                    Borrowing::where('id', $selectedBorrowing)
-                        ->update([
-                            'finished' => true,
-                            'return_lender_id' => Auth::user()->id,
-                            'return_date' => Carbon::now()
-                        ]);
-                    InventoryItem::with('borrowing')
-                        ->whereHas('borrowing', function ($q) use ($selectedBorrowing) {
-                            $q->where('id', $selectedBorrowing);
-                        })
-                        ->update(['status_id' => InventoryItemStatus::IN_LCR_D4]);
-                });
-            }
-        } else if ($newInventoryItemsStatus === InventoryItemStatus::LOST) {
-            foreach (request('selectedBorrowings') as $selectedBorrowing) {
-                DB::transaction(function() use ($selectedBorrowing) {
-                    Borrowing::where('id', $selectedBorrowing)
-                        ->update([
-                            'finished' => true,
-                            'return_lender_id' => Auth::user()->id,
-                            'return_date' => Carbon::now()
-                        ]);
-                    InventoryItem::with('borrowing')
-                        ->whereHas('borrowing', function($q) use($selectedBorrowing) {
-                            $q->where('id', $selectedBorrowing);})
-                        ->update(['status_id' => InventoryItemStatus::LOST]);
-                });
-            }
-        } else abort(422);
-        return response([], 200);
+                Borrowing::where('id', $selectedBorrowing)
+                    ->update([
+                        'finished' => true,
+                        'return_lender_id' => Auth::user()->id,
+                        'return_date' => Carbon::now()
+                    ]);
+                InventoryItem::with('borrowing')
+                    ->whereHas('borrowing', function($q) use($selectedBorrowing) {
+                        $q->where('id', $selectedBorrowing);})
+                    ->update(['status_id' => $newInventoryItemsStatus]);
+            };
+        });
+
+        return response([], Response::HTTP_OK);
     }
 }
