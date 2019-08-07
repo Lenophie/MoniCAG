@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\UserRole;
+use App\Genre;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ class DeleteGenreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role_id === UserRole::ADMINISTRATOR;
+        return Gate::allows('delete', Genre::class);
     }
 
     protected function validationData()

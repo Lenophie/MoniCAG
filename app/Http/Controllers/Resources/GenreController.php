@@ -7,31 +7,34 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGenreRequest;
 use App\Http\Requests\DeleteGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
+use Exception;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class GenreController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index']);
-        $this->middleware('admin')->except(['index']);
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
+        abort_unless(Gate::allows('viewAny', Genre::class), Response::HTTP_FORBIDDEN);
         $genres = Genre::all();
-        return response($genres, 200);
+        return response($genres, Response::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @paramU  \App\Http\Requests\AddGenreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateGenreRequest $request
+     * @return Response
      */
     public function store(CreateGenreRequest $request)
     {
@@ -39,15 +42,15 @@ class GenreController extends Controller
             'name_fr' => htmlspecialchars(request('nameFr')),
             'name_en' => htmlspecialchars(request('nameEn')),
         ]);
-        return response([], 201);
+        return response([], Response::HTTP_CREATED);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateGenreRequest  $request
-     * @param  \App\Genre  $genre
-     * @return \Illuminate\Http\Response
+     * @param UpdateGenreRequest $request
+     * @param Genre $genre
+     * @return Response
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
@@ -55,19 +58,20 @@ class GenreController extends Controller
             'name_fr' => htmlspecialchars(request('nameFr')),
             'name_en' => htmlspecialchars(request('nameEn')),
         ]);
-        return response([], 200);
+        return response([], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Http\Requests\DeleteGenreRequest $request
-     * @param  \App\Genre  $genre
-     * @return \Illuminate\Http\Response
+     * @param DeleteGenreRequest $request
+     * @param Genre $genre
+     * @return Response
+     * @throws Exception
      */
     public function destroy(DeleteGenreRequest $request, Genre $genre)
     {
         $genre->delete();
-        return response([], 200);
+        return response([], Response::HTTP_OK);
     }
 }
