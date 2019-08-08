@@ -31,6 +31,7 @@ class DeleteAccountTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
+        $this->userToDelete->delete();
         foreach ($this->otherUsers as $user) $user->delete();
     }
 
@@ -42,7 +43,7 @@ class DeleteAccountTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->on(new AccountPage())
                 ->openAccountDeletionModal()
-                ->whenAvailable('@accountDeletionModal', function ($modal) {
+                ->whenAvailable('#caca', function ($modal) {
                     $modal->type('password', $this->userToDeletePassword)
                         ->click('@accountDeletionConfirmationButton');
                 })
