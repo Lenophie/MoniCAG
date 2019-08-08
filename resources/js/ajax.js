@@ -60,3 +60,8 @@ export const makeAjaxRequest = (method, url, data, successCallback, errorCallbac
         request.send(data);
     }
 };
+
+export const makeAjaxPromise = (method, url, data) =>
+    new Promise(
+        (resolve, reject) => makeAjaxRequest(method, url, data, resolve, reject)
+    );
