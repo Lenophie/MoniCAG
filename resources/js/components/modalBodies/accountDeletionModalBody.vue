@@ -20,20 +20,24 @@
                     </span>
                 </div>
             </div>
-            <div v-if="Object.keys(accountDeletionRequest.errors).length > 0">
-                <ul>
-                    <li v-for="error in accountDeletionRequest.errors.password" class="error-text">{{error}}</li>
-                </ul>
-            </div>
+            <error-field
+                :errors-list="accountDeletionRequest.errors"
+                :field-key="'password'">
+            </error-field>
         </form>
     </div>
 </template>
 
 <script>
+    import errorField from '../errorField.vue';
+
     export default {
         props: ['accountDeletionRoute', 'accountDeletionRequest', 'submit'],
         mounted() {
             this.$emit('ready', this.accountDeletionRoute)
+        },
+        components: {
+            errorField
         }
     }
 </script>
