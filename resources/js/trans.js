@@ -1,16 +1,14 @@
 import get from "lodash.get";
-import {makeAjaxRequest, HTTPVerbs} from "./ajax.js";
+import {makeAjaxPromise, HTTPVerbs} from "./ajax.js";
 
-const storeTranslationFile = (json) => {
+const storeTranslationFile = json => {
     window.i18n = json;
 };
 
-export const requestTranslationFile = () => {
-    makeAjaxRequest(HTTPVerbs.GET,
-        '/res/lang.json',
-        '',
-        res => storeTranslationFile(JSON.parse(res)),
-        () => storeTranslationFile({}));
+export const requestTranslationFile = async () => {
+    await makeAjaxPromise(HTTPVerbs.GET, '/res/lang.json', '')
+        .then(res => storeTranslationFile(JSON.parse(res)))
+        .catch(() => storeTranslationFile({}));
 };
 
 export const trans = string => {
