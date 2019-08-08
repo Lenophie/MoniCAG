@@ -17,7 +17,7 @@ class DeleteUserRequest extends FormRequest
     public function authorize()
     {
         $user = Route::input('user');
-        return Gate::allows('delete', $user);
+        return Gate::raw('delete', $user);
     }
 
     protected function validationData()

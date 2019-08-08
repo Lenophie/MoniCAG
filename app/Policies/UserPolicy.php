@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use App\UserRole;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -39,11 +40,18 @@ class UserPolicy
      * @param User $user
      * @param User $model
      * @return bool
+     * @throws AuthorizationException
      */
     public function updateRole(User $user, User $model)
     {
-        return $user->id == $model->id ||
-            ($user->role_id == UserRole::ADMINISTRATOR && $model->role_id !== UserRole::ADMINISTRATOR);
+        if ($user->id == $model->id) return true;
+        else if ($user->role_id == UserRole::ADMINISTRATOR) {
+            if ($model->role_id == UserRole::ADMINISTRATOR)
+                $this->deny(__('validation/updateUserRole.user.unchanged_if_other_admin'));
+            else if ($model->role_id == UserRole::LENDER || $model->role_id == UserRole::NONE)
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -52,10 +60,17 @@ class UserPolicy
      * @param User $user
      * @param User $model
      * @return bool
+     * @throws AuthorizationException
      */
     public function delete(User $user, User $model)
     {
-        return $user->id == $model->id ||
-            ($user->role_id == UserRole::ADMINISTRATOR && $model->role_id !== UserRole::ADMINISTRATOR);
+        if ($user->id == $model->id) return true;
+        else if ($user->role_id == UserRole::ADMINISTRATOR) {
+            if ($model->role_id == UserRole::ADMINISTRATOR)
+                $this->deny(__('validation/deleteUser.user.unchanged_if_other_admin'));
+            else if ($model->role_id == UserRole::LENDER || $model->role_id == UserRole::NONE)
+                return true;
+        }
+        return false;
     }
 }

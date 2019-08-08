@@ -17,7 +17,7 @@ class UpdateUserRoleRequest extends FormRequest
     public function authorize()
     {
         $user = Route::input('user');
-        return Gate::allows('updateRole', $user);
+        return Gate::raw('updateRole', $user);
     }
 
     protected function validationData()
