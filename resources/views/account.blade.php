@@ -1,4 +1,3 @@
-<!--suppress XmlUnboundNsPrefix -->
 @extends('template')
 
 @section('stylesheet')
@@ -37,15 +36,15 @@
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-12">
-                <h2 class="title is-5">{{__('Welcome')}}, {{Auth::user()->first_name}} {{Auth::user()->last_name}}.</h2>
+                <h2 class="title is-5">{{__('Welcome')}}, {{$user->first_name}} {{$user->last_name}}.</h2>
                 <div class="card" id="info-card">
                     <div class="card-content">
                         <h3 class="title is-6">{{__('My info')}}</h3>
-                        <div>{{ __('Last name') }} : {{Auth::user()->last_name}}</div>
-                        <div>{{ __('First name') }} : {{Auth::user()->first_name}}</div>
-                        <div>{{ __('Promotion') }} : {{Auth::user()->promotion}}</div>
-                        <div>{{ __('E-mail address') }} : {{Auth::user()->email}}</div>
-                        <div>{{ __('Role') }} : {{Auth::user()->role->name}}</div>
+                        <div>{{ __('Last name') }} : {{$user->last_name}}</div>
+                        <div>{{ __('First name') }} : {{$user->first_name}}</div>
+                        <div>{{ __('Promotion') }} : {{$user->promotion}}</div>
+                        <div>{{ __('E-mail address') }} : {{$user->email}}</div>
+                        <div>{{ __('Role') }} : {{$user->role->name}}</div>
                     </div>
                     <footer class="card-footer">
                         <a id="modify-email-link" class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
@@ -82,7 +81,7 @@
                  :account-deletion-request="accountDeletionRequest"
                  :submit="requestAccountDeletion"
                  @ready="setAccountDeletionRequestRoute"
-            />
+            ></account-deletion-modal-body>
         </template>
         <template v-slot:footer>
             <a

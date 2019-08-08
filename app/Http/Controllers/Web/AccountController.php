@@ -18,7 +18,8 @@ class AccountController extends Controller
     public function index()
     {
         $userBorrowings = Borrowing::userCurrentHistory(Auth::user()->id);
-        return view('account', compact('userBorrowings'));
+        $user = Auth::user();
+        return view('account', compact('userBorrowings', 'user'));
     }
 
     public function delete(DeleteAccountRequest $request)
