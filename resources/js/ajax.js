@@ -47,14 +47,14 @@ export const makeAjaxRequest = (method, url, data, successCallback, errorCallbac
         request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
         request.onload = () => {
             if (request.status >= 200 && request.status < 400) {
-                if (typeof(successCallback) === 'function') successCallback(request.response);
+                if (typeof(successCallback) === 'function') successCallback(request.response, request.status);
             } else {
-                if (typeof(errorCallback) === 'function') errorCallback(request.response);
+                if (typeof(errorCallback) === 'function') errorCallback(request.response, request.status);
             }
         };
 
         request.onerror = () => {
-            if (typeof(errorCallback) === 'function') errorCallback(request.response);
+            if (typeof(errorCallback) === 'function') errorCallback(request.response, request.status);
         };
 
         request.send(data);
