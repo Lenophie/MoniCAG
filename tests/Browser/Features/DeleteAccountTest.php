@@ -32,6 +32,7 @@ class DeleteAccountTest extends DuskTestCase
 
     protected function tearDown(): void {
         foreach ($this->otherUsers as $user) $user->delete();
+        $this->userToDelete->delete();
     }
 
     public function testDeleteAccount() {
