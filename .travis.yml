@@ -13,21 +13,24 @@ addons:
   mariadb: '10.3'
   chrome: stable # Used by Dusk
 
-before_script:
-- set -e
-- cp .env.travis .env # Composer reads APP_ENV, it assumes production by default which would prevent Dusk installation
-- travis_retry composer install --no-interaction --prefer-dist --no-suggest
-- cp .env.travis .env.testing
-- cp .env.travis .env.dusk.local
-- nvm install $TRAVIS_NODE_VERSION
+before_install:
 - mysql -e 'create database monicag' # Used by PHPUnit
 - mysql -e "create user 'monika'@'localhost' IDENTIFIED BY 'justmonika';"
 - mysql -e "grant all on monicag.* to 'monika'@'localhost';"
+
+install:
+- cp .env.travis .env # Composer reads APP_ENV, it assumes production by default which would prevent Dusk installation
+- travis_retry composer install --no-interaction --prefer-dist --no-suggest
+- nvm install $TRAVIS_NODE_VERSION
+
+before_script:
+- cp .env.travis .env.testing
+- cp .env.travis .env.dusk.local
 - php artisan key:generate
 - php artisan key:generate --env=testing
 - php artisan key:generate --env=dusk.local
-- php artisan migrate --seed &
-  php artisan migrate --seed --env=testing &
+- php artisan migrate --seed
+- php artisan migrate --seed --env=testing
 - php artisan passport:install
 - php artisan dusk:chrome-driver
 - npm ci
@@ -35,6 +38,5 @@ before_script:
 - php artisan serve --env=dusk.local >& /dev/null &
 
 script:
-- set -e
 - composer phpunit
 - composer dusk
