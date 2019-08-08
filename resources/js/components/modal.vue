@@ -1,10 +1,10 @@
 <template>
     <div class="modal is-active">
-        <div class="modal-background" @click="$emit('close')"></div>
+        <div class="modal-background" @click="emitCloseEvent"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">{{title}}</p>
-                <a class="delete" aria-label="close" @click="$emit('close')"></a>
+                <a class="delete" aria-label="close" @click="emitCloseEvent"></a>
             </header>
             <div class="modal-card-body">
                 <slot name="body"></slot>
@@ -18,16 +18,21 @@
 
 <script>
     export default {
-        props: ['title'],
-        created () {
-            document.addEventListener('keydown', this.onkey)
+        props: {
+            title: String
         },
-        beforeDestroy () {
-            document.removeEventListener('keydown', this.onkey)
+        created() {
+            document.addEventListener('keydown', this.onKey)
+        },
+        beforeDestroy() {
+            document.removeEventListener('keydown', this.onKey)
         },
         methods: {
-            onkey(e) {
-                if (e.key === 'Escape') this.$emit('close');
+            emitCloseEvent() {
+                this.$emit('close');
+            },
+            onKey(e) {
+                if (e.key === 'Escape') this.emitCloseEvent();
             }
         }
     }

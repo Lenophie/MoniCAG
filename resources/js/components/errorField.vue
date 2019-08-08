@@ -9,6 +9,9 @@
 <script>
     export default {
         name: "errorField",
-        props: ['errorsList', 'fieldKey']
+        props: {
+            errorsList: Object,
+            fieldKey: String
+        }
     }
 </script>

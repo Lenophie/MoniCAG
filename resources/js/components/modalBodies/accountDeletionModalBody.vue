@@ -32,7 +32,11 @@
     import errorField from '../errorField.vue';
 
     export default {
-        props: ['accountDeletionRoute', 'accountDeletionRequest', 'submit'],
+        props: {
+            accountDeletionRoute: String,
+            accountDeletionRequest: Object,
+            submit: Function
+        },
         mounted() {
             this.$emit('ready', this.accountDeletionRoute)
         },
