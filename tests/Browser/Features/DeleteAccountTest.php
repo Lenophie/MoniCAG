@@ -43,9 +43,9 @@ class DeleteAccountTest extends DuskTestCase
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->on(new AccountPage())
                 ->openAccountDeletionModal()
-                ->whenAvailable('@accountDeletionModal', function ($modal) {
+                ->whenAvailable('#account-deletion-confirmation-modal', function ($modal) {
                     $modal->type('password', $this->userToDeletePassword)
-                        ->click('@accountDeletionConfirmationButton');
+                        ->click('account-deletion-confirmation-button');
                 })
                 ->waitForReload()
                 ->assertPathIs('/');
