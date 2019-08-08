@@ -14,6 +14,12 @@ const addListeners = () => {
     }
 };
 
+const handleRequestError = (id) => (responseBody, code) => {
+    enableInputs(true);
+    if (code === 422) handleFormErrors(JSON.parse(responseBody).errors, code, id);
+    else handleFormErrors(JSON.parse(responseBody).message, code, id);
+};
+
 // Listeners handlers
 const handleEditUserButtonClick = (e, id) => {
     e.preventDefault();
@@ -24,11 +30,7 @@ const handleEditUserButtonClick = (e, id) => {
     enableInputs(false);
 
     const successCallback = () => window.location.href = id === currentUserID ? '/' : '';
-    const errorCallback = (response) => {
-        enableInputs(true);
-        handleFormErrors(JSON.parse(response).errors, id);
-    };
-    makeAjaxRequest(HTTPVerbs.PATCH, `${usersApiUrl}/${id}/role`, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.PATCH, `${usersApiUrl}/${id}/role`, JSON.stringify(formattedForm), successCallback, handleRequestError(id));
 };
 
 const handleDeleteUserButtonClick = (e, id) => {
@@ -40,18 +42,18 @@ const handleDeleteUserButtonClick = (e, id) => {
     enableInputs(false);
 
     const successCallback = () => window.location.href = id === currentUserID ? '/' : '';
-    const errorCallback = (response) => {
-        enableInputs(true);
-        handleFormErrors(JSON.parse(response).errors, id);
-    };
-    makeAjaxRequest(HTTPVerbs.DELETE, `${usersApiUrl}/${id}`, JSON.stringify(formattedForm), successCallback, errorCallback);
+    makeAjaxRequest(HTTPVerbs.DELETE, `${usersApiUrl}/${id}`, JSON.stringify(formattedForm), successCallback, handleRequestError(id));
 };
 
-const handleFormErrors = (errors, id) => {
-    for (const fieldName in errors) {
-        for (const error of errors[fieldName]) {
-            getById(`errors-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
+const handleFormErrors = (errors, code, id) => {
+    if (code === 422) {
+        for (const fieldName in errors) {
+            for (const error of errors[fieldName]) {
+                getById(`errors-field-${id}`).innerHTML += `<div class="error-text">${error}</div>`;
+            }
         }
+    } else {
+        getById(`errors-field-${id}`).innerHTML += `<div class="error-text">${errors}</div>`;
     }
 };
 
