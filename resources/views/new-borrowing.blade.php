@@ -56,6 +56,7 @@
     </div>
     <modal
         :title='"{{__("messages.new_borrowing.confirm_title")}}"'
+        :id="'borrowing-creation-modal'"
         v-show="showModal || borrowingCreationRequest.isProcessing"
         @close="closeBorrowingCreationModal"
     >
@@ -70,6 +71,7 @@
         </template>
         <template v-slot:footer>
             <button
+                id="borrowing-creation-confirmation-button"
                 class="button is-link is-right"
                 :disabled=borrowingCreationRequest.isProcessing
                 @click="requestBorrowingCreation"

@@ -88,7 +88,7 @@ class PerformANewBorrowingTest extends DuskTestCase
                         ->press('@newBorrowingSubmitButton');
                 })
                 ->waitForReload()
-                ->assertPathIs('/borrowings-history');
+                ->assertPathIs('/');
         });
 
         // Check the database for the changes
