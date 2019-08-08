@@ -14,10 +14,7 @@
             </div>
             @if($hasCheckoutButton == 'true')
                 <div class="column is-2" id="checkout-column">
-                    <a class="fa-layers fa-fw" id="checkout-link" {{$checkoutTags ?? ''}}>
-                        <i class="fas fa-gift"></i>
-                        <span class="fa-layers-counter" id="checkout-counter">{{$checkoutCounter}}</span>
-                    </a>
+                    {{$checkoutButton}}
                 </div>
             @endif
         </div>
@@ -29,14 +26,14 @@
         <div class="columns">
             @if($hasAuthBar == 'true')
                 @guest
-                    <div class="column is-2 is-offset-4" align="center">
+                    <div class="column is-2 is-offset-4 has-text-centered">
                         <a class="button is-small is-link" href="{{ route('login') }}" type="submit">{{ __('Login') }}</a>
                     </div>
-                    <div class="column is-2" align="center">
+                    <div class="column is-2 has-text-centered">
                         <a class="button is-small is-link" href="{{ route('register') }}" type="submit">{{ __('Register') }}</a>
                     </div>
                 @else
-                    <div class="column is-full" align="center" id="connection-row">
+                    <div class="column is-full has-text-centered" id="connection-row">
                         {{__('Connected as')}}
                         {{Auth::user()->first_name}}
                         {{Auth::user()->last_name}}
