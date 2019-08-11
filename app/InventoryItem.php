@@ -13,8 +13,7 @@ class InventoryItem extends Model
      * @var array
      */
     protected $fillable = [
-        'name_fr',
-        'name_en',
+        'name',
         'duration_min',
         'duration_max',
         'players_min',
@@ -23,17 +22,10 @@ class InventoryItem extends Model
     ];
 
     /**
-     * Always capitalize the first letter of each word of the french name when setting it
+     * Always capitalize the first letter of each word of the main name when setting it
      */
-    public function setNameFrAttribute($value) {
-        $this->attributes['name_fr'] = ucwords($value);
-    }
-
-    /**
-     * Always capitalize the first letter of each word of the french name when setting it
-     */
-    public function setNameEnAttribute($value) {
-        $this->attributes['name_en'] = ucwords($value);
+    public function setNameAttribute($value) {
+        $this->attributes['name'] = ucwords($value);
     }
 
     /**
@@ -58,40 +50,20 @@ class InventoryItem extends Model
             ->select('id', 'name_'.App::getLocale().' AS name');
     }
 
+    public function altNames() {
+        return $this->hasMany('App\InventoryItemAltName');
+    }
+
     public static function allJoined() {
-        $inventoryItems = InventoryItem::with(['status', 'genres'])
+        $inventoryItems = InventoryItem::with(['status', 'genres', 'altNames'])
             ->select('id',
-                'name_'.App::getLocale().' AS name',
+                'name',
                 'status_id',
                 'duration_min',
                 'duration_max',
                 'players_min',
                 'players_max')
             ->orderBy('name')
-            ->get();
-
-        foreach($inventoryItems as $inventoryItem) {
-            unset($inventoryItem->status_id);
-            $inventoryItem->duration = (object) [
-                'min' => $inventoryItem->duration_min,
-                'max' => $inventoryItem->duration_max
-            ];
-            unset($inventoryItem->duration_min);
-            unset($inventoryItem->duration_max);
-            $inventoryItem->players = (object) [
-                'min' => $inventoryItem->players_min,
-                'max' => $inventoryItem->players_max
-            ];
-            unset($inventoryItem->players_min);
-            unset($inventoryItem->players_max);
-        }
-
-        return $inventoryItems;
-    }
-
-    public static function allNotTranslatedJoined() {
-        $inventoryItems = InventoryItem::with(['status', 'genres'])
-            ->orderBy('name_fr')
             ->get();
 
         foreach($inventoryItems as $inventoryItem) {
