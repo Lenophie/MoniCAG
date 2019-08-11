@@ -35,23 +35,23 @@ class AccountPage extends Page
     public function elements()
     {
         return [
- /*           '@modifyEmailLink' => '#modify-email-link',
+            '@modifyEmailLink' => '#modify-email-link',
             '@modifyPasswordLink' => '#modify-password-link',
             '@deleteAccountLink' => '#delete-account-link',
             '@accountDeletionModal' => '#account-deletion-confirmation-modal',
-            '@accountDeletionConfirmationButton' => '#account-deletion-confirmation-button'*/
+            '@accountDeletionConfirmationButton' => '#account-deletion-confirmation-button'
         ];
     }
 
     public function navigateToModifyEmailPage(Browser $browser) {
-        $browser->click('#modify-email-link');
+        $browser->click('@modifyEmailLink');
     }
 
     public function navigateToModifyPasswordPage(Browser $browser) {
-        $browser->click('#modify-password-link');
+        $browser->click('@modifyPasswordLink');
     }
 
     public function openAccountDeletionModal(Browser $browser) {
-        $browser->click('#delete-account-link');
+        $browser->click('@deleteAccountLink')->waitFor('@accountDeletionModal');
     }
 }
