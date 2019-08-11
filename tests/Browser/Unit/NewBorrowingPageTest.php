@@ -33,7 +33,8 @@ class NewBorrowingPageTest extends DuskTestCase
     public function testInventoryItemsPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage());
+                ->visit(new NewBorrowingPage())
+                ->waitForPageLoaded($browser);
 
             foreach ($this->inventoryItems as $inventoryItem) {
                 $browser->assertPresent("#inventory-item-button-{$inventoryItem->id}");
@@ -46,6 +47,7 @@ class NewBorrowingPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
                 ->visit(new NewBorrowingPage())
+                ->waitForPageLoaded()
                 ->assertSeeIn('@checkoutCounter', 0)
                 ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
                 ->assertSeeIn('@checkoutCounter', 1)
@@ -64,9 +66,10 @@ class NewBorrowingPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
                 ->visit(new NewBorrowingPage())
+                ->waitForPageLoaded($browser)
                 ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
                 ->assertSeeIn('@checkoutCounter', 1)
-                ->click('@checkoutLink')
+                ->openNewBorrowingModal($browser)
                 ->whenAvailable('@newBorrowingModal', function ($modal){
                     $modal->waitForInventoryItemInBorrowingList($this->inventoryItems[0]->id)
                         ->assertSee($this->inventoryItems[0]->{'name_' . App::getLocale()});
@@ -76,20 +79,18 @@ class NewBorrowingPageTest extends DuskTestCase
 
     public function testInventoryItemRemovalFromCheckoutModalThroughModal()
     {
-        $this->browse(function (Browser $browser) {
+        $id = $this->inventoryItems[0]->id;
+        $this->browse(function (Browser $browser) use ($id) {
             $browser->loginAs($this->lender)
                 ->visit(new NewBorrowingPage())
-                ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
-                ->clickOnInventoryItemButton($this->inventoryItems[1]->id)
-                ->click('@checkoutLink')
-                ->whenAvailable('@newBorrowingModal', function ($modal) {
-                    $modal->waitForInventoryItemInBorrowingList($this->inventoryItems[0]->id)
-                        ->waitForInventoryItemInBorrowingList($this->inventoryItems[1]->id)
-                        ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[0]->id)
-                        ->clickOnInventoryItemRemovalFromBorrowingButton($this->inventoryItems[1]->id)
-                        ->pause(200)
-                        ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[0]->id}")
-                        ->assertMissing("#to-borrow-list-element-{$this->inventoryItems[1]->id}")
+                ->waitForPageLoaded($browser)
+                ->clickOnInventoryItemButton($id)
+                ->openNewBorrowingModal($browser)
+                ->whenAvailable('@newBorrowingModal', function ($modal) use ($id) {
+                    $modal->waitForInventoryItemInBorrowingList($id)
+                        ->clickOnInventoryItemRemovalFromBorrowingButton($id)
+                        ->waitUntilMissing("#to-borrow-list-element-{$id}")
+                        ->assertMissing("#to-borrow-list-element-{$id}")
                         ->click('.delete');
                 })
                 ->assertSeeIn('@checkoutCounter', 0);
@@ -103,12 +104,14 @@ class NewBorrowingPageTest extends DuskTestCase
 
     public function testInventoryItemRemovalFromCheckoutModalThroughButton()
     {
-        $this->browse(function (Browser $browser) {
+        $id = $this->inventoryItems[0]->id;
+        $this->browse(function (Browser $browser) use ($id) {
             $browser->loginAs($this->lender)
                 ->visit(new NewBorrowingPage())
-                ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
+                ->waitForPageLoaded($browser)
+                ->clickOnInventoryItemButton($id)
                 ->assertSeeIn('@checkoutCounter', 1)
-                ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
+                ->clickOnInventoryItemButton($id)
                 ->assertSeeIn('@checkoutCounter', 0);
         });
 

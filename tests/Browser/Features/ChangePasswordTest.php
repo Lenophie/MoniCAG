@@ -42,6 +42,7 @@ class ChangePasswordTest extends DuskTestCase
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->on(new AccountPage())
+                ->waitForPageLoaded()
                 ->navigateToModifyPasswordPage()
                 ->on(new ChangePasswordPage())
                 ->type('oldPassword', $this->userPassword)

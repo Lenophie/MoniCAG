@@ -43,6 +43,10 @@ class AccountPage extends Page
         ];
     }
 
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitFor('@deleteAccountLink');
+    }
+
     public function navigateToModifyEmailPage(Browser $browser) {
         $browser->click('@modifyEmailLink');
     }
@@ -52,6 +56,6 @@ class AccountPage extends Page
     }
 
     public function openAccountDeletionModal(Browser $browser) {
-        $browser->click('@deleteAccountLink');
+        $browser->click('@deleteAccountLink')->waitFor('@accountDeletionModal');
     }
 }

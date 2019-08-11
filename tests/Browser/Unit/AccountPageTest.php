@@ -26,6 +26,7 @@ class AccountPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->visit(new AccountPage())
+                ->waitForPageLoaded()
                 ->assertSee($this->user->first_name)
                 ->assertSee($this->user->last_name)
                 ->assertSee($this->user->promotion)
@@ -41,7 +42,8 @@ class AccountPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($borrowings) {
             $browser->loginAs($this->user)
-                ->visit(new AccountPage());
+                ->visit(new AccountPage())
+                ->waitForPageLoaded();
 
             foreach ($borrowings as $borrowing) {
                 $browser->assertSee($borrowing->inventoryItem->name)
@@ -61,7 +63,9 @@ class AccountPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->visit(new AccountPage())
+                ->waitForPageLoaded()
                 ->navigateToModifyEmailPage()
+                ->waitForLocation('/email/change')
                 ->assertPathIs('/email/change');
         });
     }
@@ -70,7 +74,9 @@ class AccountPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
            $browser->loginAs($this->user)
                ->visit(new AccountPage())
+               ->waitForPageLoaded()
                ->navigateToModifyPasswordPage()
+               ->waitForLocation('/password/change')
                ->assertPathIs('/password/change');
         });
     }

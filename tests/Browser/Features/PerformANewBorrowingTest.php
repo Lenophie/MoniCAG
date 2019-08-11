@@ -68,7 +68,8 @@ class PerformANewBorrowingTest extends DuskTestCase
             $browser->loginAs($this->lender)
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
-                ->on(new NewBorrowingPage());
+                ->on(new NewBorrowingPage())
+                ->waitForPageLoaded();
 
             // Select inventory items to borrow by clicking on them
             foreach ($fieldsValues->inventoryItemsToBorrow as $inventoryItemToBorrow) {
@@ -77,6 +78,7 @@ class PerformANewBorrowingTest extends DuskTestCase
 
             // Fill in the new borrowing modal
             $browser->click('@checkoutLink')
+                ->waitFor('@newBorrowingModal')
                 ->whenAvailable('@newBorrowingModal', function($modal) use ($fieldsValues) {
                     $modal->type('borrowerEmail', $fieldsValues->borrowerEmail)
                         ->type('borrowerPassword', $fieldsValues->borrowerPassword)

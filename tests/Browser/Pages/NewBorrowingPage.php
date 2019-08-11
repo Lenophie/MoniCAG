@@ -42,18 +42,29 @@ class NewBorrowingPage extends Page
         ];
     }
 
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitFor('.inventory-item-button')
+            ->waitFor('@checkoutLink');
+    }
+
+    public function openNewBorrowingModal(Browser $browser) {
+        $browser->click('@checkoutLink')->waitFor('@newBorrowingModal');
+    }
+
     public function clickOnInventoryItemButton(Browser $browser, $id)
     {
-        $browser->press("#inventory-item-button-{$id}");
+        $idString = "#inventory-item-button-{$id}";
+        $browser->press($idString);
     }
 
     public function clickOnInventoryItemRemovalFromBorrowingButton(Browser $browser, $id)
     {
-        $browser->press("#remove-item-borrow-list-button-{$id}");
+        $idString = "#remove-item-borrow-list-button-{$id}";
+        $browser->press($idString);
     }
 
-    public function waitForInventoryItemInBorrowingList(Browser $browser, $id)
-    {
-        $browser->waitFor("#remove-item-borrow-list-button-{$id}");
+    public function waitForInventoryItemInBorrowingList(Browser $browser, $id) {
+        $idString = "#to-borrow-list-element-{$id}";
+        $browser->waitFor($idString);
     }
 }
