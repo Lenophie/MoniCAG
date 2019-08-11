@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Borrowing;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Views\DetailedInventoryItemResource;
 use App\InventoryItem;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +19,7 @@ class newBorrowingController extends Controller
     {
         abort_unless(Gate::allows('create', Borrowing::class), Response::HTTP_FORBIDDEN);
 
-        $inventoryItems = InventoryItem::allJoined();
+        $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::all())->collection;
         return view('new-borrowing', compact('inventoryItems'));
     }
 }

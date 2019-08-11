@@ -91,7 +91,7 @@ const filterInventoryItemsByGenre = (selectedGenre, eligibleInventoryItems) => {
     const filteredInventoryItems = [];
     for (const inventoryItem of eligibleInventoryItems) {
         for (const genre of inventoryItem.genres) {
-            if (genre.pivot.genre_id === selectedGenre) {
+            if (genre.id === selectedGenre) {
                 filteredInventoryItems.push(inventoryItem);
                 break;
             }
