@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 
 class InventoryItemStatus extends Model
@@ -14,9 +16,18 @@ class InventoryItemStatus extends Model
     public const LOST = 4;
     public const UNKNOWN = 5;
 
+    /**
+     * @return Collection
+     */
     public static function allTranslated() {
-        $statuses = InventoryItemStatus::select('id', 'name_'.App::getLocale().' AS name')
-            ->get();
+        $statuses = InventoryItemStatus::selectLocale()->get();
         return $statuses;
+    }
+
+    /**
+     * @return Builder
+     */
+    private static function selectLocale() {
+        return InventoryItemStatus::select('id', 'name_'.App::getLocale().' AS name');
     }
 }
