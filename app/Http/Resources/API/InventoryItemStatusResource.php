@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InventoryItemAltNameResource extends JsonResource
+class InventoryItemStatusResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
