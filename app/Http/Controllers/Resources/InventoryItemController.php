@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateInventoryItemRequest;
 use App\Http\Requests\DeleteInventoryItemRequest;
 use App\Http\Requests\UpdateInventoryItemRequest;
+use App\Http\Resources\InventoryItemCollection;
+use App\Http\Resources\InventoryItemResource;
 use App\InventoryItem;
 use App\InventoryItemStatus;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -16,19 +19,29 @@ class InventoryItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
     /**
      * Display a listing of inventory items.
      *
-     * @return Response
+     * @return InventoryItemCollection
      */
     public function index()
     {
         abort_unless(Gate::allows('viewAny', InventoryItem::class), Response::HTTP_FORBIDDEN);
-        $inventoryItems = InventoryItem::allJoined();
-        return response($inventoryItems, Response::HTTP_OK);
+        return new InventoryItemCollection(InventoryItem::all());
+    }
+
+    /**
+     * Display the specified inventory item.
+     *
+     * @param InventoryItem $inventoryItem
+     * @return InventoryItemResource
+     */
+    public function show(InventoryItem $inventoryItem)
+    {
+        return new InventoryItemResource($inventoryItem);
     }
 
     /**
@@ -78,9 +91,10 @@ class InventoryItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param DeleteInventoryItemRequest
+     * @param DeleteInventoryItemRequest $request
      * @param InventoryItem $inventoryItem
      * @return Response
+     * @throws Exception
      */
     public function destroy(DeleteInventoryItemRequest $request, InventoryItem $inventoryItem)
     {
