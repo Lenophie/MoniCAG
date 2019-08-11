@@ -45,6 +45,7 @@ class ChangeEmailTest extends DuskTestCase
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->on(new AccountPage())
+                ->waitForPageLoaded()
                 ->navigateToModifyEmailPage()
                 ->on(new ChangeEmailPage())
                 ->type('password', $this->userPassword)

@@ -42,6 +42,7 @@ class DeleteAccountTest extends DuskTestCase
                 ->visit(new HomePage())
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->on(new AccountPage())
+                ->waitForPageLoaded()
                 ->openAccountDeletionModal()
                 ->whenAvailable('@accountDeletionModal', function ($modal) {
                     $modal->type('password', $this->userToDeletePassword)
