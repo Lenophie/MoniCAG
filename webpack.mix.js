@@ -24,6 +24,8 @@ mix.copy('resources/css/index.css', 'public/css')
 
 mix.copyDirectory('resources/favicons', 'public/favicons');
 
-mix.webpackConfig({
-    devtool: "inline-source-map"
-});
+if (!mix.inProduction()) {
+    mix.webpackConfig({
+        devtool: "inline-source-map"
+    });
+}
