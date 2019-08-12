@@ -5,3 +5,4 @@ import '../css/bulma-override.css';
 import '../css/common.css';
 import '../css/footer.css';
 import '../css/flag-icon.min.css';
+window.Vue = require('vue');

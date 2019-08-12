@@ -9,8 +9,6 @@ import checkoutButton from './components/newBorrowing/checkoutButton.vue';
 import inventoryItemsList from './components/newBorrowing/inventoryItemsList.vue';
 import inventoryItemSearchBar from './components/newBorrowing/inventoryItemSearchBar.vue';
 
-window.Vue = require('vue');
-
 const setupVueComponents = () => {
     Vue.prototype.trans = trans;
 

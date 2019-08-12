@@ -6,8 +6,6 @@ import {requestTranslationFile, trans} from './trans.js';
 import modal from './components/modal.vue';
 import accountDeletionModalBody from './components/modalBodies/accountDeletionModalBody.vue';
 
-window.Vue = require('vue');
-
 const setupVueComponents = () => {
     Vue.prototype.trans = trans;
 
