@@ -12,19 +12,38 @@ mix.js('resources/js/common.js', 'public/js')
     .js('resources/js/account.js', 'public/js')
     .extract(['vue']);
 
-mix.copy('resources/css/index.css', 'public/css')
-    .copy('resources/css/new-borrowing.css', 'public/css')
-    .copy('resources/css/end-borrowing.css', 'public/css')
-    .copy('resources/css/borrowings-history.css', 'public/css')
-    .copy('resources/css/view-inventory.css', 'public/css')
-    .copy('resources/css/edit-inventory.css', 'public/css')
-    .copy('resources/css/edit-users.css', 'public/css')
-    .copy('resources/css/flag-icon.min.css', 'public/css')
-    .copy('resources/css/light-theme.css', 'public/css')
-    .copy('resources/css/dark-theme.css', 'public/css')
-    .copy('resources/css/account.css', 'public/css');
+mix.sass('resources/sass/bulma-theming.scss', 'public/css/bulma.css');
 
+mix.styles([
+    'resources/css/common.css',
+    'resources/css/bulma-override.css',
+    'resources/css/footer.css',
+], 'public/css/common.css');
+
+mix.styles(['resources/css/index.css'], 'public/css/index.css')
+    .styles(['resources/css/new-borrowing.css'], 'public/css/new-borrowing.css')
+    .styles(['resources/css/end-borrowing.css'], 'public/css/end-borrowing.css')
+    .styles(['resources/css/borrowings-history.css'], 'public/css/borrowings-history.css')
+    .styles(['resources/css/view-inventory.css'], 'public/css/view-inventory.css')
+    .styles(['resources/css/edit-inventory.css'], 'public/css/edit-inventory.css')
+    .styles(['resources/css/edit-users.css'], 'public/css/edit-users.css')
+    .styles(['resources/css/light-theme.css'], 'public/css/light-theme.css')
+    .styles(['resources/css/dark-theme.css'], 'public/css/dark-theme.css')
+    .styles(['resources/css/account.css'], 'public/css/account.css');
+
+mix.copy('resources/css/flag-icon.min.css', 'public/css');
 mix.copyDirectory('resources/favicons', 'public/favicons');
+mix.copyDirectory('resources/flags', 'public/flags');
+
+mix.options({
+    uglify: {
+        uglifyOptions: {
+            compress: {
+                drop_console: true,
+            }
+        }
+    }
+});
 
 if (!mix.inProduction()) {
     mix.webpackConfig({

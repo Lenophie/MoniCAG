@@ -6,6 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Lenophie" />
         <meta name="CSRF-TOKEN" content="{{ csrf_token() }}">
+        <link href="{{asset("css/bulma.css")}}" rel="stylesheet" />
+        <link href="{{asset("css/common.css")}}" rel="stylesheet" />
+        <link href="{{asset("css/flag-icon.min.css")}}" rel="stylesheet" />
         @if (\Illuminate\Support\Facades\Session::get('theme') === 'dark')
             <link href="{{ asset('css/dark-theme.css') }}" rel="stylesheet" />
         @else

@@ -1,9 +1,19 @@
 @charset "utf-8";
 
-// Variables
+// Custom variables
 @import 'variables';
 
-// Add new theme colors to Bulma.
+// Bulma
 @import "~bulma/sass/utilities/_all.sass";
 @import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/components/card.sass";
+@import "~bulma/sass/components/modal.sass";
+@import "~bulma/sass/components/list.sass";
 @import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/icon.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/elements/table.sass";
+@import "~bulma/sass/elements/other.sass";
+@import "~bulma/sass/form/_all.sass";
+@import "~bulma/sass/grid/columns.sass";
