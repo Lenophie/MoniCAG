@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+// require('laravel-mix-bundle-analyzer');
 
 mix.js('resources/js/common.js', 'public/js')
     .js('resources/js/trans.js', 'public/js')
@@ -10,7 +11,7 @@ mix.js('resources/js/common.js', 'public/js')
     .js('resources/js/editUsers.js', 'public/js')
     .js('resources/js/home.js', 'public/js')
     .js('resources/js/account.js', 'public/js')
-    .extract(['vue']);
+    .extract();
 
 mix.sass('resources/sass/bulma-theming.scss', 'public/css/bulma.css');
 
@@ -52,3 +53,5 @@ if (!mix.inProduction()) {
 } else {
     mix.version();
 }
+
+// mix.bundleAnalyzer();
