@@ -1,6 +1,12 @@
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 import {getAllBySelector, getByClass, getById, ready, remove} from './toolbox.js';
 
+// Icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChess } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faChess);
+
 // After page is loaded
 ready(() => {
     addListeners();

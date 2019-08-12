@@ -2,6 +2,12 @@ import './modal.js';
 import {cloneAndReplace, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
+// Icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDice } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faDice);
+
 let messages = {};
 const selectedBorrowings = [];
 const buttonsEnum = {

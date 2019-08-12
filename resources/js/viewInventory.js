@@ -1,6 +1,12 @@
 import Fuse from "fuse.js";
 import {getById, getBySelector, ready} from './toolbox.js';
 
+// Icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faWarehouse, faEye, faTrophy, faClock, faUsers } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faWarehouse, faEye, faTrophy, faClock, faUsers);
+
 const gameSearchInput = getById('search-game-field');
 const cancelGameSearchButton = getById('cancel-game-search-button');
 const genreFilteringSelect = getById('genre-select');

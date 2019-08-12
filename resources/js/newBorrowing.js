@@ -2,12 +2,19 @@
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 import {requestTranslationFile, trans} from './trans.js';
 
+// Icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDice, faSave, faEuroSign, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+
 // Components
 import modal from './components/modal.vue';
 import borrowingCreationModalBody from './components/modalBodies/borrowingCreationModalBody.vue';
 import checkoutButton from './components/newBorrowing/checkoutButton.vue';
 import inventoryItemsList from './components/newBorrowing/inventoryItemsList.vue';
 import inventoryItemSearchBar from './components/newBorrowing/inventoryItemSearchBar.vue';
+
+// Load icons present on page
+library.add(faSave, faDice, faEuroSign, faCalendarAlt);
 
 const setupVueComponents = () => {
     Vue.prototype.trans = trans;

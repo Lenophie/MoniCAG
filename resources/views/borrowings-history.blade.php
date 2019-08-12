@@ -15,10 +15,10 @@
 @section('content')
     @header
         @slot('leftIcon')
-            <i class="fas fa-history menu-icon"></i>
+            @include('icons/borrowings-history')
         @endslot
         @slot('rightIcon')
-            <i class="fas fa-history menu-icon"></i>
+            @include('icons/borrowings-history')
         @endslot
         @slot('hasReturnButton')
             true
@@ -102,3 +102,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript" src="{{mix('js/borrowingsHistory.js')}}"></script>
+@endpush

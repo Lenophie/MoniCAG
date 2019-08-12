@@ -100,7 +100,7 @@
                             {{\App\UserRole::LENDER}}
                         @endslot
                         @slot('icon')
-                            <i class="fas fa-history menu-icon"></i>
+                            @include('icons/borrowings-history')
                         @endslot
                     @endmenubutton
                 </div>

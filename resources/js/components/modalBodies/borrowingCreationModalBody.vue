@@ -86,7 +86,7 @@
                                 data-fa-mask="fas fa-calendar-alt">
                             </i>
                             <i
-                                class="fas fa-arrow-left"
+                                class="fas fa-arrow-down"
                                 data-fa-transform="shrink-9 down-5 right-8">
                             </i>
                         </span>

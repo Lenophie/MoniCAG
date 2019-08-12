@@ -1,4 +1,9 @@
-import {getById, ready} from './toolbox.js';
+import { getById, ready } from './toolbox.js';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye, faDice, faWarehouse, faWrench, faChess, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+
+// Load icons present on page
+library.add(faEye, faDice, faWarehouse, faWrench, faChess, faCalendarAlt);
 
 const buttonsLinks = {
     'new-borrowing-button': '/new-borrowing',
