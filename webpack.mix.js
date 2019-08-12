@@ -28,4 +28,6 @@ if (!mix.inProduction()) {
     mix.webpackConfig({
         devtool: "inline-source-map"
     });
+} else {
+    mix.version();
 }

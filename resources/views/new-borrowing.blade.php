@@ -83,5 +83,5 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="{{asset('js/newBorrowing.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/newBorrowing.js')}}"></script>
 @endpush

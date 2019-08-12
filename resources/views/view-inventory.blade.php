@@ -124,5 +124,5 @@
     <script type="text/javascript">
         const inventoryItems = @json($inventoryItems);
     </script>
-    <script type="text/javascript" src="{{asset('js/viewInventory.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/viewInventory.js')}}"></script>
 @endpush

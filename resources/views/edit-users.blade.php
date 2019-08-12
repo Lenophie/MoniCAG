@@ -114,5 +114,5 @@
         const currentUserID = @json(Auth::user()->id);
         const usersApiUrl = @json(url('/api/users'));
     </script>
-    <script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/editUsers.js')}}"></script>
 @endpush

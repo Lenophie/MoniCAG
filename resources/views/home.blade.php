@@ -194,5 +194,5 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="{{asset('js/home.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/home.js')}}"></script>
 @endpush

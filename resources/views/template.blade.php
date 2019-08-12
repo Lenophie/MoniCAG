@@ -23,6 +23,6 @@
         </div>
     </body>
 
-    <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/common.js') }}"></script>
     @stack('scripts')
 </html>

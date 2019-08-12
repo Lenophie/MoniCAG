@@ -94,5 +94,5 @@
         const borrowingsApiUrl = @json(route('borrowings.index'));
         const borrowingsHistoryUrl = @json(url('/borrowings-history'));
     </script>
-    <script type="text/javascript" src="{{asset('js/endBorrowing.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/endBorrowing.js')}}"></script>
 @endpush

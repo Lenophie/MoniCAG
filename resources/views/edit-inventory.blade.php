@@ -414,5 +414,5 @@
         const inventoryItemsApiUrl = @json(route('inventoryItems.index'));
         const successRedirectionURL = @json(url('/edit-inventory'));
     </script>
-    <script type="text/javascript" src="{{asset('js/editInventory.js')}}"></script>
+    <script type="text/javascript" src="{{mix('js/editInventory.js')}}"></script>
 @endpush
