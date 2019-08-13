@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
@@ -102,5 +103,17 @@ class User extends Authenticatable implements CanResetPassword
             ->get();
         unset($user->role_id);
         return $user;
+    }
+
+    /**
+     * Scope a query to order by name.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public static function scopeOrderByName($query) {
+        return $query
+            ->orderBy('last_name')
+            ->orderBy('first_name');
     }
 }
