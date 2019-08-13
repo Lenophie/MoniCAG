@@ -58,7 +58,7 @@
                         @if (count($userBorrowings) !== 0)
                             <ul>
                             @foreach($userBorrowings as $userBorrowing)
-                                <li>{{$userBorrowing->inventoryItem->name}} {{strtolower(__('Until'))}} {{$userBorrowing->expectedReturnDate->format('d/m/Y')}}</li>
+                                <li>{{$userBorrowing["inventoryItem"]["name"]}} {{strtolower(__('Until'))}} {{$userBorrowing["expectedReturnDate"]}}</li>
                             @endforeach
                             </ul>
                         @else

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Borrowing;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\BorrowingResource;
 use App\InventoryItemStatus;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +19,10 @@ class EndBorrowingController extends Controller
     {
         abort_unless(Gate::allows('return', Borrowing::class), Response::HTTP_FORBIDDEN);
 
-        $borrowings = Borrowing::current();
+        $eagerLoadedBorrowings = Borrowing::with('inventoryItem', 'borrower', 'initialLender')
+            ->where('return_date', null)->orderByDate()->get();
+        $borrowings = BorrowingResource::collection($eagerLoadedBorrowings)->jsonSerialize();
+
         $inventoryItemStatuses = (object) [
             'RETURNED' => InventoryItemStatus::IN_LCR_D4,
             'LOST' => InventoryItemStatus::LOST

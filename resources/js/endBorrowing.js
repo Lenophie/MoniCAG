@@ -59,7 +59,7 @@ const addListElements = (borrowings) => {
                 </div>
                 <div class="level">
                     <div class="level-left">
-                        <p class="level-item">${messages.borrowedBy} ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) | ${messages.lentBy} ${borrowing.initialLender.firstName} ${borrowing.initialLender.lastName.toUpperCase()} (Promo ${borrowing.initialLender.promotion})</p>
+                        <p class="level-item">${messages.borrowedBy} ${borrowing.borrower.name} (Promo ${borrowing.borrower.promotion}) | ${messages.lentBy} ${borrowing.initialLender.name} (Promo ${borrowing.initialLender.promotion})</p>
                     </div>
                     <div class="level-right">
                         <small class="level-item selection-span no-display">${messages.selectedTag}</small>
@@ -147,7 +147,7 @@ const handleReturnButtonClick = (buttonEnum) => {
     toReturnListElement.innerHTML = '';
     for (const borrowing of selectedBorrowings) {
         toReturnListElement.innerHTML +=
-            `<li>${borrowing.inventoryItem.name} ${messages.borrowedBy.toLowerCase()} ${borrowing.borrower.firstName} ${borrowing.borrower.lastName.toUpperCase()} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`;
+            `<li>${borrowing.inventoryItem.name} ${messages.borrowedBy.toLowerCase()} ${borrowing.borrower.name} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`;
     }
 
     remove(getByClass('error-text'));

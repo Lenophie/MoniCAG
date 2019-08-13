@@ -55,42 +55,42 @@
                     </thead>
                     <tbody>
                         @foreach($borrowings as $borrowing)
-                            <tr id="borrowings-row-{{$borrowing->id}}">
+                            <tr id="borrowings-row-{{$borrowing["id"]}}">
                                 <td class="borrowing-start-date-cell">
-                                    {{$borrowing->startDate->format('d/m/Y')}}
+                                    {{$borrowing["startDate"]}}
                                 </td>
                                 <td class="borrowing-borrower-cell">
-                                    @if($borrowing->borrower)
-                                        {{$borrowing->borrower->firstName}} {{strtoupper($borrowing->borrower->lastName)}}
+                                    @if($borrowing["borrower"])
+                                        {{$borrowing["borrower"]["name"]}}
                                     @else
                                         <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
                                     @endif
                                 </td>
                                 <td class="borrowing-inventory-item-cell">
-                                    {{$borrowing->inventoryItem->name}}
+                                    {{$borrowing["inventoryItem"]["name"]}}
                                 </td>
                                 <td class="borrowing-guarantee-cell">
-                                    {{number_format($borrowing->guarantee, 2)}} €
+                                    {{number_format($borrowing["guarantee"], 2)}} €
                                 </td>
                                 <td class="border-right borrowing-initial-lender-cell">
-                                    @if($borrowing->initialLender)
-                                        {{$borrowing->initialLender->firstName}} {{strtoupper($borrowing->initialLender->lastName)}}
+                                    @if($borrowing["initialLender"])
+                                        {{$borrowing["initialLender"]["name"]}}
                                     @else
                                         <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
                                     @endif
                                 </td>
                                 <td class="borrowing-expected-return-date-cell">
-                                    {{$borrowing->expectedReturnDate->format('d/m/Y')}}
+                                    {{$borrowing["expectedReturnDate"]}}
                                 </td>
                                 <td class="borrowing-return-date-cell">
-                                    @if($borrowing->returnDate)
-                                        {{$borrowing->returnDate->format('d/m/Y')}}
+                                    @if($borrowing["returnDate"])
+                                        {{$borrowing["returnDate"]}}
                                     @endif
                                 </td>
                                 <td class="borrowing-return-lender-cell">
-                                    @if($borrowing->returnLender)
-                                        {{$borrowing->returnLender->firstName}} {{strtoupper($borrowing->returnLender->lastName)}}
-                                    @elseif($borrowing->returnDate !== null)
+                                    @if($borrowing["returnLender"])
+                                        {{$borrowing["returnLender"]["name"]}}
+                                    @elseif($borrowing["returnDate"] !== null)
                                         <span class="deleted-user-span">{{__('messages.borrowings_history.deleted_user')}}</span>
                                     @endif
                                 </td>
