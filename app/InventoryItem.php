@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\App;
 class InventoryItem extends Model
 {
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['status'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

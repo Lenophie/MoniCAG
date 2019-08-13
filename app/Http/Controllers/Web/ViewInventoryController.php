@@ -16,7 +16,8 @@ class ViewInventoryController extends Controller
     {
         abort_unless(Gate::allows('viewAny', InventoryItem::class), Response::HTTP_FORBIDDEN);
 
-        $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::all());
+        $eagerLoadedInventoryItems = InventoryItem::with('genres', 'altNames')->get();
+        $inventoryItems = DetailedInventoryItemResource::collection($eagerLoadedInventoryItems);
         $genres = GenreResource::collection(Genre::translated()->get());
 
         return view('view-inventory', compact('inventoryItems', 'genres'));

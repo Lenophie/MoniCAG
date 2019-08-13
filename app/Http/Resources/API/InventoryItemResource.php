@@ -18,7 +18,9 @@ class InventoryItemResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'status' => InventoryItemStatusResource::make($this->status)->name,
+            'status' => $this->whenLoaded('status', function () {
+                return $this->status->name;
+            }),
             'duration' => [
                 'min' => $this->duration_min,
                 'max' => $this->duration_max
@@ -27,8 +29,12 @@ class InventoryItemResource extends JsonResource
                 'min' => $this->players_min,
                 'max' => $this->players_max
             ],
-            'genres' => GenreResource::collection($this->genres)->collection->pluck('name'),
-            'altNames' => InventoryItemAltNameResource::collection($this->altNames)->collection->pluck('name')
+            'genres' => $this->whenLoaded('genres', function () {
+                return $this->genres->pluck('name');
+            }),
+            'altNames' => $this->whenLoaded('altNames', function () {
+                return $this->altNames->pluck('name');
+            }),
         ];
     }
 }

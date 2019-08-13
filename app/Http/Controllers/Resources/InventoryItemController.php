@@ -41,6 +41,8 @@ class InventoryItemController extends Controller
      */
     public function show(InventoryItem $inventoryItem)
     {
+        abort_unless(Gate::any(['viewAny', 'view'], InventoryItem::class), Response::HTTP_FORBIDDEN);
+        $inventoryItem->load(['genres', 'altNames']); // Lazy eager load the relationships after route-model binding
         return new InventoryItemResource($inventoryItem);
     }
 
