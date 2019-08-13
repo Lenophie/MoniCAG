@@ -20,6 +20,11 @@ class DeleteUserRequest extends FormRequest
         return Gate::raw('delete', $user);
     }
 
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
     protected function validationData()
     {
         return array_merge($this->request->all(), [

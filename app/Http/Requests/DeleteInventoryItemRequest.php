@@ -20,6 +20,11 @@ class DeleteInventoryItemRequest extends FormRequest
         return Gate::allows('delete', InventoryItem::class);
     }
 
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
     protected function validationData()
     {
         return array_merge($this->request->all(), [

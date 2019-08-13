@@ -20,6 +20,11 @@ class UpdateInventoryItemRequest extends FormRequest
         return Gate::allows('update', InventoryItem::class);
     }
 
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
     protected function validationData()
     {
         return array_merge($this->request->all(), [

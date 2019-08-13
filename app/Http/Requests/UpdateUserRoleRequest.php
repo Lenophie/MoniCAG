@@ -20,6 +20,11 @@ class UpdateUserRoleRequest extends FormRequest
         return Gate::raw('updateRole', $user);
     }
 
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
     protected function validationData()
     {
         return array_merge($this->request->all(), [
