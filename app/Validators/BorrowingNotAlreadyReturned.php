@@ -28,8 +28,7 @@ class BorrowingNotAlreadyReturned
                 $message);
         });
 
-
-        $isFinished = Borrowing::find($value)->finished;
-        return $isFinished === 0;
+        $isNotAlreadyReturned = Borrowing::find($value)->return_date === null;
+        return $isNotAlreadyReturned;
     }
 }
