@@ -6,6 +6,7 @@ use App\Borrowing;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBorrowingRequest;
 use App\Http\Requests\EndBorrowingRequest;
+use App\Http\Resources\API\BorrowingResource;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
@@ -13,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class BorrowingController extends Controller
 {
@@ -27,8 +29,25 @@ class BorrowingController extends Controller
      */
     public function index()
     {
-        $borrowings = Borrowing::history();
-        return response($borrowings, Response::HTTP_CONTINUE);
+        abort_unless(Gate::allows('viewAny', Borrowing::class), Response::HTTP_FORBIDDEN);
+        $eagerLoadedBorrowings = Borrowing::with('inventoryItem', 'borrower', 'initialLender', 'returnLender')
+            ->get();
+        return response(BorrowingResource::collection($eagerLoadedBorrowings), Response::HTTP_OK);
+    }
+
+    /**
+     * Display the specified inventory item.
+     *
+     * @param Borrowing $borrowing
+     * @return BorrowingResource
+     */
+    public function show(Borrowing $borrowing)
+    {
+        abort_unless(
+            Gate::allows('viewAny', Borrowing::class)
+                || Gate::allows('view', $borrowing),
+            Response::HTTP_FORBIDDEN);
+        return new BorrowingResource($borrowing);
     }
 
     /**
