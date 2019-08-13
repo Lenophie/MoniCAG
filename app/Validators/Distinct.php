@@ -21,7 +21,7 @@ class Distinct
         } else if (substr($attribute, 0, strlen('borrowedItems')) === 'borrowedItems') {
             return str_replace(
                 ':item',
-                InventoryItem::find(Arr::get($validator->getData(), $attribute))->{'name_' . App::getLocale()},
+                InventoryItem::find(Arr::get($validator->getData(), $attribute))->name,
                 $message
             );
         } else if (substr($attribute, 0, strlen('selectedBorrowings')) === 'selectedBorrowings') {
@@ -36,7 +36,7 @@ class Distinct
             return str_replace(
                 [':item', ':borrower'],
                 [
-                    $inventoryItem->{'name_' . App::getLocale()},
+                    $inventoryItem->name,
                     $borrower->first_name . ' ' . $borrower->last_name
                 ],
                 $message

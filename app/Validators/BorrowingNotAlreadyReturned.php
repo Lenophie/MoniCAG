@@ -5,7 +5,6 @@ namespace App\Validators;
 use App\Borrowing;
 use App\InventoryItem;
 use App\User;
-use Illuminate\Support\Facades\App;
 
 class BorrowingNotAlreadyReturned
 {
@@ -23,7 +22,7 @@ class BorrowingNotAlreadyReturned
             return str_replace(
                 [':item', ':borrower'],
                 [
-                    $inventoryItem->{'name_' . App::getLocale()},
+                    $inventoryItem->name,
                     $borrower->first_name . ' ' . $borrower->last_name
                 ],
                 $message);

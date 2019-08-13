@@ -17,7 +17,7 @@ class NotTheOnlyGenreOfAnInventoryItem
 
         $problematicInventoryItems = $inventoryItemsForWhichTheSelectedGenreIsTheOnlyOneQuery
             ->get()
-            ->implode('name_'.App::getLocale(), ', ');
+            ->implode('name', ', ');
 
         $validator->addReplacer('not_the_only_genre_of_an_inventory_item', function ($message, $attribute, $rule, $parameters) use ($problematicInventoryItems) {
             return str_replace(':items', $problematicInventoryItems, $message);
