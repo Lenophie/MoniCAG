@@ -67,9 +67,9 @@ class BorrowingController extends Controller
                     'borrower_id' => $borrowerId,
                     'initial_lender_id' => Auth::user()->id,
                     'guarantee' => request('guarantee'),
-                    'finished' => false,
                     'start_date' => Carbon::now(),
                     'expected_return_date' => $expectedReturnDate,
+                    'return_date' => null,
                     'notes_before' => htmlspecialchars(request('notes'))
                 ]);
                 InventoryItem::where('id', $borrowedItem)->update(['status_id' => InventoryItemStatus::BORROWED]);
@@ -91,7 +91,6 @@ class BorrowingController extends Controller
             foreach (request('selectedBorrowings') as $selectedBorrowing) {
                 Borrowing::where('id', $selectedBorrowing)
                     ->update([
-                        'finished' => true,
                         'return_lender_id' => Auth::user()->id,
                         'return_date' => Carbon::now()
                     ]);

@@ -69,7 +69,6 @@ class EndBorrowingRequestTest extends TestCase
                 'guarantee' => $borrowings[$i]->guarantee,
                 'notes_before' => $borrowings[$i]->notes_before,
                 // 'notes_after' => $notes,
-                'finished' => 1
             ]);
         }
 
@@ -92,8 +91,7 @@ class EndBorrowingRequestTest extends TestCase
                 'return_date' => null,
                 'guarantee' => $borrowings[$i]->guarantee,
                 'notes_before' => $borrowings[$i]->notes_before,
-                'notes_after' => null,
-                'finished' => 0
+                'notes_after' => null
             ]);
         }
     }
@@ -141,8 +139,7 @@ class EndBorrowingRequestTest extends TestCase
                 'return_date' => $returnDate->format('Y-m-d'),
                 'guarantee' => $borrowings[$i]->guarantee,
                 'notes_before' => $borrowings[$i]->notes_before,
-                // 'notes_after' => $notes,
-                'finished' => 1
+                // 'notes_after' => $notes
             ]);
         }
 
@@ -165,8 +162,7 @@ class EndBorrowingRequestTest extends TestCase
                 'return_date' => null,
                 'guarantee' => $borrowings[$i]->guarantee,
                 'notes_before' => $borrowings[$i]->notes_before,
-                'notes_after' => null,
-                'finished' => 0
+                'notes_after' => null
             ]);
         }
     }

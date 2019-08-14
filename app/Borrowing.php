@@ -19,7 +19,6 @@ class Borrowing extends Model
         'initial_lender_id',
         'return_lender_id',
         'guarantee',
-        'finished',
         'start_date',
         'expected_return_date',
         'return_date',

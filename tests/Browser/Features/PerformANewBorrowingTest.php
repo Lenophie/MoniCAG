@@ -106,8 +106,7 @@ class PerformANewBorrowingTest extends DuskTestCase
                 'return_date' => null,
                 'guarantee' => $fieldsValues->guarantee,
                 'notes_before' => $fieldsValues->notes,
-                'notes_after' => null,
-                'finished' => 0
+                'notes_after' => null
             ]);
 
             // Check inventory items status updates

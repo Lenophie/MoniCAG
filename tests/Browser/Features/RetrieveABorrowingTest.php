@@ -80,8 +80,7 @@ class RetrieveABorrowingTest extends DuskTestCase
                 'return_date' => $currentDate->format('Y-m-d'),
                 'guarantee' => $borrowingToEnd->guarantee,
                 'notes_before' => $borrowingToEnd->notes_before,
-                // 'notes_after' => $notes,
-                'finished' => 1
+                // 'notes_after' => $notes
             ]);
 
             // Check inventory items status updates
@@ -131,8 +130,7 @@ class RetrieveABorrowingTest extends DuskTestCase
                 'return_date' => $currentDate->format('Y-m-d'),
                 'guarantee' => $borrowingToEnd->guarantee,
                 'notes_before' => $borrowingToEnd->notes_before,
-                // 'notes_after' => $notes,
-                'finished' => 1
+                // 'notes_after' => $notes
             ]);
 
             // Check inventory items status updates

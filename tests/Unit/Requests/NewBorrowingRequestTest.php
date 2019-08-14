@@ -79,8 +79,7 @@ class NewBorrowingRequestTest extends TestCase
                 'return_date' => null,
                 'guarantee' => $guarantee,
                 'notes_before' => $notes,
-                'notes_after' => null,
-                'finished' => 0
+                'notes_after' => null
             ]);
         }
 
