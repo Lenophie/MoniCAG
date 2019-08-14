@@ -1,6 +1,6 @@
 // Tools
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
-import {requestTranslationFile, trans} from './trans.js';
+import {requestTranslationFile} from './trans.js';
 
 // Icons
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -17,8 +17,6 @@ import inventoryItemSearchBar from './components/newBorrowing/inventoryItemSearc
 library.add(faSave, faDice, faEuroSign, faCalendarAlt);
 
 const setupVueComponents = () => {
-    Vue.prototype.trans = trans;
-
     new Vue({
         el: '#app',
         data: {

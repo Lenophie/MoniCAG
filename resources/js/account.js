@@ -1,14 +1,12 @@
 // Tools
 import {HTTPVerbs, makeAjaxRequest} from "./ajax.js";
-import {requestTranslationFile, trans} from './trans.js';
+import {requestTranslationFile} from './trans.js';
 
 // Vue components
 import modal from './components/modal.vue';
 import accountDeletionModalBody from './components/modalBodies/accountDeletionModalBody.vue';
 
 const setupVueComponents = () => {
-    Vue.prototype.trans = trans;
-
     new Vue({
         el: '#app',
         data: {
