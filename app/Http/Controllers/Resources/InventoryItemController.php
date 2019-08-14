@@ -54,20 +54,30 @@ class InventoryItemController extends Controller
      */
     public function store(CreateInventoryItemRequest $request)
     {
-        InventoryItem::create([
-            'name_fr' => htmlspecialchars(request('nameFr')),
-            'name_en' => htmlspecialchars(request('nameEn')),
-            'duration_min' => request('durationMin'),
-            'duration_max' => request('durationMax'),
-            'players_max' => request('playersMax'),
-            'players_min' => request('playersMin'),
-            'status_id' => InventoryItemStatus::IN_LCR_D4
-        ])->genres()->attach(request('genres'));
+        DB::transaction(function () {
+            // Create the inventory item
+            $inventoryItem = InventoryItem::create([
+                'name' => htmlspecialchars(request('name')),
+                'duration_min' => request('durationMin'),
+                'duration_max' => request('durationMax'),
+                'players_max' => request('playersMax'),
+                'players_min' => request('playersMin'),
+                'status_id' => InventoryItemStatus::IN_LCR_D4
+            ]);
+
+            // Attach the inventory item's genres
+            $inventoryItem->genres()->attach(request('genres'));
+
+            // Add the inventory item alternative names
+            $altNames = $this->mapAltNames(request('altNames'));
+            $inventoryItem->altNames()->createMany($altNames);
+        });
+
         return response([], Response::HTTP_CREATED);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified inventory item in storage.
      *
      * @param UpdateInventoryItemRequest $request
      * @param InventoryItem $inventoryItem
@@ -77,8 +87,7 @@ class InventoryItemController extends Controller
     {
         DB::transaction(function () use ($inventoryItem) {
             $inventoryItem->update([
-                'name_fr' => htmlspecialchars(request('nameFr')),
-                'name_en' => htmlspecialchars(request('nameEn')),
+                'name' => htmlspecialchars(request('name')),
                 'duration_min' => request('durationMin'),
                 'duration_max' => request('durationMax'),
                 'players_max' => request('playersMax'),
@@ -86,12 +95,17 @@ class InventoryItemController extends Controller
                 'status_id' => request('statusId')
             ]);
             $inventoryItem->genres()->sync(request('genres'));
+
+            $altNames = $this->mapAltNames(request('altNames'));
+            $inventoryItem->altNames()->delete();
+            $inventoryItem->altNames()->createMany($altNames);
+
         });
         return response([], Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified inventory item from storage.
      *
      * @param DeleteInventoryItemRequest $request
      * @param InventoryItem $inventoryItem
@@ -102,5 +116,17 @@ class InventoryItemController extends Controller
     {
         $inventoryItem->delete();
         return response([], Response::HTTP_OK);
+    }
+
+    /**
+     * @param $altNames array
+     * @return array
+     */
+    private function mapAltNames($altNames) {
+        return collect($altNames)->map(
+            function ($item) {
+                return ['name' => $item];
+            }
+        )->all();
     }
 }
