@@ -6,6 +6,7 @@ use App\InventoryItem;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Validator;
 
 class CreateInventoryItemRequest extends FormRequest
 {
@@ -27,21 +28,22 @@ class CreateInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string|unique:inventory_items,name',
             'durationMin' => 'nullable|integer|min:0',
             'durationMax' => 'nullable|integer|min:0',
             'playersMin' => 'nullable|integer|min:1',
             'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
-            'nameFr' => 'required|string|unique:inventory_items,name_fr',
-            'nameEn' => 'required|string|unique:inventory_items,name_en'
+            'altNames' => 'array',
+            'altNames.*' => 'string|distinct'
         ];
     }
 
     /**
      * Configure the validator instance.
      *
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param  Validator  $validator
      * @return void
      */
     public function withValidator($validator)

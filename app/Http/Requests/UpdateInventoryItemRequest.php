@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Validator;
 
 class UpdateInventoryItemRequest extends FormRequest
 {
@@ -40,14 +41,15 @@ class UpdateInventoryItemRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'bail|required|string|unchanged_during_borrowing:inventoryItem',
             'durationMin' => 'nullable|integer|min:0',
             'durationMax' => 'nullable|integer|min:0',
             'playersMin' => 'nullable|integer|min:1',
             'playersMax' => 'nullable|integer|min:1',
             'genres' => 'required|array',
             'genres.*' => 'integer|exists:genres,id|distinct',
-            'nameFr' => 'bail|required|string|unchanged_during_borrowing:inventoryItem',
-            'nameEn' => 'bail|required|string|unchanged_during_borrowing:inventoryItem',
+            'altNames' => 'array',
+            'altNames.*' => 'string|distinct',
             'statusId' => 'bail|required|integer|exists:inventory_item_statuses,id|unchanged_during_borrowing:inventoryItem|not_changed_to_borrowed:inventoryItem'
         ];
     }
@@ -55,7 +57,7 @@ class UpdateInventoryItemRequest extends FormRequest
     /**
      * Configure the validator instance.
      *
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param  Validator  $validator
      * @return void
      */
     public function withValidator($validator)
@@ -67,11 +69,8 @@ class UpdateInventoryItemRequest extends FormRequest
             return gettype($input->playersMin) !== 'NULL';
         })
         // If the name is different from the current, check if it is unique
-        ->sometimes('nameFr', 'unique:inventory_items,name_fr', function ($input) {
-            return $input->inventoryItem->name_fr !== $input->nameFr;
-        })
-        ->sometimes('nameEn', 'unique:inventory_items,name_en', function ($input) {
-            return $input->inventoryItem->name_en !== $input->nameEn;
+        ->sometimes('name', 'unique:inventory_items,name', function ($input) {
+            return $input->inventoryItem->name !== $input->name;
         });
     }
 
