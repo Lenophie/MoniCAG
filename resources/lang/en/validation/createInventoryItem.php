@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'name.required' => 'Please fill in the item\'s name.',
+    'name.unique' => 'The item\'s name must be unique.',
     'durationMin.integer' => 'The minimal duration must be an integer.',
     'durationMin.min' => 'The minimal duration must be positive.',
     'durationMax.integer' => 'The maximal duration must be an integer.',
@@ -15,8 +17,5 @@ return [
     'genres.*.integer' => 'A genre must be identified by its id.',
     'genres.*.distinct' => 'The genre :genre was filled in multiple times.',
     'genres.*.exists' => 'A genre (:value) doesn\'t exist anymore.',
-    'nameFr.required' => 'Please fill in the item\'s french name.',
-    'nameEn.required' => 'Please fill in the item\'s english name.',
-    'nameFr.unique' => 'The game\'s name must be unique.',
-    'nameEn.unique' => 'The game\'s name must be unique.'
+    'altNames.*.distinct' => 'The alternative name :altName was filled in multiple times.',
 ];

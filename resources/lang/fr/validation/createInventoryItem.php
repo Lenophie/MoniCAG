@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'name.required' => 'Veuillez renseigner le nom du jeu.',
+    'name.unique' => 'Le nom du jeu doit être unique.',
     'durationMin.integer' => 'La durée minimale doit être un entier.',
     'durationMin.min' => 'La durée minimale doit être positive.',
     'durationMax.integer' => 'La durée maximale doit être un entier.',
@@ -15,8 +17,5 @@ return [
     'genres.*.integer' => 'Un genre doit être représenté par son identifiant.',
     'genres.*.distinct' => 'Le genre :genre a été renseigné plusieurs fois.',
     'genres.*.exists' => 'Un genre sélectionné (:value) n\'existe plus.',
-    'nameFr.required' => 'Veuillez renseigner le nom français du jeu.',
-    'nameEn.required' => 'Veuillez renseigner le nom anglais du jeu.',
-    'nameFr.unique' => 'Le nom du jeu doit être unique.',
-    'nameEn.unique' => 'Le nom du jeu doit être unique.',
+    'altNames.*.distinct' => 'Le nom alternatif :altName a été renseigné plusieurs fois.',
 ];

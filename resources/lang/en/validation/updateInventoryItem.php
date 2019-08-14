@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'name.required' => 'Please fill in the item\'s name.',
+    'name.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
+    'name.unique' => 'The item\'s name must be unique.',
     'durationMin.integer' => 'The minimal duration must be an integer.',
     'durationMin.min' => 'The minimal duration must be positive.',
     'durationMax.integer' => 'The maximal duration must be an integer.',
@@ -15,12 +18,7 @@ return [
     'genres.*.integer' => 'A genre must be identified by its id.',
     'genres.*.distinct' => 'The genre :genre was added multiple times',
     'genres.*.exists' => 'A genre (:value) doesn\'t exist anymore.',
-    'nameFr.required' => 'Please fill in the item\'s french name.',
-    'nameEn.required' => 'Please fill in the item\'s english name.',
-    'nameFr.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
-    'nameEn.unchanged_during_borrowing' => 'The name of a currently borrowed item can\'t be changed.',
-    'nameFr.unique' => 'The game\'s name must be unique.',
-    'nameEn.unique' => 'The game\'s name must be unique.',
+    'altNames.*.distinct' => 'The alternative name :altName was filled in multiple times.',
     'statusId.required' => 'Please fill in the item\'s current status.',
     'statusId.integer' => 'Please fill in a valid item status by its id.',
     'statusId.exists' => 'The selected status doesn\'t exist in out database.',
