@@ -81,6 +81,7 @@
                                         class="input {{ $errors->has('promotion') ? ' is-danger' : '' }}"
                                         name="promotion"
                                         value="{{ old('promotion') }}"
+                                        placeholder="{{ __('YYYY') }}"
                                         required
                                         autofocus>
                                 </div>
