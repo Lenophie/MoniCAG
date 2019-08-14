@@ -43,8 +43,8 @@
         <div class="columns">
             <div class="column is-full">
                 <inventory-item-search-bar
-                        :inventory-items="{{$inventoryItems}}"
-                        :displayed-inventory-items.sync="displayedInventoryItems">
+                    :inventory-items="{{$inventoryItems}}"
+                    :displayed-inventory-items.sync="displayedInventoryItems">
                 </inventory-item-search-bar>
             </div>
         </div>
