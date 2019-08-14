@@ -15,7 +15,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'borrowedItems'">
+                :field-path="'borrowedItems'">
             </error-field>
             <hr>
             <h5 class="title is-5">{{ trans('Borrower') }}</h5>
@@ -39,7 +39,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'borrowerEmail'">
+                :field-path="'borrowerEmail'">
             </error-field>
             <!-- Borrower password -->
             <div class="field" id="form-field-borrowerPassword">
@@ -61,7 +61,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'borrowerPassword'">
+                :field-path="'borrowerPassword'">
             </error-field>
             <hr>
             <h5 class="title is-5">{{ trans('Terms') }}</h5>
@@ -95,7 +95,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'expectedReturnDate'">
+                :field-path="'expectedReturnDate'">
             </error-field>
             <!-- Guarantee -->
             <div class="field" id="form-field-guarantee">
@@ -117,7 +117,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'guarantee'">
+                :field-path="'guarantee'">
             </error-field>
             <!-- Notes -->
             <div class="field" id="form-field-notes">
@@ -135,7 +135,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'notes'">
+                :field-path="'notes'">
             </error-field>
             <!-- Agreement check 1 -->
             <div class="form-check" id="form-field-agreementCheck1">
@@ -150,7 +150,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'agreementCheck1'">
+                :field-path="'agreementCheck1'">
             </error-field>
             <!-- Agreement check 2 -->
             <div class="form-check" id="form-field-agreementCheck2">
@@ -165,7 +165,7 @@
             </div>
             <error-field
                 :errors-list="borrowingCreationRequest.errors"
-                :field-key="'agreementCheck2'">
+                :field-path="'agreementCheck2'">
             </error-field>
         </form>
     </div>

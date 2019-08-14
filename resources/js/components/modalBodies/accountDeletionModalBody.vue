@@ -22,7 +22,7 @@
             </div>
             <error-field
                 :errors-list="accountDeletionRequest.errors"
-                :field-key="'password'">
+                :field-path="'password'">
             </error-field>
         </form>
     </div>
