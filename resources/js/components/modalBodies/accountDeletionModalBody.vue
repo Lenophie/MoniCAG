@@ -2,7 +2,7 @@
     <div>
         <p><span v-html="trans('messages.account.deletion_warning')"></span></p>
         <hr>
-        <form :action="accountDeletionRoute" autocomplete="off" v-on:submit.prevent="submit">
+        <form :action="accountDeletionRequest.route" autocomplete="off" v-on:submit.prevent="submit">
             <div class="field">
                 <label class="label" for="account-deletion-confirm-password-input">{{ trans('Confirm password') }}</label>
                 <div class="control has-icons-left">
@@ -33,12 +33,8 @@
 
     export default {
         props: {
-            accountDeletionRoute: String,
             accountDeletionRequest: Object,
             submit: Function
-        },
-        mounted() {
-            this.$emit('ready', this.accountDeletionRoute)
         },
         components: {
             errorField

@@ -33,6 +33,10 @@
         {{__('messages.titles.account')}}
     @endslot
     @endheader
+    <data-carrier
+        :php-data='@json($compactData)'
+        @ready="setCarriedData">
+    </data-carrier>
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-12">
@@ -77,10 +81,8 @@
     >
         <template v-slot:body>
             <account-deletion-modal-body
-                 :account-deletion-route="'{{route("account.delete")}}'"
                  :account-deletion-request="accountDeletionRequest"
                  :submit="requestAccountDeletion"
-                 @ready="setAccountDeletionRequestRoute"
             ></account-deletion-modal-body>
         </template>
         <template v-slot:footer>

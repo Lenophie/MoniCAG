@@ -26,7 +26,15 @@ class AccountController extends Controller
 
         $userBorrowings = BorrowingResource::collection($userCurrentBorrowings)->jsonSerialize();
 
-        return view('account', compact('userBorrowings', 'user'));
+        $compactData = [
+            'routes' => [
+                'account' => [
+                    'deletion' => route('account.delete')
+                ]
+            ]
+        ];
+
+        return view('account', compact('userBorrowings', 'user', 'compactData'));
     }
 
     public function delete(DeleteAccountRequest $request)

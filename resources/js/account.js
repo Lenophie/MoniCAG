@@ -4,6 +4,7 @@ import {requestTranslationFile} from './trans.js';
 
 // Vue components
 import modal from './components/modal.vue';
+import dataCarrier from './components/dataCarrier.vue';
 import accountDeletionModalBody from './components/modalBodies/accountDeletionModalBody.vue';
 
 const setupVueComponents = () => {
@@ -21,7 +22,7 @@ const setupVueComponents = () => {
             }
         },
         components: {
-            modal, accountDeletionModalBody
+            modal, dataCarrier, accountDeletionModalBody
         },
         methods: {
             /**
@@ -57,10 +58,10 @@ const setupVueComponents = () => {
 
             /**
              * Sets the account deletion request route
-             * @param route
+             * @param data
              */
-            setAccountDeletionRequestRoute(route) {
-                this.accountDeletionRequest.route = route;
+            setCarriedData(data) {
+                this.accountDeletionRequest.route = data.routes.account.deletion;
             }
         }
     });
