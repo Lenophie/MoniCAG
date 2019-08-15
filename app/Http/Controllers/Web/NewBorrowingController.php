@@ -20,6 +20,16 @@ class newBorrowingController extends Controller
         abort_unless(Gate::allows('create', Borrowing::class), Response::HTTP_FORBIDDEN);
 
         $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::all())->collection;
-        return view('new-borrowing', compact('inventoryItems'));
+
+        $compactData = [
+            'resources' => [
+                'inventoryItems' => $inventoryItems
+            ],
+            'routes' => [
+                'borrowings' => route('borrowings.index')
+            ]
+        ];
+
+        return view('new-borrowing', compact('compactData'));
     }
 }

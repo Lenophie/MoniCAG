@@ -39,11 +39,15 @@
             {{__('messages.titles.perform_borrowing')}}
         @endslot
     @endheader
+    <data-carrier
+        :php-data='@json($compactData)'
+        @ready="setCarriedData">
+    </data-carrier>
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-full">
                 <inventory-item-search-bar
-                    :inventory-items="{{$inventoryItems}}"
+                    :inventory-items="inventoryItems"
                     :displayed-inventory-items.sync="displayedInventoryItems">
                 </inventory-item-search-bar>
             </div>
@@ -62,10 +66,8 @@
     >
         <template v-slot:body>
             <borrowing-creation-modal-body
-                :borrowing-creation-route="'{{route("borrowings.store")}}'"
                 :borrowing-creation-request="borrowingCreationRequest"
                 :submit="requestBorrowingCreation"
-                @ready="setBorrowingCreationRequestRoute"
                 @removed-item="removeItemFromSelectedItemsList"
             ></borrowing-creation-modal-body>
         </template>

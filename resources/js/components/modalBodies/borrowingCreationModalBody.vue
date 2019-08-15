@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form :action="borrowingCreationRoute" autocomplete="off" v-on:submit.prevent="submit">
+        <form :action="borrowingCreationRequest.route" autocomplete="off" v-on:submit.prevent="submit">
             <!-- Borrowed items -->
             <div id="form-field-borrowedItems">
                 <h5 class="title is-5">{{ trans('messages.new_borrowing.selected_list') }}</h5>
@@ -177,12 +177,8 @@
 
     export default {
         props: {
-            borrowingCreationRoute: String,
             borrowingCreationRequest: Object,
             submit: Function
-        },
-        mounted() {
-            this.$emit('ready', this.borrowingCreationRoute)
         },
         components: {
             errorField, toBorrowInventoryItemListElement

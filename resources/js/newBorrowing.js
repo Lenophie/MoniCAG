@@ -8,6 +8,7 @@ import { faDice, faSave, faEuroSign, faCalendarAlt } from '@fortawesome/free-sol
 
 // Components
 import modal from './components/modal.vue';
+import dataCarrier from './components/dataCarrier.vue';
 import borrowingCreationModalBody from './components/modalBodies/borrowingCreationModalBody.vue';
 import checkoutButton from './components/newBorrowing/checkoutButton.vue';
 import inventoryItemsList from './components/newBorrowing/inventoryItemsList.vue';
@@ -21,6 +22,7 @@ const setupVueComponents = () => {
         el: '#app',
         data: {
             showModal: false,
+            inventoryItems: [],
             displayedInventoryItems: [],
             borrowingCreationRequest: {
                 isProcessing: false,
@@ -39,7 +41,7 @@ const setupVueComponents = () => {
             }
         },
         components: {
-            modal, borrowingCreationModalBody, checkoutButton, inventoryItemsList, inventoryItemSearchBar
+            modal, dataCarrier, borrowingCreationModalBody, checkoutButton, inventoryItemsList, inventoryItemSearchBar
         },
         methods: {
             /**
@@ -71,14 +73,6 @@ const setupVueComponents = () => {
                 this.showModal = false;
                 this.borrowingCreationRequest.params.borrowerPassword = '';
                 this.borrowingCreationRequest.errors = {};
-            },
-
-            /**
-             * Sets the borrowing creation request route
-             * @param route
-             */
-            setBorrowingCreationRequestRoute(route) {
-                this.borrowingCreationRequest.route = route;
             },
 
             /**
@@ -118,6 +112,11 @@ const setupVueComponents = () => {
                     agreementCheck2: requestParams.agreementCheck2,
                     notes: requestParams.notes
                 }
+            },
+
+            setCarriedData(data) {
+                this.borrowingCreationRequest.route = data.routes.borrowings;
+                this.inventoryItems = data.resources.inventoryItems;
             }
         }
     });
