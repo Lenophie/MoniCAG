@@ -52,6 +52,7 @@ if (!mix.inProduction()) {
     });
 } else {
     mix.version();
+    mix.disableNotifications();
 }
 
 // mix.bundleAnalyzer();
