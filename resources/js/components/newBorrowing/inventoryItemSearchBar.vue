@@ -37,21 +37,33 @@
             }
         },
         watch: {
-            inputValue(newValue) {
-                if (newValue === '') this.resetDisplayedInventoryItems();
-                else this.$emit('update:displayed-inventory-items', this.getInventoryItemsFilteredByName());
+            inputValue() {
+                this.applyFilter();
+            },
+            inventoryItems() {
+                this.applyFilter();
             }
         },
-        mounted() {
-            this.resetDisplayedInventoryItems();
-        },
         methods: {
+            /**
+             * Emits the filtered inventoryItems
+             * If the input is empty, it emits the base inventory items
+             * If the input is not empty, it calls the filtering function and emits its result
+             */
+            applyFilter() {
+                if (this.inputValue === '') this.emitDisplayedInventoryItems(this.inventoryItems);
+                else this.emitDisplayedInventoryItems(this.getInventoryItemsFilteredByName());
+            },
+            /**
+             * Cleans the input of the search field
+             */
             cleanSearchField() {
                 this.inputValue = '';
             },
-            resetDisplayedInventoryItems() {
-                this.$emit('update:displayed-inventory-items', this.inventoryItems);
-            },
+            /**
+             * Filters inventory items with Fuse
+             * @returns Array
+             */
             getInventoryItemsFilteredByName() {
                 const options = {
                     shouldSort: true,
@@ -67,6 +79,13 @@
                 };
                 const fuse = new Fuse(this.inventoryItems, options);
                 return fuse.search(this.inputValue);
+            },
+            /**
+             * Emits an update of the inventory items to display
+             * @param displayedInventoryItems
+             */
+            emitDisplayedInventoryItems(displayedInventoryItems) {
+                this.$emit('update:displayed-inventory-items', displayedInventoryItems);
             }
         }
     }
