@@ -61,13 +61,12 @@ return [
     ],
     'edit_inventory' => [
         'change_status' => 'Changer le statut',
-        'new_genre' => 'Nouveau genre',
+        'add_genre' => 'Ajouter un genre',
         'edit_items' => 'Modifier les jeux',
         'add_item' => 'Ajouter un jeu',
         'deletion_title' => 'Confirmer la suppression',
-        'deletion_warning' => 'Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n\&#039;a jamais correspondu, à un réel jeu de l\&#039;inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>.'
-    ], // Escape only quotes so this string gets properly injected in Vue props
-    // TODO: Adapt translation string service provider to automatically escape quotes
+        'deletion_warning' => "Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n'a jamais correspondu, à un réel jeu de l'inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>."
+    ],
     'edit_users' => [
         'change_role' => 'Changer le rôle'
     ],

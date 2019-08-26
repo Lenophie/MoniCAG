@@ -61,11 +61,11 @@ return [
     ],
     'edit_inventory' => [
         'change_status' => 'Change status',
-        'new_genre' => 'New genre',
+        'add_genre' => 'Add genre',
         'edit_items' => 'Edit items',
         'add_item' => 'Add item',
         'deletion_title' => 'Confirm deletion',
-        'deletion_warning' => 'Deleting an item should only be done if the item doesn\&#039;t, and never did, correspond to an actual inventory item.</br>If the item was lost, you should rather change its status.</br>After deleting an item, all its borrowings will be deleted as well from the database.</br><b>This deletion can\&#039;t be undone.</b>'
+        'deletion_warning' => "Deleting an item should only be done if the item doesn't, and never did, correspond to an actual inventory item.</br>If the item was lost, you should rather change its status.</br>After deleting an item, all its borrowings will be deleted as well from the database.</br><b>This deletion can't be undone.</b>"
     ],
     'edit_users' => [
         'change_role' => 'Change role'
