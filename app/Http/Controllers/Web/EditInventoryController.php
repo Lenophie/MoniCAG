@@ -26,6 +26,17 @@ class EditInventoryController extends Controller
         $genres = GenreResource::collection(Genre::translated()->get());
         $inventoryStatuses = InventoryItemStatusResource::collection(InventoryItemStatus::translated()->get());
 
-        return view('edit-inventory', compact('inventoryItems', 'genres', 'inventoryStatuses'));
+        $compactData = [
+            'resources' => [
+              'genres' => $genres,
+              'inventoryItems' => $inventoryItems,
+              'inventoryItemStatuses' => $inventoryStatuses
+            ],
+            'routes' => [
+                'inventoryItems' => route('inventoryItems.index'),
+                'genres' => route('genres.index')
+            ]
+        ];
+        return view('edit-inventory', compact('compactData'));
     }
 }
