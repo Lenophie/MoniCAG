@@ -1,6 +1,7 @@
 // Tools
 import {requestTranslationFile} from './trans.js';
-import bulmaCollapsible from "@creativebulma/bulma-collapsible/dist/js/bulma-collapsible.min.js";
+import bulmaCollapsible from '@creativebulma/bulma-collapsible/dist/js/bulma-collapsible.min.js';
+import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
 // Icons
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -11,7 +12,7 @@ import modal from './components/modal.vue';
 import dataCarrier from './components/dataCarrier.vue';
 import genresList from './components/editInventoryItems/genresSelectionList.vue';
 import inventoryItemCreationModalBody from './components/modalBodies/inventoryItemCreationModalBody.vue';
-import {HTTPVerbs, makeAjaxRequest} from "./ajax.js";
+import genreCreationModalBody from "./components/modalBodies/genreCreationModalBody.vue";
 
 library.add(faWarehouse, faWrench, faPlus, faArrowRight);
 
@@ -21,6 +22,7 @@ const setupVueComponents = () => {
         data: {
             genres: [],
             showInventoryItemCreationModal: false,
+            showGenreCreationModal: false,
             inventoryItemCreationRequest: {
                 isProcessing: false,
                 params: {
@@ -38,15 +40,30 @@ const setupVueComponents = () => {
                 },
                 route: '',
                 errors: {}
+            },
+            genreCreationRequest: {
+                isProcessing: false,
+                params: {
+                    nameFr: '',
+                    nameEn: ''
+                },
+                route: '',
+                errors: {}
             }
         },
         components: {
-            modal, inventoryItemCreationModalBody, dataCarrier, genresList
+            modal, inventoryItemCreationModalBody, genreCreationModalBody, dataCarrier, genresList
         },
         methods: {
+            // Modals
             closeInventoryItemCreationModal() {
                 this.showInventoryItemCreationModal = false;
             },
+            closeGenreCreationModal() {
+                this.showGenreCreationModal = false;
+            },
+
+            // Requests
             requestInventoryItemCreation() {
                 this.inventoryItemCreationRequest.isProcessing = true;
 
@@ -65,8 +82,29 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+            requestGenreCreation() {
+                this.genreCreationRequest.isProcessing = true;
+
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/';
+                const errorCallback = (response) => {
+                    this.genreCreationRequest.isProcessing = false;
+                    this.genreCreationRequest.errors = JSON.parse(response).errors;
+                };
+
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.POST,
+                    this.genreCreationRequest.route,
+                    JSON.stringify(this.genreCreationRequest.params),
+                    successCallback,
+                    errorCallback);
+            },
+
+            // Data management
             setCarriedData(data) {
                 this.inventoryItemCreationRequest.route = data.routes.inventoryItems;
+                this.genreCreationRequest.route = data.routes.genres;
                 this.genres = data.resources.genres;
             },
             /**

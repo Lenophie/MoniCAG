@@ -48,7 +48,7 @@
                 </a>
             </div>
             <div class="column is-2 has-text-centered">
-                <a class="button is-link is-fullwidth is-medium">
+                <a class="button is-link is-fullwidth is-medium" @click="showGenreCreationModal = true">
                     <p>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_genre") }}
@@ -77,6 +77,33 @@
                             class="button is-link"
                             :disabled=inventoryItemCreationRequest.isProcessing
                             @click="requestInventoryItemCreation"
+                        >
+                            @lang('Confirm')
+                        </button>
+                    </p>
+                </div>
+            </template>
+        </modal>
+        <modal
+            :title='"{{__("messages.edit_inventory.add_genre")}}"'
+            :id="'genre-creation-modal'"
+            v-show="showGenreCreationModal || genreCreationRequest.isProcessing"
+            @close="closeGenreCreationModal"
+        >
+            <template v-slot:body>
+                <genre-creation-modal-body
+                    :genre-creation-request="genreCreationRequest"
+                    :submit="requestGenreCreation"
+                ></genre-creation-modal-body>
+            </template>
+            <template v-slot:footer>
+                <div class="field is-grouped is-grouped-right width-100">
+                    <p class="control">
+                        <button
+                            id="genre-creation-confirmation-button"
+                            class="button is-link"
+                            :disabled=genreCreationRequest.isProcessing
+                            @click="requestGenreCreation"
                         >
                             @lang('Confirm')
                         </button>
