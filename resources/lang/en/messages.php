@@ -72,6 +72,6 @@ return [
     ],
     'account' => [
         'deletion_title' => 'Confirm account deletion',
-        'deletion_warning' => 'Your account will be deleted along with all your personal data.<br/><b>This deletetion can\&#039;t be undone.</b>'
+        'deletion_warning' => "Your account will be deleted along with all your personal data.<br/><b>This deletetion can't be undone.</b>"
     ],
 ];
