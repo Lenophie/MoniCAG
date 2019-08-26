@@ -7,6 +7,7 @@
 
 <script>
     export default {
+        name: "checkoutButton",
         props: {
             counter: Number
         },

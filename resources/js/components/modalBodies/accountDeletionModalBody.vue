@@ -32,6 +32,7 @@
     import errorField from '../errorField.vue';
 
     export default {
+        name: "accountDeletionModalBody",
         props: {
             accountDeletionRequest: Object,
             submit: Function

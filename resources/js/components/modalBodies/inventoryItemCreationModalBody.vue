@@ -140,6 +140,7 @@
     import numberInput from "../numberInput.vue";
 
     export default {
+        name: "inventoryItemCreationModalBody",
         props: {
             inventoryItemCreationRequest: Object,
             genres: Array,

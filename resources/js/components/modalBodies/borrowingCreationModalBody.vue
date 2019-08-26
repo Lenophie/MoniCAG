@@ -176,6 +176,7 @@
     import toBorrowInventoryItemListElement from '../newBorrowing/toBorrowInventoryItemListElement.vue';
 
     export default {
+        name: "borrowingCreationModalBody",
         props: {
             borrowingCreationRequest: Object,
             submit: Function
