@@ -43,7 +43,7 @@
                 <button
                     class="button is-fullwidth is-medium"
                     :tabindex="isAModalShown ? -1 : 0"
-                    @click="showInventoryItemCreationModal = true">
+                    @click="flags.showInventoryItemCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_item") }}
@@ -54,7 +54,7 @@
                 <button
                     class="button is-fullwidth is-medium"
                     :tabindex="isAModalShown ? -1 : 0"
-                    @click="showGenreCreationModal = true">
+                    @click="flags.showGenreCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_genre") }}
@@ -83,11 +83,11 @@
                     <div id="collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
-                        <div :class="{'card-content': isInventoryItemCardsListMounted}">
+                        <div :class="{'card-content': flags.isInventoryItemCardsListMounted}">
                             <inventory-item-cards-list
-                                :inventory-items="inventoryItems"
+                                :inventory-items="resources.inventoryItems"
                                 :tabable="!isInventoryItemsCardsListCollapsed && !isAModalShown"
-                                @mounted="isInventoryItemCardsListMounted = true"
+                                @mounted="flags.isInventoryItemCardsListMounted = true"
                                 @item-clicked="openInventoryItemUpdateModal"
                             >
                             </inventory-item-cards-list>
@@ -99,13 +99,13 @@
         <modal
             :title='"{{__("messages.edit_inventory.add_item")}}"'
             :id="'inventory-item-creation-modal'"
-            v-show="showInventoryItemCreationModal || inventoryItemCreationRequest.isProcessing"
+            v-show="flags.showInventoryItemCreationModal || requests.inventoryItemCreation.isProcessing"
             @close="closeInventoryItemCreationModal"
         >
             <template v-slot:body>
                 <inventory-item-modification-modal-body
-                    :inventory-item-modification-request="inventoryItemCreationRequest"
-                    :genres="genres"
+                    :inventory-item-modification-request="requests.inventoryItemCreation"
+                    :genres="resources.genres"
                     :submit="requestInventoryItemCreation"
                 ></inventory-item-modification-modal-body>
             </template>
@@ -115,7 +115,7 @@
                         <button
                             id="inventory-item-creation-confirmation-button"
                             class="button is-link"
-                            :disabled=inventoryItemCreationRequest.isProcessing
+                            :disabled=requests.inventoryItemCreation.isProcessing
                             @click="requestInventoryItemCreation"
                         >
                             @lang('Confirm')
@@ -127,12 +127,12 @@
         <modal
             :title='"{{__("messages.edit_inventory.add_genre")}}"'
             :id="'genre-creation-modal'"
-            v-show="showGenreCreationModal || genreCreationRequest.isProcessing"
+            v-show="flags.showGenreCreationModal || requests.genreCreation.isProcessing"
             @close="closeGenreCreationModal"
         >
             <template v-slot:body>
                 <genre-modification-modal-body
-                    :genre-modification-request="genreCreationRequest"
+                    :genre-modification-request="requests.genreCreation"
                     :submit="requestGenreCreation"
                 ></genre-modification-modal-body>
             </template>
@@ -142,7 +142,7 @@
                         <button
                             id="genre-creation-confirmation-button"
                             class="button is-link"
-                            :disabled=genreCreationRequest.isProcessing
+                            :disabled=requests.genreCreation.isProcessing
                             @click="requestGenreCreation"
                         >
                             @lang('Confirm')
@@ -154,13 +154,13 @@
         <modal
             :title='"{{__("messages.edit_inventory.edit_item")}}"'
             :id="'inventory-item-update-modal'"
-            v-show="showInventoryItemUpdateModal || inventoryItemUpdateRequest.isProcessing"
+            v-show="flags.showInventoryItemUpdateModal || requests.inventoryItemUpdate.isProcessing"
             @close="closeInventoryItemUpdateModal"
         >
             <template v-slot:body>
                 <inventory-item-modification-modal-body
-                    :inventory-item-modification-request="inventoryItemUpdateRequest"
-                    :genres="genres"
+                    :inventory-item-modification-request="requests.inventoryItemUpdate"
+                    :genres="resources.genres"
                     :submit="requestInventoryItemUpdate"
                 ></inventory-item-modification-modal-body>
             </template>
@@ -170,7 +170,7 @@
                         <button
                             id="inventory-item-update-confirmation-button"
                             class="button is-link"
-                            :disabled=inventoryItemUpdateRequest.isProcessing
+                            :disabled=requests.inventoryItemUpdate.isProcessing
                             @click="requestInventoryItemUpdate"
                         >
                             @lang('Confirm')

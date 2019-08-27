@@ -21,58 +21,69 @@ const setupVueComponents = () => {
     new Vue({
         el: '#app',
         data: {
-            inventoryItems: [],
-            genres: [],
-            showInventoryItemCreationModal: false,
-            showInventoryItemUpdateModal: false,
-            showGenreCreationModal: false,
-            isInventoryItemCardsListMounted: false,
-            bulmaCollapsibleInstance: null,
-            inventoryItemCreationRequest: {
-                isProcessing: false,
-                params: {
-                    name: '',
-                    duration: {
-                        min: null,
-                        max: null
-                    },
-                    players: {
-                        min: null,
-                        max: null
-                    },
-                    genres: [],
-                    altNames: []
-                },
-                route: '',
-                errors: {}
+            resources: {
+                inventoryItems: [],
+                genres: [],
             },
-            genreCreationRequest: {
-                isProcessing: false,
-                params: {
-                    nameFr: '',
-                    nameEn: ''
-                },
-                route: '',
-                errors: {}
+            flags: {
+                showInventoryItemCreationModal: false,
+                showInventoryItemUpdateModal: false,
+                showGenreCreationModal: false,
+                showGenreUpdateModal: false,
+                isInventoryItemCardsListMounted: false,
+                isGenresListMounted: false
             },
-            inventoryItemUpdateRequest: {
-                isProcessing: false,
-                params: {
-                    id: null,
-                    name: '',
-                    duration: {
-                        min: null,
-                        max: null
+            collapsibles: {
+                inventoryItemsList: null,
+                genresList: null,
+            },
+            requests: {
+                inventoryItemCreation: {
+                    isProcessing: false,
+                    params: {
+                        name: '',
+                        duration: {
+                            min: null,
+                            max: null
+                        },
+                        players: {
+                            min: null,
+                            max: null
+                        },
+                        genres: [],
+                        altNames: []
                     },
-                    players: {
-                        min: null,
-                        max: null
-                    },
-                    genres: [],
-                    altNames: []
+                    route: '',
+                    errors: {}
                 },
-                route: '',
-                errors: {}
+                genreCreation: {
+                    isProcessing: false,
+                    params: {
+                        nameFr: '',
+                        nameEn: ''
+                    },
+                    route: '',
+                    errors: {}
+                },
+                inventoryItemUpdate: {
+                    isProcessing: false,
+                    params: {
+                        id: null,
+                        name: '',
+                        duration: {
+                            min: null,
+                            max: null
+                        },
+                        players: {
+                            min: null,
+                            max: null
+                        },
+                        genres: [],
+                        altNames: []
+                    },
+                    route: '',
+                    errors: {}
+                }
             }
         },
         components: {
@@ -80,92 +91,95 @@ const setupVueComponents = () => {
         },
         computed: {
             isInventoryItemsCardsListCollapsed: function () {
-                if (this.bulmaCollapsibleInstance != null)
-                    return this.bulmaCollapsibleInstance.collapsed();
+                if (this.collapsibles.inventoryItemsList != null)
+                    return this.collapsibles.inventoryItemsList.collapsed();
                 return false
             },
             isAModalShown: function () {
-                return this.showInventoryItemCreationModal || this.showInventoryItemUpdateModal || this.showGenreCreationModal;
+                return this.flags.showInventoryItemCreationModal
+                    || this.flags.showInventoryItemUpdateModal
+                    || this.flags.showGenreCreationModal
+                    || this.flags.showGenreUpdateModal;
             }
         },
         methods: {
             // Modals
             closeInventoryItemCreationModal() {
-                this.showInventoryItemCreationModal = false;
+                this.flags.showInventoryItemCreationModal = false;
             },
             closeGenreCreationModal() {
-                this.showGenreCreationModal = false;
+                this.flags.showGenreCreationModal = false;
             },
             closeInventoryItemUpdateModal() {
-                this.showInventoryItemUpdateModal = false;
+                this.flags.showInventoryItemUpdateModal = false;
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
-                this.inventoryItemUpdateRequest.params.id = inventoryItem.id;
-                this.inventoryItemUpdateRequest.params.name = inventoryItem.name;
-                this.inventoryItemUpdateRequest.params.altNames = inventoryItem.altNames.map(altName => altName.name);
-                this.inventoryItemUpdateRequest.params.duration.min = inventoryItem.duration.min;
-                this.inventoryItemUpdateRequest.params.duration.max = inventoryItem.duration.max;
-                this.inventoryItemUpdateRequest.params.players.min = inventoryItem.players.min;
-                this.inventoryItemUpdateRequest.params.players.max = inventoryItem.players.max;
-                this.inventoryItemUpdateRequest.params.genres = inventoryItem.genres.map(genre => genre.id);
-                this.inventoryItemUpdateRequest.route = `${this.inventoryItemCreationRequest.route}/${inventoryItem.id}`;
+                this.requests.inventoryItemUpdate.params.id = inventoryItem.id;
+                this.requests.inventoryItemUpdate.params.name = inventoryItem.name;
+                this.requests.inventoryItemUpdate.params.altNames = inventoryItem.altNames.map(altName => altName.name);
+                this.requests.inventoryItemUpdate.params.duration.min = inventoryItem.duration.min;
+                this.requests.inventoryItemUpdate.params.duration.max = inventoryItem.duration.max;
+                this.requests.inventoryItemUpdate.params.players.min = inventoryItem.players.min;
+                this.requests.inventoryItemUpdate.params.players.max = inventoryItem.players.max;
+                this.requests.inventoryItemUpdate.params.genres = inventoryItem.genres.map(genre => genre.id);
+                this.requests.inventoryItemUpdate.route = `${this.requests.inventoryItemCreation.route}/${inventoryItem.id}`;
 
                 // Open modal
-                this.showInventoryItemUpdateModal = true;
+                this.flags.showInventoryItemUpdateModal = true;
             },
 
             // Requests
             requestInventoryItemCreation() {
-                this.inventoryItemCreationRequest.isProcessing = true;
+                this.requests.inventoryItemCreation.isProcessing = true;
 
                 // Prepare request callbacks
                 const successCallback = () => window.location.href = '/';
                 const errorCallback = (response) => {
-                    this.inventoryItemCreationRequest.isProcessing = false;
-                    this.inventoryItemCreationRequest.errors = JSON.parse(response).errors;
+                    this.requests.inventoryItemCreation.isProcessing = false;
+                    this.requests.inventoryItemCreation.errors = JSON.parse(response).errors;
                 };
 
                 // Make deletion request
                 makeAjaxRequest(
                     HTTPVerbs.POST,
-                    this.inventoryItemCreationRequest.route,
+                    this.requests.inventoryItemCreation.route,
                     JSON.stringify(this.formatInventoryItemCreationRequestParams()),
                     successCallback,
                     errorCallback);
             },
             requestGenreCreation() {
-                this.genreCreationRequest.isProcessing = true;
+                this.requests.genreCreation.isProcessing = true;
 
                 // Prepare request callbacks
                 const successCallback = () => window.location.href = '/';
                 const errorCallback = (response) => {
-                    this.genreCreationRequest.isProcessing = false;
-                    this.genreCreationRequest.errors = JSON.parse(response).errors;
+                    this.requests.genreCreation.isProcessing = false;
+                    this.requests.genreCreation.errors = JSON.parse(response).errors;
                 };
 
                 // Make deletion request
                 makeAjaxRequest(
                     HTTPVerbs.POST,
-                    this.genreCreationRequest.route,
-                    JSON.stringify(this.genreCreationRequest.params),
+                    this.requests.genreCreation.route,
+                    JSON.stringify(this.requests.genreCreation.params),
                     successCallback,
                     errorCallback);
             },
             requestInventoryItemUpdate() {
-                this.inventoryItemUpdateRequest.isProcessing = true;
+                this.requests.inventoryItemUpdate.isProcessing = true;
 
                 // Prepare request callbacks
                 const successCallback = () => window.location.href = '/';
                 const errorCallback = (response) => {
-                    this.inventoryItemUpdateRequest.isProcessing = false;
-                    this.inventoryItemUpdateRequest.errors = JSON.parse(response).errors;
+                    this.requests.inventoryItemUpdate.isProcessing = false;
+                    this.requests.inventoryItemUpdate.errors = JSON.parse(response).errors;
                 };
 
                 // Make deletion request
                 makeAjaxRequest(
                     HTTPVerbs.PATCH,
-                    this.inventoryItemUpdateRequest.route,
+                    this.requests.inventoryItemUpdate.route,
                     JSON.stringify(this.formatInventoryItemUpdateRequestParams()),
                     successCallback,
                     errorCallback);
@@ -173,16 +187,16 @@ const setupVueComponents = () => {
 
             // Data management
             setCarriedData(data) {
-                this.inventoryItemCreationRequest.route = data.routes.inventoryItems;
-                this.genreCreationRequest.route = data.routes.genres;
-                this.genres = data.resources.genres;
-                this.inventoryItems = data.resources.inventoryItems;
+                this.requests.inventoryItemCreation.route = data.routes.inventoryItems;
+                this.requests.genreCreation.route = data.routes.genres;
+                this.resources.genres = data.resources.genres;
+                this.resources.inventoryItems = data.resources.inventoryItems;
             },
             /**
              * Returns formatted request parameters
              */
             formatInventoryItemCreationRequestParams() {
-                const requestParams = this.inventoryItemCreationRequest.params;
+                const requestParams = this.requests.inventoryItemCreation.params;
                 return {
                     name: requestParams.name,
                     durationMin: requestParams.duration.min,
@@ -197,7 +211,7 @@ const setupVueComponents = () => {
              * Returns formatted request parameters
              */
             formatInventoryItemUpdateRequestParams() {
-                const requestParams = this.inventoryItemUpdateRequest.params;
+                const requestParams = this.requests.inventoryItemUpdate.params;
                 return {
                     id: requestParams.id,
                     name: requestParams.name,
@@ -211,7 +225,7 @@ const setupVueComponents = () => {
             }
         },
         mounted() {
-            this.bulmaCollapsibleInstance = bulmaCollapsible.attach()[0];
+            this.collapsibles.inventoryItemsList = bulmaCollapsible.attach()[0];
         }
     });
 };
