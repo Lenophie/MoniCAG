@@ -40,7 +40,7 @@
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-3 has-text-centered">
-                <button class="button is-link is-fullwidth is-medium" @click="showInventoryItemCreationModal = true">
+                <button class="button is-fullwidth is-medium" @click="showInventoryItemCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_item") }}
@@ -48,7 +48,7 @@
                 </button>
             </div>
             <div class="column is-3 has-text-centered">
-                <button class="button is-link is-fullwidth is-medium" @click="showGenreCreationModal = true">
+                <button class="button is-fullwidth is-medium" @click="showGenreCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_genre") }}
@@ -61,11 +61,11 @@
             <div class="column is-12">
                 <div class="card">
                     <header class="card-header">
-                        <p class="card-header-title">
-                            {{ __("messages.edit_inventory.edit_items") }}
-                        </p>
-                        <a href="#collapsible-card" data-action="collapse" class="card-header-icon is-hidden-fullscreen" aria-label="more options">
-                            <span class="icon">
+                        <a href="#collapsible-card" data-action="collapse" class="card-header-icon width-100">
+                            <span class="card-header-title collapsible-drawer-title">
+                                {{ __("messages.edit_inventory.edit_items") }}
+                            </span>
+                            <span class="icon collapsible-drawer-icon">
                                 <i class="fas fa-angle-down" aria-hidden="true"></i>
                             </span>
                         </a>
@@ -74,7 +74,9 @@
                         <div :class="{'card-content': isInventoryItemCardsListMounted}">
                             <inventory-item-cards-list
                                 :inventory-items="inventoryItems"
-                                @mounted="isInventoryItemCardsListMounted = true">
+                                @mounted="isInventoryItemCardsListMounted = true"
+                                @item-clicked="openInventoryItemUpdateModal"
+                            >
                             </inventory-item-cards-list>
                         </div>
                     </div>
@@ -129,6 +131,34 @@
                             class="button is-link"
                             :disabled=genreCreationRequest.isProcessing
                             @click="requestGenreCreation"
+                        >
+                            @lang('Confirm')
+                        </button>
+                    </p>
+                </div>
+            </template>
+        </modal>
+        <modal
+            :title='"{{__("messages.edit_inventory.edit_item")}}"'
+            :id="'inventory-item-update-modal'"
+            v-show="showInventoryItemUpdateModal || inventoryItemUpdateRequest.isProcessing"
+            @close="closeInventoryItemUpdateModal"
+        >
+            <template v-slot:body>
+                <inventory-item-modification-modal-body
+                    :inventory-item-modification-request="inventoryItemUpdateRequest"
+                    :genres="genres"
+                    :submit="requestInventoryItemUpdate"
+                ></inventory-item-modification-modal-body>
+            </template>
+            <template v-slot:footer>
+                <div class="field is-grouped is-grouped-right width-100">
+                    <p class="control">
+                        <button
+                            id="inventory-item-update-confirmation-button"
+                            class="button is-link"
+                            :disabled=inventoryItemUpdateRequest.isProcessing
+                            @click="requestInventoryItemUpdate"
                         >
                             @lang('Confirm')
                         </button>

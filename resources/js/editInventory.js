@@ -24,6 +24,7 @@ const setupVueComponents = () => {
             inventoryItems: [],
             genres: [],
             showInventoryItemCreationModal: false,
+            showInventoryItemUpdateModal: false,
             showGenreCreationModal: false,
             isInventoryItemCardsListMounted: false,
             inventoryItemCreationRequest: {
@@ -52,6 +53,25 @@ const setupVueComponents = () => {
                 },
                 route: '',
                 errors: {}
+            },
+            inventoryItemUpdateRequest: {
+                isProcessing: false,
+                params: {
+                    id: null,
+                    name: '',
+                    duration: {
+                        min: null,
+                        max: null
+                    },
+                    players: {
+                        min: null,
+                        max: null
+                    },
+                    genres: [],
+                    altNames: []
+                },
+                route: '',
+                errors: {}
             }
         },
         components: {
@@ -64,6 +84,24 @@ const setupVueComponents = () => {
             },
             closeGenreCreationModal() {
                 this.showGenreCreationModal = false;
+            },
+            closeInventoryItemUpdateModal() {
+                this.showInventoryItemUpdateModal = false;
+            },
+            openInventoryItemUpdateModal(inventoryItem) {
+                // Set request initial parameters
+                this.inventoryItemUpdateRequest.params.id = inventoryItem.id;
+                this.inventoryItemUpdateRequest.params.name = inventoryItem.name;
+                this.inventoryItemUpdateRequest.params.altNames = inventoryItem.altNames.map(altName => altName.name);
+                this.inventoryItemUpdateRequest.params.duration.min = inventoryItem.duration.min;
+                this.inventoryItemUpdateRequest.params.duration.max = inventoryItem.duration.max;
+                this.inventoryItemUpdateRequest.params.players.min = inventoryItem.players.min;
+                this.inventoryItemUpdateRequest.params.players.max = inventoryItem.players.max;
+                this.inventoryItemUpdateRequest.params.genres = inventoryItem.genres.map(genre => genre.id);
+                this.inventoryItemUpdateRequest.route = `${this.inventoryItemCreationRequest.route}/${inventoryItem.id}`;
+
+                // Open modal
+                this.showInventoryItemUpdateModal = true;
             },
 
             // Requests
@@ -102,6 +140,9 @@ const setupVueComponents = () => {
                     JSON.stringify(this.genreCreationRequest.params),
                     successCallback,
                     errorCallback);
+            },
+            requestInventoryItemUpdate() {
+                console.log("update");
             },
 
             // Data management
