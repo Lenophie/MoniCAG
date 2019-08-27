@@ -7,8 +7,13 @@
     background-color: hsl(217, 71%, 53%);
 }
 
+.inventory-item-card-button:not(:hover).is-outlined:focus {
+    background-color: #FFFFFF;
+    color: hsl(217, 71%, 53%);
+    border-color: hsl(217, 71%, 53%);
+}
+
 .inventory-item-card-button:not(.is-outlined) .inventory-item-card-hr,
-.inventory-item-card-button:not([disabled]):focus .inventory-item-card-hr,
 .inventory-item-card-button:not([disabled]):hover .inventory-item-card-hr {
     background-color: #FFFFFF;
 }

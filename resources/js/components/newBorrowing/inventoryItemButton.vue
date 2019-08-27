@@ -2,7 +2,7 @@
     <div class="column is-2">
         <a
             :id="id"
-            class="button inventory-item-card-button"
+            class="button inventory-item-card-button height-100 width-100"
             :class="{'is-outlined': !isSelected, 'is-link': !isSelected, 'is-danger': isSelected}"
             type="button"
             :disabled="isDisabled"
@@ -56,10 +56,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .inventory-item-card-button {
-        width: 100%;
-        height: 100%;
-    }
-</style>
