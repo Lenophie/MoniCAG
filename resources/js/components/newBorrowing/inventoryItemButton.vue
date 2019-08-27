@@ -2,27 +2,29 @@
     <div class="column is-2">
         <a
             :id="id"
-            class="button is-link inventory-item-button"
-            :class="{'is-outlined': !isSelected}"
+            class="button inventory-item-card-button"
+            :class="{'is-outlined': !isSelected, 'is-link': !isSelected, 'is-danger': isSelected}"
             type="button"
             :disabled="isDisabled"
             :tabindex="isDisabled || !tabable ? -1 : 0"
             @click="handleClick"
         >
-            <div class="inventory-item-button-content">
-                {{inventoryItem.name}}
-                <hr class="in-button-hr">
-                <div class="inventory-item-button-footer">
-                    {{inventoryItem.status.name}}
-                </div>
-            </div>
+            <inventory-item-card
+                :inventory-item="inventoryItem"
+                :show-duration="false"
+                :show-players="false"
+                :show-genres="false">
+            </inventory-item-card>
         </a>
     </div>
 </template>
 
 <script>
+    import InventoryItemCard from "../inventoryItemCard.vue";
+
     export default {
         name: "inventoryItemButton",
+        components: { InventoryItemCard },
         props: {
             inventoryItem: Object,
             selectedInventoryItems: Array,
@@ -54,3 +56,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .inventory-item-card-button {
+        width: 100%;
+        height: 100%;
+    }
+</style>

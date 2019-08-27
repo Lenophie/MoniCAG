@@ -3,24 +3,12 @@
     width: 20px;
 }
 
-.inventory-item-button {
-    width: 100%;
-    white-space: normal !important;
-    height: 100%;
-}
-
-.in-button-hr {
-    margin-top: 2px;
-    margin-bottom: 0;
+.inventory-item-card-hr {
     background-color: hsl(217, 71%, 53%);
 }
 
-.inventory-item-button-content {
-    width: 100%;
-}
-
-.inventory-item-button-footer {
-    font-style: italic;
-    text-align: right;
-    font-size: 10px;
+.inventory-item-card-button:not(.is-outlined) .inventory-item-card-hr,
+.inventory-item-card-button:not([disabled]):focus .inventory-item-card-hr,
+.inventory-item-card-button:not([disabled]):hover .inventory-item-card-hr {
+    background-color: #FFFFFF;
 }
