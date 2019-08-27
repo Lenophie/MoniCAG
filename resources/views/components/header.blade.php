@@ -1,4 +1,4 @@
-<header class="columns">
+<header class="columns" id="main-header">
     <div class="column is-full">
         <div class="columns is-vcentered">
             @if($hasReturnButton == 'true')
