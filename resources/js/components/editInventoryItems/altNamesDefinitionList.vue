@@ -16,7 +16,7 @@
                 <input
                     type="text"
                     class="input"
-                    v-model:value="local.inputValue"
+                    v-model="inputValue"
                     @keyup.enter="addAltName"
                 >
             </div>
@@ -41,15 +41,7 @@
         },
         data: function () {
             return {
-                local : {
-                    inputValue: '',
-                    altNames: Vue.util.extend([], this.altNames) // prevent shallow copy
-                }
-            }
-        },
-        watch: {
-            'local.altNames': function() {
-                this.emitSelection();
+                inputValue: '',
             }
         },
         methods: {
@@ -57,19 +49,23 @@
              * Adds an alt name to the local list of alt names
              */
             addAltName() {
-                if (this.local.inputValue !== '') {
+                if (this.inputValue !== '') {
                     // Check for duplicates
                     let isDuplicate = false;
-                    for (const altName of this.local.altNames) {
-                        if (altName === this.local.inputValue) {
+                    const lowerCaseInput = this.inputValue.toLowerCase();
+                    for (const altName of this.altNames) {
+                        if (altName.toLowerCase() === lowerCaseInput) {
                             isDuplicate = true;
                             break;
                         }
                     }
 
                     // Add the alt name
-                    if (!isDuplicate)
-                        this.local.altNames.push(this.local.inputValue);
+                    if (!isDuplicate) {
+                        const newAltNamesList = Vue.util.extend([], this.altNames);
+                        newAltNamesList.push(this.inputValue);
+                        this.emitSelection(newAltNamesList);
+                    }
 
                     // Clean input field
                     this.cleanInputField();
@@ -81,22 +77,26 @@
              */
             removeAltName(altName) {
                 // Find alt name index in the list
-                const indexOfAltNameToRemove = this.local.altNames.indexOf(altName);
+                const indexOfAltNameToRemove = this.altNames.indexOf(altName);
 
                 // Remove alt name from the list
-                if (indexOfAltNameToRemove > -1) this.local.altNames.splice(indexOfAltNameToRemove, 1);
+                if (indexOfAltNameToRemove > -1) {
+                    const newAltNamesList = Vue.util.extend([], this.altNames);
+                    newAltNamesList.splice(indexOfAltNameToRemove, 1);
+                    this.emitSelection(newAltNamesList);
+                }
             },
             /**
              * Cleans an alt name to the local list of alt names
              */
             cleanInputField() {
-                this.local.inputValue = '';
+                this.inputValue = '';
             },
             /**
              * Emits an update of the selected genres
              */
-            emitSelection() {
-                this.$emit('update:alt-names', this.local.altNames);
+            emitSelection(newAltNames) {
+                this.$emit('update:alt-names', newAltNames);
             }
         }
     }
