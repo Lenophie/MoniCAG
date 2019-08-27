@@ -31,7 +31,7 @@
                                 min="0"
                                 step="1"
                                 name="durationMin"
-                                v-model="inventoryItemModificationRequest.params.duration.min"
+                                v-model.number="inventoryItemModificationRequest.params.duration.min"
                                 :disabled=inventoryItemModificationRequest.isProcessing
                                 required>
                             </number-input>
@@ -48,7 +48,7 @@
                                 min="0"
                                 step="1"
                                 name="durationMax"
-                                v-model="inventoryItemModificationRequest.params.duration.max"
+                                v-model.number="inventoryItemModificationRequest.params.duration.max"
                                 :disabled=inventoryItemModificationRequest.isProcessing
                                 required>
                             </number-input>
@@ -77,7 +77,7 @@
                                 min="0"
                                 step="1"
                                 name="playersMin"
-                                v-model="inventoryItemModificationRequest.params.players.min"
+                                v-model.number="inventoryItemModificationRequest.params.players.min"
                                 :disabled=inventoryItemModificationRequest.isProcessing
                                 required>
                             </number-input>
@@ -94,7 +94,7 @@
                                 min="0"
                                 step="1"
                                 name="playersMax"
-                                v-model="inventoryItemModificationRequest.params.players.max"
+                                v-model.number="inventoryItemModificationRequest.params.players.max"
                                 :disabled=inventoryItemModificationRequest.isProcessing
                                 required>
                             </number-input>
