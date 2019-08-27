@@ -53,7 +53,7 @@
                     <footer class="card-footer">
                         <a id="modify-email-link" class="custom-hover-color card-footer-item" href="{{ url('/email/change') }}">{{__('Modify my E-mail address')}}</a>
                         <a id="modify-password-link" class="custom-hover-color card-footer-item" href="{{ url('/password/change') }}">{{__('Modify my password')}}</a>
-                        <a id="delete-account-link" class="card-footer-item has-text-danger" @click="showModal = true">{{__('Delete my account')}}</a>
+                        <button id="delete-account-link" class="card-footer-item has-text-danger" @click="showModal = true">{{__('Delete my account')}}</button>
                     </footer>
                 </div>
                 <div class="card">

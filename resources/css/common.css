@@ -66,6 +66,8 @@ h1 {
     margin-bottom: 0 !important;
 }
 
-button:focus {
-    outline: none
+button:not(.button) {
+    background: none;
+    border: none;
+    cursor: pointer;
 }

@@ -1,12 +1,13 @@
 <template>
     <li :id="id">
-        {{inventoryItem.name}} <a
+        {{inventoryItem.name}} <button
           class="button is-small is-danger remove-item-borrow-list-button"
           type="button"
           :id="buttonId"
-          @click="handleCloseButtonClick">
+          @click="handleCloseButtonClick"
+          >
             <i class="fas fa-times"></i>
-        </a>
+        </button>
     </li>
 </template>
 

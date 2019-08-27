@@ -10,14 +10,14 @@
             >
         </div>
         <div class="control">
-            <a
+            <button
                 class="button is-outlined is-danger height-100"
                 type="button"
                 id="search-game-button"
                 @click="cleanSearchField"
             >
                 <i class="fas fa-times"></i>
-            </a>
+            </button>
         </div>
     </div>
 </template>

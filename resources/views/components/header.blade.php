@@ -47,9 +47,9 @@
                             <span><i class="fas fa-user"></i> {{ __('messages.titles.account') }}</span>
                         </a>
                          |
-                        <a class="button is-small is-danger" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <button class="button is-small is-danger" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
-                        </a>
+                        </button>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                 @endguest

@@ -50,10 +50,10 @@
         </div>
         <div class="columns">
             <div class="column is-half">
-                <a class="button is-success end-button" id="return-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.returned')}}</a>
+                <button class="button is-success end-button" id="return-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.returned')}}</button>
             </div>
             <div class="column is-half">
-                <a class="button is-danger end-button" id="lost-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.lost')}}</a>
+                <button class="button is-danger end-button" id="lost-button" data-toggle="modal" data-target="end-borrowing-modal" disabled="disabled">{{__('messages.end_borrowing.declaration.lost')}}</button>
             </div>
         </div>
         <div class="columns">

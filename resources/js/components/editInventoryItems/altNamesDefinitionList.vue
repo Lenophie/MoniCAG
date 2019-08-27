@@ -21,13 +21,13 @@
                 >
             </div>
             <div class="control">
-                <a
+                <button
                     class="button is-outlined is-link height-100"
                     type="button"
                     @click="addAltName"
                 >
                     <i class="fas fa-arrow-right"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>

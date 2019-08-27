@@ -46,9 +46,9 @@
                                 <input type="text" id="search-game-field" class="input" placeholder="{{__('messages.view_inventory.filter_game_placeholder')}}">
                             </div>
                             <div class="control">
-                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-game-search-button">
+                                <button class="button is-outlined is-view-inventory height-100" type="button" id="cancel-game-search-button">
                                     <i class="fas fa-times"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,9 @@
                     <div class="column is-4">
                         <div class="field has-addons has-addons-centered">
                             <div class="control">
-                                <a class="button is-static height-100">
+                                <button class="button is-static height-100">
                                     <i class="fas fa-trophy"></i>
-                                </a>
+                                </button>
                             </div>
                             <div class="control is-expanded">
                                 <div class="select is-fullwidth">
@@ -73,43 +73,43 @@
                                 </div>
                             </div>
                             <div class="control">
-                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-genre-filtering-button">
+                                <button class="button is-outlined is-view-inventory height-100" type="button" id="cancel-genre-filtering-button">
                                     <i class="fas fa-times"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="column is-4">
                         <div class="field has-addons has-addons-centered">
                             <div class="control">
-                                <a class="button is-static height-100">
+                                <button class="button is-static height-100">
                                     <i class="fas fa-clock"></i>
-                                </a>
+                                </button>
                             </div>
                             <div class="control is-expanded">
                                 <input id="duration-input" type="number" min="0" class="input" placeholder="{{__("messages.view_inventory.filter_duration_placeholder")}}">
                             </div>
                             <div class="control">
-                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-duration-filtering-button">
+                                <button class="button is-outlined is-view-inventory height-100" type="button" id="cancel-duration-filtering-button">
                                     <i class="fas fa-times"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="column is-4">
                         <div class="field has-addons has-addons-centered">
                             <div class="control">
-                                <a class="button is-static height-100">
+                                <button class="button is-static height-100">
                                     <i class="fas fa-users"></i>
-                                </a>
+                                </button>
                             </div>
                             <div class="control is-expanded">
                                 <input id="players-input" type="number" min="1" class="input" placeholder="{{__("messages.view_inventory.filter_players_placeholder")}}">
                             </div>
                             <div class="control">
-                                <a class="button is-outlined is-view-inventory height-100" type="button" id="cancel-players-filtering-button">
+                                <button class="button is-outlined is-view-inventory height-100" type="button" id="cancel-players-filtering-button">
                                     <i class="fas fa-times"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
