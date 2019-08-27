@@ -5,7 +5,7 @@ import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
 
 // Icons
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faWarehouse, faWrench, faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import modal from './components/modal.vue';
@@ -13,8 +13,9 @@ import dataCarrier from './components/dataCarrier.vue';
 import genresList from './components/editInventoryItems/genresSelectionList.vue';
 import inventoryItemCreationModalBody from './components/modalBodies/inventoryItemCreationModalBody.vue';
 import genreCreationModalBody from "./components/modalBodies/genreCreationModalBody.vue";
+import inventoryItemCardsList from "./components/inventoryItemCardsList.vue";
 
-library.add(faWarehouse, faWrench, faPlus, faArrowRight);
+library.add(faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown);
 
 const setupVueComponents = () => {
     new Vue({
@@ -24,6 +25,7 @@ const setupVueComponents = () => {
             genres: [],
             showInventoryItemCreationModal: false,
             showGenreCreationModal: false,
+            isInventoryItemCardsListMounted: false,
             inventoryItemCreationRequest: {
                 isProcessing: false,
                 params: {
@@ -53,7 +55,7 @@ const setupVueComponents = () => {
             }
         },
         components: {
-            modal, inventoryItemCreationModalBody, genreCreationModalBody, dataCarrier, genresList
+            modal, inventoryItemCreationModalBody, genreCreationModalBody, dataCarrier, genresList, inventoryItemCardsList
         },
         methods: {
             // Modals

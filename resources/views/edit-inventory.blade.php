@@ -39,21 +39,46 @@
     </data-carrier>
     <div class="container is-fluid">
         <div class="columns">
-            <div class="column is-2 has-text-centered">
-                <a class="button is-link is-fullwidth is-medium" @click="showInventoryItemCreationModal = true">
-                    <p>
+            <div class="column is-3 has-text-centered">
+                <button class="button is-link is-fullwidth is-medium" @click="showInventoryItemCreationModal = true">
+                    <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_item") }}
-                    </p>
-                </a>
+                    </span>
+                </button>
             </div>
-            <div class="column is-2 has-text-centered">
-                <a class="button is-link is-fullwidth is-medium" @click="showGenreCreationModal = true">
-                    <p>
+            <div class="column is-3 has-text-centered">
+                <button class="button is-link is-fullwidth is-medium" @click="showGenreCreationModal = true">
+                    <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_genre") }}
-                    </p>
-                </a>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            {{ __("messages.edit_inventory.edit_items") }}
+                        </p>
+                        <a href="#collapsible-card" data-action="collapse" class="card-header-icon is-hidden-fullscreen" aria-label="more options">
+                            <span class="icon">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </header>
+                    <div id="collapsible-card" class="is-collapsible">
+                        <div :class="{'card-content': isInventoryItemCardsListMounted}">
+                            <inventory-item-cards-list
+                                :inventory-items="inventoryItems"
+                                @mounted="isInventoryItemCardsListMounted = true">
+                            </inventory-item-cards-list>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <modal

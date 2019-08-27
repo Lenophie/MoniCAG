@@ -2,3 +2,14 @@
     padding-right: 5px;
     line-height: 2;
 }
+
+.inventory-item-card {
+    padding: 6px 12px 6px 12px;
+    border: #000000 1px solid;
+    border-radius: 7px;
+}
+
+
+.inventory-item-card-hr {
+    background-color: #000000;
+}
