@@ -5,6 +5,7 @@
                 class="button inventory-item-card-button is-outlined height-100 width-100"
                 type="button"
                 :tabindex="tabable ? 0 : -1"
+                @keyup.enter="handleClick(inventoryItem)"
                 @click="handleClick(inventoryItem)"
             >
                 <inventory-item-card :inventory-item="inventoryItem"></inventory-item-card>

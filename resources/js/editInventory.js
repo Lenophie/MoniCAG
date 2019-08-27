@@ -27,6 +27,7 @@ const setupVueComponents = () => {
             showInventoryItemUpdateModal: false,
             showGenreCreationModal: false,
             isInventoryItemCardsListMounted: false,
+            bulmaCollapsibleInstance: null,
             inventoryItemCreationRequest: {
                 isProcessing: false,
                 params: {
@@ -76,6 +77,16 @@ const setupVueComponents = () => {
         },
         components: {
             modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList, inventoryItemCardsList
+        },
+        computed: {
+            isInventoryItemsCardsListCollapsed: function () {
+                if (this.bulmaCollapsibleInstance != null)
+                    return this.bulmaCollapsibleInstance.collapsed();
+                return false
+            },
+            isAModalShown: function () {
+                return this.showInventoryItemCreationModal || this.showInventoryItemUpdateModal || this.showGenreCreationModal;
+            }
         },
         methods: {
             // Modals
@@ -200,7 +211,7 @@ const setupVueComponents = () => {
             }
         },
         mounted() {
-            bulmaCollapsible.attach();
+            this.bulmaCollapsibleInstance = bulmaCollapsible.attach()[0];
         }
     });
 };

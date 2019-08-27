@@ -40,7 +40,10 @@
     <div class="container is-fluid">
         <div class="columns">
             <div class="column is-3 has-text-centered">
-                <button class="button is-fullwidth is-medium" @click="showInventoryItemCreationModal = true">
+                <button
+                    class="button is-fullwidth is-medium"
+                    :tabindex="isAModalShown ? -1 : 0"
+                    @click="showInventoryItemCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_item") }}
@@ -48,7 +51,10 @@
                 </button>
             </div>
             <div class="column is-3 has-text-centered">
-                <button class="button is-fullwidth is-medium" @click="showGenreCreationModal = true">
+                <button
+                    class="button is-fullwidth is-medium"
+                    :tabindex="isAModalShown ? -1 : 0"
+                    @click="showGenreCreationModal = true">
                     <span>
                         <i class="fas fa-plus"></i>
                         {{ __("messages.edit_inventory.add_genre") }}
@@ -61,7 +67,11 @@
             <div class="column is-12">
                 <div class="card">
                     <header class="card-header">
-                        <a href="#collapsible-card" data-action="collapse" class="card-header-icon width-100">
+                        <a
+                            href="#collapsible-card"
+                            data-action="collapse"
+                            class="card-header-icon width-100"
+                            :tabindex="isAModalShown ? -1 : 0">
                             <span class="card-header-title collapsible-drawer-title">
                                 {{ __("messages.edit_inventory.edit_items") }}
                             </span>
@@ -70,10 +80,13 @@
                             </span>
                         </a>
                     </header>
-                    <div id="collapsible-card" class="is-collapsible">
+                    <div id="collapsible-card"
+                         class="is-collapsible"
+                         tabindex="-1">
                         <div :class="{'card-content': isInventoryItemCardsListMounted}">
                             <inventory-item-cards-list
                                 :inventory-items="inventoryItems"
+                                :tabable="!isInventoryItemsCardsListCollapsed && !isAModalShown"
                                 @mounted="isInventoryItemCardsListMounted = true"
                                 @item-clicked="openInventoryItemUpdateModal"
                             >
