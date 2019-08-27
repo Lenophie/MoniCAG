@@ -5,14 +5,14 @@
             <hr class="inventory-item-card-hr">
         </div>
         <div class="inventory-item-card-precision" v-if="isPrecisionDivNecessary">
-            <span v-if="isGenresInfoShown">
+            <span class="inventory-item-card-info" v-if="isGenresInfoShown">
                 <i class="fas fa-trophy"></i> {{genresString}}
             </span>
-            <span v-if="isDurationInfoShown">
+            <span class="inventory-item-card-info" v-if="isDurationInfoShown">
                 <br v-if="isGenresInfoShown"/>
                 <i class="far fa-clock"></i> {{durationInfo}}
             </span>
-            <span v-if="isPlayersInfoShown">
+            <span class="inventory-item-card-info" v-if="isPlayersInfoShown">
                 <br v-if="isDurationInfoShown || isGenresInfoShown"/>
                 <i class="fas fa-users"></i> {{playersInfo}}
             </span>
@@ -148,6 +148,10 @@
         text-align: left;
     }
 
+    .inventory-item-card-info {
+        white-space: normal;
+    }
+
     .inventory-item-card-name {
         text-align: center;
     }
@@ -155,5 +159,6 @@
     .inventory-item-card-hr {
         margin-top: 0;
         margin-bottom: 3px;
+        height: 1px;
     }
 </style>
