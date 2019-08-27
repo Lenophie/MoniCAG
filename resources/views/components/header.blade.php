@@ -10,7 +10,7 @@
                 </div>
             @endif
             <div class="column {{$hasReturnButton == 'false' xor $hasCheckoutButton == 'false' ? 'is-offset-2' : ''}} {{$hasReturnButton == 'true' || $hasCheckoutButton == 'true' ? 'is-8' : 'is-full'}}">
-                <h1 class="title is-1">{{$leftIcon}} {{$title}} {{$rightIcon}}</h1>
+                <h1 class="title is-1"><span class="is-hidden-mobile">{{$leftIcon}}</span> {{$title}} <span class="is-hidden-mobile">{{$rightIcon}}</span></h1>
             </div>
             @if($hasCheckoutButton == 'true')
                 <div class="column is-2" id="checkout-column">
