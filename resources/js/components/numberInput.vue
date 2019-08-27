@@ -13,7 +13,7 @@
     export default {
         name: "numberInput",
         props: {
-            value: String
+            value: String|Number
         },
         data: function () {
             return {
