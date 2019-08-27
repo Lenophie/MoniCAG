@@ -6,7 +6,7 @@
                 <p class="modal-card-title">{{title}}</p>
                 <a class="delete" aria-label="close" @click="emitCloseEvent"></a>
             </header>
-            <div class="modal-card-body">
+            <div class="modal-card-body" tabindex="-1">
                 <slot name="body"></slot>
             </div>
             <footer class="modal-card-foot">

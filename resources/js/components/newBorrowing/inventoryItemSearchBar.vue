@@ -6,6 +6,7 @@
                 id="search-game-field"
                 class="input"
                 :placeholder="trans('messages.new_borrowing.search_placeholder')"
+                :tabindex="tabable ? 0 : -1"
                 v-model:value="inputValue"
             >
         </div>
@@ -15,6 +16,7 @@
                 type="button"
                 id="search-game-button"
                 @click="cleanSearchField"
+                :tabindex="tabable ? 0 : -1"
             >
                 <i class="fas fa-times"></i>
             </button>
@@ -29,7 +31,11 @@
         name: "inventoryItemSearchBar",
         props: {
             inventoryItems: Array,
-            displayedInventoryItems: Array
+            displayedInventoryItems: Array,
+            tabable: {
+                type: Boolean,
+                default: true,
+            }
         },
         data: function() {
             return {

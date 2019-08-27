@@ -4,7 +4,8 @@
             v-for="inventoryItem in inventoryItems"
             :inventory-item="inventoryItem"
             :selected-inventory-items="selectedInventoryItems"
-            v-bind:key="inventoryItem.id"
+            :tabable="tabable"
+            :key="inventoryItem.id"
             @selected="bubbleUpSelectedItem">
         </inventory-item-button>
     </div>
@@ -17,7 +18,11 @@
         name: "inventoryItemsList",
         props: {
             inventoryItems: Array,
-            selectedInventoryItems: Array
+            selectedInventoryItems: Array,
+            tabable: {
+                type: Boolean,
+                default: true,
+            }
         },
         components: {
             inventoryItemButton

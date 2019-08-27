@@ -3,9 +3,10 @@
         <a
             :id="id"
             class="button is-link inventory-item-button"
-            v-bind:class="{'is-outlined': !isSelected}"
+            :class="{'is-outlined': !isSelected}"
             type="button"
             :disabled="isDisabled"
+            :tabindex="isDisabled || !tabable ? -1 : 0"
             @click="handleClick"
         >
             <div class="inventory-item-button-content">
@@ -24,7 +25,11 @@
         name: "inventoryItemButton",
         props: {
             inventoryItem: Object,
-            selectedInventoryItems: Array
+            selectedInventoryItems: Array,
+            tabable: {
+                type: Boolean,
+                default: true
+            }
         },
         data: function () {
             return {

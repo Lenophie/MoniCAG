@@ -33,6 +33,7 @@
             <checkout-button
                 :counter="borrowingCreationRequest.params.selectedItems.length"
                 @open="showModal = true"
+                :tabable="!showModal"
             ></checkout-button>
         @endslot
         @slot('title')
@@ -48,13 +49,15 @@
             <div class="column is-full">
                 <inventory-item-search-bar
                     :inventory-items="inventoryItems"
-                    :displayed-inventory-items.sync="displayedInventoryItems">
+                    :displayed-inventory-items.sync="displayedInventoryItems"
+                    :tabable="!showModal">
                 </inventory-item-search-bar>
             </div>
         </div>
         <inventory-items-list
             :inventory-items="displayedInventoryItems"
             :selected-inventory-items="borrowingCreationRequest.params.selectedItems"
+            :tabable="!showModal"
             @selected="updateSelectedItemsList"
         ></inventory-items-list>
     </div>
