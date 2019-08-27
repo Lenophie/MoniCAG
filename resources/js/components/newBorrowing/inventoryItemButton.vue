@@ -7,6 +7,7 @@
             type="button"
             :disabled="isDisabled"
             :tabindex="isDisabled || !tabable ? -1 : 0"
+            @keyup.enter="handleClick"
             @click="handleClick"
         >
             <inventory-item-card
