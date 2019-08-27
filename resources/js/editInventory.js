@@ -142,7 +142,22 @@ const setupVueComponents = () => {
                     errorCallback);
             },
             requestInventoryItemUpdate() {
-                console.log("update");
+                this.inventoryItemUpdateRequest.isProcessing = true;
+
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/';
+                const errorCallback = (response) => {
+                    this.inventoryItemUpdateRequest.isProcessing = false;
+                    this.inventoryItemUpdateRequest.errors = JSON.parse(response).errors;
+                };
+
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.PATCH,
+                    this.inventoryItemUpdateRequest.route,
+                    JSON.stringify(this.formatInventoryItemUpdateRequestParams()),
+                    successCallback,
+                    errorCallback);
             },
 
             // Data management
@@ -158,6 +173,22 @@ const setupVueComponents = () => {
             formatInventoryItemCreationRequestParams() {
                 const requestParams = this.inventoryItemCreationRequest.params;
                 return {
+                    name: requestParams.name,
+                    durationMin: requestParams.duration.min,
+                    durationMax: requestParams.duration.max,
+                    playersMin: requestParams.players.min,
+                    playersMax: requestParams.players.max,
+                    genres: requestParams.genres,
+                    altNames: requestParams.altNames
+                }
+            },
+            /**
+             * Returns formatted request parameters
+             */
+            formatInventoryItemUpdateRequestParams() {
+                const requestParams = this.inventoryItemUpdateRequest.params;
+                return {
+                    id: requestParams.id,
                     name: requestParams.name,
                     durationMin: requestParams.duration.min,
                     durationMax: requestParams.duration.max,
