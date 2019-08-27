@@ -57,21 +57,23 @@
              * Adds an alt name to the local list of alt names
              */
             addAltName() {
-                // Check for duplicates
-                let isDuplicate = false;
-                for (const altName of this.local.altNames) {
-                    if (altName === this.local.inputValue) {
-                        isDuplicate = true;
-                        break;
+                if (this.local.inputValue !== '') {
+                    // Check for duplicates
+                    let isDuplicate = false;
+                    for (const altName of this.local.altNames) {
+                        if (altName === this.local.inputValue) {
+                            isDuplicate = true;
+                            break;
+                        }
                     }
+
+                    // Add the alt name
+                    if (!isDuplicate)
+                        this.local.altNames.push(this.local.inputValue);
+
+                    // Clean input field
+                    this.cleanInputField();
                 }
-
-                // Add the alt name
-                if (!isDuplicate)
-                    this.local.altNames.push(this.local.inputValue);
-
-                // Clean input field
-                this.cleanInputField();
             },
             /**
              * Adds an alt name from the local list of alt names
