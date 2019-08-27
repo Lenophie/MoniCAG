@@ -11,8 +11,8 @@ import { faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown } from '@forta
 import modal from './components/modal.vue';
 import dataCarrier from './components/dataCarrier.vue';
 import genresList from './components/editInventoryItems/genresSelectionList.vue';
-import inventoryItemCreationModalBody from './components/modalBodies/inventoryItemCreationModalBody.vue';
-import genreCreationModalBody from "./components/modalBodies/genreCreationModalBody.vue";
+import inventoryItemModificationModalBody from './components/modalBodies/inventoryItemModificationModalBody.vue';
+import genreModificationModalBody from "./components/modalBodies/genreModificationModalBody.vue";
 import inventoryItemCardsList from "./components/inventoryItemCardsList.vue";
 
 library.add(faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown);
@@ -55,7 +55,7 @@ const setupVueComponents = () => {
             }
         },
         components: {
-            modal, inventoryItemCreationModalBody, genreCreationModalBody, dataCarrier, genresList, inventoryItemCardsList
+            modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList, inventoryItemCardsList
         },
         methods: {
             // Modals

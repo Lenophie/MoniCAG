@@ -88,11 +88,11 @@
             @close="closeInventoryItemCreationModal"
         >
             <template v-slot:body>
-                <inventory-item-creation-modal-body
-                    :inventory-item-creation-request="inventoryItemCreationRequest"
+                <inventory-item-modification-modal-body
+                    :inventory-item-modification-request="inventoryItemCreationRequest"
                     :genres="genres"
                     :submit="requestInventoryItemCreation"
-                ></inventory-item-creation-modal-body>
+                ></inventory-item-modification-modal-body>
             </template>
             <template v-slot:footer>
                 <div class="field is-grouped is-grouped-right width-100">
@@ -116,10 +116,10 @@
             @close="closeGenreCreationModal"
         >
             <template v-slot:body>
-                <genre-creation-modal-body
-                    :genre-creation-request="genreCreationRequest"
+                <genre-modification-modal-body
+                    :genre-modification-request="genreCreationRequest"
                     :submit="requestGenreCreation"
-                ></genre-creation-modal-body>
+                ></genre-modification-modal-body>
             </template>
             <template v-slot:footer>
                 <div class="field is-grouped is-grouped-right width-100">
