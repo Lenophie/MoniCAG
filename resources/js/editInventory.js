@@ -20,6 +20,7 @@ const setupVueComponents = () => {
     new Vue({
         el: '#app',
         data: {
+            inventoryItems: [],
             genres: [],
             showInventoryItemCreationModal: false,
             showGenreCreationModal: false,
@@ -106,6 +107,7 @@ const setupVueComponents = () => {
                 this.inventoryItemCreationRequest.route = data.routes.inventoryItems;
                 this.genreCreationRequest.route = data.routes.genres;
                 this.genres = data.resources.genres;
+                this.inventoryItems = data.resources.inventoryItems;
             },
             /**
              * Returns formatted request parameters

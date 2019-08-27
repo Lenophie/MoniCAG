@@ -22,7 +22,7 @@ class EditInventoryController extends Controller
     {
         abort_unless(Gate::allows('update', InventoryItem::class), Response::HTTP_FORBIDDEN);
 
-        $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::all());
+        $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::with(['genres', 'altNames'])->get());
         $genres = GenreResource::collection(Genre::translated()->get());
         $inventoryStatuses = InventoryItemStatusResource::collection(InventoryItemStatus::translated()->get());
 
