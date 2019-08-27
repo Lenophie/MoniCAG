@@ -7,8 +7,6 @@
 </template>
 
 <script>
-    import get from "lodash.get";
-
     export default {
         name: "errorField",
         props: {
@@ -17,7 +15,11 @@
         },
         computed: {
             nestedErrorList: function () {
-                return get(this.errorsList, this.fieldPath);
+                const matchingKeys = [];
+                for (const key of Object.keys(this.errorsList)) {
+                    if (key.startsWith(this.fieldPath)) matchingKeys.push(key);
+                }
+                return Array.prototype.concat(...matchingKeys.map(key => this.errorsList[key]));
             }
         }
     }
