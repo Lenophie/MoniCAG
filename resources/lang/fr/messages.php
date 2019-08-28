@@ -60,15 +60,16 @@ return [
         'filter_players_placeholder' => 'Filtrer par nombre de joueurs...',
     ],
     'edit_inventory' => [
-        'change_status' => 'Changer le statut',
         'add_genre' => 'Ajouter un genre',
         'edit_genre' => 'Modifier le genre',
         'edit_genres' => 'Modifier les genres',
+        'delete_genre' => 'Supprimer le genre',
         'add_item' => 'Ajouter un jeu',
         'edit_items' => 'Modifier les jeux',
         'edit_item' => 'Modifier le jeu',
-        'deletion_title' => 'Confirmer la suppression',
-        'deletion_warning' => "Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n'a jamais correspondu, à un réel jeu de l'inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>."
+        'delete_item' => 'Supprimer le jeu',
+        'item_deletion_warning' => "Supprimer un jeu ne devrait être fait que si le jeu ne correspond pas, et n'a jamais correspondu, à un réel jeu de l'inventaire.<br/>Si le jeu a été perdu, vous devriez plutôt modifier son statut.<br/>Après avoir supprimé le jeu, tous ses emprunts seront supprimés de la base de données.<br/>Cette suppression est <b>irréversible</b>.",
+        'genre_deletion_warning' => "Êtes-vous sûr de vouloir supprimer ce genre ?<br/>Cette suppression est <b>irréversible</b>",
     ],
     'edit_users' => [
         'change_role' => 'Changer le rôle'
