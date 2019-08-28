@@ -23,9 +23,12 @@ class LangController extends Controller
             $strings[$name] = require $file;
         }
 
-        $simpleWordsJson = json_decode(file_get_contents(resource_path('lang/fr.json')));
-        foreach ($simpleWordsJson as $key => $value) {
-            $strings[$key] = $value;
+        $simpleWordsFileName = resource_path('lang/' . $lang . '.json');
+        if (file_exists($simpleWordsFileName)) {
+            $simpleWordsJson = json_decode(file_get_contents($simpleWordsFileName));
+            foreach ($simpleWordsJson as $key => $value) {
+                $strings[$key] = $value;
+            }
         }
 
         return response($strings, Response::HTTP_OK);
