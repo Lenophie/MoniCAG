@@ -89,6 +89,7 @@
                                 :tabable="!isInventoryItemCardsListCollapsed && !isAModalShown"
                                 @mounted="flags.isInventoryItemCardsListMounted = true"
                                 @item-clicked="openInventoryItemUpdateModal"
+                                @item-deletion-clicked="openInventoryItemDeletionModal"
                             >
                             </inventory-item-cards-list>
                         </div>
@@ -123,6 +124,7 @@
                                 :tabable="!isGenreCardsListCollapsed && !isAModalShown"
                                 @mounted="flags.isGenreCardsListMounted = true"
                                 @genre-clicked="openGenreUpdateModal"
+                                @genre-deletion-clicked="openGenreDeletionModal"
                             >
                             </genre-cards-list>
                         </div>
@@ -239,6 +241,66 @@
                             @click="requestGenreUpdate"
                         >
                             @lang('Confirm')
+                        </button>
+                    </p>
+                </div>
+            </template>
+        </modal>
+        <modal
+            :title="`${trans('messages.edit_inventory.delete_item')} : ${requests.inventoryItemDeletion.name}`"
+            :id="'inventory_item-deletion-modal'"
+            v-show="flags.showInventoryItemDeletionModal || requests.inventoryItemDeletion.isProcessing"
+            @close="closeInventoryItemDeletionModal"
+        >
+            <template v-slot:body>
+                <p class="has-text-danger">
+                    <span v-html="trans('messages.edit_inventory.item_deletion_warning')"></span>
+                </p>
+                <error-field
+                    :errors-list="requests.inventoryItemDeletion.errors"
+                    :field-path="'inventoryItem'">
+                </error-field>
+            </template>
+            <template v-slot:footer>
+                <div class="field is-grouped is-grouped-right width-100">
+                    <p class="control">
+                        <button
+                            id="inventory-item-deletion-confirmation-button"
+                            class="button is-danger"
+                            :disabled=requests.inventoryItemDeletion.isProcessing
+                            @click="requestInventoryItemDeletion"
+                        >
+                            @lang('Delete')
+                        </button>
+                    </p>
+                </div>
+            </template>
+        </modal>
+        <modal
+            :title="`${trans('messages.edit_inventory.delete_genre')} : ${requests.genreDeletion.name}`"
+            :id="'genre-deletion-modal'"
+            v-show="flags.showGenreDeletionModal || requests.genreDeletion.isProcessing"
+            @close="closeGenreDeletionModal"
+        >
+            <template v-slot:body>
+                <p class="has-text-danger">
+                    <span v-html="trans('messages.edit_inventory.genre_deletion_warning')"></span>
+                </p>
+                <error-field
+                    :errors-list="requests.genreDeletion.errors"
+                    :field-path="'genre'">
+                </error-field>
+            </template>
+            <template v-slot:footer>
+                <div class="field is-grouped is-grouped-right width-100">
+                    <p class="control">
+                        <button
+                            id="genre-deletion-confirmation-button"
+                            class="button is-danger"
+                            :disabled=requests.genreDeletion.isProcessing
+                            @click="requestGenreDeletion"
+                        >
+                            @lang('Delete')
                         </button>
                     </p>
                 </div>

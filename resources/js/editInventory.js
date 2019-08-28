@@ -15,6 +15,7 @@ import inventoryItemModificationModalBody from './components/modalBodies/invento
 import genreModificationModalBody from "./components/modalBodies/genreModificationModalBody.vue";
 import inventoryItemCardsList from "./components/inventoryItemCardsList.vue";
 import genreCardsList from "./components/genreCardsList.vue";
+import errorField from "./components/errorField.vue";
 
 library.add(faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown);
 
@@ -32,6 +33,8 @@ const setupVueComponents = () => {
                 showInventoryItemUpdateModal: false,
                 showGenreCreationModal: false,
                 showGenreUpdateModal: false,
+                showInventoryItemDeletionModal: false,
+                showGenreDeletionModal: false,
                 isInventoryItemCardsListMounted: false,
                 isGenreCardsListMounted: false
             },
@@ -98,12 +101,24 @@ const setupVueComponents = () => {
                     },
                     route: '',
                     errors: {}
+                },
+                inventoryItemDeletion: {
+                    isProcessing: false,
+                    name: '',
+                    route: '',
+                    errors: {}
+                },
+                genreDeletion: {
+                    isProcessing: false,
+                    name:'',
+                    route: '',
+                    errors: {}
                 }
             }
         },
         components: {
             modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList,
-            inventoryItemCardsList, genreCardsList
+            inventoryItemCardsList, genreCardsList, errorField
         },
         computed: {
             isInventoryItemCardsListCollapsed: function () {
@@ -119,8 +134,10 @@ const setupVueComponents = () => {
             isAModalShown: function () {
                 return this.flags.showInventoryItemCreationModal
                     || this.flags.showInventoryItemUpdateModal
+                    || this.flags.showInventoryItemDeletionModal
                     || this.flags.showGenreCreationModal
-                    || this.flags.showGenreUpdateModal;
+                    || this.flags.showGenreUpdateModal
+                    || this.flags.showGenreDeletionModal;
             }
         },
         methods: {
@@ -148,11 +165,23 @@ const setupVueComponents = () => {
             },
             closeGenreUpdateModal() {
                 this.flags.showGenreUpdateModal = false;
-                this.requests.genreUpdate.originalname = '';
+                this.requests.genreUpdate.originalName = '';
                 this.requests.genreUpdate.params.nameFr = '';
                 this.requests.genreUpdate.params.nameEn = '';
                 this.requests.genreUpdate.route = '';
                 this.requests.genreUpdate.errors = {};
+            },
+            closeInventoryItemDeletionModal() {
+                this.flags.showInventoryItemDeletionModal = false;
+                this.requests.inventoryItemDeletion.name = '';
+                this.requests.inventoryItemDeletion.route = '';
+                this.requests.inventoryItemDeletion.errors = {};
+            },
+            closeGenreDeletionModal() {
+                this.flags.showGenreDeletionModal = false;
+                this.requests.genreDeletion.name = '';
+                this.requests.genreDeletion.route = '';
+                this.requests.genreDeletion.errors = {};
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
@@ -181,6 +210,19 @@ const setupVueComponents = () => {
 
                 // Open modal
                 this.flags.showGenreUpdateModal = true;
+            },
+            openInventoryItemDeletionModal(inventoryItem) {
+                this.requests.inventoryItemDeletion.name = inventoryItem.name;
+                this.requests.inventoryItemDeletion.route =
+                    `${this.requests.inventoryItemCreation.route}/${inventoryItem.id}`;
+
+                this.flags.showInventoryItemDeletionModal = true;
+            },
+            openGenreDeletionModal(genre) {
+                this.requests.genreDeletion.name = genre.name;
+                this.requests.genreDeletion.route = `${this.requests.genreCreation.route}/${genre.id}`;
+
+                this.flags.showGenreDeletionModal = true;
             },
 
             // Requests
@@ -253,6 +295,42 @@ const setupVueComponents = () => {
                     HTTPVerbs.PATCH,
                     this.requests.genreUpdate.route,
                     JSON.stringify(this.requests.genreUpdate.params),
+                    successCallback,
+                    errorCallback);
+            },
+            requestInventoryItemDeletion() {
+                this.requests.inventoryItemDeletion.isProcessing = true;
+
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/';
+                const errorCallback = (response) => {
+                    this.requests.inventoryItemDeletion.isProcessing = false;
+                    this.requests.inventoryItemDeletion.errors = JSON.parse(response).errors;
+                };
+
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.DELETE,
+                    this.requests.inventoryItemDeletion.route,
+                    JSON.stringify({}),
+                    successCallback,
+                    errorCallback);
+            },
+            requestGenreDeletion() {
+                this.requests.genreDeletion.isProcessing = true;
+
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/';
+                const errorCallback = (response) => {
+                    this.requests.genreDeletion.isProcessing = false;
+                    this.requests.genreDeletion.errors = JSON.parse(response).errors;
+                };
+
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.DELETE,
+                    this.requests.genreDeletion.route,
+                    JSON.stringify({}),
                     successCallback,
                     errorCallback);
             },

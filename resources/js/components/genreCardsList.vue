@@ -8,8 +8,12 @@
                 @keyup.enter="handleClick(genre)"
                 @click="handleClick(genre)"
             >
-                <div>
-                    {{ genre.name }}
+                <div class="width-100">
+                    <span>{{ genre.name }}</span>
+                    <a class="button is-danger is-outlined is-pulled-right deletion-button"
+                       @click.stop="handleDeleteClick(genre)">
+                        <i class="fas fa-times"></i>
+                    </a>
                 </div>
             </a>
         </div>
@@ -38,6 +42,9 @@
         methods: {
             handleClick: function(genre) {
                 this.$emit('genre-clicked', genre);
+            },
+            handleDeleteClick: function(genre) {
+                this.$emit('genre-deletion-clicked', genre);
             }
         }
     }

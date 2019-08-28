@@ -19,3 +19,8 @@
     font-weight: 600;
     padding: 0;
 }
+
+.deletion-button {
+    height: auto;
+    width: auto;
+}

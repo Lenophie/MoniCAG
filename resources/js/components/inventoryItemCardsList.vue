@@ -8,7 +8,11 @@
                 @keyup.enter="handleClick(inventoryItem)"
                 @click="handleClick(inventoryItem)"
             >
-                <inventory-item-card :inventory-item="inventoryItem"></inventory-item-card>
+                <inventory-item-card
+                    :inventory-item="inventoryItem"
+                    :has-delete-button="true"
+                    @item-deletion-clicked="handleDeleteClick"
+                ></inventory-item-card>
             </a>
         </div>
     </div>
@@ -39,6 +43,9 @@
         methods: {
             handleClick: function(inventoryItem) {
                 this.$emit('item-clicked', inventoryItem);
+            },
+            handleDeleteClick: function(inventoryItem) {
+                this.$emit('item-deletion-clicked', inventoryItem);
             }
         }
     }

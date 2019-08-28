@@ -1,7 +1,13 @@
 <template>
     <div class="inventory-item-card" :id="id">
         <div class="inventory-item-card-name">
-            {{inventoryItem.name}}
+            <span>{{ inventoryItem.name }}</span>
+            <a
+                v-if="hasDeleteButton"
+                class="button is-danger is-small is-outlined is-pulled-right deletion-button"
+                @click.stop="handleDeleteClick(inventoryItem)">
+                <i class="fas fa-times"></i>
+            </a>
             <hr class="inventory-item-card-hr">
         </div>
         <div class="inventory-item-card-precision" v-if="isPrecisionDivNecessary">
@@ -55,6 +61,11 @@
                 type: Boolean,
                 required: false,
                 default: true,
+            },
+            hasDeleteButton: {
+                type: Boolean,
+                required: false,
+                default: false
             }
         },
         computed: {
@@ -124,6 +135,15 @@
             playersInfo: function() {
                 return buildMinMaxString(this.inventoryItem.players.min, this.inventoryItem.players.max,
                     this.trans('Player').toLowerCase(), this.trans('Players').toLowerCase());
+            },
+        },
+        methods: {
+            /**
+             * Handles a click on the delete button
+             * @param inventoryItem
+             */
+            handleDeleteClick: function(inventoryItem) {
+                this.$emit('item-deletion-clicked', inventoryItem);
             }
         },
         beforeCreate() {
