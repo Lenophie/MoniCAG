@@ -15,7 +15,10 @@
     export default {
         name: "toBorrowInventoryItemListElement",
         props: {
-            inventoryItem: Object
+            inventoryItem: {
+                type: Object,
+                required: true
+            }
         },
         computed: {
             id: function () {

@@ -38,18 +38,22 @@
             inventoryItem: Object,
             showGenres: {
                 type: Boolean,
+                required: false,
                 default: true,
             },
             showDuration: {
                 type: Boolean,
+                required: false,
                 default: true,
             },
             showPlayers: {
                 type: Boolean,
+                required: false,
                 default: true,
             },
             showStatus: {
                 type: Boolean,
+                required: false,
                 default: true,
             }
         },

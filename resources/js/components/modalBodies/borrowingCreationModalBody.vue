@@ -178,8 +178,14 @@
     export default {
         name: "borrowingCreationModalBody",
         props: {
-            borrowingCreationRequest: Object,
-            submit: Function
+            borrowingCreationRequest: {
+                type: Object,
+                required: true
+            },
+            submit: {
+                type: Function,
+                required: true
+            }
         },
         components: {
             errorField, toBorrowInventoryItemListElement

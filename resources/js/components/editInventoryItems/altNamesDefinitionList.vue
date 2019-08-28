@@ -39,7 +39,10 @@
     export default {
         name: "altNamesDefinitionList",
         props: {
-            altNames: Array
+            altNames: {
+                type: Array,
+                required: true
+            }
         },
         data: function () {
             return {

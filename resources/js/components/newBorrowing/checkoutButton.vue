@@ -14,9 +14,14 @@
     export default {
         name: "checkoutButton",
         props: {
-            counter: Number,
+            counter: {
+                type: Number,
+                required: true,
+                default: 0
+            },
             tabable: {
                 type: Boolean,
+                required: true,
                 default: true,
             }
         },

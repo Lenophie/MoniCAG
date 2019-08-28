@@ -20,7 +20,10 @@
     export default {
         name: "modal",
         props: {
-            title: String
+            title: {
+                type: String,
+                required: true,
+            }
         },
         created() {
             document.addEventListener('keydown', this.onKey)

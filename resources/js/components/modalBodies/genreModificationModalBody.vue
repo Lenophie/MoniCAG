@@ -54,8 +54,14 @@
     export default {
         name: "genreModificationModalBody",
         props: {
-            genreModificationRequest: Object,
-            submit: Function
+            genreModificationRequest: {
+                type: Object,
+                required: true,
+            },
+            submit: {
+                type: Function,
+                required: true
+            }
         },
         components: { ErrorField },
     }

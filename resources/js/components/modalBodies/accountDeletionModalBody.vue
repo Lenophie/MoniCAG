@@ -34,8 +34,14 @@
     export default {
         name: "accountDeletionModalBody",
         props: {
-            accountDeletionRequest: Object,
-            submit: Function
+            accountDeletionRequest: {
+                type: Object,
+                required: true
+            },
+            submit: {
+                type: Function,
+                required: true
+            }
         },
         components: {
             errorField

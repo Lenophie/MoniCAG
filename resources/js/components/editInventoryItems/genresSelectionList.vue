@@ -13,8 +13,14 @@
     export default {
         name: "genresSelectionList",
         props: {
-            genres: Array,
-            selectedGenres: Array
+            genres: {
+                type: Array,
+                required: true,
+            },
+            selectedGenres: {
+                type: Array,
+                required: true,
+            }
         },
         model: {
             prop: "selectedGenres"

@@ -10,8 +10,15 @@
     export default {
         name: "errorField",
         props: {
-            errorsList: Object,
-            fieldPath: String
+            errorsList: {
+                type: Object,
+                required: true,
+                default: {}
+            },
+            fieldPath: {
+                type: String,
+                required: true
+            }
         },
         computed: {
             nestedErrorList: function () {

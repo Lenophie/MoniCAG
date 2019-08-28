@@ -6,7 +6,11 @@
     export default {
         name: "dataCarrier",
         props: {
-            phpData: Object
+            phpData: {
+                type: Object,
+                required: true,
+                default: {}
+            }
         },
         mounted() {
             this.$emit('ready', this.phpData)

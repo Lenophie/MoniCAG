@@ -161,9 +161,18 @@
     export default {
         name: "inventoryItemModificationModalBody",
         props: {
-            inventoryItemModificationRequest: Object,
-            genres: Array,
-            submit: Function,
+            inventoryItemModificationRequest: {
+                type: Object,
+                required: true,
+            },
+            genres: {
+                type: Array,
+                required: true,
+            },
+            submit: {
+                type: Function,
+                required: true
+            },
             inventoryItemStatuses: {
                 type: Array,
                 required: false

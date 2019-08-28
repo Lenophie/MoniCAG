@@ -13,7 +13,10 @@
     export default {
         name: "numberInput",
         props: {
-            value: String|Number
+            value: {
+                type: String|Number,
+                required: true
+            }
         },
         data: function () {
             return {

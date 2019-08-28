@@ -27,11 +27,18 @@
         name: "inventoryItemButton",
         components: { InventoryItemCard },
         props: {
-            inventoryItem: Object,
-            selectedInventoryItems: Array,
+            inventoryItem: {
+                type: Object,
+                required: true,
+            },
+            selectedInventoryItems: {
+                type: Array,
+                required: true
+            },
             tabable: {
                 type: Boolean,
-                default: true
+                required: true,
+                default: true,
             }
         },
         data: function () {

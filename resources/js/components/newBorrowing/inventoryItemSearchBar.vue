@@ -30,10 +30,17 @@
     export default {
         name: "inventoryItemSearchBar",
         props: {
-            inventoryItems: Array,
-            displayedInventoryItems: Array,
+            inventoryItems: {
+                type: Array,
+                required: true
+            },
+            displayedInventoryItems: {
+                type: Array,
+                required: true,
+            },
             tabable: {
                 type: Boolean,
+                required: true,
                 default: true,
             }
         },

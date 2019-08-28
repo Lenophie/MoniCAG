@@ -17,10 +17,17 @@
     export default {
         name: "inventoryItemsList",
         props: {
-            inventoryItems: Array,
-            selectedInventoryItems: Array,
+            inventoryItems: {
+                type: Array,
+                required: true
+            },
+            selectedInventoryItems: {
+                type: Array,
+                required: true,
+            },
             tabable: {
                 type: Boolean,
+                required: true,
                 default: true,
             }
         },

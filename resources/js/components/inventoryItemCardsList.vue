@@ -20,9 +20,13 @@
     export default {
         name: "inventoryItemCardsList",
         props: {
-            inventoryItems: Array,
+            inventoryItems: {
+                type: Array,
+                required: true
+            },
             tabable: {
                 type: Boolean,
+                required: true,
                 default: true,
             }
         },
