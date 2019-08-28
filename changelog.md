@@ -9,10 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* `Vue` refactor
+    * Account view
+    * New borrowing view
+    * Edit inventory view
 * `Docker` setup
 * `Travis` setup
     * Added Travis badge to readme
 * `Laravel Passport` setup
+* Support for API localization
 * Trusted proxies environment variable
 * Comments in `js` files
 * `PHP` extensions requirements in `composer.json`
@@ -21,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 * Re-organised routes and controllers to separate web and API logic
+* Reduced build size
+* Made tab navigation smoother
 * Dependencies update
 * Dusk environment setup
 * Started using @json `Blade` directive
@@ -41,6 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
         * Added missing tear down statements to fully clean the database between tests
 * Validation
     * Missing error messages when naming inventory items
+    * Broken validator replacer for genre deletion
 * Development
     * Suppressed some `PHPStorm` warnings
 * Readme
