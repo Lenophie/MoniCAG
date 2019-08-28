@@ -129,6 +129,25 @@
                 :errors-list="inventoryItemModificationRequest.errors"
                 :field-path="'altNames'">
             </error-field>
+            <!-- Status -->
+            <div v-if="inventoryItemModificationRequest.params.status != null && inventoryItemStatuses != null">
+                <h5 class="title is-5 form-subtitle">{{ trans('messages.edit_inventory.change_status') }}</h5>
+                <div class="columns no-mb">
+                    <div class="column is-12">
+                        <div class="select is-fullwidth">
+                            <select v-model="inventoryItemModificationRequest.params.status">
+                                <option
+                                    v-for="inventoryItemStatus in inventoryItemStatuses"
+                                    :value="inventoryItemStatus"
+                                    :selected="inventoryItemStatus.id === inventoryItemModificationRequest.params.status.id"
+                                    :disabled="(inventoryItemStatus.id === 3) !== (inventoryItemModificationRequest.params.status.id === 3)">
+                                    {{ inventoryItemStatus.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </template>
@@ -144,7 +163,11 @@
         props: {
             inventoryItemModificationRequest: Object,
             genres: Array,
-            submit: Function
+            submit: Function,
+            inventoryItemStatuses: {
+                type: Array,
+                required: false
+            },
         },
         components: {
             numberInput, errorField, genresSelectionList, altNamesDefinitionList

@@ -23,6 +23,7 @@ const setupVueComponents = () => {
         data: {
             resources: {
                 inventoryItems: [],
+                inventoryItemStatuses: [],
                 genres: [],
             },
             flags: {
@@ -67,6 +68,7 @@ const setupVueComponents = () => {
                 },
                 inventoryItemUpdate: {
                     isProcessing: false,
+                    originalName: '',
                     params: {
                         id: null,
                         name: '',
@@ -79,7 +81,8 @@ const setupVueComponents = () => {
                             max: null
                         },
                         genres: [],
-                        altNames: []
+                        altNames: [],
+                        status: null,
                     },
                     route: '',
                     errors: {}
@@ -115,6 +118,7 @@ const setupVueComponents = () => {
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
+                this.requests.inventoryItemUpdate.originalName = inventoryItem.name;
                 this.requests.inventoryItemUpdate.params.id = inventoryItem.id;
                 this.requests.inventoryItemUpdate.params.name = inventoryItem.name;
                 this.requests.inventoryItemUpdate.params.altNames = inventoryItem.altNames.map(altName => altName.name);
@@ -123,6 +127,7 @@ const setupVueComponents = () => {
                 this.requests.inventoryItemUpdate.params.players.min = inventoryItem.players.min;
                 this.requests.inventoryItemUpdate.params.players.max = inventoryItem.players.max;
                 this.requests.inventoryItemUpdate.params.genres = inventoryItem.genres.map(genre => genre.id);
+                this.requests.inventoryItemUpdate.params.status = inventoryItem.status;
                 this.requests.inventoryItemUpdate.route = `${this.requests.inventoryItemCreation.route}/${inventoryItem.id}`;
 
                 // Open modal
@@ -191,6 +196,7 @@ const setupVueComponents = () => {
                 this.requests.genreCreation.route = data.routes.genres;
                 this.resources.genres = data.resources.genres;
                 this.resources.inventoryItems = data.resources.inventoryItems;
+                this.resources.inventoryItemStatuses = data.resources.inventoryItemStatuses;
             },
             /**
              * Returns formatted request parameters
@@ -220,7 +226,8 @@ const setupVueComponents = () => {
                     playersMin: requestParams.players.min,
                     playersMax: requestParams.players.max,
                     genres: requestParams.genres,
-                    altNames: requestParams.altNames
+                    altNames: requestParams.altNames,
+                    statusId: requestParams.status.id,
                 }
             }
         },

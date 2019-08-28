@@ -161,6 +161,7 @@
                 <inventory-item-modification-modal-body
                     :inventory-item-modification-request="requests.inventoryItemUpdate"
                     :genres="resources.genres"
+                    :inventory-item-statuses="resources.inventoryItemStatuses"
                     :submit="requestInventoryItemUpdate"
                 ></inventory-item-modification-modal-body>
             </template>
