@@ -99,8 +99,8 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
-            'nameFr' => $genre->nameFr,
-            'nameEn' => $genre->nameEn
+            'nameFr' => $genre->name_fr,
+            'nameEn' => $genre->name_en
         ]);
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');

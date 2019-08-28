@@ -3,6 +3,7 @@
 use App\Genre;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class GenresValidationForAddingTest extends TestCase
@@ -24,10 +25,13 @@ class GenresValidationForAddingTest extends TestCase
     public function testGenresRequirement()
     {
         $response = $this->json('POST', '/api/inventoryItems', []);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => []
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
     }
 
@@ -41,14 +45,19 @@ class GenresValidationForAddingTest extends TestCase
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => 1
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => 'I am a string'
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => null
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
     }
 
@@ -62,14 +71,19 @@ class GenresValidationForAddingTest extends TestCase
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => ['I am a string']
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [null]
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [[0]]
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
     }
 
@@ -116,6 +130,7 @@ class GenresValidationForAddingTest extends TestCase
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [$nonExistentGenreID]
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
     }
 
@@ -129,6 +144,7 @@ class GenresValidationForAddingTest extends TestCase
         $response = $this->json('POST', '/api/inventoryItems', [
             'genres' => [$genre->id, $genre->id]
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
     }
 }

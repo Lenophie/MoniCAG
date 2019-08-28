@@ -29,20 +29,19 @@ class PatchInventoryItemRequestTest extends TestCase
      */
     public function testPatchInventoryItemRequest()
     {
-        // Fields values setup
+        // Initial inventory item
         $inventoryItemToPatch = factory(InventoryItem::class)->create();
-        $initialGenresCollection = $inventoryItemToPatch->genres()->get();
-        $initialGenres = [];
-        foreach ($initialGenresCollection as $initialGenre) array_push($initialGenres, $initialGenre->id);
+        $initialGenres = $inventoryItemToPatch->genres()->get()->pluck('id')->all();
+        $initialAltNames = $inventoryItemToPatch->altNames()->get()->pluck('id')->all();
+
+        // New data
         $durationMin = rand(1, 30);
         $durationMax = $durationMin + rand(1, 30);
         $playersMin = rand(1, 4);
         $playersMax = $playersMin + rand(1, 10);
-        $nameFr = $this->faker->unique()->word;
-        $nameEn = $this->faker->unique()->word;
-        $genresCollection = factory(Genre::class, 5)->create();
-        $genres = [];
-        foreach ($genresCollection as $genre) array_push($genres, $genre->id);
+        $name = $this->faker->unique()->word;
+        $genres = factory(Genre::class, 5)->create()->pluck('id')->all();
+        $altNames = [$this->faker->unique()->word, $this->faker->unique()->word];
 
         // Patch inventory item
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItemToPatch->id, [
@@ -51,8 +50,8 @@ class PatchInventoryItemRequestTest extends TestCase
             'playersMin' => $playersMin,
             'playersMax' => $playersMax,
             'genres' => $genres,
-            'nameFr' => $nameFr,
-            'nameEn' => $nameEn,
+            'name' => $name,
+            'altNames' => $altNames,
             'statusId' => InventoryItemStatus::IN_F2
         ]);
 
@@ -66,8 +65,7 @@ class PatchInventoryItemRequestTest extends TestCase
             'duration_max' => $durationMax,
             'players_min' => $playersMin,
             'players_max' => $playersMax,
-            'name_fr' => $nameFr,
-            'name_en' => $nameEn,
+            'name' => $name,
             'status_id' => InventoryItemStatus::IN_F2
         ]);
 
@@ -79,11 +77,27 @@ class PatchInventoryItemRequestTest extends TestCase
             ]);
         }
 
+        // Check inventory item alt names relationships update
+        foreach($altNames as $altName) {
+            $this->assertDatabaseHas('inventory_item_alt_names', [
+                'inventory_item_id' => $inventoryItemToPatch->id,
+                'name' => $altName
+            ]);
+        }
+
         // Check previous genres relationships removal
         foreach($initialGenres as $genre) {
             $this->assertDatabaseMissing('genre_inventory_item', [
                 'inventory_item_id' => $inventoryItemToPatch->id,
                 'genre_id' => $genre
+            ]);
+        }
+
+        // Check inventory item alt names relationships update
+        foreach($initialAltNames as $altName) {
+            $this->assertDatabaseMissing('inventory_item_alt_names', [
+                'inventory_item_id' => $inventoryItemToPatch->id,
+                'name' => $altName
             ]);
         }
     }

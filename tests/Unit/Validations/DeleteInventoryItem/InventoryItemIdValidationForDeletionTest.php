@@ -53,6 +53,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     {
         $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('inventoryItem');
     }
 

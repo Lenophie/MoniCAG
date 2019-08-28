@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class DurationsValidationForAddingTest extends TestCase
@@ -41,12 +42,15 @@ class DurationsValidationForAddingTest extends TestCase
             'durationMin' => 'I am a string',
             'durationMax' => 'I am a string'
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('durationMin');
         $response->assertJsonValidationErrors('durationMax');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'durationMin' => [],
             'durationMax' => []
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('durationMin');
         $response->assertJsonValidationErrors('durationMax');
     }
@@ -62,6 +66,7 @@ class DurationsValidationForAddingTest extends TestCase
             'durationMin' => -1,
             'durationMax' => -1
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('durationMin');
         $response->assertJsonValidationErrors('durationMax');
     }
@@ -77,6 +82,7 @@ class DurationsValidationForAddingTest extends TestCase
             'durationMin' => 20,
             'durationMax' => 5
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('durationMax');
     }
 
@@ -92,6 +98,7 @@ class DurationsValidationForAddingTest extends TestCase
         ]);
         $response->assertJsonMissingValidationErrors('durationMin');
         $response->assertJsonMissingValidationErrors('durationMax');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'durationMax' => 5
         ]);

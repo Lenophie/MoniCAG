@@ -27,9 +27,8 @@ class DeleteInventoryItemRequestTest extends TestCase
     {
         // Fields values setup
         $inventoryItems = factory(InventoryItem::class, 3)->create();
-        $genresCollection = $inventoryItems[1]->genres()->get();
-        $genres = [];
-        foreach ($genresCollection as $genre) array_push($genres, $genre->id);
+        $genres = $inventoryItems[1]->genres()->get()->pluck('id')->all();
+        $altNames = $inventoryItems[1]->altNames()->get()->pluck('name')->all();
 
         // Delete inventory item
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItems[1]->id, []);
@@ -47,6 +46,13 @@ class DeleteInventoryItemRequestTest extends TestCase
             $this->assertDatabaseMissing('genre_inventory_item', [
                 'inventory_item_id' => $inventoryItems[1]->id,
                 'genre_id' => $genre
+            ]);
+        }
+
+        // Check inventory item alt names relationships deletion
+        foreach($altNames as $altName) {
+            $this->assertDatabaseMissing('inventory_item_alt_names', [
+                'name' => $altName
             ]);
         }
 
@@ -71,15 +77,12 @@ class DeleteInventoryItemRequestTest extends TestCase
         $borrowingOfItem = factory(Borrowing::class)->create([
             'inventory_item_id' => $inventoryItem->id
         ]);
-
         // Delete inventory item
-        $this->json('DELETE', '/edit-inventory', [
-            'inventoryItemId' => $inventoryItem->id
-        ]);
+        $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
 
         // Check cascading
         $this->assertDatabaseMissing('borrowings', [
-            'id' => $borrowingOfItem
+            'id' => $borrowingOfItem->id
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PlayersValidationForAddingTest extends TestCase
@@ -41,12 +42,15 @@ class PlayersValidationForAddingTest extends TestCase
             'playersMin' => 'I am a string',
             'playersMax' => 'I am a string'
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('playersMin');
         $response->assertJsonValidationErrors('playersMax');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'playersMin' => [],
             'playersMax' => []
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('playersMin');
         $response->assertJsonValidationErrors('playersMax');
     }
@@ -62,6 +66,7 @@ class PlayersValidationForAddingTest extends TestCase
             'playersMin' => -1,
             'playersMax' => -1
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('playersMin');
         $response->assertJsonValidationErrors('playersMax');
     }
@@ -77,6 +82,7 @@ class PlayersValidationForAddingTest extends TestCase
             'playersMin' => 20,
             'playersMax' => 5
         ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('playersMax');
     }
 
@@ -92,6 +98,7 @@ class PlayersValidationForAddingTest extends TestCase
         ]);
         $response->assertJsonMissingValidationErrors('playersMin');
         $response->assertJsonMissingValidationErrors('playersMax');
+
         $response = $this->json('POST', '/api/inventoryItems', [
             'playersMax' => 5
         ]);
