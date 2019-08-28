@@ -40,11 +40,13 @@ export const makeAjaxRequest = (method, url, data, successCallback, errorCallbac
     if (isMethodInEnum(method) && typeof(url) === 'string') {
         const request = new XMLHttpRequest();
         const csrfToken = getBySelector("meta[name='CSRF-TOKEN']").getAttribute('content');
+        const localization = getBySelector("meta[name='X-Localization']").getAttribute('content');
         request.open(method, url, true);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+        request.setRequestHeader("X-Localization", localization);
         request.onload = () => {
             if (request.status >= 200 && request.status < 400) {
                 if (typeof(successCallback) === 'function') successCallback(request.response, request.status);

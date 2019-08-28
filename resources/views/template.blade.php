@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="author" content="Lenophie" />
         <meta name="CSRF-TOKEN" content="{{ csrf_token() }}">
+        <meta name="X-Localization" content="{{ App::getLocale() }}">
         <link href="{{asset("css/bulma.css")}}" rel="stylesheet" />
         <link href="{{asset("css/common.css")}}" rel="stylesheet" />
         <link href="{{asset("css/flag-icon.min.css")}}" rel="stylesheet" />
