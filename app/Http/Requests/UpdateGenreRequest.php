@@ -6,6 +6,8 @@ use App\Genre;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 class UpdateGenreRequest extends FormRequest
 {
@@ -27,8 +29,14 @@ class UpdateGenreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nameFr' => 'required|string|unique:genres,name_fr',
-            'nameEn' => 'required|string|unique:genres,name_en'
+            'nameFr' => [
+                'required',
+                'string',
+                Rule::unique('genres', 'name_fr')->ignore(Route::input('genre'))],
+            'nameEn' => [
+                'required',
+                'string',
+                Rule::unique('genres', 'name_en')->ignore(Route::input('genre'))],
         ];
     }
 

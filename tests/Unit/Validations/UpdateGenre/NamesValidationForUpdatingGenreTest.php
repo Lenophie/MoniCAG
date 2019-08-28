@@ -91,4 +91,18 @@ class NamesValidationForUpdatingGenreTest extends TestCase
         $response->assertJsonMissingValidationErrors('nameFr');
         $response->assertJsonMissingValidationErrors('nameEn');
     }
+
+    /**
+     * Tests same names validation.
+     */
+    public function testSameNamesValidation()
+    {
+        $genre = factory(Genre::class)->create();
+        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+            'nameFr' => $genre->nameFr,
+            'nameEn' => $genre->nameEn
+        ]);
+        $response->assertJsonMissingValidationErrors('nameFr');
+        $response->assertJsonMissingValidationErrors('nameEn');
+    }
 }
