@@ -43,7 +43,7 @@ class NewBorrowingPage extends Page
     }
 
     public function waitForPageLoaded(Browser $browser) {
-        $browser->waitFor('.inventory-item-button')
+        $browser->waitFor('.inventory-item-card-button')
             ->waitFor('@checkoutLink');
     }
 
@@ -53,7 +53,7 @@ class NewBorrowingPage extends Page
 
     public function clickOnInventoryItemButton(Browser $browser, $id)
     {
-        $idString = "#inventory-item-button-{$id}";
+        $idString = "#inventory-item-card-button-{$id}";
         $browser->press($idString);
     }
 

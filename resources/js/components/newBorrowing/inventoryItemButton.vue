@@ -48,7 +48,7 @@
         },
         computed: {
             id: function () {
-                return `inventory-item-button-${this.inventoryItem.id}`;
+                return `inventory-item-card-button-${this.inventoryItem.id}`;
             },
             isSelected: function () {
                 for (const inventoryItem of this.selectedInventoryItems) {
