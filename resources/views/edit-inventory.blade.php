@@ -152,7 +152,7 @@
             </template>
         </modal>
         <modal
-            :title='"{{__("messages.edit_inventory.edit_item")}}"'
+            :title="`${trans('messages.edit_inventory.edit_item')} : ${requests.inventoryItemUpdate.originalName}`"
             :id="'inventory-item-update-modal'"
             v-show="flags.showInventoryItemUpdateModal || requests.inventoryItemUpdate.isProcessing"
             @close="closeInventoryItemUpdateModal"
