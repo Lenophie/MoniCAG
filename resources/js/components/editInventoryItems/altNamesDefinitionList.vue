@@ -1,33 +1,35 @@
 <template>
-    <div>
-        <div class="field is-grouped is-grouped-multiline">
-            <div v-for="altName in altNames" class="control">
-                <div class="tags has-addons">
-                    <span class="tag is-link">{{altName}}</span>
-                    <a
-                        class="tag is-delete"
-                        @click="removeAltName(altName)">
-                    </a>
+    <div class="columns no-mb">
+        <div class="column is-12">
+            <div class="field is-grouped is-grouped-multiline">
+                <div v-for="altName in altNames" class="control">
+                    <div class="tags has-addons">
+                        <span class="tag is-link">{{altName}}</span>
+                        <a
+                            class="tag is-delete"
+                            @click="removeAltName(altName)">
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <input
-                    type="text"
-                    class="input"
-                    v-model="inputValue"
-                    @keyup.enter="addAltName"
-                >
-            </div>
-            <div class="control">
-                <button
-                    class="button is-outlined is-link height-100"
-                    type="button"
-                    @click="addAltName"
-                >
-                    <i class="fas fa-arrow-right"></i>
-                </button>
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input
+                        type="text"
+                        class="input"
+                        v-model="inputValue"
+                        @keyup.enter="addAltName"
+                    >
+                </div>
+                <div class="control">
+                    <button
+                        class="button is-outlined is-link height-100"
+                        type="button"
+                        @click="addAltName"
+                    >
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

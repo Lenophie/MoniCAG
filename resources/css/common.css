@@ -71,3 +71,7 @@ button:not(.button) {
     border: none;
     cursor: pointer;
 }
+
+.form-subtitle {
+    margin-bottom: 0.5rem !important;
+}

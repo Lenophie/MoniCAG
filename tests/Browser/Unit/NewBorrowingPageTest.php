@@ -72,7 +72,7 @@ class NewBorrowingPageTest extends DuskTestCase
                 ->openNewBorrowingModal($browser)
                 ->whenAvailable('@newBorrowingModal', function ($modal){
                     $modal->waitForInventoryItemInBorrowingList($this->inventoryItems[0]->id)
-                        ->assertSee($this->inventoryItems[0]->{'name_' . App::getLocale()});
+                        ->assertSee($this->inventoryItems[0]->name);
                 });
         });
     }

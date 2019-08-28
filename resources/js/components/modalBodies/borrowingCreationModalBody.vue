@@ -3,7 +3,7 @@
         <form :action="borrowingCreationRequest.route" autocomplete="off" v-on:submit.prevent="submit">
             <!-- Borrowed items -->
             <div id="form-field-borrowedItems">
-                <h5 class="title is-5">{{ trans('messages.new_borrowing.selected_list') }}</h5>
+                <h5 class="title is-5 form-subtitle">{{ trans('messages.new_borrowing.selected_list') }}</h5>
                 <ul id="toBorrowList">
                     <to-borrow-inventory-item-list-element
                         v-for="inventoryItem in borrowingCreationRequest.params.selectedItems"
@@ -18,7 +18,7 @@
                 :field-path="'borrowedItems'">
             </error-field>
             <hr>
-            <h5 class="title is-5">{{ trans('Borrower') }}</h5>
+            <h5 class="title is-5 form-subtitle">{{ trans('Borrower') }}</h5>
             <!-- Borrower email -->
             <div class="field" id="form-field-borrowerEmail">
                 <label class="label" for="borrowerEmail">{{ trans('E-mail address') }}</label>
@@ -64,7 +64,7 @@
                 :field-path="'borrowerPassword'">
             </error-field>
             <hr>
-            <h5 class="title is-5">{{ trans('Terms') }}</h5>
+            <h5 class="title is-5 form-subtitle">{{ trans('Terms') }}</h5>
             <!-- Expected return date -->
             <div class="field" id="form-field-expectedReturnDate">
                 <label class="label" for="expectedReturnDate">{{ trans('Expected return date') }}</label>

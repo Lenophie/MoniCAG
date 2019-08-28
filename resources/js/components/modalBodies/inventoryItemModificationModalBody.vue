@@ -19,8 +19,8 @@
                 :field-path="'name'">
             </error-field>
             <!-- Duration -->
-            <h5 class="title is-5">{{ trans('Duration') }} ({{trans('Minutes').toLowerCase()}})</h5>
-            <div class="columns">
+            <h5 class="title is-5 form-subtitle">{{ trans('Duration') }} ({{trans('Minutes').toLowerCase()}})</h5>
+            <div class="columns no-mb">
                 <!-- Duration Min -->
                 <div class="column is-6">
                     <div class="field is-grouped">
@@ -65,8 +65,8 @@
                 :field-path="'durationMax'">
             </error-field>
             <!-- Player count -->
-            <h5 class="title is-5">{{ trans('Players') }}</h5>
-            <div class="columns">
+            <h5 class="title is-5 form-subtitle">{{ trans('Players') }}</h5>
+            <div class="columns no-mb">
                 <!-- Player Min -->
                 <div class="column is-6">
                     <div class="field is-grouped">
@@ -111,7 +111,7 @@
                 :field-path="'durationMax'">
             </error-field>
             <!-- Genres -->
-            <h5 class="title is-5">{{ trans('Genres') }}</h5>
+            <h5 class="title is-5 form-subtitle">{{ trans('Genres') }}</h5>
             <genres-selection-list
                 :genres="genres"
                 :selected-genres.sync="inventoryItemModificationRequest.params.genres">
@@ -121,7 +121,7 @@
                 :field-path="'genres'">
             </error-field>
             <!-- Alternative names -->
-            <h5 class="title is-5">{{ trans('Alternative names') }}</h5>
+            <h5 class="title is-5 form-subtitle">{{ trans('Alternative names') }}</h5>
             <alt-names-definition-list
                 :alt-names.sync="inventoryItemModificationRequest.params.altNames">
             </alt-names-definition-list>

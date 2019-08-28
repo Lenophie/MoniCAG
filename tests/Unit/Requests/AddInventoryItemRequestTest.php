@@ -33,8 +33,7 @@ class AddInventoryItemRequestTest extends TestCase
         $durationMax = $durationMin + rand(1, 30);
         $playersMin = rand(1, 4);
         $playersMax = $playersMin + rand(1, 10);
-        $nameFr = $this->faker->unique()->word;
-        $nameEn = $this->faker->unique()->word;
+        $name = $this->faker->unique()->word;
         $genresCollection = factory(Genre::class, 5)->create();
         $genres = [];
         foreach ($genresCollection as $genre) array_push($genres, $genre->id);
@@ -46,8 +45,7 @@ class AddInventoryItemRequestTest extends TestCase
             'playersMin' => $playersMin,
             'playersMax' => $playersMax,
             'genres' => $genres,
-            'nameFr' => $nameFr,
-            'nameEn' => $nameEn
+            'name' => $name
         ]);
 
         // Check response
@@ -59,12 +57,11 @@ class AddInventoryItemRequestTest extends TestCase
             'duration_max' => $durationMax,
             'players_min' => $playersMin,
             'players_max' => $playersMax,
-            'name_fr' => $nameFr,
-            'name_en' => $nameEn
+            'name' => $name
         ]);
 
         // Check inventory item genres relationships creation
-        $createdInventoryItemID = InventoryItem::where('name_fr', $nameFr)->first()->id;
+        $createdInventoryItemID = InventoryItem::where('name', $name)->first()->id;
         foreach($genres as $genre) {
             $this->assertDatabaseHas('genre_inventory_item', [
                 'inventory_item_id' => $createdInventoryItemID,

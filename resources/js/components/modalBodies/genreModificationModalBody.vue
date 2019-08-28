@@ -1,7 +1,7 @@
 <template>
     <div>
         <form :action="genreModificationRequest.route" autocomplete="off" v-on:submit.prevent="submit">
-            <h5 class="title is-5">{{ trans('Names') }}</h5>
+            <h5 class="title is-5 form-subtitle">{{ trans('Names') }}</h5>
             <!-- French Name -->
             <div class="field has-addons has-addons-centered">
                 <div class="control">
