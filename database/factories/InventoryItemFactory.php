@@ -1,11 +1,11 @@
 <?php
-
+/** @var Factory $factory */
 use App\Genre;
 use App\InventoryItem;
+use App\InventoryItemAltName;
 use App\InventoryItemStatus;
 use Faker\Generator as Faker;
-
-$factory->faker->seed(0);
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(InventoryItem::class, function (Faker $faker) {
     $durationMin = rand(1, 20);
@@ -22,8 +22,9 @@ $factory->define(InventoryItem::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(InventoryItem::class, function ($inventoryItem) {
+$factory->afterCreating(InventoryItem::class, function ($inventoryItem, Faker $faker) {
     $inventoryItem->genres()->saveMany(factory(Genre::class, 3)->make());
+    $inventoryItem->altNames()->saveMany(factory(InventoryItemAltName::class, 2)->make());
 });
 
 $factory->state(InventoryItem::class, 'in_F2', ['status_id' => InventoryItemStatus::IN_F2]);

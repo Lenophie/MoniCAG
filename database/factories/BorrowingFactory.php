@@ -1,12 +1,12 @@
 <?php
 
+/** @var Factory $factory */
 use App\Borrowing;
 use App\InventoryItem;
 use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
-
-$factory->faker->seed(0);
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Borrowing::class, function (Faker $faker) {
     $startDate = Carbon::now()->subDays(rand(1, 10));

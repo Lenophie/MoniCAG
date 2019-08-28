@@ -1,11 +1,12 @@
 <?php
 
+/** @var Factory $factory */
 use App\User;
 use App\UserRole;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
-
-$factory->faker->seed(0);
+use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     $year = Carbon::now()->year;
@@ -16,7 +17,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt($faker->unique()->password),
         'role_id' => UserRole::NONE,
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
     ];
 });
 

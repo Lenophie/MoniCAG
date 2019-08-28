@@ -1,9 +1,9 @@
 <?php
 
+/** @var Factory $factory */
 use App\Genre;
 use Faker\Generator as Faker;
-
-$factory->faker->seed(0);
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Genre::class, function (Faker $faker) {
     return [
