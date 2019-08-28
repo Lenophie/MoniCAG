@@ -76,7 +76,7 @@
     <modal
         :id="'account-deletion-confirmation-modal'"
         :title="trans('messages.account.deletion_title')"
-        v-show="showModal || accountDeletionRequest.isProcessing"
+        v-show="showModal"
         @close="closeAccountDeletionModal"
     >
         <template v-slot:body>

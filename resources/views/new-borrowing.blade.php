@@ -64,7 +64,7 @@
     <modal
         :title='"{{__("messages.new_borrowing.confirm_title")}}"'
         :id="'borrowing-creation-modal'"
-        v-show="showModal || borrowingCreationRequest.isProcessing"
+        v-show="showModal"
         @close="closeBorrowingCreationModal"
     >
         <template v-slot:body>

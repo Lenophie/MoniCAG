@@ -51,9 +51,11 @@ const setupVueComponents = () => {
              * Handles account deletion modal closing
              */
             closeAccountDeletionModal() {
-                this.showModal = false;
-                this.accountDeletionRequest.params.password = '';
-                this.accountDeletionRequest.errors = {};
+                if (!this.accountDeletionRequest.isProcessing) {
+                    this.showModal = false;
+                    this.accountDeletionRequest.params.password = '';
+                    this.accountDeletionRequest.errors = {};
+                }
             },
 
             /**

@@ -70,9 +70,11 @@ const setupVueComponents = () => {
              * Handles borrowing creation modal closing
              */
             closeBorrowingCreationModal() {
-                this.showModal = false;
-                this.borrowingCreationRequest.params.borrowerPassword = '';
-                this.borrowingCreationRequest.errors = {};
+                if (!this.borrowingCreationRequest.isProcessing) {
+                    this.showModal = false;
+                    this.borrowingCreationRequest.params.borrowerPassword = '';
+                    this.borrowingCreationRequest.errors = {};
+                }
             },
 
             /**

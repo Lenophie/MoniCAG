@@ -138,7 +138,7 @@
         <modal
             :title='"{{__("messages.edit_inventory.add_item")}}"'
             :id="'inventory-item-creation-modal'"
-            v-show="flags.showInventoryItemCreationModal || requests.inventoryItemCreation.isProcessing"
+            v-show="flags.showInventoryItemCreationModal"
             @close="closeInventoryItemCreationModal"
         >
             <template v-slot:body>
@@ -166,7 +166,7 @@
         <modal
             :title='"{{__("messages.edit_inventory.add_genre")}}"'
             :id="'genre-creation-modal'"
-            v-show="flags.showGenreCreationModal || requests.genreCreation.isProcessing"
+            v-show="flags.showGenreCreationModal"
             @close="closeGenreCreationModal"
         >
             <template v-slot:body>
@@ -193,7 +193,7 @@
         <modal
             :title="`${trans('messages.edit_inventory.edit_item')} : ${requests.inventoryItemUpdate.originalName}`"
             :id="'inventory-item-update-modal'"
-            v-show="flags.showInventoryItemUpdateModal || requests.inventoryItemUpdate.isProcessing"
+            v-show="flags.showInventoryItemUpdateModal"
             @close="closeInventoryItemUpdateModal"
         >
             <template v-slot:body>
@@ -222,7 +222,7 @@
         <modal
             :title="`${trans('messages.edit_inventory.edit_genre')} : ${requests.genreUpdate.originalName}`"
             :id="'genre-update-modal'"
-            v-show="flags.showGenreUpdateModal || requests.genreUpdate.isProcessing"
+            v-show="flags.showGenreUpdateModal"
             @close="closeGenreUpdateModal"
         >
             <template v-slot:body>
@@ -249,7 +249,7 @@
         <modal
             :title="`${trans('messages.edit_inventory.delete_item')} : ${requests.inventoryItemDeletion.name}`"
             :id="'inventory_item-deletion-modal'"
-            v-show="flags.showInventoryItemDeletionModal || requests.inventoryItemDeletion.isProcessing"
+            v-show="flags.showInventoryItemDeletionModal"
             @close="closeInventoryItemDeletionModal"
         >
             <template v-slot:body>
@@ -279,7 +279,7 @@
         <modal
             :title="`${trans('messages.edit_inventory.delete_genre')} : ${requests.genreDeletion.name}`"
             :id="'genre-deletion-modal'"
-            v-show="flags.showGenreDeletionModal || requests.genreDeletion.isProcessing"
+            v-show="flags.showGenreDeletionModal"
             @close="closeGenreDeletionModal"
         >
             <template v-slot:body>

@@ -143,45 +143,53 @@ const setupVueComponents = () => {
         methods: {
             // Modals
             closeInventoryItemCreationModal() {
-                this.flags.showInventoryItemCreationModal = false;
+                if (!this.requests.inventoryItemCreation.isProcessing) this.flags.showInventoryItemCreationModal = false;
             },
             closeGenreCreationModal() {
-                this.flags.showGenreCreationModal = false;
+                if (!this.requests.genreCreation.isProcessing) this.flags.showGenreCreationModal = false;
             },
             closeInventoryItemUpdateModal() {
-                this.flags.showInventoryItemUpdateModal = false;
-                this.requests.inventoryItemUpdate.originalName = '';
-                this.requests.inventoryItemUpdate.id = null;
-                this.requests.inventoryItemUpdate.params.name = '';
-                this.requests.inventoryItemUpdate.params.altNames = [];
-                this.requests.inventoryItemUpdate.params.duration.min = null;
-                this.requests.inventoryItemUpdate.params.duration.max = null;
-                this.requests.inventoryItemUpdate.params.players.min = null;
-                this.requests.inventoryItemUpdate.params.players.max = null;
-                this.requests.inventoryItemUpdate.params.genres = [];
-                this.requests.inventoryItemUpdate.params.status = null;
-                this.requests.inventoryItemUpdate.route = '';
-                this.requests.inventoryItemUpdate.errors = {};
+                if (!this.requests.inventoryItemUpdate.isProcessing) {
+                    this.flags.showInventoryItemUpdateModal = false;
+                    this.requests.inventoryItemUpdate.originalName = '';
+                    this.requests.inventoryItemUpdate.id = null;
+                    this.requests.inventoryItemUpdate.params.name = '';
+                    this.requests.inventoryItemUpdate.params.altNames = [];
+                    this.requests.inventoryItemUpdate.params.duration.min = null;
+                    this.requests.inventoryItemUpdate.params.duration.max = null;
+                    this.requests.inventoryItemUpdate.params.players.min = null;
+                    this.requests.inventoryItemUpdate.params.players.max = null;
+                    this.requests.inventoryItemUpdate.params.genres = [];
+                    this.requests.inventoryItemUpdate.params.status = null;
+                    this.requests.inventoryItemUpdate.route = '';
+                    this.requests.inventoryItemUpdate.errors = {};
+                }
             },
             closeGenreUpdateModal() {
-                this.flags.showGenreUpdateModal = false;
-                this.requests.genreUpdate.originalName = '';
-                this.requests.genreUpdate.params.nameFr = '';
-                this.requests.genreUpdate.params.nameEn = '';
-                this.requests.genreUpdate.route = '';
-                this.requests.genreUpdate.errors = {};
+                if (!this.requests.genreUpdate.isProcessing) {
+                    this.flags.showGenreUpdateModal = false;
+                    this.requests.genreUpdate.originalName = '';
+                    this.requests.genreUpdate.params.nameFr = '';
+                    this.requests.genreUpdate.params.nameEn = '';
+                    this.requests.genreUpdate.route = '';
+                    this.requests.genreUpdate.errors = {};
+                }
             },
             closeInventoryItemDeletionModal() {
-                this.flags.showInventoryItemDeletionModal = false;
-                this.requests.inventoryItemDeletion.name = '';
-                this.requests.inventoryItemDeletion.route = '';
-                this.requests.inventoryItemDeletion.errors = {};
+                if (!this.requests.inventoryItemDeletion.isProcessing) {
+                    this.flags.showInventoryItemDeletionModal = false;
+                    this.requests.inventoryItemDeletion.name = '';
+                    this.requests.inventoryItemDeletion.route = '';
+                    this.requests.inventoryItemDeletion.errors = {};
+                }
             },
             closeGenreDeletionModal() {
-                this.flags.showGenreDeletionModal = false;
-                this.requests.genreDeletion.name = '';
-                this.requests.genreDeletion.route = '';
-                this.requests.genreDeletion.errors = {};
+                if (!this.requests.genreDeletion.isProcessing) {
+                    this.flags.showGenreDeletionModal = false;
+                    this.requests.genreDeletion.name = '';
+                    this.requests.genreDeletion.route = '';
+                    this.requests.genreDeletion.errors = {};
+                }
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
