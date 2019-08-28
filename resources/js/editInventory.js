@@ -115,6 +115,17 @@ const setupVueComponents = () => {
             },
             closeInventoryItemUpdateModal() {
                 this.flags.showInventoryItemUpdateModal = false;
+                this.requests.inventoryItemUpdate.originalName = '';
+                this.requests.inventoryItemUpdate.params.id = null;
+                this.requests.inventoryItemUpdate.params.name = '';
+                this.requests.inventoryItemUpdate.params.altNames = [];
+                this.requests.inventoryItemUpdate.params.duration.min = null;
+                this.requests.inventoryItemUpdate.params.duration.max = null;
+                this.requests.inventoryItemUpdate.params.players.min = null;
+                this.requests.inventoryItemUpdate.params.players.max = null;
+                this.requests.inventoryItemUpdate.params.genres = [];
+                this.requests.inventoryItemUpdate.params.status = null;
+                this.requests.inventoryItemUpdate.route = '';
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
