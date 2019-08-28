@@ -101,7 +101,7 @@ class PerformANewBorrowingTest extends DuskTestCase
                 'borrower_id' => $this->borrower->id,
                 'initial_lender_id' => $this->lender->id,
                 'return_lender_id' => null,
-                'start_date' => $fieldsValues->startDate->format('Y-m-d'),
+                'start_date' => $fieldsValues->startDate->format('Y-m-d'), // lol yeah this failed when I ran the test at midnight once
                 'expected_return_date' => $fieldsValues->expectedReturnDate->format('Y-m-d'),
                 'return_date' => null,
                 'guarantee' => $fieldsValues->guarantee,
