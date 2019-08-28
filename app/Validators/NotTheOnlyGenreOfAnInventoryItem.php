@@ -19,12 +19,17 @@ class NotTheOnlyGenreOfAnInventoryItem
             ->get()
             ->implode('name', ', ');
 
-        $validator->addReplacer('not_the_only_genre_of_an_inventory_item', function ($message, $attribute, $rule, $parameters) use ($problematicInventoryItems) {
-            return str_replace(':items', $problematicInventoryItems, $message);
-        });
-        $validator->addReplacer('not_the_only_genre_of_an_inventory_item', function ($message, $attribute, $rule, $parameters) use ($value) {
-            return str_replace(':genre', $value->{'name_' . App::getLocale()}, $message);
-        });
+        $validator->addReplacer('not_the_only_genre_of_an_inventory_item',
+            function ($message, $attribute, $rule, $parameters) use ($problematicInventoryItems, $value) {
+                return str_replace([
+                    ':genre',
+                    ':items'
+                ], [
+                    $value->{'name_' . App::getLocale()},
+                    $problematicInventoryItems
+                ], $message);
+            }
+        );
 
         return $inventoryItemsForWhichTheSelectedGenreIsTheOnlyOneQuery->count() === 0;
     }
