@@ -32,9 +32,17 @@
             document.removeEventListener('keydown', this.onKey)
         },
         methods: {
+            /**
+             * Handles closing request
+             */
             emitCloseEvent() {
                 this.$emit('close');
             },
+
+            /**
+             * Emits a closing request when Escape is pressed
+             * @param {KeyboardEvent} e
+             */
             onKey(e) {
                 if (e.key === 'Escape') this.emitCloseEvent();
             }

@@ -39,6 +39,7 @@
     </data-carrier>
     <div class="container is-fluid">
         <div class="columns">
+            <!-- Add item button -->
             <div class="column is-3 has-text-centered">
                 <button
                     class="button is-fullwidth is-medium"
@@ -50,6 +51,7 @@
                     </span>
                 </button>
             </div>
+            <!-- Add genre button -->
             <div class="column is-3 has-text-centered">
                 <button
                     class="button is-fullwidth is-medium"
@@ -63,6 +65,7 @@
             </div>
         </div>
 
+        <!-- Inventory items collapsible list -->
         <div class="columns">
             <div class="column is-12">
                 <div class="card">
@@ -98,6 +101,7 @@
             </div>
         </div>
 
+        <!-- Genres collapsible list -->
         <div class="columns">
             <div class="column is-12">
                 <div class="card">
@@ -133,8 +137,9 @@
             </div>
         </div>
 
-       <!-- Modals -->
+        <!-- Modals -->
 
+        <!-- Add item modal -->
         <modal
             :title='"{{__("messages.edit_inventory.add_item")}}"'
             :id="'inventory-item-creation-modal'"
@@ -163,6 +168,8 @@
                 </div>
             </template>
         </modal>
+
+        <!-- Add genre modal -->
         <modal
             :title='"{{__("messages.edit_inventory.add_genre")}}"'
             :id="'genre-creation-modal'"
@@ -190,6 +197,8 @@
                 </div>
             </template>
         </modal>
+
+        <!-- Edit item modal -->
         <modal
             :title="`${trans('messages.edit_inventory.edit_item')} : ${requests.inventoryItemUpdate.originalName}`"
             :id="'inventory-item-update-modal'"
@@ -219,6 +228,8 @@
                 </div>
             </template>
         </modal>
+
+        <!-- Edit genre modal -->
         <modal
             :title="`${trans('messages.edit_inventory.edit_genre')} : ${requests.genreUpdate.originalName}`"
             :id="'genre-update-modal'"
@@ -246,6 +257,8 @@
                 </div>
             </template>
         </modal>
+
+        <!-- Delete item modal -->
         <modal
             :title="`${trans('messages.edit_inventory.delete_item')} : ${requests.inventoryItemDeletion.name}`"
             :id="'inventory_item-deletion-modal'"
@@ -276,6 +289,8 @@
                 </div>
             </template>
         </modal>
+
+        <!-- Delete genre modal -->
         <modal
             :title="`${trans('messages.edit_inventory.delete_genre')} : ${requests.genreDeletion.name}`"
             :id="'genre-deletion-modal'"

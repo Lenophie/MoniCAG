@@ -40,9 +40,18 @@
             });
         },
         methods: {
+            /**
+             * Handles a click on the genre card button
+             * @param genre
+             */
             handleClick: function(genre) {
                 this.$emit('genre-clicked', genre);
             },
+
+            /**
+             * Handles a click on the genre card button's delete button
+             * @param genre
+             */
             handleDeleteClick: function(genre) {
                 this.$emit('genre-deletion-clicked', genre);
             }

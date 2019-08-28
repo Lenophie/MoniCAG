@@ -116,6 +116,10 @@ const setupVueComponents = () => {
                 }
             },
 
+            /**
+             * Handle the PHP compacted data
+             * @param {Object} data
+             */
             setCarriedData(data) {
                 this.borrowingCreationRequest.route = data.routes.borrowings;
                 this.inventoryItems = data.resources.inventoryItems;

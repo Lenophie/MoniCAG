@@ -76,6 +76,7 @@
             id: function() {
                 return `inventory-item-card-${this.inventoryItem.id}`;
             },
+
             /**
              * Determines if genres info should be shown
              * @returns {boolean}
@@ -83,6 +84,7 @@
             isGenresInfoShown: function() {
                 return this.showGenres && this.inventoryItem.genres != null && this.inventoryItem.genres.length > 0
             },
+
             /**
              * Determines if duration info should be shown
              * @returns {boolean}
@@ -91,6 +93,7 @@
                 return this.showDuration && this.inventoryItem.duration != null &&
                     (this.inventoryItem.duration.min !== null || this.inventoryItem.duration.max !== null)
             },
+
             /**
              * Determines if players info should be shown
              * @returns {boolean}
@@ -99,6 +102,7 @@
                 return this.showPlayers && this.inventoryItem.players != null &&
                     (this.inventoryItem.players.min !== null || this.inventoryItem.players.max !== null)
             },
+
             /**
              * Determines if precision div should be shown
              * @returns {boolean}
@@ -106,6 +110,7 @@
             isPrecisionDivNecessary: function() {
                 return this.isGenresInfoShown || this.isDurationInfoShown || this.isPlayersInfoShown;
             },
+
             /**
              * Formats the genres string
              * @returns {string}
@@ -119,6 +124,7 @@
                 }
                 return genresString;
             },
+
             /**
              * Formats the duration info
              * @returns {string}
@@ -128,6 +134,7 @@
                 return buildMinMaxString(this.inventoryItem.duration.min, this.inventoryItem.duration.max,
                     minutesString, minutesString);
             },
+
             /**
              * Formats the players info
              * @returns {string}

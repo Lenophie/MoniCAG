@@ -41,9 +41,18 @@
             });
         },
         methods: {
+            /**
+             * Handles a click on an inventory item button
+             * @param inventoryItem
+             */
             handleClick: function(inventoryItem) {
                 this.$emit('item-clicked', inventoryItem);
             },
+
+            /**
+             * Handles a click on an inventory item button's delete button
+             * @param inventoryItem
+             */
             handleDeleteClick: function(inventoryItem) {
                 this.$emit('item-deletion-clicked', inventoryItem);
             }

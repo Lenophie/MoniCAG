@@ -20,6 +20,10 @@
             }
         },
         computed: {
+            /**
+             * Builds the list of errors relevant to the provided field path
+             * @returns {Array}
+             */
             nestedErrorList: function () {
                 const matchingKeys = [];
                 for (const key of Object.keys(this.errorsList)) {

@@ -121,16 +121,28 @@ const setupVueComponents = () => {
             inventoryItemCardsList, genreCardsList, errorField
         },
         computed: {
+            /**
+             * Indicated whether or not the inventory items list is collapsed
+             * @returns Boolean
+             */
             isInventoryItemCardsListCollapsed: function () {
                 if (this.collapsibles.inventoryItemsList != null)
                     return this.collapsibles.inventoryItemsList.collapsed();
                 return false;
             },
+            /**
+             * Indicated whether or not the genres list is collapsed
+             * @returns Boolean
+             */
             isGenreCardsListCollapsed: function () {
                 if (this.collapsibles.genresList != null)
                     return this.collapsibles.genresList.collapsed();
                 return false;
             },
+            /**
+             * Indicated whether or not a modal is currently shown
+             * @returns Boolean
+             */
             isAModalShown: function () {
                 return this.flags.showInventoryItemCreationModal
                     || this.flags.showInventoryItemUpdateModal
@@ -141,16 +153,30 @@ const setupVueComponents = () => {
             }
         },
         methods: {
-            // Modals
+            // Modals closing
+            /**
+             * Closes the inventory item creation modal
+             */
             closeInventoryItemCreationModal() {
                 if (!this.requests.inventoryItemCreation.isProcessing) this.flags.showInventoryItemCreationModal = false;
             },
+
+            /**
+             * Closes the genre creation modal
+             */
             closeGenreCreationModal() {
                 if (!this.requests.genreCreation.isProcessing) this.flags.showGenreCreationModal = false;
             },
+
+            /**
+             * Closes the inventory item update modal and resets the corresponding request parameters
+             */
             closeInventoryItemUpdateModal() {
                 if (!this.requests.inventoryItemUpdate.isProcessing) {
+                    // Close modal
                     this.flags.showInventoryItemUpdateModal = false;
+
+                    // Reset request parameters
                     this.requests.inventoryItemUpdate.originalName = '';
                     this.requests.inventoryItemUpdate.id = null;
                     this.requests.inventoryItemUpdate.params.name = '';
@@ -165,9 +191,16 @@ const setupVueComponents = () => {
                     this.requests.inventoryItemUpdate.errors = {};
                 }
             },
+
+            /**
+             * Closes the genre update modal and resets the corresponding request parameters
+             */
             closeGenreUpdateModal() {
                 if (!this.requests.genreUpdate.isProcessing) {
+                    // Close modal
                     this.flags.showGenreUpdateModal = false;
+
+                    // Reset request parameters
                     this.requests.genreUpdate.originalName = '';
                     this.requests.genreUpdate.params.nameFr = '';
                     this.requests.genreUpdate.params.nameEn = '';
@@ -175,22 +208,42 @@ const setupVueComponents = () => {
                     this.requests.genreUpdate.errors = {};
                 }
             },
+
+            /**
+             * Closes the inventory item deletion modal and resets the corresponding request parameters
+             */
             closeInventoryItemDeletionModal() {
                 if (!this.requests.inventoryItemDeletion.isProcessing) {
+                    // Close modal
                     this.flags.showInventoryItemDeletionModal = false;
+
+                    // Reset request parameters
                     this.requests.inventoryItemDeletion.name = '';
                     this.requests.inventoryItemDeletion.route = '';
                     this.requests.inventoryItemDeletion.errors = {};
                 }
             },
+
+            /**
+             * Closes the genre deletion modal and resets the corresponding request parameters
+             */
             closeGenreDeletionModal() {
                 if (!this.requests.genreDeletion.isProcessing) {
+                    // Close modal
                     this.flags.showGenreDeletionModal = false;
+
+                    // Reset request parameters
                     this.requests.genreDeletion.name = '';
                     this.requests.genreDeletion.route = '';
                     this.requests.genreDeletion.errors = {};
                 }
             },
+
+            // Modals opening
+            /**
+             * Opens the inventory item update modal and sets the request initial parameters
+             * @param {Object} inventoryItem
+             */
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
                 this.requests.inventoryItemUpdate.originalName = inventoryItem.name;
@@ -208,6 +261,11 @@ const setupVueComponents = () => {
                 // Open modal
                 this.flags.showInventoryItemUpdateModal = true;
             },
+
+            /**
+             * Opens the genre update modal and sets the request initial parameters
+             * @param {Object} genre
+             */
             openGenreUpdateModal(genre) {
                 // Set request initial parameters
                 this.requests.genreUpdate.originalName = genre.name;
@@ -219,6 +277,11 @@ const setupVueComponents = () => {
                 // Open modal
                 this.flags.showGenreUpdateModal = true;
             },
+
+            /**
+             * Opens the inventory item deletion modal and sets the request initial parameters
+             * @param {Object} inventoryItem
+             */
             openInventoryItemDeletionModal(inventoryItem) {
                 this.requests.inventoryItemDeletion.name = inventoryItem.name;
                 this.requests.inventoryItemDeletion.route =
@@ -226,6 +289,11 @@ const setupVueComponents = () => {
 
                 this.flags.showInventoryItemDeletionModal = true;
             },
+
+            /**
+             * Opens the genre deletion modal and sets the request initial parameters
+             * @param {Object} genre
+             */
             openGenreDeletionModal(genre) {
                 this.requests.genreDeletion.name = genre.name;
                 this.requests.genreDeletion.route = `${this.requests.genreCreation.route}/${genre.id}`;
@@ -234,6 +302,9 @@ const setupVueComponents = () => {
             },
 
             // Requests
+            /**
+             * Requests the creation of an inventory item
+             */
             requestInventoryItemCreation() {
                 this.requests.inventoryItemCreation.isProcessing = true;
 
@@ -252,6 +323,10 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+
+            /**
+             * Requests the creation of a genre
+             */
             requestGenreCreation() {
                 this.requests.genreCreation.isProcessing = true;
 
@@ -270,6 +345,10 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+
+            /**
+             * Requests the update of an inventory item
+             */
             requestInventoryItemUpdate() {
                 this.requests.inventoryItemUpdate.isProcessing = true;
 
@@ -288,6 +367,10 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+
+            /**
+             * Requests the update of a genre
+             */
             requestGenreUpdate() {
                 this.requests.genreUpdate.isProcessing = true;
 
@@ -306,6 +389,10 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+
+            /**
+             * Requests the deletion of an inventory item
+             */
             requestInventoryItemDeletion() {
                 this.requests.inventoryItemDeletion.isProcessing = true;
 
@@ -324,6 +411,10 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+
+            /**
+             * Requests the deletion of a genre
+             */
             requestGenreDeletion() {
                 this.requests.genreDeletion.isProcessing = true;
 
@@ -344,6 +435,10 @@ const setupVueComponents = () => {
             },
 
             // Data management
+            /**
+             * Handles the PHP compacted data
+             * @param {Object} data
+             */
             setCarriedData(data) {
                 this.requests.inventoryItemCreation.route = data.routes.inventoryItems;
                 this.requests.genreCreation.route = data.routes.genres;
@@ -351,8 +446,10 @@ const setupVueComponents = () => {
                 this.resources.inventoryItems = data.resources.inventoryItems;
                 this.resources.inventoryItemStatuses = data.resources.inventoryItemStatuses;
             },
+
             /**
              * Returns formatted request parameters
+             * @returns {{durationMax: *, altNames: *, genres: *, name: *, playersMin: *, playersMax: *, durationMin: *}}
              */
             formatInventoryItemCreationRequestParams() {
                 const requestParams = this.requests.inventoryItemCreation.params;
@@ -368,6 +465,7 @@ const setupVueComponents = () => {
             },
             /**
              * Returns formatted request parameters
+             * @returns {{durationMax: *, altNames: *, statusId: *, genres: *, name: *, playersMin: *, id: *, playersMax: *, durationMin: *}}
              */
             formatInventoryItemUpdateRequestParams() {
                 const requestParams = this.requests.inventoryItemUpdate.params;
@@ -385,7 +483,10 @@ const setupVueComponents = () => {
             }
         },
         mounted() {
+            // Attach collapsible logic to collapsible elements
             bulmaCollapsible.attach();
+
+            // Reference collapsible elements
             this.collapsibles.inventoryItemsList =
                 document.getElementById('inventory-item-collapsible-card').bulmaCollapsible();
             this.collapsibles.genresList =

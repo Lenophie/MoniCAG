@@ -24,6 +24,10 @@
             }
         },
         methods: {
+            /**
+             * Handles input events
+             * @param $event
+             */
             handleInput: function ($event) {
                 this.isInvalid = !this.$refs.input.checkValidity();
                 this.$emit('input', $event.target.value);
