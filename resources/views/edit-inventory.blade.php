@@ -68,7 +68,7 @@
                 <div class="card">
                     <header class="card-header">
                         <a
-                            href="#collapsible-card"
+                            href="#inventory-item-collapsible-card"
                             data-action="collapse"
                             class="card-header-icon width-100"
                             :tabindex="isAModalShown ? -1 : 0">
@@ -80,13 +80,13 @@
                             </span>
                         </a>
                     </header>
-                    <div id="collapsible-card"
+                    <div id="inventory-item-collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
                         <div :class="{'card-content': flags.isInventoryItemCardsListMounted}">
                             <inventory-item-cards-list
                                 :inventory-items="resources.inventoryItems"
-                                :tabable="!isInventoryItemsCardsListCollapsed && !isAModalShown"
+                                :tabable="!isInventoryItemCardsListCollapsed && !isAModalShown"
                                 @mounted="flags.isInventoryItemCardsListMounted = true"
                                 @item-clicked="openInventoryItemUpdateModal"
                             >
@@ -96,6 +96,43 @@
                 </div>
             </div>
         </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <div class="card">
+                    <header class="card-header">
+                        <a
+                            href="#genre-collapsible-card"
+                            data-action="collapse"
+                            class="card-header-icon width-100"
+                            :tabindex="isAModalShown ? -1 : 0">
+                            <span class="card-header-title collapsible-drawer-title">
+                                {{ __("messages.edit_inventory.edit_genres") }}
+                            </span>
+                            <span class="icon collapsible-drawer-icon">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </header>
+                    <div id="genre-collapsible-card"
+                         class="is-collapsible"
+                         tabindex="-1">
+                        <div :class="{'card-content': flags.isGenreCardsListMounted}">
+                            <genre-cards-list
+                                :genres="resources.genres"
+                                :tabable="!isGenreCardsListCollapsed && !isAModalShown"
+                                @mounted="flags.isGenreCardsListMounted = true"
+                                @genre-clicked="openGenreUpdateModal"
+                            >
+                            </genre-cards-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- Modals -->
+
         <modal
             :title='"{{__("messages.edit_inventory.add_item")}}"'
             :id="'inventory-item-creation-modal'"
@@ -173,6 +210,33 @@
                             class="button is-link"
                             :disabled=requests.inventoryItemUpdate.isProcessing
                             @click="requestInventoryItemUpdate"
+                        >
+                            @lang('Confirm')
+                        </button>
+                    </p>
+                </div>
+            </template>
+        </modal>
+        <modal
+            :title="`${trans('messages.edit_inventory.edit_genre')} : ${requests.genreUpdate.originalName}`"
+            :id="'genre-update-modal'"
+            v-show="flags.showGenreUpdateModal || requests.genreUpdate.isProcessing"
+            @close="closeGenreUpdateModal"
+        >
+            <template v-slot:body>
+                <genre-modification-modal-body
+                    :genre-modification-request="requests.genreUpdate"
+                    :submit="requestGenreUpdate"
+                ></genre-modification-modal-body>
+            </template>
+            <template v-slot:footer>
+                <div class="field is-grouped is-grouped-right width-100">
+                    <p class="control">
+                        <button
+                            id="genre-update-confirmation-button"
+                            class="button is-link"
+                            :disabled=requests.genreUpdate.isProcessing
+                            @click="requestGenreUpdate"
                         >
                             @lang('Confirm')
                         </button>

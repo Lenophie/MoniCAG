@@ -14,6 +14,7 @@ import genresList from './components/editInventoryItems/genresSelectionList.vue'
 import inventoryItemModificationModalBody from './components/modalBodies/inventoryItemModificationModalBody.vue';
 import genreModificationModalBody from "./components/modalBodies/genreModificationModalBody.vue";
 import inventoryItemCardsList from "./components/inventoryItemCardsList.vue";
+import genreCardsList from "./components/genreCardsList.vue";
 
 library.add(faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown);
 
@@ -32,7 +33,7 @@ const setupVueComponents = () => {
                 showGenreCreationModal: false,
                 showGenreUpdateModal: false,
                 isInventoryItemCardsListMounted: false,
-                isGenresListMounted: false
+                isGenreCardsListMounted: false
             },
             collapsibles: {
                 inventoryItemsList: null,
@@ -69,8 +70,8 @@ const setupVueComponents = () => {
                 inventoryItemUpdate: {
                     isProcessing: false,
                     originalName: '',
+                    id: null,
                     params: {
-                        id: null,
                         name: '',
                         duration: {
                             min: null,
@@ -86,17 +87,34 @@ const setupVueComponents = () => {
                     },
                     route: '',
                     errors: {}
+                },
+                genreUpdate: {
+                    isProcessing: false,
+                    originalName: '',
+                    id: null,
+                    params: {
+                        nameFr: '',
+                        nameEn: ''
+                    },
+                    route: '',
+                    errors: {}
                 }
             }
         },
         components: {
-            modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList, inventoryItemCardsList
+            modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList,
+            inventoryItemCardsList, genreCardsList
         },
         computed: {
-            isInventoryItemsCardsListCollapsed: function () {
+            isInventoryItemCardsListCollapsed: function () {
                 if (this.collapsibles.inventoryItemsList != null)
                     return this.collapsibles.inventoryItemsList.collapsed();
-                return false
+                return false;
+            },
+            isGenreCardsListCollapsed: function () {
+                if (this.collapsibles.genresList != null)
+                    return this.collapsibles.genresList.collapsed();
+                return false;
             },
             isAModalShown: function () {
                 return this.flags.showInventoryItemCreationModal
@@ -116,7 +134,7 @@ const setupVueComponents = () => {
             closeInventoryItemUpdateModal() {
                 this.flags.showInventoryItemUpdateModal = false;
                 this.requests.inventoryItemUpdate.originalName = '';
-                this.requests.inventoryItemUpdate.params.id = null;
+                this.requests.inventoryItemUpdate.id = null;
                 this.requests.inventoryItemUpdate.params.name = '';
                 this.requests.inventoryItemUpdate.params.altNames = [];
                 this.requests.inventoryItemUpdate.params.duration.min = null;
@@ -126,11 +144,20 @@ const setupVueComponents = () => {
                 this.requests.inventoryItemUpdate.params.genres = [];
                 this.requests.inventoryItemUpdate.params.status = null;
                 this.requests.inventoryItemUpdate.route = '';
+                this.requests.inventoryItemUpdate.errors = {};
+            },
+            closeGenreUpdateModal() {
+                this.flags.showGenreUpdateModal = false;
+                this.requests.genreUpdate.originalname = '';
+                this.requests.genreUpdate.params.nameFr = '';
+                this.requests.genreUpdate.params.nameEn = '';
+                this.requests.genreUpdate.route = '';
+                this.requests.genreUpdate.errors = {};
             },
             openInventoryItemUpdateModal(inventoryItem) {
                 // Set request initial parameters
                 this.requests.inventoryItemUpdate.originalName = inventoryItem.name;
-                this.requests.inventoryItemUpdate.params.id = inventoryItem.id;
+                this.requests.inventoryItemUpdate.id = inventoryItem.id;
                 this.requests.inventoryItemUpdate.params.name = inventoryItem.name;
                 this.requests.inventoryItemUpdate.params.altNames = inventoryItem.altNames.map(altName => altName.name);
                 this.requests.inventoryItemUpdate.params.duration.min = inventoryItem.duration.min;
@@ -143,6 +170,17 @@ const setupVueComponents = () => {
 
                 // Open modal
                 this.flags.showInventoryItemUpdateModal = true;
+            },
+            openGenreUpdateModal(genre) {
+                // Set request initial parameters
+                this.requests.genreUpdate.originalName = genre.name;
+                this.requests.genreUpdate.id = genre.id;
+                this.requests.genreUpdate.params.nameFr = genre.nameFr;
+                this.requests.genreUpdate.params.nameEn = genre.nameEn;
+                this.requests.genreUpdate.route = `${this.requests.genreCreation.route}/${genre.id}`;
+
+                // Open modal
+                this.flags.showGenreUpdateModal = true;
             },
 
             // Requests
@@ -200,6 +238,24 @@ const setupVueComponents = () => {
                     successCallback,
                     errorCallback);
             },
+            requestGenreUpdate() {
+                this.requests.genreUpdate.isProcessing = true;
+
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/';
+                const errorCallback = (response) => {
+                    this.requests.genreUpdate.isProcessing = false;
+                    this.requests.genreUpdate.errors = JSON.parse(response).errors;
+                };
+
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.PATCH,
+                    this.requests.genreUpdate.route,
+                    JSON.stringify(this.requests.genreUpdate.params),
+                    successCallback,
+                    errorCallback);
+            },
 
             // Data management
             setCarriedData(data) {
@@ -243,7 +299,11 @@ const setupVueComponents = () => {
             }
         },
         mounted() {
-            this.collapsibles.inventoryItemsList = bulmaCollapsible.attach()[0];
+            bulmaCollapsible.attach();
+            this.collapsibles.inventoryItemsList =
+                document.getElementById('inventory-item-collapsible-card').bulmaCollapsible();
+            this.collapsibles.genresList =
+                document.getElementById('genre-collapsible-card').bulmaCollapsible();
         }
     });
 };
