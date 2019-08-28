@@ -12,8 +12,7 @@
         props: {
             errorsList: {
                 type: Object,
-                required: true,
-                default: {}
+                required: true
             },
             fieldPath: {
                 type: String,

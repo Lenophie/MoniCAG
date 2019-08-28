@@ -8,8 +8,7 @@
         props: {
             phpData: {
                 type: Object,
-                required: true,
-                default: {}
+                required: true
             }
         },
         mounted() {
