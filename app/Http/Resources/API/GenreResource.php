@@ -17,7 +17,9 @@ class GenreResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->when($this->name != null, $this->name),
+            'nameFr' => $this->when($this->name_fr != null, $this->name_fr),
+            'nameEn' => $this->when($this->name_en != null, $this->name_en),
         ];
     }
 }

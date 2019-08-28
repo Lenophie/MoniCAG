@@ -27,4 +27,11 @@ class Genre extends Model
         return Genre::select('id', 'name_'.App::getLocale().' AS name')
             ->orderBy('name');
     }
+
+    /**
+     * @return Builder
+     */
+    public static function plusTranslated() {
+        return Genre::select('id', 'name_'.App::getLocale().' AS name', 'name_fr', 'name_en')->orderBy('name');
+    }
 }

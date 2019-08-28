@@ -24,7 +24,7 @@ class EditInventoryController extends Controller
 
         $inventoryItems = DetailedInventoryItemResource::collection(
             InventoryItem::with(['genres', 'altNames'])->orderBy('name')->get());
-        $genres = GenreResource::collection(Genre::translated()->get());
+        $genres = GenreResource::collection(Genre::plusTranslated()->get());
         $inventoryStatuses = InventoryItemStatusResource::collection(InventoryItemStatus::translated()->get());
 
         $compactData = [
