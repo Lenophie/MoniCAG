@@ -43,22 +43,19 @@ class NewBorrowingPage extends Page
     }
 
     public function waitForPageLoaded(Browser $browser) {
-        $browser->waitFor('.inventory-item-card-button')
-            ->waitFor('@checkoutLink');
+        $browser->waitUntilVue('isMounted', true, '#app');
     }
 
     public function openNewBorrowingModal(Browser $browser) {
         $browser->click('@checkoutLink')->waitFor('@newBorrowingModal');
     }
 
-    public function clickOnInventoryItemButton(Browser $browser, $id)
-    {
+    public function clickOnInventoryItemButton(Browser $browser, $id) {
         $idString = "#inventory-item-card-button-{$id}";
         $browser->press($idString);
     }
 
-    public function clickOnInventoryItemRemovalFromBorrowingButton(Browser $browser, $id)
-    {
+    public function clickOnInventoryItemRemovalFromBorrowingButton(Browser $browser, $id) {
         $idString = "#remove-item-borrow-list-button-{$id}";
         $browser->press($idString);
     }

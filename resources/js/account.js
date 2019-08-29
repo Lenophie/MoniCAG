@@ -19,7 +19,8 @@ const setupVueComponents = () => {
                 },
                 route: '',
                 errors: {}
-            }
+            },
+            isMounted: true
         },
         components: {
             modal, dataCarrier, accountDeletionModalBody
@@ -65,6 +66,11 @@ const setupVueComponents = () => {
             setCarriedData(data) {
                 this.accountDeletionRequest.route = data.routes.account.deletion;
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                this.isMounted = true;
+            });
         }
     });
 };

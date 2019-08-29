@@ -44,7 +44,7 @@ class AccountPage extends Page
     }
 
     public function waitForPageLoaded(Browser $browser) {
-        $browser->waitFor('@deleteAccountLink');
+        $browser->waitUntilVue('isMounted', true, '#app');
     }
 
     public function navigateToModifyEmailPage(Browser $browser) {

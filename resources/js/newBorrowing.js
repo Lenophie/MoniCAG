@@ -38,7 +38,8 @@ const setupVueComponents = () => {
                 },
                 route: '',
                 errors: {}
-            }
+            },
+            isMounted: false,
         },
         components: {
             modal, dataCarrier, borrowingCreationModalBody, checkoutButton, inventoryItemButton, inventoryItemSearchBar
@@ -124,6 +125,11 @@ const setupVueComponents = () => {
                 this.borrowingCreationRequest.route = data.routes.borrowings;
                 this.inventoryItems = data.resources.inventoryItems;
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                this.isMounted = true;
+            });
         }
     });
 };
