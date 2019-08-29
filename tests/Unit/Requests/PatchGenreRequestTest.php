@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class UpdateGenreRequestTest extends TestCase
+class PatchGenreRequestTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

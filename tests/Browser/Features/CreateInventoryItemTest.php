@@ -13,7 +13,7 @@ use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
-class AddANewInventoryItemTest extends DuskTestCase
+class CreateInventoryItemTest extends DuskTestCase
 {
     use WithFaker;
 

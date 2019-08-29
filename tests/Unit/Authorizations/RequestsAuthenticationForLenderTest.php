@@ -45,7 +45,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoAddInventoryItemRequestAllowedForLender()
+    public function testInventoryItemCreationRejectedForLender()
     {
         $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -56,7 +56,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteInventoryItemRequestAllowedForLender()
+    public function testInventoryItemDeletionRejectedForLender()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -68,7 +68,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoPatchInventoryItemRequestAllowedForLender()
+    public function testInventoryItemPatchingRejectedForLender()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -76,11 +76,11 @@ class RequestsAuthenticationForLenderTest extends TestCase
     }
 
     /**
-     * Tests lender prevented from patching a user.
+     * Tests lender prevented from patching a user role.
      *
      * @return void
      */
-    public function testNoPatchUserRequestAllowedForLender()
+    public function testUserRolePatchingRejectedForLender()
     {
         $user = factory(User::class)->create();
         $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
@@ -92,7 +92,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteUserRequestAllowedForLender()
+    public function testUserDeletionRejectedForLender()
     {
         $user = factory(User::class)->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
@@ -104,7 +104,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoAddGenreAllowedForLender()
+    public function testGenreCreationRejectedForLender()
     {
         $response = $this->json('POST', 'api/genres/', []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -115,7 +115,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoUpdateGenreAllowedForLender()
+    public function testGenrePatchingRejectedForLender()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
@@ -127,7 +127,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteGenreAllowedForLender()
+    public function testGenreDeletionRejectedForLender()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);

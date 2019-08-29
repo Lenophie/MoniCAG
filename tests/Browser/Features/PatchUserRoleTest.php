@@ -11,7 +11,7 @@ use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
-class PatchAUserTest extends DuskTestCase
+class PatchUserRoleTest extends DuskTestCase
 {
     use WithFaker;
 

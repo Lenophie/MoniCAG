@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class AddInventoryItemRequestTest extends TestCase
+class CreateInventoryItemRequestTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

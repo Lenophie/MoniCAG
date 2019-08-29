@@ -38,7 +38,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoAddInventoryItemRequestAllowedForGuest()
+    public function testInventoryItemCreationRejectedForGuest()
     {
         $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
@@ -49,7 +49,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteInventoryItemRequestAllowedForGuest()
+    public function testInventoryItemDeletionRejectedForGuest()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -61,7 +61,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoPatchInventoryItemRequestAllowedForGuest()
+    public function testInventoryItemPatchingRejectedForGuest()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -69,11 +69,11 @@ class RequestsAuthenticationForGuestTest extends TestCase
     }
 
     /**
-     * Tests guest prevented from patching a user.
+     * Tests guest prevented from patching a user role.
      *
      * @return void
      */
-    public function testNoPatchUserRequestAllowedForGuest()
+    public function testUserRolePatchingRejectedForGuest()
     {
         $user = factory(User::class)->create();
         $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
@@ -85,7 +85,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteUserRequestAllowedForGuest()
+    public function testUserDeletionRejectedForGuest()
     {
         $user = factory(User::class)->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
@@ -97,7 +97,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoAddGenreAllowedForGuest()
+    public function testGenreCreationRejectedForGuest()
     {
         $response = $this->json('POST', 'api/genres/', []);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
@@ -108,7 +108,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoUpdateGenreAllowedForGuest()
+    public function testGenrePatchingRejectedForGuest()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
@@ -120,7 +120,7 @@ class RequestsAuthenticationForGuestTest extends TestCase
      *
      * @return void
      */
-    public function testNoDeleteGenreAllowedForGuest()
+    public function testGenreDeletionRejectedForGuest()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);

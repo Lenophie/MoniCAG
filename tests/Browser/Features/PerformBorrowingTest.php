@@ -14,7 +14,7 @@ use Tests\Browser\Pages\NewBorrowingPage;
 use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
-class PerformANewBorrowingTest extends DuskTestCase
+class PerformBorrowingTest extends DuskTestCase
 {
     use WithFaker;
 

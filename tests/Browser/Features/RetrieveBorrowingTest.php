@@ -13,7 +13,7 @@ use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
-class RetrieveABorrowingTest extends DuskTestCase
+class RetrieveBorrowingTest extends DuskTestCase
 {
     use WithFaker;
 

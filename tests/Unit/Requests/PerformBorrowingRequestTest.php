@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class NewBorrowingRequestTest extends TestCase
+class PerformBorrowingRequestTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

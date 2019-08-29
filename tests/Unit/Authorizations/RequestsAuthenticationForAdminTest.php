@@ -41,11 +41,11 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests admin allowed to add a new inventory item.
+     * Tests admin allowed to create an inventory item.
      *
      * @return void
      */
-    public function testAddInventoryItemRequestAllowedForAdmin()
+    public function testInventoryItemRequestCreationAllowedForAdmin()
     {
         $response = $this->json('POST', '/api/inventoryItems', []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -56,7 +56,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      *
      * @return void
      */
-    public function testDeleteInventoryItemRequestAllowedForAdmin()
+    public function testInventoryItemDeletionAllowedForAdmin()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -68,7 +68,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      *
      * @return void
      */
-    public function testPatchInventoryItemRequestAllowedForAdmin()
+    public function testInventoryItemPatchingAllowedForAdmin()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
         $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
@@ -76,11 +76,11 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests admin allowed to patch a user.
+     * Tests admin allowed to patch a user role.
      *
      * @return void
      */
-    public function testPatchUserRequestAllowedForAdmin()
+    public function testUserRolePatchingAllowedForAdmin()
     {
         $user = factory(User::class)->create();
         $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
@@ -92,7 +92,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      *
      * @return void
      */
-    public function testDeleteUserRequestAllowedForAdmin()
+    public function testUserDeletionAllowedForAdmin()
     {
         $user = factory(User::class)->create();
         $response = $this->json('DELETE', '/api/users/' . $user->id, []);
@@ -100,11 +100,11 @@ class RequestsAuthenticationForAdminTest extends TestCase
     }
 
     /**
-     * Tests admin allowed to add a genre.
+     * Tests admin allowed to create a genre.
      *
      * @return void
      */
-    public function testAddGenreAllowedForAdmin()
+    public function testGenreCreationAllowedForAdmin()
     {
         $response = $this->json('POST', 'api/genres/', []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -115,7 +115,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateGenreAllowedForAdmin()
+    public function testGenrePatchingForAdmin()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
@@ -127,7 +127,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      *
      * @return void
      */
-    public function testDeleteGenreAllowedForAdmin()
+    public function testGenreDeletionAllowedForAdmin()
     {
         $genre = factory(Genre::class)->create();
         $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);

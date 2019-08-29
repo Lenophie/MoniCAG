@@ -10,7 +10,7 @@ use Tests\Browser\Pages\HomePage;
 use Tests\Browser\Pages\PagesFromHomeEnum;
 use Tests\DuskTestCase;
 
-class DeleteAUserTest extends DuskTestCase
+class DeleteUserTest extends DuskTestCase
 {
     use WithFaker;
 
