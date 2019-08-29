@@ -30,8 +30,8 @@ class CreateInventoryItemTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
-        foreach ($this->genres as $genre) $genre->delete();
+        User::query()->delete();
+        Genre::query()->delete();
         InventoryItem::query()->delete(); // Remove created inventory item
     }
 

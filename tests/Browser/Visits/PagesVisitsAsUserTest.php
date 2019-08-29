@@ -17,7 +17,7 @@ class PagesVisitsAsUserTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->user->delete();
+        User::query()->delete();
     }
 
     public function testNewBorrowingPageVisit()

@@ -34,10 +34,7 @@ class PatchUserRoleTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
-        $this->otherAdmin->delete();
-        $this->lender->delete();
-        $this->user->delete();
+        User::query()->delete();
     }
 
     public function testPatchUserRole() {

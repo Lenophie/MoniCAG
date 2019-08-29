@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Unit;
 
+use App\Borrowing;
 use App\Genre;
 use App\InventoryItem;
 use App\User;
@@ -33,14 +34,10 @@ class EditInventoryPageDataFunctionalTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
-        $this->admin->delete();
-        foreach ($this->additionalGenres as $genre) $genre->delete();
-        foreach ($this->borrowedInventoryItem->genres()->get() as $genre) $genre->delete();
-        $this->borrowedInventoryItem->delete();
+        User::query()->delete();
+        InventoryItem::query()->delete();
+        Genre::query()->delete();
+        Borrowing::query()->delete();
     }
 
     public function testCorrectItemBeingDeletedWhenOpeningSeveralModals() {

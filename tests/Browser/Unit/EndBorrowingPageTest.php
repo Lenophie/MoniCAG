@@ -16,12 +16,24 @@ class EndBorrowingPageTest extends DuskTestCase
     use WithFaker;
 
     private $lender;
+    private $borrowings;
+    private $onTimeBorrowing;
+    private $lateBorrowing;
 
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
+
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
+
+        $borrowings = factory(Borrowing::class, 3)->create();
+        $this->borrowings = $borrowings;
+
+        $onTimeBorrowing = factory(Borrowing::class)->state('onTime')->create();
+        $lateBorrowing = factory(Borrowing::class)->state('late')->create();
+        $this->onTimeBorrowing = $onTimeBorrowing;
+        $this->lateBorrowing = $lateBorrowing;
     }
 
     protected function tearDown(): void {
@@ -32,13 +44,11 @@ class EndBorrowingPageTest extends DuskTestCase
     }
 
     public function testBorrowingsPresence() {
-        $borrowings = factory(Borrowing::class, 3)->create();
-
-        $this->browse(function (Browser $browser) use ($borrowings) {
+        $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage);
 
-            foreach ($borrowings as $borrowing) {
+            foreach ($this->borrowings as $borrowing) {
                 $browser->assertPresent("#borrowings-list-element-{$borrowing->id}");
             }
         });
@@ -46,29 +56,24 @@ class EndBorrowingPageTest extends DuskTestCase
 
     public function testLateBorrowingsWarningsPresence()
     {
-        $onTimeBorrowing = factory(Borrowing::class)->state('onTime')->create();
-        $lateBorrowing = factory(Borrowing::class)->state('late')->create();
-        $borrowings = [$onTimeBorrowing, $lateBorrowing];
-
-        $this->browse(function (Browser $browser) use ($onTimeBorrowing, $lateBorrowing) {
+        $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage)
-                ->assertSeeIn("#borrowings-list-element-{$lateBorrowing->id}", __('messages.end_borrowing.late'))
-                ->assertDontSeeIn("#borrowings-list-element-{$onTimeBorrowing->id}", __('messages.end_borrowing.late'));
+                ->assertSeeIn("#borrowings-list-element-{$this->lateBorrowing->id}", __('messages.end_borrowing.late'))
+                ->assertDontSeeIn("#borrowings-list-element-{$this->onTimeBorrowing->id}", __('messages.end_borrowing.late'));
         });
     }
 
     public function testBorrowingAdditionToCheckoutModal()
     {
-        $borrowings = factory(Borrowing::class, 2)->create();
-
-        $this->browse(function (Browser $browser) use ($borrowings) {
+        $borrowing = $this->borrowings[0];
+        $this->browse(function (Browser $browser) use ($borrowing) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage)
-                ->clickOnBorrowingButton($borrowings[0]->id)
+                ->clickOnBorrowingButton($borrowing->id)
                 ->click('@returnButton')
-                ->whenAvailable('@endBorrowingModal', function (Browser $modal) use ($borrowings) {
-                    $modal->assertSee($borrowings[0]->inventoryItem()->first()->name);
+                ->whenAvailable('@endBorrowingModal', function (Browser $modal) use ($borrowing) {
+                    $modal->assertSee($borrowing->inventoryItem()->first()->name);
                 });
         });
     }

@@ -13,51 +13,51 @@ class AccessesFromHomeTest extends DuskTestCase
 {
     use WithFaker;
 
+    private $admin;
+    private $lender;
+
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
+        $lender = factory(User::class)->state('lender')->create();
+        $this->lender = $lender;
+        $admin = factory(User::class)->state('admin')->create();
+        $this->admin = $admin;
+    }
+
+    protected function tearDown(): void
+    {
+        User::query()->delete();
     }
 
     public function testAccessToNewBorrowingPage()
     {
-        $lender = factory(User::class)->state('lender')->create();
-
-        $this->browse(function (Browser $browser) use ($lender) {
-            $browser->loginAs($lender)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->assertPathIs('/new-borrowing');
         });
-
-        $lender->delete();
     }
 
     public function testAccessToEndBorrowingPage()
     {
-        $lender = factory(User::class)->state('lender')->create();
-
-        $this->browse(function (Browser $browser) use ($lender) {
-            $browser->loginAs($lender)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->assertPathIs('/end-borrowing');
         });
-
-        $lender->delete();
     }
 
     public function testAccessToBorrowingsHistoryPage()
     {
-        $lender = factory(User::class)->state('lender')->create();
-
-        $this->browse(function (Browser $browser) use ($lender) {
-            $browser->loginAs($lender)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->lender)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::BORROWINGS_HISTORY)
                 ->assertPathIs('/borrowings-history');
         });
-
-        $lender->delete();
     }
 
     public function testAccessToViewInventoryPage()
@@ -71,30 +71,22 @@ class AccessesFromHomeTest extends DuskTestCase
 
     public function testAccessToEditInventoryPage()
     {
-        $admin = factory(User::class)->state('admin')->create();
-
-        $this->browse(function (Browser $browser) use ($admin) {
-            $browser->loginAs($admin)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->assertPathIs('/edit-inventory');
         });
-
-        $admin->delete();
     }
 
     public function testAccessToEditUsersPage()
     {
-        $admin = factory(User::class)->state('admin')->create();
-
-        $this->browse(function (Browser $browser) use ($admin) {
-            $browser->loginAs($admin)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->assertPathIs('/edit-users');
         });
-
-        $admin->delete();
     }
 
     public function testAccessToGithubPage()
@@ -109,15 +101,11 @@ class AccessesFromHomeTest extends DuskTestCase
 
     public function testAccessToAccountPage()
     {
-        $admin = factory(User::class)->state('admin')->create();
-
-        $this->browse(function (Browser $browser) use ($admin) {
-            $browser->loginAs($admin)
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->assertPathIs('/account');
         });
-
-        $admin->delete();
     }
 }

@@ -3,6 +3,8 @@
 namespace Tests\Browser\Features;
 
 use App\Borrowing;
+use App\Genre;
+use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
 use Carbon\Carbon;
@@ -34,15 +36,10 @@ class RetrieveBorrowingTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        foreach ($this->borrowings as $borrowing) {
-            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
-            $borrowing->inventoryItem()->first()->delete();
-            $borrowing->borrower()->first()->delete();
-            $borrowing->initialLender()->first()->delete();
-            $borrowing->delete();
-        }
-
-        $this->lender->delete();
+        User::query()->delete();
+        Genre::query()->delete();
+        InventoryItem::query()->delete();
+        Borrowing::query()->delete();
     }
 
     public function testReturnBorrowings()

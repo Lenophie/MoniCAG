@@ -3,6 +3,8 @@
 namespace Tests\Browser\Unit;
 
 use App\Borrowing;
+use App\Genre;
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
@@ -14,16 +16,24 @@ class AccountPageTest extends DuskTestCase
     use WithFaker;
 
     private $user;
+    private $borrowings;
 
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
         $user = factory(User::class)->create();
         $this->user = $user;
+        $borrowings = factory(Borrowing::class, 3)->create([
+            'borrower_id' => $this->user->id
+        ]);
+        $this->borrowings = $borrowings;
     }
 
     protected function tearDown(): void {
-        $this->user->delete();
+        User::query()->delete();
+        Borrowing::query()->delete();
+        InventoryItem::query()->delete();
+        Genre::query()->delete();
     }
 
     public function testPersonalInfoPresence() {
@@ -40,27 +50,16 @@ class AccountPageTest extends DuskTestCase
     }
 
     public function testPersonalBorrowingsPresence() {
-        $borrowings = factory(Borrowing::class, 3)->create([
-            'borrower_id' => $this->user->id
-        ]);
-
-        $this->browse(function (Browser $browser) use ($borrowings) {
+        $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->visit(new AccountPage)
                 ->waitForPageLoaded();
 
-            foreach ($borrowings as $borrowing) {
+            foreach ($this->borrowings as $borrowing) {
                 $browser->assertSee($borrowing->inventoryItem->name)
                     ->assertSee($borrowing->expected_return_date->format('d/m/Y'));
             }
         });
-
-        foreach ($borrowings as $borrowing) {
-            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
-            $borrowing->inventoryItem()->first()->delete();
-            $borrowing->initialLender()->first()->delete();
-            $borrowing->delete();
-        }
     }
 
     public function testAccessToModifyEmailPage() {

@@ -3,6 +3,7 @@
 namespace Tests\Browser\Features;
 
 use App\Borrowing;
+use App\Genre;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
@@ -40,12 +41,9 @@ class PerformBorrowingTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->lender->delete();
-        $this->borrower->delete();
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
+        User::query()->delete();
+        Genre::query()->delete();
+        InventoryItem::query()->delete();
         Borrowing::query()->delete();
     }
 

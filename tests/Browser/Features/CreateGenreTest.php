@@ -26,7 +26,7 @@ class CreateGenreTest extends DuskTestCase
 
     protected function tearDown(): void {
         Genre::query()->delete(); // Remove the created genre
-        $this->admin->delete();
+        User::query()->delete();
     }
 
     public function testAddAGenre() {

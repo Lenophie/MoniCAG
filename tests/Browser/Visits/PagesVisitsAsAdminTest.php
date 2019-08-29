@@ -17,7 +17,7 @@ class PagesVisitsAsAdminTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
+        User::query()->delete();
     }
 
     public function testNewBorrowingPageVisit()

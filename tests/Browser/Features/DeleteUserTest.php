@@ -30,9 +30,7 @@ class DeleteUserTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
-        $this->otherAdmin->delete();
-        foreach ($this->users as $user) $user->delete();
+        User::query()->delete();
     }
 
     public function testDeleteAUser() {

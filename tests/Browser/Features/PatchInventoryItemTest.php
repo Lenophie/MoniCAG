@@ -33,9 +33,8 @@ class PatchInventoryItemTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
-        foreach ($this->inventoryItems as $inventoryItem)
-            $inventoryItem->delete();
+        User::query()->delete();
+        InventoryItem::query()->delete();
         Genre::query()->delete();
     }
 
