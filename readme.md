@@ -29,6 +29,8 @@ This application aims at :
 * Run `php artisan key:generate` to create generate an application key (stored in `.env`)
 * Run `php artisan migrate --seed` to migrate the database
 * Run `php artisan passport:install` to migrate OAuth tables
+* Run `php artisan storage:link` to create the symbolic link from "public/storage" to "storage/app/public"
+* Run `php artisan lang:generate` to generate the public translation files
 * Run `php artisan serve` to serve the application
 * Run `npm run watch` to bundle the `js` resources
 * Go to `localhost:8000` with a web navigator

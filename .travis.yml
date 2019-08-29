@@ -32,6 +32,8 @@ before_script:
 - php artisan migrate --seed
 - php artisan migrate --seed --env=testing
 - php artisan passport:install
+- php artisan storage:link
+- php artisan lang:generate
 - php artisan dusk:chrome-driver
 - npm ci
 - npm run production

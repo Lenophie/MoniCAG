@@ -29,6 +29,8 @@ Cette application cherche à :
 * Exécuter `php artisan key:generate` pour générer une clé (stockée dans `.env`)
 * Exécuter `php artisan migrate --seed` pour migrer la base de données
 * Exécuter `php artisan passport:install` pour migrer les tables de OAuth
+* Exécuter `php artisan storage:link` pour créer un lien symbolique de "public/storage" vers "storage/app/public"
+* Exécuter `php artisan lang:generate` pour générer les fichiers publics de traduction
 * Exécuter `php artisan serve` pour servir l'application
 * Exécuter `npm run watch` pour bundle les ressources `js`
 * Se rendre à `localhost:8000` avec un navigateur web
