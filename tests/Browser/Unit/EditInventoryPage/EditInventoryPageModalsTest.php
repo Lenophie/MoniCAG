@@ -4,21 +4,23 @@ namespace Tests\Browser\Unit;
 
 use App\Genre;
 use App\InventoryItem;
-use App\InventoryItemStatus;
 use App\User;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditInventoryPage;
 use Tests\DuskTestCase;
 
-class EditInventoryPageTest extends DuskTestCase
+class EditInventoryPageModalsTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $admin;
     private $inventoryItems;
     private $additionalGenres;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
         $inventoryItems = factory(InventoryItem::class, 2)->create();
@@ -36,21 +38,98 @@ class EditInventoryPageTest extends DuskTestCase
         foreach ($this->additionalGenres as $genre) $genre->delete();
     }
 
-    public function testInventoryItemsPresence() {
+    public function testInventoryItemCreationModalOpening() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage());
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
 
-            foreach ($this->inventoryItems as $inventoryItem) {
-                $browser->assertPresent("#modify-item-{$inventoryItem->id}");
-            }
+            $browser->click('@itemCreationButton')
+                ->whenAvailable('@itemCreationModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.add_item"));
+                });
         });
     }
 
+    public function testGenreCreationModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
+
+            $browser->click('@genreCreationButton')
+                ->whenAvailable('@genreCreationModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.add_genre"));
+                });
+        });
+    }
+
+    public function testInventoryItemUpdateModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
+
+            $browser->click('@itemCollapseLink')
+                ->whenAvailable('@itemsList', function(Browser $list) {
+                    $list->clickOnItemButton($this->inventoryItems[0]->id);
+                })->whenAvailable('@itemUpdateModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.edit_item"));
+                });
+        });
+    }
+
+    public function testGenreUpdateModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
+
+            $browser->click('@genreCollapseLink')
+                ->whenAvailable('@genresList', function(Browser $list) {
+                    $list->clickOnGenreButton($this->additionalGenres[0]->id);
+                })->whenAvailable('@genreUpdateModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.edit_genre"));
+                });
+        });
+    }
+
+    public function testInventoryItemDeleteModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
+
+            $browser->click('@itemCollapseLink')
+                ->whenAvailable('@itemsList', function(Browser $list) {
+                    $list->clickOnItemDeletionButton($this->inventoryItems[0]->id);
+                })->whenAvailable('@itemDeletionModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.delete_item"));
+                });
+        });
+    }
+
+    public function testGenreDeleteModalOpening() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($this->admin)
+                ->visit(new EditInventoryPage)
+                ->waitForPageLoaded();
+
+            $browser->click('@genreCollapseLink')
+                ->whenAvailable('@genresList', function(Browser $list) {
+                    $list->clickOnGenreDeletionButton($this->additionalGenres[0]->id);
+                })->whenAvailable('@genreDeletionModal', function(Browser $modal) {
+                    $modal->assertSee(__("messages.edit_inventory.delete_genre"));
+                });
+        });
+    }
+
+
+/*
     public function testInventoryItemsDetailsPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage());
+                ->visit(new EditInventoryPage);
 
             foreach ($this->inventoryItems as $inventoryItem) {
                 $browser->assertInputValue("#nameFr-{$inventoryItem->id}", $inventoryItem->name_fr)
@@ -73,7 +152,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToAdd) {
             $liElement = "#genre-{$genreToAdd->id}-for-new-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->assertMissing($liElement)
                 ->select('@newItemGenreSelect', $genreToAdd->id)
                 ->assertPresent($liElement)
@@ -86,7 +165,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToAdd) {
             $liElement = "#genre-{$genreToAdd->id}-for-new-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->press('@newItemSubmitButton')
                 ->waitForText(__("validation/createInventoryItem.genres.required"))
                 ->select('@newItemGenreSelect', $genreToAdd->id)
@@ -101,7 +180,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToAdd, $inventoryItemToPatch) {
             $liElement = "#genre-{$genreToAdd->id}-for-{$inventoryItemToPatch->id}-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->assertMissing($liElement)
                 ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToAdd->id)
                 ->assertPresent($liElement)
@@ -115,7 +194,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToAdd, $inventoryItemToPatch) {
             $liElement = "#genre-{$genreToAdd->id}-for-{$inventoryItemToPatch->id}-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage());
+                ->visit(new EditInventoryPage);
             foreach ($inventoryItemToPatch->genres()->get() as $genre) {
                 $browser->pressOnRemoveGenreButton($inventoryItemToPatch->id, $genre->id);
             }
@@ -132,7 +211,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToAddAndRemove) {
             $liElement = "#genre-{$genreToAddAndRemove->id}-for-new-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->select('@newItemGenreSelect', $genreToAddAndRemove->id)
                 ->pressOnRemoveGenreButton('new', $genreToAddAndRemove->id)
                 ->assertMissing($liElement);
@@ -145,7 +224,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($genreToRemove, $inventoryItemToPatch) {
             $liElement = "#genre-{$genreToRemove->id}-for-{$inventoryItemToPatch->id}-li";
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToRemove->id)
                 ->pressOnRemoveGenreButton($inventoryItemToPatch->id, $genreToRemove->id)
                 ->assertMissing($liElement);
@@ -156,7 +235,7 @@ class EditInventoryPageTest extends DuskTestCase
         $inventoryItemToPatch = $this->inventoryItems[1];
         $this->browse(function (Browser $browser) use ($inventoryItemToPatch) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage());
+                ->visit(new EditInventoryPage);
             foreach ($inventoryItemToPatch->genres()->get() as $genre) $browser->assertDisabled("#add-genre-{$genre->id}-to-{$inventoryItemToPatch->id}-option");
         });
     }
@@ -166,7 +245,7 @@ class EditInventoryPageTest extends DuskTestCase
         $genreToAdd = $this->additionalGenres[1];
         $this->browse(function (Browser $browser) use ($inventoryItemToPatch, $genreToAdd) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->select("#add-genre-select-{$inventoryItemToPatch->id}", $genreToAdd->id)
                 ->assertDisabled("#add-genre-{$genreToAdd->id}-to-{$inventoryItemToPatch->id}-option")
                 ->select("@newItemGenreSelect", $genreToAdd->id)
@@ -180,7 +259,7 @@ class EditInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($inventoryItemToPatch, $genreToAddAndRemoveToNewItem) {
             $genreToRemoveFromPatchedItem = $inventoryItemToPatch->genres()->get()[1];
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->pressOnRemoveGenreButton($inventoryItemToPatch->id, $genreToRemoveFromPatchedItem->id)
                 ->assertEnabled("#add-genre-{$genreToRemoveFromPatchedItem->id}-to-{$inventoryItemToPatch->id}-option")
                 ->select('@newItemGenreSelect', $genreToAddAndRemoveToNewItem->id)
@@ -193,7 +272,7 @@ class EditInventoryPageTest extends DuskTestCase
         $inventoryItemToPatch = $this->inventoryItems[1];
         $this->browse(function (Browser $browser) use ($inventoryItemToPatch) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->assertDisabled("#status-{$inventoryItemToPatch->id} option[value='" . InventoryItemStatus::BORROWED . "']");
         });
     }
@@ -202,7 +281,7 @@ class EditInventoryPageTest extends DuskTestCase
         $inventoryItemToPatch = factory(InventoryItem::class)->state('borrowed')->create();
         $this->browse(function (Browser $browser) use ($inventoryItemToPatch) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->assertEnabled("#status-{$inventoryItemToPatch->id} option[value='" . InventoryItemStatus::BORROWED . "']")
                 ->assertDisabled("#status-{$inventoryItemToPatch->id} option[value='" . InventoryItemStatus::IN_LCR_D4 . "']")
                 ->assertDisabled("#status-{$inventoryItemToPatch->id} option[value='" . InventoryItemStatus::IN_F2 . "']")
@@ -218,7 +297,7 @@ class EditInventoryPageTest extends DuskTestCase
     public function testDeletionModalOpening() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->assertMissing('@deletionConfirmationModal')
                 ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
                 ->assertVisible('@deletionConfirmationModal');
@@ -228,7 +307,7 @@ class EditInventoryPageTest extends DuskTestCase
     public function testDeletionModalClosing() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditInventoryPage())
+                ->visit(new EditInventoryPage)
                 ->pressOnDeleteItemButton($this->inventoryItems[1]->id)
                 ->whenAvailable('@deletionConfirmationModal', function($modal) {
                     $modal->press("@deletionConfirmationModalCloseButton");
@@ -240,7 +319,7 @@ class EditInventoryPageTest extends DuskTestCase
     public function testCorrectItemBeingDeletedWhenOpeningSeveralModals() {
         $this->browse(function (Browser $browser) {
            $browser->loginAs($this->admin)
-               ->visit(new EditInventoryPage())
+               ->visit(new EditInventoryPage)
                ->pressOnDeleteItemButton($this->inventoryItems[0]->id)
                ->whenAvailable('@deletionConfirmationModal', function($modal) {
                    $modal->press("@deletionConfirmationModalCloseButton");
@@ -258,5 +337,5 @@ class EditInventoryPageTest extends DuskTestCase
         // Check the other record presence
         $this->assertDatabaseHas('inventory_items', ['id' => $this->inventoryItems[0]->id]);
 
-    }
+    }*/
 }

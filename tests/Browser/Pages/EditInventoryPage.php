@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Pages;
 
+use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;
 
 class EditInventoryPage extends Page
@@ -27,6 +28,10 @@ class EditInventoryPage extends Page
         //
     }
 
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitUntilVue('flags.isMounted', true, '#app');
+    }
+
     /**
      * Get the element shortcuts for the page.
      *
@@ -35,30 +40,108 @@ class EditInventoryPage extends Page
     public function elements()
     {
         return [
-            '@newItemFrenchNameInput' => '#nameFr-new',
-            '@newItemEnglishNameInput' => '#nameEn-new',
-            '@newItemGenreSelect' => '#add-genre-select-new',
-            '@newItemGenresList' => '#genres-ul-new',
-            '@newItemDurationMinInput' => '#durationMin-new',
-            '@newItemDurationMaxInput' => '#durationMax-new',
-            '@newItemPlayersMinInput' => '#playersMin-new',
-            '@newItemPlayersMaxInput' => '#playersMax-new',
-            '@newItemSubmitButton' => '#add-item-submit-button',
-            '@deletionConfirmationModal' => '#delete-confirm-modal',
-            '@deletionConfirmationButton' => '#delete-confirm-button',
-            '@deletionConfirmationModalCloseButton' => '#delete-confirm-modal-close-button'
+            '@itemCollapseLink' => '#inventory-item-collapse-link',
+            '@genreCollapseLink' => '#genre-collapse-link',
+            '@itemCreationButton' => '#inventory-item-creation-modal-open-button',
+            '@genreCreationButton' => '#genre-creation-modal-open-button',
+            '@itemCreationModal' => '#inventory-item-creation-modal',
+            '@genreCreationModal' => '#genre-creation-modal',
+            '@itemUpdateModal' => '#inventory-item-update-modal',
+            '@genreUpdateModal' => '#genre-update-modal',
+            '@itemDeletionModal' => '#inventory-item-deletion-modal',
+            '@genreDeletionModal' => '#genre-deletion-modal',
+            '@itemsList' => '#inventory-item-collapsible-list',
+            '@genresList' => '#genre-collapsible-list',
+            '@itemCreationConfirmationButton' => '#inventory-item-creation-confirmation-button',
+            '@genreCreationConfirmationButton' => '#genre-creation-confirmation-button',
+            '@itemUpdateConfirmationButton' => '#inventory-item-update-confirmation-button',
+            '@genreUpdateConfirmationButton' => '#genre-update-confirmation-button',
+            '@itemDeletionConfirmationButton' => '#inventory-item-deletion-confirmation-button',
+            '@genreDeletionConfirmationButton' => '#genre-deletion-confirmation-button',
         ];
     }
 
-    public function pressOnRemoveGenreButton(Browser $browser, $itemId, $genreId) {
-        $browser->click("#button-remove-genre-{$genreId}-for-{$itemId}");
+    // Clicks
+
+    public function clickOnItemButton(Browser $browser, $id) {
+        $idString = "#inventory-item-card-button-{$id}";
+        $browser->click($idString);
     }
 
-    public function pressOnPatchItemButton(Browser $browser, $itemId) {
-        $browser->press("#edit-item-{$itemId}-submit-button");
+    public function clickOnGenreButton(Browser $browser, $id) {
+        $idString = "#genre-card-button-{$id}";
+        $browser->click($idString);
     }
 
-    public function pressOnDeleteItemButton(Browser $browser, $itemId) {
-        $browser->press("#delete-button-{$itemId}");
+    public function clickOnItemDeletionButton(Browser $browser, $id) {
+        $idString = "#inventory-item-card-deletion-button-{$id}";
+        $browser->click($idString);
+    }
+
+    public function clickOnGenreDeletionButton(Browser $browser, $id) {
+        $idString = "#genre-card-deletion-button-{$id}";
+        $browser->click($idString);
+    }
+
+    // Modals opening
+
+    /**
+     * Clicks on the item collapse link then on a given inventory item button
+     * @param Browser $browser
+     * @param $id
+     * @param $function
+     * @throws TimeOutException
+     */
+    public function whenItemUpdateModalAvailable(Browser $browser, $id, $function) {
+        $browser->click('@itemCollapseLink')
+            ->whenAvailable('@itemsList', function (Browser $list) use ($id) {
+                $list->clickOnItemButton($id);
+            })
+            ->waitFor('@itemUpdateModal')->with('@itemUpdateModal', $function);
+    }
+
+    /**
+     * Clicks on the item collapse link then on a given inventory item deletion button
+     * @param Browser $browser
+     * @param $id
+     * @param $function
+     * @throws TimeOutException
+     */
+    public function whenItemDeletionModalAvailable(Browser $browser, $id, $function) {
+        $browser->click('@itemCollapseLink')
+            ->whenAvailable('@itemsList', function (Browser $list) use ($id) {
+                $list->clickOnItemDeletionButton($id);
+            })
+            ->waitFor('@itemDeletionModal')->with('@itemDeletionModal', $function);
+    }
+
+    /**
+     * Clicks on the genre collapse link then on a given genre button
+     * @param Browser $browser
+     * @param $id
+     * @param $function
+     * @throws TimeOutException
+     */
+    public function whenGenreUpdateModalAvailable(Browser $browser, $id, $function) {
+        $browser->click('@genreCollapseLink')
+            ->whenAvailable('@genresList', function (Browser $list) use ($id) {
+                $list->clickOnGenreButton($id);
+            })
+            ->waitFor('@genreUpdateModal')->with('@genreUpdateModal', $function);
+    }
+
+    /**
+     * Clicks on the genre collapse link then on a given genre deletion button
+     * @param Browser $browser
+     * @param $id
+     * @param $function
+     * @throws TimeOutException
+     */
+    public function whenGenreDeletionModalAvailable(Browser $browser, $id, $function) {
+        $browser->click('@genreCollapseLink')
+            ->whenAvailable('@genresList', function (Browser $list) use ($id) {
+                $list->clickOnGenreDeletionButton($id);
+            })
+            ->waitFor('@genreDeletionModal')->with('@genreDeletionModal', $function);
     }
 }
