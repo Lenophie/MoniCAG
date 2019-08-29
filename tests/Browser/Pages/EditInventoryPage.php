@@ -29,7 +29,7 @@ class EditInventoryPage extends Page
     }
 
     public function waitForPageLoaded(Browser $browser) {
-        $browser->waitUntilVue('flags.isMounted', true, '#app');
+        $browser->waitUntilVue('flags.isMounted', true, '#app', 30);
     }
 
     /**
