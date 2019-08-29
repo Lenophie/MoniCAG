@@ -483,12 +483,9 @@ const setupVueComponents = () => {
         },
         mounted() {
             // Attach collapsible logic to collapsible elements
-            const instances = bulmaCollapsible.attach();
-
-            this.collapsibles.inventoryItemsList =
-                instances[0];
-            this.collapsibles.genresList =
-                instances[1];
+            // Using .attach() then referencing the bulmaCollapsible instances with getSelectorById().bulmaCollapsible() breaks in production
+            this.collapsibles.inventoryItemsList = bulmaCollapsible.attach('#inventory-item-collapsible-card')[0];
+            this.collapsibles.genresList = bulmaCollapsible.attach('#genre-collapsible-card')[0];
 
             this.$nextTick(function () {
                 this.flags.isMounted = true;
