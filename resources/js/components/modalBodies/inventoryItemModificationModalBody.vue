@@ -131,7 +131,7 @@
             </error-field>
             <!-- Status -->
             <div v-if="inventoryItemModificationRequest.params.status != null && inventoryItemStatuses != null">
-                <h5 class="title is-5 form-subtitle">{{ trans('messages.edit_inventory.change_status') }}</h5>
+                <h5 class="title is-5 form-subtitle">{{ trans('Status') }}</h5>
                 <div class="columns no-mb">
                     <div class="column is-12">
                         <div class="select is-fullwidth">
