@@ -2,6 +2,8 @@
 
 namespace Tests\Browser;
 
+use App\Borrowing;
+use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,7 +19,6 @@ class DeleteAnInventoryItemTest extends DuskTestCase
 
     private $admin;
     private $inventoryItems;
-    private $borrowedItem;
     private $genresToDeleteInTearDown;
 
     protected function setUp(): void {
@@ -25,22 +26,15 @@ class DeleteAnInventoryItemTest extends DuskTestCase
         $this->faker->seed(0);
         $inventoryItems = factory(InventoryItem::class, 10)->create();
         $this->inventoryItems = $inventoryItems;
-        $borrowedItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $this->borrowedItem = $borrowedItem;
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
-        $this->genresToDeleteInTearDown = $this->inventoryItems[3]->genres()->get();
     }
 
     protected function tearDown(): void {
-        $this->admin->delete();
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
-        foreach ($this->borrowedItem->genres()->get() as $genre) $genre->delete();
-        $this->borrowedItem->delete();
-        foreach ($this->genresToDeleteInTearDown as $genre) $genre->delete();
+        User::query()->delete();
+        Borrowing::query()->delete();
+        InventoryItem::query()->delete();
+        Genre::query()->delete();
     }
 
     public function testDeleteInventoryItem() {
@@ -52,12 +46,12 @@ class DeleteAnInventoryItemTest extends DuskTestCase
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->on(new EditInventoryPage)
-                ->pressOnDeleteItemButton($inventoryItemToDelete->id)
-                ->whenAvailable('@deletionConfirmationModal', function(Browser $modal) use ($inventoryItemToDelete) {
-                    $modal->press('@deletionConfirmationButton');
+                ->waitForPageLoaded()
+                ->whenItemDeletionModalAvailable($inventoryItemToDelete->id, function (Browser $modal) {
+                    $modal->click('@itemDeletionConfirmationButton');
                 })
                 ->waitForReload()
-                ->assertPathIs('/edit-inventory');
+                ->assertPathIs('/');
         });
 
         // Check the record deletion from the database
@@ -68,6 +62,14 @@ class DeleteAnInventoryItemTest extends DuskTestCase
             $this->assertDatabaseMissing('genre_inventory_item', [
                 'inventory_item_id' => $inventoryItemToDelete->id,
                 'genre_id' => $genre->id
+            ]);
+        }
+
+        // Check the alt names relationships deletion
+        foreach($inventoryItemToDelete->altNames()->get() as $altName) {
+            $this->assertDatabaseMissing('inventory_item_alt_names', [
+                'inventory_item_id' => $inventoryItemToDelete->id,
+                'name' => $altName->name
             ]);
         }
     }
