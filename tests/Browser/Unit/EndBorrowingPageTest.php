@@ -3,6 +3,8 @@
 namespace Tests\Browser;
 
 use App\Borrowing;
+use App\Genre;
+use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
@@ -23,7 +25,10 @@ class EndBorrowingPageTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        $this->lender->delete();
+        User::query()->delete();
+        Borrowing::query()->delete();
+        InventoryItem::query()->delete();
+        Genre::query()->delete();
     }
 
     public function testBorrowingsPresence() {
@@ -37,14 +42,6 @@ class EndBorrowingPageTest extends DuskTestCase
                 $browser->assertPresent("#borrowings-list-element-{$borrowing->id}");
             }
         });
-
-        foreach ($borrowings as $borrowing) {
-            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
-            $borrowing->inventoryItem()->first()->delete();
-            $borrowing->borrower()->first()->delete();
-            $borrowing->initialLender()->first()->delete();
-            $borrowing->delete();
-        }
     }
 
     public function testLateBorrowingsWarningsPresence()
@@ -59,14 +56,6 @@ class EndBorrowingPageTest extends DuskTestCase
                 ->assertSeeIn("#borrowings-list-element-{$lateBorrowing->id}", __('messages.end_borrowing.late'))
                 ->assertDontSeeIn("#borrowings-list-element-{$onTimeBorrowing->id}", __('messages.end_borrowing.late'));
         });
-
-        foreach ($borrowings as $borrowing) {
-            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
-            $borrowing->inventoryItem()->first()->delete();
-            $borrowing->borrower()->first()->delete();
-            $borrowing->initialLender()->first()->delete();
-            $borrowing->delete();
-        }
     }
 
     public function testBorrowingAdditionToCheckoutModal()
@@ -82,13 +71,5 @@ class EndBorrowingPageTest extends DuskTestCase
                     $modal->assertSee($borrowings[0]->inventoryItem()->first()->name);
                 });
         });
-
-        foreach ($borrowings as $borrowing) {
-            foreach ($borrowing->inventoryItem()->first()->genres()->get() as $genre) $genre->delete();
-            $borrowing->inventoryItem()->first()->delete();
-            $borrowing->borrower()->first()->delete();
-            $borrowing->initialLender()->first()->delete();
-            $borrowing->delete();
-        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Borrowing;
 use App\InventoryItem;
 use App\InventoryItemStatus;
 use App\User;
@@ -45,6 +46,7 @@ class PerformANewBorrowingTest extends DuskTestCase
             foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
             $inventoryItem->delete();
         }
+        Borrowing::query()->delete();
     }
 
     public function testPerformANewBorrowing()

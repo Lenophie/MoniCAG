@@ -2,6 +2,8 @@
 
 namespace Tests\Browser;
 
+use App\Borrowing;
+use App\Genre;
 use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -26,11 +28,10 @@ class NewBorrowingPageTest extends DuskTestCase
     }
 
     protected function tearDown(): void {
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
-        $this->lender->delete();
+        User::query()->delete();
+        Borrowing::query()->delete();
+        InventoryItem::query()->delete();
+        Genre::query()->delete();
     }
 
     public function testInventoryItemsPresence() {
@@ -57,11 +58,6 @@ class NewBorrowingPageTest extends DuskTestCase
                 ->clickOnInventoryItemButton($this->inventoryItems[1]->id)
                 ->assertSeeIn('@checkoutCounter', 2);
         });
-
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
     }
 
     public function testInventoryItemAdditionToCheckoutModal()
@@ -98,11 +94,6 @@ class NewBorrowingPageTest extends DuskTestCase
                 })
                 ->assertSeeIn('@checkoutCounter', 0);
         });
-
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
     }
 
     public function testInventoryItemRemovalFromCheckoutModalThroughButton()
@@ -117,10 +108,5 @@ class NewBorrowingPageTest extends DuskTestCase
                 ->clickOnInventoryItemButton($id)
                 ->assertSeeIn('@checkoutCounter', 0);
         });
-
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
-            $inventoryItem->delete();
-        }
     }
 }

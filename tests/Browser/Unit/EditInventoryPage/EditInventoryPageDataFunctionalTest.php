@@ -65,7 +65,6 @@ class EditInventoryPageDataFunctionalTest extends DuskTestCase
 
         // Check the other record presence
         $this->assertDatabaseHas('inventory_items', ['id' => $this->inventoryItems[0]->id]);
-
     }
 
     public function testCorrectGenreBeingDeletedWhenOpeningSeveralModals() {
@@ -90,6 +89,5 @@ class EditInventoryPageDataFunctionalTest extends DuskTestCase
 
         // Check the other record presence
         $this->assertDatabaseHas('genres', ['id' => $this->additionalGenres[0]->id]);
-
     }
 }
