@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Visits;
 
 use App\User;
 use Illuminate\Foundation\Testing\WithFaker;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Features;
 
 use App\Genre;
 use App\InventoryItem;

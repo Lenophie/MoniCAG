@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Features;
 
 use App\User;
 use App\UserRole;
