@@ -254,7 +254,7 @@ const setupVueComponents = () => {
                 this.requests.inventoryItemUpdate.params.players.min = inventoryItem.players.min;
                 this.requests.inventoryItemUpdate.params.players.max = inventoryItem.players.max;
                 this.requests.inventoryItemUpdate.params.genres = inventoryItem.genres.map(genre => genre.id);
-                this.requests.inventoryItemUpdate.params.status = inventoryItem.status;
+                this.requests.inventoryItemUpdate.params.status = inventoryItem.status.id;
                 this.requests.inventoryItemUpdate.route = `${this.requests.inventoryItemCreation.route}/${inventoryItem.id}`;
 
                 // Open modal
@@ -477,7 +477,7 @@ const setupVueComponents = () => {
                     playersMax: requestParams.players.max,
                     genres: requestParams.genres,
                     altNames: requestParams.altNames,
-                    statusId: requestParams.status.id,
+                    statusId: requestParams.status,
                 }
             }
         },

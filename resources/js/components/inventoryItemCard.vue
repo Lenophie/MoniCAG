@@ -5,6 +5,7 @@
             <a
                 v-if="hasDeleteButton"
                 class="button is-danger is-small is-outlined is-pulled-right deletion-button"
+                :id="`inventory-item-card-deletion-button-${inventoryItem.id}`"
                 @click.stop="handleDeleteClick(inventoryItem)">
                 <i class="fas fa-times"></i>
             </a>

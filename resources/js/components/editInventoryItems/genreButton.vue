@@ -10,6 +10,7 @@
         <div class="width-100">
             <span>{{ genre.name }}</span>
             <a class="button is-danger is-outlined is-pulled-right deletion-button"
+               :id="`genre-card-deletion-button-${genre.id}`"
                @click.stop="handleDeleteClick(genre)">
                 <i class="fas fa-times"></i>
             </a>

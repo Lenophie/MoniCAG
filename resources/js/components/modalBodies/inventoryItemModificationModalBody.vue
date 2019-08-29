@@ -135,12 +135,15 @@
                 <div class="columns no-mb">
                     <div class="column is-12">
                         <div class="select is-fullwidth">
-                            <select v-model="inventoryItemModificationRequest.params.status">
+                            <select
+                                name="status"
+                                id="status-select"
+                                v-model="inventoryItemModificationRequest.params.status">
                                 <option
                                     v-for="inventoryItemStatus in inventoryItemStatuses"
-                                    :value="inventoryItemStatus"
-                                    :selected="inventoryItemStatus.id === inventoryItemModificationRequest.params.status.id"
-                                    :disabled="(inventoryItemStatus.id === 3) !== (inventoryItemModificationRequest.params.status.id === 3)">
+                                    :value="inventoryItemStatus.id"
+                                    :selected="inventoryItemStatus.id === inventoryItemModificationRequest.params.status"
+                                    :disabled="(inventoryItemStatus.id === 3) !== (inventoryItemModificationRequest.params.status === 3)">
                                     {{ inventoryItemStatus.name }}
                                 </option>
                             </select>

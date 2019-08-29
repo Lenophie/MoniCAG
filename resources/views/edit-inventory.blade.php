@@ -43,6 +43,7 @@
             <div class="column is-3 has-text-centered">
                 <button
                     class="button is-fullwidth is-medium"
+                    id="inventory-item-creation-modal-open-button"
                     :tabindex="isAModalShown ? -1 : 0"
                     @click="flags.showInventoryItemCreationModal = true">
                     <span>
@@ -55,6 +56,7 @@
             <div class="column is-3 has-text-centered">
                 <button
                     class="button is-fullwidth is-medium"
+                    id="genre-creation-modal-open-button"
                     :tabindex="isAModalShown ? -1 : 0"
                     @click="flags.showGenreCreationModal = true">
                     <span>
@@ -74,7 +76,8 @@
                             href="#inventory-item-collapsible-card"
                             data-action="collapse"
                             class="card-header-icon width-100"
-                            :tabindex="isAModalShown ? -1 : 0">
+                            :tabindex="isAModalShown ? -1 : 0"
+                            id="inventory-item-collapse-link">
                             <span class="card-header-title collapsible-drawer-title">
                                 {{ __("messages.edit_inventory.edit_items") }}
                             </span>
@@ -87,7 +90,7 @@
                          class="is-collapsible"
                          tabindex="-1">
                         <div class="card-content" v-cloak>
-                            <div class="columns is-multiline">
+                            <div class="columns is-multiline" id="inventory-item-collapsible-list">
                                 <div class="column is-2" v-for="inventoryItem in resources.inventoryItems">
                                     <inventory-item-button
                                         :inventory-item="inventoryItem"
@@ -111,7 +114,8 @@
                             href="#genre-collapsible-card"
                             data-action="collapse"
                             class="card-header-icon width-100"
-                            :tabindex="isAModalShown ? -1 : 0">
+                            :tabindex="isAModalShown ? -1 : 0"
+                            id="genre-collapse-link">
                             <span class="card-header-title collapsible-drawer-title">
                                 {{ __("messages.edit_inventory.edit_genres") }}
                             </span>
@@ -124,7 +128,7 @@
                          class="is-collapsible"
                          tabindex="-1">
                         <div class="card-content" v-cloak>
-                            <div class="columns is-multiline">
+                            <div class="columns is-multiline" id="genre-collapsible-list">
                                 <div class="column is-2" v-for="genre in resources.genres">
                                     <genre-button
                                         :genre="genre"
@@ -265,7 +269,7 @@
         <!-- Delete item modal -->
         <modal
             :title="`${trans('messages.edit_inventory.delete_item')} : ${requests.inventoryItemDeletion.name}`"
-            :id="'inventory_item-deletion-modal'"
+            :id="'inventory-item-deletion-modal'"
             v-show="flags.showInventoryItemDeletionModal"
             @close="closeInventoryItemDeletionModal"
         >

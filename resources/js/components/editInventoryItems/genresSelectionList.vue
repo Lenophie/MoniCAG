@@ -2,7 +2,7 @@
     <div class="field is-grouped is-grouped-multiline">
         <div v-for="genre in genres" class="control">
             <label class="checkbox">
-                <input type="checkbox" :value="genre.id" v-model="localSelectedGenres">
+                <input type="checkbox" :name="`genre-${genre.id}`" :value="genre.id" v-model="localSelectedGenres">
                 {{genre.name}}
             </label>
         </div>

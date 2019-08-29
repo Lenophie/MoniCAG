@@ -18,6 +18,7 @@
                         type="text"
                         class="input"
                         v-model="inputValue"
+                        name="altName"
                         @keyup.enter="addAltName"
                     >
                 </div>
