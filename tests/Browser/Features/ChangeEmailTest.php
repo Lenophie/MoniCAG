@@ -42,12 +42,12 @@ class ChangeEmailTest extends DuskTestCase
         // Go to the personal space and change account email
         $this->browse(function (Browser $browser) use ($newEmail) {
             $browser->loginAs($this->user)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
-                ->on(new AccountPage())
+                ->on(new AccountPage)
                 ->waitForPageLoaded()
                 ->navigateToModifyEmailPage()
-                ->on(new ChangeEmailPage())
+                ->on(new ChangeEmailPage)
                 ->type('password', $this->userPassword)
                 ->type('email', $newEmail)
                 ->click('@changeEmailConfirmationButton')

@@ -4,18 +4,22 @@ namespace Tests\Browser\Unit;
 
 use App\User;
 use App\UserRole;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditUsersPage;
 use Tests\DuskTestCase;
 
 class EditUsersPageTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $admin;
     private $otherAdmin;
     private $users;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $admin = factory(User::class)->state('admin')->create();
         $this->admin = $admin;
         $users = factory(User::class, 5)->create();
@@ -33,7 +37,7 @@ class EditUsersPageTest extends DuskTestCase
     public function testUsersPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditUsersPage());
+                ->visit(new EditUsersPage);
 
             foreach ($this->users as $user) {
                 $userRowId = "#user-row-{$user->id}";
@@ -51,7 +55,7 @@ class EditUsersPageTest extends DuskTestCase
     public function testUserRoleOptionsStatusForOtherAdmins() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditUsersPage())
+                ->visit(new EditUsersPage)
                 ->assertEnabled("#role-{$this->otherAdmin->id} option[value='". UserRole::ADMINISTRATOR . "']")
                 ->assertDisabled("#role-{$this->otherAdmin->id} option[value='". UserRole::LENDER . "']")
                 ->assertDisabled("#role-{$this->otherAdmin->id} option[value='". UserRole::NONE . "']");
@@ -61,7 +65,7 @@ class EditUsersPageTest extends DuskTestCase
     public function testUserRoleOptionsStatusForOtherUsers() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditUsersPage())
+                ->visit(new EditUsersPage)
                 ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::ADMINISTRATOR . "']")
                 ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::LENDER . "']")
                 ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::NONE . "']");
@@ -71,7 +75,7 @@ class EditUsersPageTest extends DuskTestCase
     public function testUserRoleOptionsStatusForSelf() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditUsersPage())
+                ->visit(new EditUsersPage)
                 ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::ADMINISTRATOR . "']")
                 ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::LENDER . "']")
                 ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::NONE . "']");

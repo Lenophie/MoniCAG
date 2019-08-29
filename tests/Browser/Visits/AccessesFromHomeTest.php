@@ -24,7 +24,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::NEW_BORROWING)
                 ->assertPathIs('/new-borrowing');
         });
@@ -38,7 +38,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
                 ->assertPathIs('/end-borrowing');
         });
@@ -52,7 +52,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($lender) {
             $browser->loginAs($lender)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::BORROWINGS_HISTORY)
                 ->assertPathIs('/borrowings-history');
         });
@@ -63,7 +63,7 @@ class AccessesFromHomeTest extends DuskTestCase
     public function testAccessToViewInventoryPage()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(new HomePage())
+            $browser->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::VIEW_INVENTORY)
                 ->assertPathIs('/view-inventory');
         });
@@ -75,7 +75,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->assertPathIs('/edit-inventory');
         });
@@ -89,7 +89,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->assertPathIs('/edit-users');
         });
@@ -100,7 +100,7 @@ class AccessesFromHomeTest extends DuskTestCase
     public function testAccessToGithubPage()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(new HomePage())
+            $browser->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::GITHUB)
                 ->assertHostIs('github.com')
                 ->assertPathIs('/Lenophie/MoniCAG/');
@@ -113,7 +113,7 @@ class AccessesFromHomeTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
                 ->assertPathIs('/account');
         });

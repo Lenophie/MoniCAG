@@ -4,6 +4,7 @@ namespace Tests\Browser;
 
 use App\InventoryItem;
 use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditInventoryPage;
 use Tests\Browser\Pages\HomePage;
@@ -12,6 +13,8 @@ use Tests\DuskTestCase;
 
 class DeleteAnInventoryItemTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $admin;
     private $inventoryItems;
     private $borrowedItem;
@@ -19,6 +22,7 @@ class DeleteAnInventoryItemTest extends DuskTestCase
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $inventoryItems = factory(InventoryItem::class, 10)->create();
         $this->inventoryItems = $inventoryItems;
         $borrowedItem = factory(InventoryItem::class)->state('borrowed')->create();
@@ -45,11 +49,11 @@ class DeleteAnInventoryItemTest extends DuskTestCase
         // Go to the edit inventory page and delete the inventory item
         $this->browse(function (Browser $browser) use ($inventoryItemToDelete) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
-                ->on(new EditInventoryPage())
+                ->on(new EditInventoryPage)
                 ->pressOnDeleteItemButton($inventoryItemToDelete->id)
-                ->whenAvailable('@deletionConfirmationModal', function($modal) use ($inventoryItemToDelete) {
+                ->whenAvailable('@deletionConfirmationModal', function(Browser $modal) use ($inventoryItemToDelete) {
                     $modal->press('@deletionConfirmationButton');
                 })
                 ->waitForReload()

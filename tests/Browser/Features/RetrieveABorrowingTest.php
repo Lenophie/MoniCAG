@@ -6,6 +6,7 @@ use App\Borrowing;
 use App\InventoryItemStatus;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EndBorrowingPage;
 use Tests\Browser\Pages\HomePage;
@@ -14,12 +15,15 @@ use Tests\DuskTestCase;
 
 class RetrieveABorrowingTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $borrowings;
     private $borrowingsToEnd;
     private $lender;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $borrowings = factory(Borrowing::class, 20)->create();
         $borrowingsToEnd = [$borrowings[8], $borrowings[1], $borrowings[2], $borrowings[19]];
         $lender = factory(User::class)->state('lender')->create();
@@ -48,9 +52,9 @@ class RetrieveABorrowingTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // Navigate to the end borrowing page
             $browser->loginAs($this->lender)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
-                ->on(new EndBorrowingPage());
+                ->on(new EndBorrowingPage);
 
             // Select borrowings to end by clicking on them
             foreach ($this->borrowingsToEnd as $borrowingToEnd) {
@@ -98,9 +102,9 @@ class RetrieveABorrowingTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // Navigate to the end borrowing page
             $browser->loginAs($this->lender)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
-                ->on(new EndBorrowingPage());
+                ->on(new EndBorrowingPage);
 
             // Select borrowings to end by clicking on them
             foreach ($this->borrowingsToEnd as $borrowingToEnd) {

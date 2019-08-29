@@ -59,9 +59,9 @@ class PatchAnInventoryItemTest extends DuskTestCase
         // Go to the edit inventory page and patch the inventory item
         $this->browse(function (Browser $browser) use ($fieldsValues, $inventoryItemToEditID) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
-                ->on(new EditInventoryPage())
+                ->on(new EditInventoryPage)
                 ->type("#nameFr-{$inventoryItemToEditID}", $fieldsValues->frenchName)
                 ->type("#nameEn-{$inventoryItemToEditID}", $fieldsValues->englishName)
                 ->type("#durationMin-{$inventoryItemToEditID}", $fieldsValues->durationMin)

@@ -4,16 +4,20 @@ namespace Tests\Browser\Unit;
 
 use App\Borrowing;
 use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\AccountPage;
 use Tests\DuskTestCase;
 
 class AccountPageTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $user;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $user = factory(User::class)->create();
         $this->user = $user;
     }
@@ -25,7 +29,7 @@ class AccountPageTest extends DuskTestCase
     public function testPersonalInfoPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
-                ->visit(new AccountPage())
+                ->visit(new AccountPage)
                 ->waitForPageLoaded()
                 ->assertSee($this->user->first_name)
                 ->assertSee($this->user->last_name)
@@ -42,7 +46,7 @@ class AccountPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($borrowings) {
             $browser->loginAs($this->user)
-                ->visit(new AccountPage())
+                ->visit(new AccountPage)
                 ->waitForPageLoaded();
 
             foreach ($borrowings as $borrowing) {
@@ -62,7 +66,7 @@ class AccountPageTest extends DuskTestCase
     public function testAccessToModifyEmailPage() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
-                ->visit(new AccountPage())
+                ->visit(new AccountPage)
                 ->waitForPageLoaded()
                 ->navigateToModifyEmailPage()
                 ->waitForLocation('/email/change')
@@ -73,7 +77,7 @@ class AccountPageTest extends DuskTestCase
     public function testAccessToModifyPasswordPage() {
         $this->browse(function (Browser $browser) {
            $browser->loginAs($this->user)
-               ->visit(new AccountPage())
+               ->visit(new AccountPage)
                ->waitForPageLoaded()
                ->navigateToModifyPasswordPage()
                ->waitForLocation('/password/change')

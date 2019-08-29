@@ -48,9 +48,9 @@ class AddANewInventoryItemTest extends DuskTestCase
         // Go to the edit inventory page and create a new item
         $this->browse(function (Browser $browser) use ($fieldsValues) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
-                ->on(new EditInventoryPage())
+                ->on(new EditInventoryPage)
                 ->type('@newItemFrenchNameInput', $fieldsValues->frenchName)
                 ->type('@newItemEnglishNameInput', $fieldsValues->englishName)
                 ->type('@newItemDurationMinInput', $fieldsValues->durationMin)

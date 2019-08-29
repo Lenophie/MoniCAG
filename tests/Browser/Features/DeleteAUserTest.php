@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditUsersPage;
 use Tests\Browser\Pages\HomePage;
@@ -11,12 +12,15 @@ use Tests\DuskTestCase;
 
 class DeleteAUserTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $admin;
     private $otherAdmin;
     private $users;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $users = factory(User::class, 5)->create();
         $this->users = $users;
         $admin = factory(User::class)->state('admin')->create();
@@ -35,9 +39,9 @@ class DeleteAUserTest extends DuskTestCase
         // Go to the edit users page and delete a user
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->pressOnDeleteUserButton($this->users[3]->id)
                 ->waitForReload()
                 ->assertPathIs('/edit-users');
@@ -54,9 +58,9 @@ class DeleteAUserTest extends DuskTestCase
         // Go to the edit users page and try to delete another admin
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->pressOnDeleteUserButton($this->otherAdmin->id)
                 ->waitForText(__('validation/deleteUser.user.unchanged_if_other_admin'));
         });

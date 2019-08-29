@@ -4,16 +4,20 @@ namespace Tests\Browser\Unit;
 
 use App\Borrowing;
 use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\BorrowingsHistoryPage;
 use Tests\DuskTestCase;
 
 class BorrowingsHistoryPageTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $lender;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
     }
@@ -27,7 +31,7 @@ class BorrowingsHistoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($borrowings) {
             $browser->loginAs($this->lender)
-                ->visit(new BorrowingsHistoryPage());
+                ->visit(new BorrowingsHistoryPage);
 
             foreach ($borrowings as $borrowing) {
                 $rowSelector = "#borrowings-row-{$borrowing->id}";
@@ -50,7 +54,7 @@ class BorrowingsHistoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($borrowing) {
             $rowSelector = "#borrowings-row-{$borrowing->id}";
             $browser->loginAs($this->lender)
-                ->visit(new BorrowingsHistoryPage())
+                ->visit(new BorrowingsHistoryPage)
                 ->assertSeeIn($rowSelector, $borrowing->inventoryItem()->first()->name)
                 ->assertSeeIn($rowSelector, $borrowing->initialLender()->first()->last_name)
                 ->assertSeeIn($rowSelector, $borrowing->borrower()->first()->last_name)
@@ -79,7 +83,7 @@ class BorrowingsHistoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($borrowing) {
             $rowSelector = '#borrowings-row-' . $borrowing->id;
             $browser->loginAs($this->lender)
-                ->visit(new BorrowingsHistoryPage())
+                ->visit(new BorrowingsHistoryPage)
                 ->assertSeeIn("{$rowSelector}>.borrowing-borrower-cell", __('messages.borrowings_history.deleted_user'))
                 ->assertSeeIn("{$rowSelector}>.borrowing-initial-lender-cell", __('messages.borrowings_history.deleted_user'))
                 ->assertSeeIn("{$rowSelector}>.borrowing-return-lender-cell", __('messages.borrowings_history.deleted_user'));

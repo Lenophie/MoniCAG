@@ -4,16 +4,20 @@ namespace Tests\Browser;
 
 use App\Borrowing;
 use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EndBorrowingPage;
 use Tests\DuskTestCase;
 
 class EndBorrowingPageTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $lender;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
     }
@@ -27,7 +31,7 @@ class EndBorrowingPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($borrowings) {
             $browser->loginAs($this->lender)
-                ->visit(new EndBorrowingPage());
+                ->visit(new EndBorrowingPage);
 
             foreach ($borrowings as $borrowing) {
                 $browser->assertPresent("#borrowings-list-element-{$borrowing->id}");
@@ -51,7 +55,7 @@ class EndBorrowingPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($onTimeBorrowing, $lateBorrowing) {
             $browser->loginAs($this->lender)
-                ->visit(new EndBorrowingPage())
+                ->visit(new EndBorrowingPage)
                 ->assertSeeIn("#borrowings-list-element-{$lateBorrowing->id}", __('messages.end_borrowing.late'))
                 ->assertDontSeeIn("#borrowings-list-element-{$onTimeBorrowing->id}", __('messages.end_borrowing.late'));
         });
@@ -71,10 +75,10 @@ class EndBorrowingPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($borrowings) {
             $browser->loginAs($this->lender)
-                ->visit(new EndBorrowingPage())
+                ->visit(new EndBorrowingPage)
                 ->clickOnBorrowingButton($borrowings[0]->id)
                 ->click('@returnButton')
-                ->whenAvailable('@endBorrowingModal', function ($modal) use ($borrowings) {
+                ->whenAvailable('@endBorrowingModal', function (Browser $modal) use ($borrowings) {
                     $modal->assertSee($borrowings[0]->inventoryItem()->first()->name);
                 });
         });

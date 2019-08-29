@@ -39,12 +39,12 @@ class ChangePasswordTest extends DuskTestCase
         // Go to the personal space and change account email
         $this->browse(function (Browser $browser) use ($newPassword) {
             $browser->loginAs($this->user)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
-                ->on(new AccountPage())
+                ->on(new AccountPage)
                 ->waitForPageLoaded()
                 ->navigateToModifyPasswordPage()
-                ->on(new ChangePasswordPage())
+                ->on(new ChangePasswordPage)
                 ->type('oldPassword', $this->userPassword)
                 ->type('newPassword', $newPassword)
                 ->type('newPassword_confirmation', $newPassword)

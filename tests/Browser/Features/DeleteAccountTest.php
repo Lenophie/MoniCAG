@@ -40,12 +40,12 @@ class DeleteAccountTest extends DuskTestCase
         // Go to the personal space and delete account
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->userToDelete)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::ACCOUNT)
-                ->on(new AccountPage())
+                ->on(new AccountPage)
                 ->waitForPageLoaded()
                 ->openAccountDeletionModal()
-                ->whenAvailable('@accountDeletionModal', function ($modal) {
+                ->whenAvailable('@accountDeletionModal', function (Browser $modal) {
                     $modal->type('password', $this->userToDeletePassword)
                         ->click('@accountDeletionConfirmationButton');
                 })

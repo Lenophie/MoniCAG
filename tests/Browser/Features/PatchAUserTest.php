@@ -4,6 +4,7 @@ namespace Tests\Browser;
 
 use App\User;
 use App\UserRole;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditUsersPage;
 use Tests\Browser\Pages\HomePage;
@@ -12,6 +13,8 @@ use Tests\DuskTestCase;
 
 class PatchAUserTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $admin;
     private $otherAdmin;
     private $lender;
@@ -19,6 +22,7 @@ class PatchAUserTest extends DuskTestCase
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $user = factory(User::class)->create();
         $this->user = $user;
         $lender = factory(User::class)->state('lender')->create();
@@ -40,9 +44,9 @@ class PatchAUserTest extends DuskTestCase
         // Go to the edit users page and patch a user's role
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->select("#role-{$this->user->id}", UserRole::ADMINISTRATOR)
                 ->pressOnConfirmButton($this->user->id)
                 ->waitForReload()
@@ -60,9 +64,9 @@ class PatchAUserTest extends DuskTestCase
         // Go to the edit users page and patch a lender's role
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->select("#role-{$this->lender->id}", UserRole::ADMINISTRATOR)
                 ->pressOnConfirmButton($this->lender->id)
                 ->waitForReload()
@@ -80,9 +84,9 @@ class PatchAUserTest extends DuskTestCase
         // Go to the edit users page and try to patch another admin's role
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->select("#role-{$this->otherAdmin->id}", UserRole::NONE)
                 ->pressOnConfirmButton($this->otherAdmin->id)
                 ->waitForText(__('validation/updateUserRole.user.unchanged_if_other_admin'));
@@ -99,9 +103,9 @@ class PatchAUserTest extends DuskTestCase
         // Go to the edit users page and try to patch own role
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new HomePage())
+                ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage())
+                ->on(new EditUsersPage)
                 ->select("#role-{$this->admin->id}", UserRole::NONE)
                 ->pressOnConfirmButton($this->admin->id)
                 ->waitForReload()

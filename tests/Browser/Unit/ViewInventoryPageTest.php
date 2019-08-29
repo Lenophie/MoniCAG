@@ -3,17 +3,25 @@
 namespace Tests\Browser\Unit;
 
 use App\InventoryItem;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\ViewInventoryPage;
 use Tests\DuskTestCase;
 
 class ViewInventoryPageTest extends DuskTestCase
 {
+    use WithFaker;
+
+    protected function setUp(): void {
+        Parent::setUp();
+        $this->faker->seed(0);
+    }
+
     public function testInventoryItemsPresence() {
         $inventoryItems = factory(InventoryItem::class, 3)->create();
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
-            $browser->visit(new ViewInventoryPage());
+            $browser->visit(new ViewInventoryPage);
 
             foreach ($inventoryItems as $inventoryItem) {
                 $browser->assertPresent('#inventory-item-' . $inventoryItem->id);
@@ -31,7 +39,7 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItem) {
             $inventoryItemDivSelector = '#inventory-item-' . $inventoryItem->id;
-            $browser->visit(new ViewInventoryPage())
+            $browser->visit(new ViewInventoryPage)
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->duration_min)
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->duration_max)
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->players_min)
@@ -50,7 +58,7 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $genreToSelect = $inventoryItems[0]->genres()->get()[0];
-            $browser->visit(new ViewInventoryPage())
+            $browser->visit(new ViewInventoryPage)
                 ->select('@genreSelect', $genreToSelect->id)
                 ->assertPresent("#inventory-item-{$inventoryItems[0]->id}")
                 ->assertMissing("#inventory-item-{$inventoryItems[1]->id}");
@@ -79,7 +87,7 @@ class ViewInventoryPageTest extends DuskTestCase
                 "#inventory-item-{$inventoryItems[0]->id}",
                 "#inventory-item-{$inventoryItems[1]->id}"
             ];
-            $browser->visit(new ViewInventoryPage())
+            $browser->visit(new ViewInventoryPage)
                 ->type('@durationInput', 20)
                 ->assertPresent($inventoryItemDivSelectors[0])
                 ->assertPresent($inventoryItemDivSelectors[1])
@@ -115,7 +123,7 @@ class ViewInventoryPageTest extends DuskTestCase
                 "#inventory-item-{$inventoryItems[0]->id}",
                 "#inventory-item-{$inventoryItems[1]->id}"
             ];
-            $browser->visit(new ViewInventoryPage())
+            $browser->visit(new ViewInventoryPage)
                 ->type('@playersInput', 5)
                 ->assertPresent($inventoryItemDivSelectors[0])
                 ->assertPresent($inventoryItemDivSelectors[1])

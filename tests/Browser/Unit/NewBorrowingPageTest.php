@@ -4,18 +4,21 @@ namespace Tests\Browser;
 
 use App\InventoryItem;
 use App\User;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\NewBorrowingPage;
 use Tests\DuskTestCase;
 
 class NewBorrowingPageTest extends DuskTestCase
 {
+    use WithFaker;
+
     private $lender;
     private $inventoryItems;
 
     protected function setUp(): void {
         Parent::setUp();
+        $this->faker->seed(0);
         $lender = factory(User::class)->state('lender')->create();
         $this->lender = $lender;
         $inventoryItems = factory(InventoryItem::class, 2)->create();
@@ -33,11 +36,11 @@ class NewBorrowingPageTest extends DuskTestCase
     public function testInventoryItemsPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage())
+                ->visit(new NewBorrowingPage)
                 ->waitForPageLoaded($browser);
 
             foreach ($this->inventoryItems as $inventoryItem) {
-                $browser->assertPresent("#inventory-item-button-{$inventoryItem->id}");
+                $browser->assertPresent("#inventory-item-card-button-{$inventoryItem->id}");
             }
         });
     }
@@ -46,7 +49,7 @@ class NewBorrowingPageTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage())
+                ->visit(new NewBorrowingPage)
                 ->waitForPageLoaded()
                 ->assertSeeIn('@checkoutCounter', 0)
                 ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
@@ -65,7 +68,7 @@ class NewBorrowingPageTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage())
+                ->visit(new NewBorrowingPage)
                 ->waitForPageLoaded($browser)
                 ->clickOnInventoryItemButton($this->inventoryItems[0]->id)
                 ->assertSeeIn('@checkoutCounter', 1)
@@ -82,7 +85,7 @@ class NewBorrowingPageTest extends DuskTestCase
         $id = $this->inventoryItems[0]->id;
         $this->browse(function (Browser $browser) use ($id) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage())
+                ->visit(new NewBorrowingPage)
                 ->waitForPageLoaded($browser)
                 ->clickOnInventoryItemButton($id)
                 ->openNewBorrowingModal($browser)
@@ -107,7 +110,7 @@ class NewBorrowingPageTest extends DuskTestCase
         $id = $this->inventoryItems[0]->id;
         $this->browse(function (Browser $browser) use ($id) {
             $browser->loginAs($this->lender)
-                ->visit(new NewBorrowingPage())
+                ->visit(new NewBorrowingPage)
                 ->waitForPageLoaded($browser)
                 ->clickOnInventoryItemButton($id)
                 ->assertSeeIn('@checkoutCounter', 1)
