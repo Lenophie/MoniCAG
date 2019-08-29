@@ -32,13 +32,14 @@ class AddANewInventoryItemTest extends DuskTestCase
     protected function tearDown(): void {
         $this->admin->delete();
         foreach ($this->genres as $genre) $genre->delete();
+        InventoryItem::query()->delete(); // Remove created inventory item
     }
 
     public function testAddANewInventoryItem() {
         // Defining values to use to create the new inventory item
         $fieldsValues = (object) [];
-        $fieldsValues->frenchName = $this->faker->unique()->word;
-        $fieldsValues->englishName = $this->faker->unique()->word;
+        $fieldsValues->name = $this->faker->unique()->word;
+        $fieldsValues->altNames = [$this->faker->unique()->word, $this->faker->unique()->word];
         $fieldsValues->genres = [$this->genres[3], $this->genres[0]];
         $fieldsValues->durationMin = rand(1, 20);
         $fieldsValues->durationMax = rand($fieldsValues->durationMin, 180);
@@ -51,24 +52,29 @@ class AddANewInventoryItemTest extends DuskTestCase
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->on(new EditInventoryPage)
-                ->type('@newItemFrenchNameInput', $fieldsValues->frenchName)
-                ->type('@newItemEnglishNameInput', $fieldsValues->englishName)
-                ->type('@newItemDurationMinInput', $fieldsValues->durationMin)
-                ->type('@newItemDurationMaxInput', $fieldsValues->durationMax)
-                ->type('@newItemPlayersMinInput', $fieldsValues->playersMin)
-                ->type('@newItemPlayersMaxInput', $fieldsValues->playersMax);
-            foreach ($fieldsValues->genres as $genre) {
-                $browser->select('@newItemGenreSelect', $genre->id);
-            }
-            $browser->press('@newItemSubmitButton')
-                ->waitForReload()
-                ->assertPathIs('/edit-inventory');
+                ->waitForPageLoaded()
+                ->click('@itemCreationButton')
+                ->whenAvailable('@itemCreationModal', function (Browser $modal) use ($fieldsValues) {
+                    $modal->type('name', $fieldsValues->name)
+                        ->type('durationMin', $fieldsValues->durationMin)
+                        ->type('durationMax', $fieldsValues->durationMax)
+                        ->type('playersMin', $fieldsValues->playersMin)
+                        ->type('playersMax', $fieldsValues->playersMax);
+                    foreach ($fieldsValues->genres as $genre)
+                        $modal->check("genre-{$genre->id}");
+                    foreach ($fieldsValues->altNames as $altName) {
+                        $modal->type("altName", $altName)
+                            ->keys("input[name='altName']", "{enter}");
+                    }
+                    $modal->click('@itemCreationConfirmationButton');
+                });
+            $browser->waitForReload()
+                ->assertPathIs('/');
         });
 
         // Format the data identifying the new record
         $newItemIdentifiers = [
-            'name_fr' => $fieldsValues->frenchName,
-            'name_en' => $fieldsValues->englishName,
+            'name' => $fieldsValues->name,
             'duration_min' => $fieldsValues->durationMin,
             'duration_max' => $fieldsValues->durationMax,
             'players_min' => $fieldsValues->playersMin,
@@ -79,15 +85,23 @@ class AddANewInventoryItemTest extends DuskTestCase
         // Check the new record addition to the database
         $this->assertDatabaseHas('inventory_items', $newItemIdentifiers);
 
-        $createdInventoryItemID = InventoryItem::where($newItemIdentifiers)->first()->id;
+        // Retrieve created item
+        $createdInventoryItem = InventoryItem::where($newItemIdentifiers)->first();
+
+        // Check genres relationships
         foreach($fieldsValues->genres as $genre) {
             $this->assertDatabaseHas('genre_inventory_item', [
-                'inventory_item_id' => $createdInventoryItemID,
+                'inventory_item_id' => $createdInventoryItem->id,
                 'genre_id' => $genre->id
             ]);
         }
 
-        // Remove new item from database
-        InventoryItem::find($createdInventoryItemID)->delete();
+        // Check alt names relationships
+        foreach($fieldsValues->altNames as $altName) {
+            $this->assertDatabaseHas('inventory_item_alt_names', [
+               'inventory_item_id' => $createdInventoryItem->id,
+               'name' => $altName
+            ]);
+        }
     }
 }
