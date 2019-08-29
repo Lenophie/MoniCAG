@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Web')->group(function() {
     Route::get('/', 'HomeController@index');
-    Route::get('/res/lang.json', 'LangController@index' )->name('assets.lang');
     Route::get('/new-borrowing', 'NewBorrowingController@index');
     Route::get('/end-borrowing', 'EndBorrowingController@index');
     Route::get('/borrowings-history', 'BorrowingsHistoryController@index')->name('borrowings-history');

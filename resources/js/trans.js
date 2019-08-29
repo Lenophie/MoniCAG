@@ -1,12 +1,14 @@
 import get from "lodash.get";
 import {makeAjaxPromise, HTTPVerbs} from "./ajax.js";
+import {getBySelector} from "./toolbox.js";
 
 const storeTranslationFile = json => {
     window.i18n = json;
 };
 
 export const requestTranslationFile = async () => {
-    await makeAjaxPromise(HTTPVerbs.GET, '/res/lang.json', '')
+    const lang = getBySelector("meta[name='X-Localization']").getAttribute('content')
+    await makeAjaxPromise(HTTPVerbs.GET, `/storage/lang/${lang}.json`, '')
         .then(res => storeTranslationFile(JSON.parse(res)))
         .catch(() => storeTranslationFile({}));
 };
