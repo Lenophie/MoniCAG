@@ -7,6 +7,7 @@
                         <span class="tag is-link">{{altName}}</span>
                         <a
                             class="tag is-delete"
+                            :id="`remove-alt-name-tag-${altName}`"
                             @click="removeAltName(altName)">
                         </a>
                     </div>

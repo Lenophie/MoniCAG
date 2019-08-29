@@ -34,57 +34,70 @@ class PatchAnInventoryItemTest extends DuskTestCase
 
     protected function tearDown(): void {
         $this->admin->delete();
-        foreach ($this->inventoryItems as $inventoryItem) {
-            foreach ($inventoryItem->genres()->get() as $genre) $genre->delete();
+        foreach ($this->inventoryItems as $inventoryItem)
             $inventoryItem->delete();
-        }
-        foreach ($this->additionalGenres as $genre) $genre->delete();
+        Genre::query()->delete();
     }
 
     public function testPatchInventoryItem() {
         // Defining values to use to patch the inventory item
         $inventoryItemToEdit = $this->inventoryItems[3];
         $inventoryItemToEditGenres = $inventoryItemToEdit->genres()->get();
-        $inventoryItemToEditID = $inventoryItemToEdit->id;
+        $inventoryItemToEditAltNames = $inventoryItemToEdit->altNames()->get();
+
         $fieldsValues = (object) [];
-        $fieldsValues->frenchName = $this->faker->unique()->word;
-        $fieldsValues->englishName = $this->faker->unique()->word;
-        $fieldsValues->genresToAdd = [$this->additionalGenres[3], $this->additionalGenres[0]];
-        $fieldsValues->genresToRemove = [$inventoryItemToEditGenres[0], $inventoryItemToEditGenres[2]];
+        $fieldsValues->name = $this->faker->unique()->word;
+        $fieldsValues->genresToAdd = [$this->additionalGenres[3]->id, $this->additionalGenres[0]->id];
+        $fieldsValues->genresToRemove = [$inventoryItemToEditGenres[0]->id, $inventoryItemToEditGenres[2]->id];
+        $fieldsValues->altNamesToAdd = [$this->faker->unique()->word, $this->faker->unique()->word];
+        $fieldsValues->altNamesToRemove = [$inventoryItemToEditAltNames[0]->name];
         $fieldsValues->durationMin = $inventoryItemToEdit->duration_min + 5;
         $fieldsValues->durationMax = $inventoryItemToEdit->duration_max + 15;
         $fieldsValues->playersMin = $inventoryItemToEdit->players_min + 1;
         $fieldsValues->playersMax = $inventoryItemToEdit->players_max + 3;
+        $fieldsValues->status = InventoryItemStatus::LOST;
 
         // Go to the edit inventory page and patch the inventory item
-        $this->browse(function (Browser $browser) use ($fieldsValues, $inventoryItemToEditID) {
+        $this->browse(function (Browser $browser) use ($fieldsValues, $inventoryItemToEdit) {
             $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_INVENTORY)
                 ->on(new EditInventoryPage)
-                ->type("#nameFr-{$inventoryItemToEditID}", $fieldsValues->frenchName)
-                ->type("#nameEn-{$inventoryItemToEditID}", $fieldsValues->englishName)
-                ->type("#durationMin-{$inventoryItemToEditID}", $fieldsValues->durationMin)
-                ->type("#durationMax-{$inventoryItemToEditID}", $fieldsValues->durationMax)
-                ->type("#playersMin-{$inventoryItemToEditID}", $fieldsValues->playersMin)
-                ->type("#playersMax-{$inventoryItemToEditID}", $fieldsValues->playersMax);
-            foreach ($fieldsValues->genresToAdd as $genreToAdd) $browser->select("#add-genre-select-{$inventoryItemToEditID}", $genreToAdd->id);
-            foreach ($fieldsValues->genresToRemove as $genreToRemove) $browser->pressOnRemoveGenreButton($inventoryItemToEditID, $genreToRemove->id);
-            $browser->pressOnPatchItemButton($inventoryItemToEditID)
+                ->waitForPageLoaded()
+                ->whenItemUpdateModalAvailable($inventoryItemToEdit->id, function (Browser $modal) use ($fieldsValues) {
+                    $modal
+                        ->type('name', $fieldsValues->name)
+                        ->type('durationMin', $fieldsValues->durationMin)
+                        ->type('durationMax', $fieldsValues->durationMax)
+                        ->type('playersMin', $fieldsValues->playersMin)
+                        ->type('playersMax', $fieldsValues->playersMax);
+                    foreach ($fieldsValues->genresToAdd as $genre)
+                        $modal->check("genre-{$genre}");
+                    foreach ($fieldsValues->genresToRemove as $genre)
+                        $modal->uncheck("genre-{$genre}");
+                    foreach ($fieldsValues->altNamesToAdd as $altName) {
+                        $modal->type("altName", $altName)
+                            ->keys("input[name='altName']", "{enter}");
+                    }
+                    foreach ($fieldsValues->altNamesToRemove as $altName) {
+                        $modal->clickOnRemoveAltNameTag($altName);
+                    }
+                    $modal->select('status', $fieldsValues->status);
+                    $modal->click('@itemUpdateConfirmationButton');
+                })
                 ->waitForReload()
-                ->assertPathIs('/edit-inventory');
+                ->assertPathIs('/');
         });
 
         // Format the data identifying the record
         $newItemIdentifiers = [
-            'id' => $inventoryItemToEditID,
-            'name_fr' => $fieldsValues->frenchName,
-            'name_en' => $fieldsValues->englishName,
+            'id' => $inventoryItemToEdit->id,
+            'name' => $fieldsValues->name,
             'duration_min' => $fieldsValues->durationMin,
             'duration_max' => $fieldsValues->durationMax,
             'players_min' => $fieldsValues->playersMin,
             'players_max' => $fieldsValues->playersMax,
-            'status_id' => InventoryItemStatus::IN_LCR_D4
+            'status_id' => $fieldsValues->status
         ];
 
         // Check the new record modification in the database
@@ -93,16 +106,29 @@ class PatchAnInventoryItemTest extends DuskTestCase
         // Check the genres relationships in the pivot table
         foreach($fieldsValues->genresToAdd as $genre) {
             $this->assertDatabaseHas('genre_inventory_item', [
-                'inventory_item_id' => $inventoryItemToEditID,
-                'genre_id' => $genre->id
+                'inventory_item_id' => $inventoryItemToEdit->id,
+                'genre_id' => $genre
             ]);
         }
         foreach($fieldsValues->genresToRemove as $genre) {
             $this->assertDatabaseMissing('genre_inventory_item', [
-                'inventory_item_id' => $inventoryItemToEditID,
-                'genre_id' => $genre->id
+                'inventory_item_id' => $inventoryItemToEdit->id,
+                'genre_id' => $genre
             ]);
-            $genre->delete(); //clean up database
+        }
+
+        // Check the alt names relationships
+        foreach($fieldsValues->altNamesToAdd as $altName) {
+            $this->assertDatabaseHas('inventory_item_alt_names', [
+                'inventory_item_id' => $inventoryItemToEdit->id,
+                'name' => $altName
+            ]);
+        }
+        foreach($fieldsValues->altNamesToRemove as $altName) {
+            $this->assertDatabaseMissing('inventory_item_alt_names', [
+                'inventory_item_id' => $inventoryItemToEdit->id,
+                'name' => $altName
+            ]);
         }
     }
 }

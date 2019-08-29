@@ -83,6 +83,11 @@ class EditInventoryPage extends Page
         $browser->click($idString);
     }
 
+    public function clickOnRemoveAltNameTag(Browser $browser, $altName) {
+        $idString = "#remove-alt-name-tag-{$altName}";
+        $browser->click($idString);
+    }
+
     // Modals opening
 
     /**
