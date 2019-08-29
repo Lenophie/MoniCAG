@@ -7,8 +7,7 @@ const storeTranslationFile = json => {
 };
 
 export const requestTranslationFile = async () => {
-    const lang = getBySelector("meta[name='X-Localization']").getAttribute('content')
-    await makeAjaxPromise(HTTPVerbs.GET, `/storage/lang/${lang}.json`, '')
+    await makeAjaxPromise(HTTPVerbs.GET, `/storage/lang.json`, '')
         .then(res => storeTranslationFile(JSON.parse(res)))
         .catch(() => storeTranslationFile({}));
 };
