@@ -86,15 +86,16 @@
                     <div id="inventory-item-collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
-                        <div :class="{'card-content': flags.isInventoryItemCardsListMounted}">
-                            <inventory-item-cards-list
-                                :inventory-items="resources.inventoryItems"
-                                :tabable="!isInventoryItemCardsListCollapsed && !isAModalShown"
-                                @mounted="flags.isInventoryItemCardsListMounted = true"
-                                @item-clicked="openInventoryItemUpdateModal"
-                                @item-deletion-clicked="openInventoryItemDeletionModal"
-                            >
-                            </inventory-item-cards-list>
+                        <div class="card-content" v-cloak>
+                            <div class="columns is-multiline">
+                                <div class="column is-2" v-for="inventoryItem in resources.inventoryItems">
+                                    <inventory-item-button
+                                        :inventory-item="inventoryItem"
+                                        :tabable="!isInventoryItemsListCollapsed && !isAModalShown"
+                                        @item-clicked="openInventoryItemUpdateModal"
+                                        @item-deletion-clicked="openInventoryItemDeletionModal"></inventory-item-button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,15 +123,18 @@
                     <div id="genre-collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
-                        <div :class="{'card-content': flags.isGenreCardsListMounted}">
-                            <genre-cards-list
-                                :genres="resources.genres"
-                                :tabable="!isGenreCardsListCollapsed && !isAModalShown"
-                                @mounted="flags.isGenreCardsListMounted = true"
-                                @genre-clicked="openGenreUpdateModal"
-                                @genre-deletion-clicked="openGenreDeletionModal"
-                            >
-                            </genre-cards-list>
+                        <div class="card-content" v-cloak>
+                            <div class="columns is-multiline">
+                                <div class="column is-2" v-for="genre in resources.genres">
+                                    <genre-button
+                                        :genre="genre"
+                                        :tabable="!isGenresListCollapsed && !isAModalShown"
+                                        @genre-clicked="openGenreUpdateModal"
+                                        @genre-deletion-clicked="openGenreDeletionModal"
+                                    >
+                                    </genre-button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

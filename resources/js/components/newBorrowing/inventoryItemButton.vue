@@ -1,23 +1,21 @@
 <template>
-    <div class="column is-2">
-        <a
-            :id="id"
-            class="button inventory-item-card-button height-100 width-100"
-            :class="{'is-outlined': !isSelected, 'is-link': !isSelected, 'is-danger': isSelected}"
-            type="button"
-            :disabled="isDisabled"
-            :tabindex="isDisabled || !tabable ? -1 : 0"
-            @keyup.enter="handleClick"
-            @click="handleClick"
-        >
-            <inventory-item-card
-                :inventory-item="inventoryItem"
-                :show-duration="false"
-                :show-players="false"
-                :show-genres="false">
-            </inventory-item-card>
-        </a>
-    </div>
+    <a
+        class="button inventory-item-card-button height-100 width-100"
+        :class="{'is-outlined': !isSelected, 'is-link': !isSelected, 'is-danger': isSelected}"
+        type="button"
+        :id="`inventory-item-card-button-${inventoryItem.id}`"
+        :disabled="isDisabled"
+        :tabindex="isDisabled || !tabable ? -1 : 0"
+        @keyup.enter="handleClick"
+        @click="handleClick"
+    >
+        <inventory-item-card
+            :inventory-item="inventoryItem"
+            :show-duration="false"
+            :show-players="false"
+            :show-genres="false">
+        </inventory-item-card>
+    </a>
 </template>
 
 <script>
@@ -47,9 +45,6 @@
             }
         },
         computed: {
-            id: function () {
-                return `inventory-item-card-button-${this.inventoryItem.id}`;
-            },
             isSelected: function () {
                 for (const inventoryItem of this.selectedInventoryItems) {
                     if (this.inventoryItem.id === inventoryItem.id) return true;

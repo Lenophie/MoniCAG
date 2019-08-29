@@ -11,7 +11,7 @@ import modal from './components/modal.vue';
 import dataCarrier from './components/dataCarrier.vue';
 import borrowingCreationModalBody from './components/modalBodies/borrowingCreationModalBody.vue';
 import checkoutButton from './components/newBorrowing/checkoutButton.vue';
-import inventoryItemsList from './components/newBorrowing/inventoryItemsList.vue';
+import inventoryItemButton from "./components/newBorrowing/inventoryItemButton.vue";
 import inventoryItemSearchBar from './components/newBorrowing/inventoryItemSearchBar.vue';
 
 // Load icons present on page
@@ -41,7 +41,7 @@ const setupVueComponents = () => {
             }
         },
         components: {
-            modal, dataCarrier, borrowingCreationModalBody, checkoutButton, inventoryItemsList, inventoryItemSearchBar
+            modal, dataCarrier, borrowingCreationModalBody, checkoutButton, inventoryItemButton, inventoryItemSearchBar
         },
         methods: {
             /**

@@ -13,8 +13,8 @@ import dataCarrier from './components/dataCarrier.vue';
 import genresList from './components/editInventoryItems/genresSelectionList.vue';
 import inventoryItemModificationModalBody from './components/modalBodies/inventoryItemModificationModalBody.vue';
 import genreModificationModalBody from "./components/modalBodies/genreModificationModalBody.vue";
-import inventoryItemCardsList from "./components/inventoryItemCardsList.vue";
-import genreCardsList from "./components/genreCardsList.vue";
+import inventoryItemButton from "./components/editInventoryItems/inventoryItemButton.vue";
+import genreButton from "./components/editInventoryItems/genreButton.vue";
 import errorField from "./components/errorField.vue";
 
 library.add(faWarehouse, faWrench, faPlus, faArrowRight, faAngleDown);
@@ -35,8 +35,7 @@ const setupVueComponents = () => {
                 showGenreUpdateModal: false,
                 showInventoryItemDeletionModal: false,
                 showGenreDeletionModal: false,
-                isInventoryItemCardsListMounted: false,
-                isGenreCardsListMounted: false
+                isMounted: false, // Used by Dusk
             },
             collapsibles: {
                 inventoryItemsList: null,
@@ -118,14 +117,14 @@ const setupVueComponents = () => {
         },
         components: {
             modal, inventoryItemModificationModalBody,genreModificationModalBody, dataCarrier, genresList,
-            inventoryItemCardsList, genreCardsList, errorField
+            inventoryItemButton, genreButton, errorField
         },
         computed: {
             /**
              * Indicated whether or not the inventory items list is collapsed
              * @returns Boolean
              */
-            isInventoryItemCardsListCollapsed: function () {
+            isInventoryItemsListCollapsed: function () {
                 if (this.collapsibles.inventoryItemsList != null)
                     return this.collapsibles.inventoryItemsList.collapsed();
                 return false;
@@ -134,7 +133,7 @@ const setupVueComponents = () => {
              * Indicated whether or not the genres list is collapsed
              * @returns Boolean
              */
-            isGenreCardsListCollapsed: function () {
+            isGenresListCollapsed: function () {
                 if (this.collapsibles.genresList != null)
                     return this.collapsibles.genresList.collapsed();
                 return false;
@@ -491,6 +490,10 @@ const setupVueComponents = () => {
                 document.getElementById('inventory-item-collapsible-card').bulmaCollapsible();
             this.collapsibles.genresList =
                 document.getElementById('genre-collapsible-card').bulmaCollapsible();
+
+            this.$nextTick(function () {
+                this.flags.isMounted = true;
+            });
         }
     });
 };

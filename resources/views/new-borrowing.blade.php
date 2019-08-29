@@ -54,12 +54,17 @@
                 </inventory-item-search-bar>
             </div>
         </div>
-        <inventory-items-list
-            :inventory-items="displayedInventoryItems"
-            :selected-inventory-items="borrowingCreationRequest.params.selectedItems"
-            :tabable="!showModal"
-            @selected="updateSelectedItemsList"
-        ></inventory-items-list>
+        <div class="columns is-multiline" id="inventory-item-buttons-list">
+            <div class="column is-2" v-for="inventoryItem in displayedInventoryItems">
+                <inventory-item-button
+                    :inventory-item="inventoryItem"
+                    :selected-inventory-items="borrowingCreationRequest.params.selectedItems"
+                    :tabable="!showModal"
+                    :key="inventoryItem.id"
+                    @selected="updateSelectedItemsList">
+                </inventory-item-button>
+            </div>
+        </div>
     </div>
     <modal
         :title='"{{__("messages.new_borrowing.confirm_title")}}"'

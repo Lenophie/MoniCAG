@@ -3,6 +3,11 @@ body
 	max-width: 100%;
 }
 
+[v-cloak]
+{
+    display: none;
+}
+
 #main-header
 {
     padding-top: 10px;
