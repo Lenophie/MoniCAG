@@ -29,13 +29,13 @@ class CreateGenreTest extends DuskTestCase
         User::query()->delete();
     }
 
-    public function testAddAGenre() {
+    public function testCreateGenre() {
         // Defining values to use to create the new genre
         $fieldsValues = (object) [];
         $fieldsValues->nameFr = $this->faker->unique()->word;
         $fieldsValues->nameEn = $this->faker->unique()->word;
 
-        // Go to the edit inventory page and create a new item
+        // Go to the edit inventory page and create a new genre
         $this->browse(function (Browser $browser) use ($fieldsValues) {
             $browser->loginAs($this->admin)
                 ->visit(new HomePage)

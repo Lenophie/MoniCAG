@@ -32,7 +32,7 @@ class PatchGenreTest extends DuskTestCase
         User::query()->delete();
     }
 
-    public function testAddAGenre() {
+    public function testPatchGenre() {
         // Defining values to use to create the new genre
         $fieldsValues = (object) [];
         $fieldsValues->nameFr = $this->faker->unique()->word;
@@ -40,7 +40,7 @@ class PatchGenreTest extends DuskTestCase
 
         $genreToPatch = $this->genres[3];
 
-        // Go to the edit inventory page and create a new item
+        // Go to the edit inventory page and patch a genre
         $this->browse(function (Browser $browser) use ($fieldsValues, $genreToPatch) {
             $browser->loginAs($this->admin)
                 ->visit(new HomePage)

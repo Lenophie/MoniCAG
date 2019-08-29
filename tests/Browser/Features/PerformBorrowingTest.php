@@ -47,7 +47,7 @@ class PerformBorrowingTest extends DuskTestCase
         Borrowing::query()->delete();
     }
 
-    public function testPerformANewBorrowing()
+    public function testPerformBorrowing()
     {
         // Defining values to fill in the borrowing
         $fieldsValues = (object) [];

@@ -35,7 +35,7 @@ class CreateInventoryItemTest extends DuskTestCase
         InventoryItem::query()->delete(); // Remove created inventory item
     }
 
-    public function testAddANewInventoryItem() {
+    public function testCreateInventoryItem() {
         // Defining values to use to create the new inventory item
         $fieldsValues = (object) [];
         $fieldsValues->name = $this->faker->unique()->word;

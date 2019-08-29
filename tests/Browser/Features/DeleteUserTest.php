@@ -33,7 +33,7 @@ class DeleteUserTest extends DuskTestCase
         User::query()->delete();
     }
 
-    public function testDeleteAUser() {
+    public function testDeleteUser() {
         // Go to the edit users page and delete a user
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
