@@ -6,7 +6,7 @@
                 v-if="hasDeleteButton"
                 class="button is-danger is-small is-outlined is-pulled-right deletion-button"
                 :id="`inventory-item-card-deletion-button-${inventoryItem.id}`"
-                @click.stop="handleDeleteClick(inventoryItem)">
+                @click.stop="handleDeleteClick">
                 <i class="fas fa-times"></i>
             </a>
             <hr class="inventory-item-card-hr">
@@ -42,7 +42,10 @@
     export default {
         name: "inventoryItemCard",
         props: {
-            inventoryItem: Object,
+            inventoryItem: {
+                type: Object,
+                required: true
+            },
             showGenres: {
                 type: Boolean,
                 required: false,
@@ -148,10 +151,9 @@
         methods: {
             /**
              * Handles a click on the delete button
-             * @param inventoryItem
              */
-            handleDeleteClick: function(inventoryItem) {
-                this.$emit('item-deletion-clicked', inventoryItem);
+            handleDeleteClick: function() {
+                this.$emit('item-deletion-clicked', this.inventoryItem);
             }
         },
         beforeCreate() {

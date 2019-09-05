@@ -4,8 +4,8 @@
         type="button"
         :id="`inventory-item-card-button-${inventoryItem.id}`"
         :tabindex="tabable ? 0 : -1"
-        @keyup.enter="handleClick(inventoryItem)"
-        @click="handleClick(inventoryItem)"
+        @keyup.enter="handleClick"
+        @click="handleClick"
     >
         <inventory-item-card
             :inventory-item="inventoryItem"
@@ -35,10 +35,9 @@
         methods: {
             /**
              * Handles a click on the button
-             * @param inventoryItem
              */
-            handleClick: function(inventoryItem) {
-                this.$emit('item-clicked', inventoryItem);
+            handleClick: function() {
+                this.$emit('item-clicked', this.inventoryItem);
             },
 
             /**
