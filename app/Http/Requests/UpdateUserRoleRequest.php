@@ -40,7 +40,8 @@ class UpdateUserRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => 'required|integer|exists:user_roles,id'
+            'role' => 'required|integer|exists:user_roles,id',
+            'password' => 'required|string|current_user_password'
         ];
     }
 
