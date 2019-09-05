@@ -24,6 +24,10 @@
                 :errors-list="accountDeletionRequest.errors"
                 :field-path="'password'">
             </error-field>
+            <error-field
+                :errors-list="accountDeletionRequest.errors"
+                :field-path="'user'">
+            </error-field>
         </form>
     </div>
 </template>

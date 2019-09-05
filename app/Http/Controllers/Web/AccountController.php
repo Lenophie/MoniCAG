@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Borrowing;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeleteAccountRequest;
 use App\Http\Resources\API\BorrowingResource;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -16,8 +14,7 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
+    public function index() {
         $user = Auth::user();
         $userCurrentBorrowings = Borrowing::with('inventoryItem')
             ->where('borrower_id', $user->id)
@@ -29,16 +26,11 @@ class AccountController extends Controller
         $compactData = [
             'routes' => [
                 'account' => [
-                    'deletion' => route('account.delete')
+                    'deletion' => route('users.destroy', $user->id)
                 ]
             ]
         ];
 
         return view('account', compact('userBorrowings', 'user', 'compactData'));
-    }
-
-    public function delete(DeleteAccountRequest $request)
-    {
-        User::destroy(Auth::user()->id);
     }
 }

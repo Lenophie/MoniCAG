@@ -40,7 +40,8 @@ class DeleteUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user' => 'not_involved_in_a_current_borrowing'
+            'user' => 'not_involved_in_a_current_borrowing',
+            'password' => 'required|string|current_user_password'
         ];
     }
 

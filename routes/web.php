@@ -14,7 +14,6 @@ Route::namespace('Web')->group(function() {
     Route::get('/lang/{locale}', 'LanguagesController@change');
     Route::get('/theme/{name}', 'ThemesController@change');
     Route::get('/account', 'AccountController@index')->name('account');
-    Route::delete('/account', 'AccountController@delete')->name('account.delete');
     Route::get('/storage/lang.json', 'LanguagesController@index')->middleware('api.localization');
 });
 
