@@ -19,7 +19,9 @@ class newBorrowingController extends Controller
     {
         abort_unless(Gate::allows('create', Borrowing::class), Response::HTTP_FORBIDDEN);
 
-        $inventoryItems = DetailedInventoryItemResource::collection(InventoryItem::orderBy('name')->get())->collection;
+        $inventoryItems = DetailedInventoryItemResource::collection(
+            InventoryItem::with('altNames')->orderBy('name')->get()
+        )->collection;
 
         $compactData = [
             'resources' => [
