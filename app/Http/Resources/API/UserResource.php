@@ -17,6 +17,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
             'promotion' => $this->promotion,
@@ -26,7 +27,7 @@ class UserResource extends JsonResource
             ),
             'role' => $this->whenLoaded('role',
                 function () {
-                    return $this->role->name;
+                    return new UserRoleResource($this->role);
                 }
             )
         ];
