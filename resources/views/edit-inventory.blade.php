@@ -167,7 +167,8 @@
                         <button
                             id="inventory-item-creation-confirmation-button"
                             class="button is-link"
-                            :disabled=requests.inventoryItemCreation.isProcessing
+                            :class="{'is-loading': requests.inventoryItemCreation.isProcessing}"
+                            :disabled="requests.inventoryItemCreation.isProcessing"
                             @click="requestInventoryItemCreation"
                         >
                             @lang('Confirm')
@@ -196,7 +197,8 @@
                         <button
                             id="genre-creation-confirmation-button"
                             class="button is-link"
-                            :disabled=requests.genreCreation.isProcessing
+                            :class="{'is-loading': requests.genreCreation.isProcessing}"
+                            :disabled="requests.genreCreation.isProcessing"
                             @click="requestGenreCreation"
                         >
                             @lang('Confirm')
@@ -227,7 +229,8 @@
                         <button
                             id="inventory-item-update-confirmation-button"
                             class="button is-link"
-                            :disabled=requests.inventoryItemUpdate.isProcessing
+                            :class="{'is-loading': requests.inventoryItemUpdate.isProcessing}"
+                            :disabled="requests.inventoryItemUpdate.isProcessing"
                             @click="requestInventoryItemUpdate"
                         >
                             @lang('Confirm')
@@ -256,7 +259,8 @@
                         <button
                             id="genre-update-confirmation-button"
                             class="button is-link"
-                            :disabled=requests.genreUpdate.isProcessing
+                            :class="{'is-loading': requests.genreUpdate.isProcessing}"
+                            :disabled="requests.genreUpdate.isProcessing"
                             @click="requestGenreUpdate"
                         >
                             @lang('Confirm')
@@ -288,7 +292,8 @@
                         <button
                             id="inventory-item-deletion-confirmation-button"
                             class="button is-danger"
-                            :disabled=requests.inventoryItemDeletion.isProcessing
+                            :class="{'is-loading': requests.inventoryItemDeletion.isProcessing}"
+                            :disabled="requests.inventoryItemDeletion.isProcessing"
                             @click="requestInventoryItemDeletion"
                         >
                             @lang('Delete')
@@ -320,7 +325,8 @@
                         <button
                             id="genre-deletion-confirmation-button"
                             class="button is-danger"
-                            :disabled=requests.genreDeletion.isProcessing
+                            :class="{'is-loading': requests.genreDeletion.isProcessing}"
+                            :disabled="requests.genreDeletion.isProcessing"
                             @click="requestGenreDeletion"
                         >
                             @lang('Delete')

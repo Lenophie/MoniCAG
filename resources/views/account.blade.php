@@ -89,7 +89,8 @@
             <a
                 class="button is-danger"
                 id="account-deletion-confirmation-button"
-                :disabled=accountDeletionRequest.isProcessing
+                :class="{'is-loading':accountDeletionRequest.isProcessing}"
+                :disabled="accountDeletionRequest.isProcessing"
                 @click="requestAccountDeletion"
             >
                 @lang('Delete my account')

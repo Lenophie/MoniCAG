@@ -80,14 +80,19 @@
             ></borrowing-creation-modal-body>
         </template>
         <template v-slot:footer>
-            <button
-                id="borrowing-creation-confirmation-button"
-                class="button is-link is-right"
-                :disabled=borrowingCreationRequest.isProcessing
-                @click="requestBorrowingCreation"
-            >
-                @lang('Confirm')
-            </button>
+            <div class="field is-grouped is-grouped-right width-100">
+                <p class="control">
+                    <button
+                        id="borrowing-creation-confirmation-button"
+                        class="button is-link is-right"
+                        :class="{'is-loading': borrowingCreationRequest.isProcessing}"
+                        :disabled="borrowingCreationRequest.isProcessing"
+                        @click="requestBorrowingCreation"
+                    >
+                        @lang('Confirm')
+                    </button>
+                </p>
+            </div>
         </template>
     </modal>
 @endsection
