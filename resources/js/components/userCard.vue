@@ -6,6 +6,7 @@
                 v-if="hasDeleteButton"
                 class="button is-danger is-small is-outlined is-pulled-right deletion-button"
                 :id="`user-card-deletion-button-${user.id}`"
+                :disabled="disabled"
                 @click.stop="handleDeleteClick">
                 <i class="fas fa-times"></i>
             </a>
@@ -49,6 +50,11 @@
                 type: Boolean,
                 required: false,
                 default: false
+            },
+            disabled: {
+                type: Boolean,
+                required: false,
+                default: false,
             }
         },
         computed: {
@@ -73,7 +79,7 @@
              * Handles a click on the delete button
              */
             handleDeleteClick: function() {
-                this.$emit('user-deletion-clicked', this.user);
+                if (!this.disabled) this.$emit('user-deletion-clicked', this.user);
             }
         },
         beforeCreate() {
