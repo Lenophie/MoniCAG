@@ -17,7 +17,8 @@ const setupVueComponents = () => {
         data: {
             resources: {
                 users: [],
-                userRoles: []
+                userRoles: [],
+                loggedUserId: null,
             },
             flags: {
                 showUserRoleUpdateModal: false,
@@ -66,6 +67,7 @@ const setupVueComponents = () => {
                 this.baseUsersUrl = data.routes.users;
                 this.resources.users = data.resources.users;
                 this.resources.userRoles = data.resources.userRoles;
+                this.resources.loggedUserId = data.resources.loggedUserId;
             },
             openUserDeletionModal(user) {
                 console.log(user);

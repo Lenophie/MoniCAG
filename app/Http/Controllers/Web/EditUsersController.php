@@ -8,6 +8,7 @@ use App\Http\Resources\API\UserRoleResource;
 use App\User;
 use App\UserRole;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class EditUsersController extends Controller
@@ -26,7 +27,8 @@ class EditUsersController extends Controller
         $compactData = [
             'resources' => [
                 'users' => $users,
-                'userRoles' => $userRoles
+                'userRoles' => $userRoles,
+                'loggedUserId' => Auth::user()->id,
             ],
             'routes' => [
                 'users' => route('users.index')
