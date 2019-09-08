@@ -1,6 +1,8 @@
 <template>
     <div>
-        <p><span v-html="trans('messages.account.deletion_warning')"></span></p>
+        <p class="has-text-danger">
+            <span v-html="trans('messages.account.deletion_warning')"></span>
+        </p>
         <hr>
         <form :action="accountDeletionRequest.route" autocomplete="off" v-on:submit.prevent="submit">
             <div class="field">
