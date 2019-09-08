@@ -72,7 +72,9 @@ return [
         'genre_deletion_warning' => "Are you sure you want to delete this genre ?</br><b>This deletion can't be undone.</b>"
     ],
     'edit_users' => [
-        'change_role' => 'Change role'
+        'change_role' => 'Change role',
+        'delete_user' => 'Delete user',
+        'user_deletion_warning' => "Deleting a user should only be done if the user doesn't, and never did, correspond to a real person.</br>After deleting a user, their borrowings won't be deleted from the database but the corresponding personal info will.</br><b>This deletion can't be undone.</b>"
     ],
     'account' => [
         'deletion_title' => 'Confirm account deletion',

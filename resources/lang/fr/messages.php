@@ -72,7 +72,9 @@ return [
         'genre_deletion_warning' => "Êtes-vous sûr de vouloir supprimer ce genre ?<br/>Cette suppression est <b>irréversible</b>",
     ],
     'edit_users' => [
-        'change_role' => 'Changer le rôle'
+        'change_role' => 'Changer le rôle',
+        'delete_user' => "Supprimer l'utilisateur",
+        'user_deletion_warning' => "Supprimer un utilisateur ne devrait être fait que si l'utilisateur ne correspond pas, et n'a jamais correspondu, à une personne réelle.<br/>Après avoir supprimé l'utilisateur, ses emprunts ne seront pas supprimés de la base de données mais les données le concernant seront supprimées.<br/>Cette suppression est <b>irréversible</b>."
     ],
     'account' => [
         'deletion_title' => 'Confirmer la suppression du compte',
