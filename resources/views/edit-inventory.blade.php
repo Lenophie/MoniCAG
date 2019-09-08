@@ -29,6 +29,9 @@
         @slot('hasAuthBar')
             true
         @endslot
+        @slot('hasLoadingSpinner')
+            true
+        @endslot
         @slot('title')
             {{__('messages.titles.edit_inventory')}}
         @endslot
@@ -37,7 +40,7 @@
         :php-data='@json($compactData)'
         @ready="setCarriedData">
     </data-carrier>
-    <div class="container is-fluid">
+    <div class="container is-fluid" v-cloak>
         <div class="columns">
             <!-- Add item button -->
             <div class="column is-3 has-text-centered">
@@ -89,7 +92,7 @@
                     <div id="inventory-item-collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
-                        <div class="card-content" v-cloak>
+                        <div class="card-content">
                             <div class="columns is-multiline" id="inventory-item-collapsible-list">
                                 <div class="column is-2" v-for="inventoryItem in resources.inventoryItems">
                                     <inventory-item-button
@@ -127,7 +130,7 @@
                     <div id="genre-collapsible-card"
                          class="is-collapsible"
                          tabindex="-1">
-                        <div class="card-content" v-cloak>
+                        <div class="card-content">
                             <div class="columns is-multiline" id="genre-collapsible-list">
                                 <div class="column is-2" v-for="genre in resources.genres">
                                     <genre-button

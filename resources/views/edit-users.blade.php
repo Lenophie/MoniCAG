@@ -29,6 +29,9 @@
         @slot('hasAuthBar')
             true
         @endslot
+        @slot('hasLoadingSpinner')
+            true
+        @endslot
         @slot('title')
             {{__('messages.titles.edit_users')}}
         @endslot
@@ -37,7 +40,7 @@
         :php-data='@json($compactData)'
         @ready="setCarriedData">
     </data-carrier>
-    <div class="container is-fluid">
+    <div class="container is-fluid" v-cloak>
         <div class="columns">
             <div class="column is-12">
                 <div class="columns is-multiline">

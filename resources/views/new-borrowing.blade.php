@@ -29,6 +29,9 @@
         @slot('hasAuthBar')
             true
         @endslot
+        @slot('hasLoadingSpinner')
+            true
+        @endslot
         @slot('checkoutButton')
             <checkout-button
                 :counter="borrowingCreationRequest.params.selectedItems.length"
@@ -44,7 +47,7 @@
         :php-data='@json($compactData)'
         @ready="setCarriedData">
     </data-carrier>
-    <div class="container is-fluid">
+    <div class="container is-fluid" v-cloak>
         <div class="columns">
             <div class="column is-full">
                 <inventory-item-search-bar

@@ -57,3 +57,10 @@
         </div>
     </div>
 </header>
+@isset($hasLoadingSpinner)
+    @if($hasLoadingSpinner == 'true')
+        <div class="has-text-centered" id="loading-div" v-if="false">
+            <i class="fas fa-spinner fa-pulse" id="loading-icon"></i>
+        </div>
+    @endif
+@endisset

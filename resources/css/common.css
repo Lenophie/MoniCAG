@@ -80,3 +80,11 @@ button:not(.button) {
 .form-subtitle {
     margin-bottom: 0.5rem !important;
 }
+
+#loading-icon {
+    font-size: 50px;
+}
+
+#loading-div {
+    margin-bottom: 10px;
+}
