@@ -34,7 +34,7 @@ class DeleteGenreRequestTest extends TestCase
         $inventoryItem->genres()->sync($genres->pluck('id'));
 
         // Delete genre
-        $response = $this->json('DELETE', '/api/genres/' . $genres[1]->id, []);
+        $response = $this->json('DELETE', route('genres.destroy', $genres[1]->id), []);
 
         // Check response
         $response->assertStatus(Response::HTTP_OK);

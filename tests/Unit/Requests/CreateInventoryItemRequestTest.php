@@ -39,7 +39,7 @@ class CreateInventoryItemRequestTest extends TestCase
         foreach ($genresCollection as $genre) array_push($genres, $genre->id);
 
         // Create inventory item
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => $durationMin,
             'durationMax' => $durationMax,
             'playersMin' => $playersMin,

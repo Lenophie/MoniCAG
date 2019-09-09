@@ -24,11 +24,11 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenresRequirement()
     {
-        $response = $this->json('POST', '/api/inventoryItems', []);
+        $response = $this->json('POST', route('inventoryItems.store'), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => []
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -42,19 +42,19 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenresNotAnArrayRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => 1
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => 'I am a string'
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => null
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -68,19 +68,19 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testGenreValueNotAnIntegerRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => ['I am a string']
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => [null]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('genres.0');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => [[0]]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -94,7 +94,8 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testSingleGenreValidation() {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('POST', '/api/inventoryItems', [
+
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => [$genre->id]
         ]);
         $response->assertJsonMissingValidationErrors('genres.0');
@@ -106,11 +107,9 @@ class GenresValidationForAddingTest extends TestCase
      * @return void
      */
     public function testMultipleGenresValidation() {
-        $genres = factory(Genre::class, 5)->create();
-        $genresIDs = [];
-        foreach($genres as $genre) array_push($genresIDs, $genre->id);
+        $genresIDs = factory(Genre::class, 5)->create()->pluck('id');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => $genresIDs
         ]);
         for ($i = 0; $i < 5; $i++) $response->assertJsonMissingValidationErrors("genres.{$i}");
@@ -122,12 +121,9 @@ class GenresValidationForAddingTest extends TestCase
      * @return void
      */
     public function testNonExistentGenreRejection() {
-        $genres = factory(Genre::class, 5)->create();
-        $genresIDs = [];
-        foreach($genres as $genre) array_push($genresIDs, $genre->id);
-        $nonExistentGenreID = max($genresIDs) + 1;
+        $nonExistentGenreID = factory(Genre::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => [$nonExistentGenreID]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -141,7 +137,8 @@ class GenresValidationForAddingTest extends TestCase
      */
     public function testDuplicateGenreRejection() {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('POST', '/api/inventoryItems', [
+
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'genres' => [$genre->id, $genre->id]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);

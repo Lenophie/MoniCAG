@@ -23,7 +23,7 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testPlayersCountsNullability()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => null,
             'playersMax' => null
         ]);
@@ -38,7 +38,7 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testPlayersCountsNotIntegersRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => 'I am a string',
             'playersMax' => 'I am a string'
         ]);
@@ -46,7 +46,7 @@ class PlayersValidationForAddingTest extends TestCase
         $response->assertJsonValidationErrors('playersMin');
         $response->assertJsonValidationErrors('playersMax');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => [],
             'playersMax' => []
         ]);
@@ -62,7 +62,7 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testPlayersCountsInferiorToZeroRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => -1,
             'playersMax' => -1
         ]);
@@ -78,7 +78,7 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testMaxPlayersCountInferiorToMinPlayersCountRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => 20,
             'playersMax' => 5
         ]);
@@ -93,13 +93,13 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testSinglePlayersCountFillingValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => 5
         ]);
         $response->assertJsonMissingValidationErrors('playersMin');
         $response->assertJsonMissingValidationErrors('playersMax');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMax' => 5
         ]);
         $response->assertJsonMissingValidationErrors('playersMin');
@@ -113,7 +113,7 @@ class PlayersValidationForAddingTest extends TestCase
      */
     public function testCorrectPlayersCountsValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'playersMin' => 5,
             'playersMax' => 20
         ]);

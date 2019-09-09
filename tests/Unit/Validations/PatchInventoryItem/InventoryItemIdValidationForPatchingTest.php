@@ -35,12 +35,9 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
      */
     public function testPatchingOfNonExistentInventoryItemRejection()
     {
-        $inventoryItems = factory(InventoryItem::class, 5)->create();
-        $inventoryItemsIDs = [];
-        foreach ($inventoryItems as $inventoryItem) array_push($inventoryItemsIDs, $inventoryItem->id);
-        $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
+        $nonExistentInventoryItemID = factory(InventoryItem::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $nonExistentInventoryItemID), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -52,7 +49,7 @@ class InventoryItemIdValidationForPatchingTest extends TestCase
     public function testPatchingOfCorrectInventoryItemValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

@@ -44,7 +44,7 @@ class PatchInventoryItemRequestTest extends TestCase
         $altNames = [$this->faker->unique()->word, $this->faker->unique()->word];
 
         // Patch inventory item
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItemToPatch->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItemToPatch->id), [
             'durationMin' => $durationMin,
             'durationMax' => $durationMax,
             'playersMin' => $playersMin,

@@ -27,7 +27,7 @@ class NameValidationForAddingTest extends TestCase
      */
     public function testNameRequirement()
     {
-        $response = $this->json('POST', '/api/inventoryItems', []);
+        $response = $this->json('POST', route('inventoryItems.store'), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
     }
@@ -39,19 +39,19 @@ class NameValidationForAddingTest extends TestCase
      */
     public function testNameNotStringRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'name' => ['I am a string']
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'name' => null
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'name' => 1,
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -66,7 +66,7 @@ class NameValidationForAddingTest extends TestCase
     public function testNameNotUniqueRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'name' => $inventoryItem->name
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -80,7 +80,7 @@ class NameValidationForAddingTest extends TestCase
      */
     public function testCorrectNameValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'name' => $this->faker->unique()->word
         ]);
         $response->assertJsonMissingValidationErrors('name');

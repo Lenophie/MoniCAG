@@ -1,5 +1,6 @@
 <?php
 
+use App\Borrowing;
 use App\Genre;
 use App\InventoryItem;
 use App\User;
@@ -25,7 +26,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testNewBorrowingRequestAllowedForAdmin()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -36,7 +37,8 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testEndBorrowingRequestAllowedForAdmin()
     {
-        $response = $this->json('PATCH', '/api/borrowings', []);
+        $borrowing = factory(Borrowing::class)->state('onTime')->create();
+        $response = $this->json('PATCH', route('borrowings.return', $borrowing->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -47,7 +49,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testInventoryItemRequestCreationAllowedForAdmin()
     {
-        $response = $this->json('POST', '/api/inventoryItems', []);
+        $response = $this->json('POST', route('inventoryItems.store'), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -59,7 +61,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testInventoryItemDeletionAllowedForAdmin()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_OK);
     }
 
@@ -71,7 +73,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testInventoryItemPatchingAllowedForAdmin()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -83,7 +85,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testUserRolePatchingAllowedForAdmin()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $user->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -95,8 +97,8 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testUserDeletionAllowedForAdmin()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
-        $response->assertStatus(Response::HTTP_OK);
+        $response = $this->json('DELETE', route('users.destroy', $user->id), []);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -106,7 +108,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
      */
     public function testGenreCreationAllowedForAdmin()
     {
-        $response = $this->json('POST', 'api/genres/', []);
+        $response = $this->json('POST', route('genres.store'), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -118,7 +120,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testGenrePatchingForAdmin()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
+        $response = $this->json('PATCH', route('genres.update', $genre->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -130,7 +132,7 @@ class RequestsAuthenticationForAdminTest extends TestCase
     public function testGenreDeletionAllowedForAdmin()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
+        $response = $this->json('DELETE', route('genres.destroy', $genre->id), []);
         $response->assertStatus(Response::HTTP_OK);
     }
 }

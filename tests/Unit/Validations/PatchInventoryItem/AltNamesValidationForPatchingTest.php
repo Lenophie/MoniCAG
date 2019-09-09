@@ -28,7 +28,7 @@ class AltNamesValidationForPatchingTest extends TestCase
     public function testAltNamesNonRequirement()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), []);
         $response->assertJsonMissingValidationErrors('altNames');
     }
 
@@ -40,13 +40,13 @@ class AltNamesValidationForPatchingTest extends TestCase
     public function testAltNamesNotAnArrayRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => 'I am a string'
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames');
 
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => 1,
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -61,19 +61,19 @@ class AltNamesValidationForPatchingTest extends TestCase
     public function testAltNameValueNotAStringRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => [0]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames.0');
 
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => [[]],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames.0');
 
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => [null],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -88,7 +88,7 @@ class AltNamesValidationForPatchingTest extends TestCase
     public function testCorrectAltNamesValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'altNames' => [$this->faker->unique()->word, $this->faker->unique()->word]
         ]);
         $response->assertJsonMissingValidationErrors('altNames');

@@ -31,7 +31,7 @@ class DeleteInventoryItemRequestTest extends TestCase
         $altNames = $inventoryItems[1]->altNames()->get()->pluck('name')->all();
 
         // Delete inventory item
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItems[1]->id, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $inventoryItems[1]->id), []);
 
         // Check response
         $response->assertStatus(Response::HTTP_OK);
@@ -78,7 +78,7 @@ class DeleteInventoryItemRequestTest extends TestCase
             'inventory_item_id' => $inventoryItem->id
         ]);
         // Delete inventory item
-        $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $this->json('DELETE', route('inventoryItems.destroy', $inventoryItem->id), []);
 
         // Check cascading
         $this->assertDatabaseMissing('borrowings', [

@@ -1,6 +1,5 @@
 <?php
 
-use App\InventoryItem;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -27,7 +26,7 @@ class AltNamesValidationForAddingTest extends TestCase
      */
     public function testAltNamesNonRequirement()
     {
-        $response = $this->json('POST', '/api/inventoryItems', []);
+        $response = $this->json('POST', route('inventoryItems.store'), []);
         $response->assertJsonMissingValidationErrors('altNames');
     }
 
@@ -38,13 +37,13 @@ class AltNamesValidationForAddingTest extends TestCase
      */
     public function testAltNamesNotAnArrayRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => 'I am a string'
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => 1,
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -58,19 +57,19 @@ class AltNamesValidationForAddingTest extends TestCase
      */
     public function testAltNameValueNotAStringRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => [0]
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames.0');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => [[]],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('altNames.0');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => [null],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -84,7 +83,7 @@ class AltNamesValidationForAddingTest extends TestCase
      */
     public function testCorrectAltNamesValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'altNames' => [$this->faker->unique()->word, $this->faker->unique()->word]
         ]);
         $response->assertJsonMissingValidationErrors('altNames');

@@ -27,7 +27,7 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     public function testNamesRequirement()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, []);
+        $response = $this->json('PATCH', route('genres.update', $genre->id), []);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -40,19 +40,19 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     public function testNamesNotStringsRejection()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => ['I am a string'],
             'nameEn' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => null,
             'nameEn' => null
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => 1,
             'nameEn' => 1
         ]);
@@ -68,7 +68,7 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     public function testNamesNotUniquesRejection()
     {
         $genres = factory(Genre::class, 3)->create();
-        $response = $this->json('PATCH', '/api/genres/' . $genres[0]->id, [
+        $response = $this->json('PATCH', route('genres.update', $genres[0]->id), [
             'nameFr' => $genres[1]->name_fr,
             'nameEn' => $genres[2]->name_en
         ]);
@@ -84,7 +84,7 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     public function testCorrectNamesValidation()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);
@@ -98,7 +98,7 @@ class NamesValidationForUpdatingGenreTest extends TestCase
     public function testSameNamesValidation()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => $genre->name_fr,
             'nameEn' => $genre->name_en
         ]);

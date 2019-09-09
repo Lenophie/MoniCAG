@@ -26,7 +26,7 @@ class BorrowerPasswordValidationTest extends TestCase
     public function testBorrowerPasswordRequirement()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $user->email
         ]);
         $response->assertJsonValidationErrors('borrowerPassword');
@@ -41,7 +41,7 @@ class BorrowerPasswordValidationTest extends TestCase
     {
         $borrowerPassword = $this->faker->unique()->password;
         $user = factory(User::class)->create(['password' => bcrypt($borrowerPassword)]);
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $user->email,
             'borrowerPassword' => $borrowerPassword
         ]);
@@ -56,7 +56,7 @@ class BorrowerPasswordValidationTest extends TestCase
     public function testIncorrectBorrowerPasswordRejection()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $user->email,
             'borrowerPassword' => $this->faker->unique()->password
         ]);
@@ -72,7 +72,8 @@ class BorrowerPasswordValidationTest extends TestCase
         $borrower = factory(User::class)->create();
         $otherUserPassword = $this->faker->unique()->password;
         factory(User::class)->create(['password' => bcrypt($otherUserPassword)]);
-        $response = $this->json('POST', '/api/borrowings', [
+
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $borrower->email,
             'borrowerPassword' => $otherUserPassword
         ]);

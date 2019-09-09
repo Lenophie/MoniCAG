@@ -25,7 +25,7 @@ class BorrowerEmailValidationTest extends TestCase
      */
     public function testBorrowerEmailRequirementValidation()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertJsonValidationErrors('borrowerEmail');
     }
 
@@ -36,7 +36,7 @@ class BorrowerEmailValidationTest extends TestCase
      */
     public function testUnregisteredBorrowerEmailRejection()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $this->faker->unique()->safeEmail
         ]);
         $response->assertJsonValidationErrors('borrowerEmail');
@@ -50,7 +50,7 @@ class BorrowerEmailValidationTest extends TestCase
     public function testRegisteredBorrowerEmailValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowerEmail' => $user->email
         ]);
         $response->assertJsonMissingValidationErrors('borrowerEmail');

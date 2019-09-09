@@ -34,7 +34,7 @@ class PatchGenreRequestTest extends TestCase
         $nameEn = $this->faker->unique()->word;
 
         // Create genre
-        $response = $this->json('PATCH', '/api/genres/' . $genre->id, [
+        $response = $this->json('PATCH', route('genres.update', $genre->id), [
             'nameFr' => $nameFr,
             'nameEn' => $nameEn
         ]);

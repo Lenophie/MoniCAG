@@ -23,7 +23,7 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testDurationsNullability()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => null,
             'durationMax' => null
         ]);
@@ -38,7 +38,7 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testDurationsNotIntegersRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => 'I am a string',
             'durationMax' => 'I am a string'
         ]);
@@ -46,7 +46,7 @@ class DurationsValidationForAddingTest extends TestCase
         $response->assertJsonValidationErrors('durationMin');
         $response->assertJsonValidationErrors('durationMax');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => [],
             'durationMax' => []
         ]);
@@ -62,7 +62,7 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testDurationsInferiorToZeroRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => -1,
             'durationMax' => -1
         ]);
@@ -78,7 +78,7 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testMaxDurationInferiorToMinDurationRejection()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => 20,
             'durationMax' => 5
         ]);
@@ -93,13 +93,13 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testSingleDurationFillingValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => 5
         ]);
         $response->assertJsonMissingValidationErrors('durationMin');
         $response->assertJsonMissingValidationErrors('durationMax');
 
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMax' => 5
         ]);
         $response->assertJsonMissingValidationErrors('durationMin');
@@ -113,7 +113,7 @@ class DurationsValidationForAddingTest extends TestCase
      */
     public function testCorrectDurationsValidation()
     {
-        $response = $this->json('POST', '/api/inventoryItems', [
+        $response = $this->json('POST', route('inventoryItems.store'), [
             'durationMin' => 5,
             'durationMax' => 20
         ]);

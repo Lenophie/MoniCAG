@@ -23,7 +23,7 @@ class ExpectedReturnDateValidationTest extends TestCase
      */
     public function testExpectedReturnDateRequirement()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertJsonValidationErrors('expectedReturnDate');
     }
 
@@ -34,7 +34,7 @@ class ExpectedReturnDateValidationTest extends TestCase
      */
     public function testExpectedReturnDateIncorrectFormatRejection()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'expectedReturnDate' => Carbon::now()->format('d/m/Y')
         ]);
         $response->assertJsonValidationErrors('expectedReturnDate');
@@ -47,7 +47,7 @@ class ExpectedReturnDateValidationTest extends TestCase
      */
     public function testExpectedReturnDateCanBeTodayValidation()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'expectedReturnDate' => Carbon::now()->format('Y-m-d')
         ]);
         $response->assertJsonMissingValidationErrors('expectedReturnDate');
@@ -61,7 +61,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     public function testExpectedReturnDateCanBeLaterValidation()
     {
         $laterDate = Carbon::now()->addDay();
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'expectedReturnDate' => $laterDate->format('Y-m-d')
         ]);
         $response->assertJsonMissingValidationErrors('expectedReturnDate');
@@ -75,7 +75,7 @@ class ExpectedReturnDateValidationTest extends TestCase
     public function testExpectedReturnDateCantBeEarlierValidation()
     {
         $earlierDate = Carbon::now()->subDay();
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'expectedReturnDate' => $earlierDate->format('Y-m-d')
         ]);
         $response->assertJsonValidationErrors('expectedReturnDate');

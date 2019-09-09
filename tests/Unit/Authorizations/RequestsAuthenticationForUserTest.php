@@ -1,5 +1,6 @@
 <?php
 
+use App\Borrowing;
 use App\Genre;
 use App\InventoryItem;
 use App\User;
@@ -25,7 +26,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoNewBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -36,7 +37,8 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testNoEndBorrowingRequestAllowedForUser()
     {
-        $response = $this->json('PATCH', '/api/borrowings', []);
+        $borrowing = factory(Borrowing::class)->state('onTime')->create();
+        $response = $this->json('PATCH', route('borrowings.return', $borrowing->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -47,7 +49,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testInventoryItemCreationRejectedForUser()
     {
-        $response = $this->json('POST', '/api/inventoryItems', []);
+        $response = $this->json('POST', route('inventoryItems.store'), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -59,7 +61,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testInventoryItemDeletionRejectedForUser()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -71,7 +73,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testInventoryItemPatchingRejectedForUser()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -83,7 +85,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testUserRolePatchingRejectedForUser()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $user->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -95,7 +97,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testUserDeletionRejectedForUser()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
+        $response = $this->json('DELETE', route('users.destroy', $user->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -106,7 +108,7 @@ class RequestsAuthenticationForUserTest extends TestCase
      */
     public function testGenreCreationRejectedForUser()
     {
-        $response = $this->json('POST', 'api/genres/', []);
+        $response = $this->json('POST', route('genres.store'), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -118,7 +120,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testGenrePatchingRejectedForUser()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('PATCH', 'api/genres/' . $genre->id, []);
+        $response = $this->json('PATCH', route('genres.update', $genre->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -130,7 +132,7 @@ class RequestsAuthenticationForUserTest extends TestCase
     public function testGenreDeletionRejectedForUser()
     {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('DELETE', 'api/genres/' . $genre->id, []);
+        $response = $this->json('DELETE', route('genres.destroy', $genre->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

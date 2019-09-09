@@ -35,12 +35,9 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
      */
     public function testDeletionOfNonExistentInventoryItemRejection()
     {
-        $inventoryItems = factory(InventoryItem::class, 5)->create();
-        $inventoryItemsIDs = [];
-        foreach ($inventoryItems as $inventoryItem) array_push($inventoryItemsIDs, $inventoryItem->id);
-        $nonExistentInventoryItemID = max($inventoryItemsIDs) + 1;
+        $nonExistentInventoryItemID = factory(InventoryItem::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $nonExistentInventoryItemID, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $nonExistentInventoryItemID), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -52,7 +49,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     public function testDeletionOfCurrentlyBorrowedInventoryItemRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('inventoryItem');
     }
@@ -65,7 +62,7 @@ class InventoryItemIdValidationForDeletionTest extends TestCase
     public function testDeletionOfCorrectInventoryItemValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('DELETE', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('DELETE', route('inventoryItems.destroy', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_OK);
     }
 }

@@ -26,7 +26,7 @@ class NamesValidationForAddingGenreTest extends TestCase
      */
     public function testNamesRequirement()
     {
-        $response = $this->json('POST', '/api/genres', []);
+        $response = $this->json('POST', route('genres.store'), []);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
     }
@@ -38,19 +38,19 @@ class NamesValidationForAddingGenreTest extends TestCase
      */
     public function testNamesNotStringsRejection()
     {
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => ['I am a string'],
             'nameEn' => ['I am a string']
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => null,
             'nameEn' => null
         ]);
         $response->assertJsonValidationErrors('nameFr');
         $response->assertJsonValidationErrors('nameEn');
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => 1,
             'nameEn' => 1
         ]);
@@ -66,7 +66,7 @@ class NamesValidationForAddingGenreTest extends TestCase
     public function testNamesNotUniquesRejection()
     {
         $genres = factory(Genre::class, 2)->create();
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => $genres[0]->name_fr,
             'nameEn' => $genres[1]->name_en
         ]);
@@ -81,7 +81,7 @@ class NamesValidationForAddingGenreTest extends TestCase
      */
     public function testCorrectNamesValidation()
     {
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => $this->faker->unique()->word,
             'nameEn' => $this->faker->unique()->word
         ]);

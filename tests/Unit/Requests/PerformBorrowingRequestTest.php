@@ -44,7 +44,7 @@ class PerformBorrowingRequestTest extends TestCase
         $notes = $this->faker->text;
 
         // Create borrowing
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'borrowedItems' => [
                 $inventoryItems[0]->id,
                 $inventoryItems[2]->id

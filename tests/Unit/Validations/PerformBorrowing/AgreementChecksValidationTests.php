@@ -22,7 +22,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck1Requirement()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertJsonValidationErrors('agreementCheck1');
     }
 
@@ -33,7 +33,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck1AcceptationValidation()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'agreementCheck1' => 'on'
         ]);
         $response->assertJsonMissingValidationErrors('agreementCheck1');
@@ -46,7 +46,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck1RefusalRejection()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'agreementCheck1' => 'off'
         ]);
         $response->assertJsonValidationErrors('agreementCheck1');
@@ -59,7 +59,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck2Requirement()
     {
-        $response = $this->json('POST', '/api/borrowings', []);
+        $response = $this->json('POST', route('borrowings.store'), []);
         $response->assertJsonValidationErrors('agreementCheck2');
     }
 
@@ -70,7 +70,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck2AcceptationValidation()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'agreementCheck2' => 'on'
         ]);
         $response->assertJsonMissingValidationErrors('agreementCheck2');
@@ -83,7 +83,7 @@ class AgreementChecksValidationTests extends TestCase
      */
     public function testAgreementCheck2RefusalRejection()
     {
-        $response = $this->json('POST', '/api/borrowings', [
+        $response = $this->json('POST', route('borrowings.store'), [
             'agreementCheck2' => 'off'
         ]);
         $response->assertJsonValidationErrors('agreementCheck2');

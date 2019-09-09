@@ -28,7 +28,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testNameRequirement()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, []);
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
     }
@@ -41,17 +41,17 @@ class NameValidationForPatchingTest extends TestCase
     public function testNameNotStringRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => ['I am a string']
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => null
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => 1
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -66,7 +66,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testNamesNotUniquesRejection()
     {
         $inventoryItems = factory(InventoryItem::class, 2)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItems[0]->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItems[0]->id), [
             'name' => $inventoryItems[1]->name
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -81,7 +81,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testNamesChangedDuringBorrowingRejection()
     {
         $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => $this->faker->unique()->word,
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -96,7 +96,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testCorrectNameValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => $this->faker->unique()->word
         ]);
         $response->assertJsonMissingValidationErrors('name');
@@ -110,7 +110,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testSameNameValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => $inventoryItem->name,
         ]);
         $response->assertJsonMissingValidationErrors('name');
@@ -124,7 +124,7 @@ class NameValidationForPatchingTest extends TestCase
     public function testSameNameDuringBorrowingValidation()
     {
         $inventoryItem = factory(InventoryItem::class)->state('borrowed')->create();
-        $response = $this->json('PATCH', '/api/inventoryItems/' . $inventoryItem->id, [
+        $response = $this->json('PATCH', route('inventoryItems.update', $inventoryItem->id), [
             'name' => $inventoryItem->name
         ]);
         $response->assertJsonMissingValidationErrors('name');

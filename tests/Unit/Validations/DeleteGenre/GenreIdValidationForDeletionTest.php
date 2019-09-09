@@ -39,12 +39,9 @@ class GenreIdValidationForDeletionTest extends TestCase
      */
     public function testNonExistentGenreRejection()
     {
-        $genres = factory(Genre::class, 5)->create();
-        $genresIds = [];
-        foreach($genres as $genre) array_push($genresIds, $genre->id);
-        $nonExistentGenreID = max($genresIds) + 1;
+        $nonExistentGenreID = factory(Genre::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('DELETE', '/api/genres/' . $nonExistentGenreID, []);
+        $response = $this->json('DELETE', route('genres.destroy', $nonExistentGenreID), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -57,7 +54,8 @@ class GenreIdValidationForDeletionTest extends TestCase
     {
         $genre = factory(Genre::class)->create();
         factory(InventoryItem::class)->create()->genres()->sync([$genre->id]);
-        $response = $this->json('DELETE', '/api/genres/' . $genre->id, []);
+
+        $response = $this->json('DELETE', route('genres.destroy', $genre->id), []);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -70,7 +68,8 @@ class GenreIdValidationForDeletionTest extends TestCase
     {
         $genres = factory(Genre::class, 2)->create();
         factory(InventoryItem::class)->create()->genres()->sync($genres->pluck('id'));
-        $response = $this->json('DELETE', '/api/genres/' . $genres[0]->id, []);
+
+        $response = $this->json('DELETE', route('genres.destroy', $genres[0]->id), []);
         $response->assertStatus(Response::HTTP_OK);
     }
 
@@ -79,9 +78,10 @@ class GenreIdValidationForDeletionTest extends TestCase
      *
      * @return void
      */
-    public function testGenreWithNoitemValidation() {
+    public function testGenreWithNoItemValidation() {
         $genre = factory(Genre::class)->create();
-        $response = $this->json('DELETE', '/api/genres/' . $genre->id, []);
+
+        $response = $this->json('DELETE', route('genres.destroy', $genre->id), []);
         $response->assertStatus(Response::HTTP_OK);
     }
 }

@@ -38,7 +38,7 @@ class EndBorrowingRequestTest extends TestCase
         // $notes = $this->faker->text;
 
         // Return borrowings
-        $response = $this->json('PATCH', '/api/borrowings', [
+        $response = $this->json('PATCH', route('borrowings.return'), [
             'selectedBorrowings' => [
                 $borrowings[0]->id,
                 $borrowings[2]->id
@@ -109,7 +109,7 @@ class EndBorrowingRequestTest extends TestCase
         // $notes = $this->faker->text;
 
         // Return borrowings
-        $response = $this->json('PATCH', '/api/borrowings', [
+        $response = $this->json('PATCH', route('borrowings.return'), [
             'selectedBorrowings' => [
                 $borrowings[0]->id,
                 $borrowings[2]->id

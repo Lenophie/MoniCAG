@@ -38,12 +38,9 @@ class GenreIdValidationForUpdatingGenreTest extends TestCase
      */
     public function testNonExistentGenreRejection()
     {
-        $genres = factory(Genre::class, 5)->create();
-        $genresIDs = [];
-        foreach($genres as $genre) array_push($genresIDs, $genre->id);
-        $nonExistentGenreID = max($genresIDs) + 1;
+        $nonExistentGenreID = factory(Genre::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('PATCH', '/api/genres/' . $nonExistentGenreID, []);
+        $response = $this->json('PATCH', route('genres.update', $nonExistentGenreID), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

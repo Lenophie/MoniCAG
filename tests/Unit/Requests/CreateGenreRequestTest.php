@@ -31,7 +31,7 @@ class CreateGenreRequestTest extends TestCase
         $nameEn = $this->faker->unique()->word;
 
         // Create genre
-        $response = $this->json('POST', '/api/genres', [
+        $response = $this->json('POST', route('genres.store'), [
             'nameFr' => $nameFr,
             'nameEn' => $nameEn
         ]);
