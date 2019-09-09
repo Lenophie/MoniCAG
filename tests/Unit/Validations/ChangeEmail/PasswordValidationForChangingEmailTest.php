@@ -61,7 +61,7 @@ class PasswordValidationForChangingEmailTest extends TestCase
     }
 
     /**
-     * Tests the rejection of an user using the password of another user.
+     * Tests the rejection of a user using the password of another user.
      *
      * @return void
      */
