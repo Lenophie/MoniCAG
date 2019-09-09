@@ -50,17 +50,6 @@ class AuthRequestsForAuthUserTest extends TestCase
     }
 
     /**
-     * Tests authenticated user allowed to delete its account.
-     *
-     * @return void
-     */
-    public function testAccountDeletionAllowedForAuthUsers()
-    {
-        $response = $this->json('DELETE', route('account'), []);
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    /**
      * Tests authenticated user allowed to change its password.
      *
      * @return void

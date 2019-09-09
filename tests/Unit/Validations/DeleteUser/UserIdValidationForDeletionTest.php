@@ -15,9 +15,8 @@ class UserIdValidationForDeletionTest extends TestCase
     protected function setUp(): void
     {
         Parent::setUp();
-        $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin, 'api');
-        $this->admin = $admin;
+        $this->admin = factory(User::class)->state('admin')->create();
+        $this->actingAs($this->admin, 'api');
     }
 
 
@@ -28,7 +27,7 @@ class UserIdValidationForDeletionTest extends TestCase
      */
     public function testUserIdNotAnIntegerRejection()
     {
-        $response = $this->json('DELETE', '/api/users/string', []);
+        $response = $this->json('DELETE', route('users.destroy', 'string'), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -39,12 +38,9 @@ class UserIdValidationForDeletionTest extends TestCase
      */
     public function testNonExistentUserRejection()
     {
-        $users = factory(User::class, 5)->create();
-        $usersIDs = [];
-        foreach($users as $user) array_push($usersIDs, $user->id);
-        $nonExistentUserID = max($usersIDs) + 1;
+        $nonExistentUserID = factory(User::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('DELETE', '/api/users/' . $nonExistentUserID, []);
+        $response = $this->json('DELETE', route('users.destroy', $nonExistentUserID), []);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -56,7 +52,7 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testDeletionOfOtherAdminRejection()
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
-        $response = $this->json('DELETE', '/api/users/' . $otherAdmin->id, []);
+        $response = $this->json('DELETE', route('users.destroy', $otherAdmin->id), []);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -68,8 +64,8 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testDeletionOfLenderValidation()
     {
         $user = factory(User::class)->state('lender')->create();
-        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
-        $response->assertStatus(Response::HTTP_OK);
+        $response = $this->json('DELETE', route('users.destroy', $user->id), []);
+        $response->assertJsonMissingValidationErrors("user");
     }
 
     /**
@@ -80,8 +76,8 @@ class UserIdValidationForDeletionTest extends TestCase
     public function testDeletionOfBasicUserValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('DELETE', '/api/users/' . $user->id, []);
-        $response->assertStatus(Response::HTTP_OK);
+        $response = $this->json('DELETE', route('users.destroy', $user->id), []);
+        $response->assertJsonMissingValidationErrors("user");
     }
 
     /**
@@ -91,8 +87,8 @@ class UserIdValidationForDeletionTest extends TestCase
      */
     public function testDeletionOfSelfValidation()
     {
-        $response = $this->json('DELETE', '/api/users/' . $this->admin->id, []);
-        $response->assertStatus(Response::HTTP_OK);
+        $response = $this->json('DELETE', route('users.destroy', $this->admin->id), []);
+        $response->assertJsonMissingValidationErrors("user");
     }
 
     /**
@@ -105,9 +101,9 @@ class UserIdValidationForDeletionTest extends TestCase
         $borrower = $borrowing->borrower()->first();
         $initialLender = $borrowing->initialLender()->first();
 
-        $response = $this->json('DELETE', '/api/users/' . $borrower->id, []);
+        $response = $this->json('DELETE', route('users.destroy', $borrower->id), []);
         $response->assertJsonValidationErrors('user');
-        $response = $this->json('DELETE', '/api/users/' . $initialLender->id, []);
+        $response = $this->json('DELETE', route('users.destroy', $initialLender->id), []);
         $response->assertJsonValidationErrors('user');
     }
 }

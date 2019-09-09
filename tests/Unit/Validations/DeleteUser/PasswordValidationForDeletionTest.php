@@ -3,18 +3,29 @@
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class PasswordValidationForDeletingAccountTest extends TestCase
+class PasswordValidationForDeletionTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;
+
+    private $adminPassword;
+    private $user;
 
     protected function setUp(): void
     {
         Parent::setUp();
         $this->faker->seed(0);
+
+        // Setup admin
+        $this->adminPassword = $this->faker()->unique()->password;
+        $admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
+        $this->actingAs($admin, 'api');
+
+        $this->user = factory(User::class)->create();
     }
 
     /**
@@ -24,9 +35,7 @@ class PasswordValidationForDeletingAccountTest extends TestCase
      */
     public function testPasswordRequirement()
     {
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
-        $response = $this->json('DELETE', '/account', []);
+        $response = $this->json('DELETE', route('users.destroy', $this->user->id), []);
         $response->assertJsonValidationErrors('password');
     }
 
@@ -37,13 +46,10 @@ class PasswordValidationForDeletingAccountTest extends TestCase
      */
     public function testCorrectPasswordValidation()
     {
-        $userPassword = $this->faker->unique()->password;
-        $user = factory(User::class)->create(['password' => bcrypt($userPassword)]);
-        $this->actingAs($user);
-        $response = $this->json('DELETE', '/account', [
-            'password' => $userPassword
+        $response = $this->json('DELETE', route('users.destroy', $this->user->id), [
+            'password' => $this->adminPassword
         ]);
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonMissingValidationErrors('password');
     }
 
     /**
@@ -53,25 +59,21 @@ class PasswordValidationForDeletingAccountTest extends TestCase
      */
     public function testIncorrectPasswordRejection()
     {
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
-        $response = $this->json('DELETE', '/account', [
+        $response = $this->json('DELETE', route('users.destroy', $this->user->id), [
             'password' => $this->faker->unique()->password
         ]);
         $response->assertJsonValidationErrors('password');
     }
 
     /**
-     * Tests the rejection of an user using the password of another user.
+     * Tests the rejection of a user using the password of another user.
      *
      * @return void
      */
     public function testUsingOtherUserPasswordRejection() {
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
         $otherUserPassword = $this->faker->unique()->password;
         factory(User::class)->create(['password' => bcrypt($otherUserPassword)]);
-        $response = $this->json('DELETE', '/account', [
+        $response = $this->json('DELETE', route('users.destroy', $this->user->id), [
             'password' => $otherUserPassword
         ]);
         $response->assertJsonValidationErrors('password');

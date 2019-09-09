@@ -12,11 +12,18 @@ class DeleteUserRequestTest extends TestCase
     use DatabaseTransactions;
     use WithFaker;
 
+    private $adminPassword;
+
     protected function setUp(): void
     {
         Parent::setUp();
         $this->faker->seed(0);
-        $admin = factory(User::class)->state('admin')->create();
+
+        // Setup admin
+        $this->adminPassword = $this->faker()->unique()->password;
+        $admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
         $this->actingAs($admin, 'api');
     }
 
@@ -31,7 +38,9 @@ class DeleteUserRequestTest extends TestCase
         $users = factory(User::class, 3)->create();
 
         // Delete user
-        $response = $this->json('DELETE', '/api/users/' . $users[1]->id, []);
+        $response = $this->json('DELETE', route('users.destroy', $users[1]->id), [
+            'password' => $this->adminPassword
+        ]);
 
         // Check response
         $response->assertStatus(Response::HTTP_OK);
@@ -70,7 +79,9 @@ class DeleteUserRequestTest extends TestCase
         ]);
 
         // Delete user
-        $this->json('DELETE', '/api/users/' . $user->id, []);
+        $this->json('DELETE', route('users.destroy', $user->id), [
+            'password' => $this->adminPassword
+        ]);
 
         // Check cascading
         $this->assertDatabaseHas('borrowings', [

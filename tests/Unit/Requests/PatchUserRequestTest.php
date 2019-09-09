@@ -12,11 +12,18 @@ class PatchUserRequestTest extends TestCase
     use DatabaseTransactions;
     use WithFaker;
 
+    private $adminPassword;
+
     protected function setUp(): void
     {
         Parent::setUp();
         $this->faker->seed(0);
-        $admin = factory(User::class)->state('admin')->create();
+
+        // Setup admin
+        $this->adminPassword = $this->faker()->unique()->password;
+        $admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
         $this->actingAs($admin, 'api');
     }
 
@@ -32,7 +39,8 @@ class PatchUserRequestTest extends TestCase
         $newRole = UserRole::LENDER;
 
         // Patch user
-        $response = $this->json('PATCH', '/api/users/' . $userToPatch->id . '/role', [
+        $response = $this->json('PATCH', route('users.changeRole', $userToPatch->id), [
+            'password' => $this->adminPassword,
             'role' => $newRole
         ]);
 

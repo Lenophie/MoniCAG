@@ -2,21 +2,26 @@
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class UserIdValidationForPatchingTest extends TestCase
 {
     use DatabaseTransactions;
+    use WithFaker;
 
     private $admin;
+    private $adminPassword;
 
     protected function setUp(): void
     {
         Parent::setUp();
-        $admin = factory(User::class)->state('admin')->create();
-        $this->actingAs($admin, 'api');
-        $this->admin = $admin;
+        $this->adminPassword = $this->faker()->unique()->password;
+        $this->admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
+        $this->actingAs($this->admin, 'api');
     }
 
     /**
@@ -26,7 +31,9 @@ class UserIdValidationForPatchingTest extends TestCase
      */
     public function testUserIdNotAnIntegerRejection()
     {
-        $response = $this->json('PATCH', '/api/users/string/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', 'string'), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -37,12 +44,11 @@ class UserIdValidationForPatchingTest extends TestCase
      */
     public function testNonExistentUserRejection()
     {
-        $users = factory(User::class, 5)->create();
-        $usersIDs = [];
-        foreach($users as $user) array_push($usersIDs, $user->id);
-        $nonExistentUserID = max($usersIDs) + 1;
+        $nonExistentUserID = factory(User::class, 5)->create()->max('id') + 1;
 
-        $response = $this->json('PATCH', '/api/users/' . $nonExistentUserID . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $nonExistentUserID), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -54,7 +60,9 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfOtherAdminRejection()
     {
         $otherAdmin = factory(User::class)->state('admin')->create();
-        $response = $this->json('PATCH', '/api/users/' . $otherAdmin->id . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $otherAdmin->id), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -66,7 +74,9 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfLenderValidation()
     {
         $user = factory(User::class)->state('lender')->create();
-        $response = $this->json('PATCH', '/api/users/' . $user->id . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $user->id), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertJsonMissingValidationErrors('user');
     }
 
@@ -78,8 +88,11 @@ class UserIdValidationForPatchingTest extends TestCase
     public function testModificationOfBasicUserValidation()
     {
         $user = factory(User::class)->create();
-        $response = $this->json('PATCH', '/api/users/' . $user . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $user->id), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertJsonMissingValidationErrors('user');
+
     }
 
     /**
@@ -89,7 +102,10 @@ class UserIdValidationForPatchingTest extends TestCase
      */
     public function testModificationOfSelfValidation()
     {
-        $response = $this->json('PATCH', '/api/users/' . $this->admin->id . '/role', []);
+        $response = $this->json('PATCH', route('users.changeRole', $this->admin->id), [
+            'password' => $this->adminPassword
+        ]);
         $response->assertJsonMissingValidationErrors('user');
+
     }
 }

@@ -39,17 +39,6 @@ class AuthRequestsForGuestTest extends TestCase
     }
 
     /**
-     * Tests guest prevented from using the account deletion route.
-     *
-     * @return void
-     */
-    public function testNoAccountDeletionForGuest()
-    {
-        $response = $this->json('DELETE', route('account'), []);
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
-    }
-
-    /**
      * Tests guest prevented from using the password change route.
      *
      * @return void
