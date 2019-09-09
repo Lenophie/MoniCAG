@@ -1,6 +1,9 @@
 <template>
     <div>
         <form :action="userRoleUpdateRequest.route" autocomplete="off" v-on:submit.prevent="submit">
+            <div v-if="userRoleUpdateRequest.user != null">
+                <p><span class="has-text-weight-bold">{{`${trans('Promotion')} : `}}</span>{{userRoleUpdateRequest.user.promotion}}</p>
+            </div>
             <div class="field">
                 <label class="label" for="role-select">{{ trans('Role') }}</label>
                 <div class="control">
