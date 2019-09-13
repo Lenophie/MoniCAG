@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Pages;
 
+use Facebook\WebDriver\WebDriverBy;
 use Laravel\Dusk\Browser;
 
 class EditUsersPage extends Page
@@ -14,6 +15,10 @@ class EditUsersPage extends Page
     public function url()
     {
         return '/edit-users';
+    }
+
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitUntilVue('flags.isMounted', true, '#app');
     }
 
     /**
@@ -35,15 +40,26 @@ class EditUsersPage extends Page
     public function elements()
     {
         return [
-
+            '@userRoleUpdateModal' => '#user-role-update-modal',
+            '@userDeletionModal' => '#user-deletion-modal',
+            '@userRoleUpdateConfirmationButton' => '#user-role-update-confirmation-button',
+            '@userDeletionConfirmationButton' => '#user-deletion-confirmation-button',
         ];
     }
 
-    public function pressOnConfirmButton(Browser $browser, $userId) {
-        $browser->press("#edit-user-{$userId}-button");
+    // Necessary because value is not a string
+    public function clickOptionFromRoleDropdown(Browser $browser, $id) : void {
+        $selector = "//select[@name='role']/option[@id='role-option-{$id}']";
+        $browser->driver->findElement(WebDriverBy::xpath($selector))->click();
     }
 
-    public function pressOnDeleteUserButton(Browser $browser, $userId) {
-        $browser->press("#delete-user-{$userId}-button");
+    public function clickOnUserButton(Browser $browser, $id) {
+        $idString = "#user-card-button-{$id}";
+        $browser->click($idString);
+    }
+
+    public function clickOnUserDeleteButton(Browser $browser, $id) {
+        $idString = "#user-card-deletion-button-{$id}";
+        $browser->click($idString);
     }
 }

@@ -3,7 +3,6 @@
 namespace Tests\Browser\Unit;
 
 use App\User;
-use App\UserRole;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditUsersPage;
@@ -20,12 +19,9 @@ class EditUsersPageTest extends DuskTestCase
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
-        $admin = factory(User::class)->state('admin')->create();
-        $this->admin = $admin;
-        $users = factory(User::class, 5)->create();
-        $this->users = $users;
-        $otherAdmin = factory(User::class)->state('admin')->create();
-        $this->otherAdmin = $otherAdmin;
+        $this->admin = factory(User::class)->state('admin')->create();
+        $this->users = factory(User::class, 5)->create();
+        $this->otherAdmin = factory(User::class)->state('admin')->create();
     }
 
     protected function tearDown(): void {
@@ -35,48 +31,51 @@ class EditUsersPageTest extends DuskTestCase
     public function testUsersPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(new EditUsersPage);
+                ->visit(new EditUsersPage)
+                ->waitForPageLoaded();
 
             foreach ($this->users as $user) {
-                $userRowId = "#user-row-{$user->id}";
-                $browser->assertPresent($userRowId)
-                    ->with($userRowId, function ($userRow) use ($user) {
-                        $userRow->assertSeeIn('.name-field', $user->first_name)
-                            ->assertSeeIn('.name-field', $user->last_name)
-                            ->assertSeeIn('.promotion-field', $user->promotion)
-                            ->assertSeeIn('.email-field', $user->email);
+                $browser->assertSee($user->first_name)
+                    ->assertSee($user->last_name)
+                    ->clickOnUserButton($user->id)
+                    ->whenAvailable('@userRoleUpdateModal', function (Browser $modal) use ($user) {
+                        $modal->assertSee($user->promotion)
+                            ->click('.delete');
                     });
             }
         });
     }
 
-    public function testUserRoleOptionsStatusForOtherAdmins() {
+    public function testOtherAdminsButtonsDisabled() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
                 ->visit(new EditUsersPage)
-                ->assertEnabled("#role-{$this->otherAdmin->id} option[value='". UserRole::ADMINISTRATOR . "']")
-                ->assertDisabled("#role-{$this->otherAdmin->id} option[value='". UserRole::LENDER . "']")
-                ->assertDisabled("#role-{$this->otherAdmin->id} option[value='". UserRole::NONE . "']");
+                ->waitForPageLoaded()
+                ->clickOnUserButton($this->otherAdmin->id)
+                ->pause(1000)
+                ->assertMissing('@userRoleUpdateModal');
         });
     }
 
-    public function testUserRoleOptionsStatusForOtherUsers() {
+    public function testOtherUsersButtonsEnabled() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
                 ->visit(new EditUsersPage)
-                ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::ADMINISTRATOR . "']")
-                ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::LENDER . "']")
-                ->assertEnabled("#role-{$this->users[3]->id} option[value='". UserRole::NONE . "']");
+                ->waitForPageLoaded()
+                ->clickOnUserButton($this->users[1]->id)
+                ->pause(1000)
+                ->assertPresent('@userRoleUpdateModal');
         });
     }
 
-    public function testUserRoleOptionsStatusForSelf() {
+    public function testOwnButtonEnabled() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
                 ->visit(new EditUsersPage)
-                ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::ADMINISTRATOR . "']")
-                ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::LENDER . "']")
-                ->assertEnabled("#role-{$this->admin->id} option[value='". UserRole::NONE . "']");
+                ->waitForPageLoaded()
+                ->clickOnUserButton($this->admin->id)
+                ->pause(1000)
+                ->assertPresent('@userRoleUpdateModal');
         });
     }
 }

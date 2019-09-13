@@ -15,55 +15,63 @@ class DeleteUserTest extends DuskTestCase
     use WithFaker;
 
     private $admin;
-    private $otherAdmin;
-    private $users;
+    private $adminPassword;
+    private $lender;
+    private $user;
 
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
-        $users = factory(User::class, 5)->create();
-        $this->users = $users;
-        $admin = factory(User::class)->state('admin')->create();
-        $this->admin = $admin;
-        $otherAdmin = factory(User::class)->state('admin')->create();
-        $this->otherAdmin = $otherAdmin;
+        $this->user = factory(User::class)->create();
+        $this->lender = factory(User::class)->state('lender')->create();
+        $this->adminPassword = $this->faker()->unique()->password;
+        $this->admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
     }
 
     protected function tearDown(): void {
         User::query()->delete();
     }
 
-    public function testDeleteUser() {
-        // Go to the edit users page and delete a user
-        $this->browse(function (Browser $browser) {
+    private function doUserDelete($id) {
+        $this->browse(function (Browser $browser) use ($id) {
             $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->on(new EditUsersPage)
-                ->pressOnDeleteUserButton($this->users[3]->id)
+                ->waitForPageLoaded()
+                ->clickOnUserDeleteButton($id)
+                ->whenAvailable('@userDeletionModal', function (Browser $modal) {
+                    $modal->type("password", $this->adminPassword)
+                        ->press('@userDeletionConfirmationButton');
+                })
                 ->waitForReload()
-                ->assertPathIs('/edit-users');
+                ->assertPathIs('/');
         });
-
-        // Check the record deletion from the database
-        $this->assertDatabaseMissing('users', ['id' => $this->users[3]->id]);
-
-        // Check other records unaffected
-        foreach ([0, 1, 2, 4] as $i) $this->assertDatabaseHas('users', ['id' => $this->users[$i]->id]);
     }
 
-    public function testRejectedDeleteAnotherAdmin() {
-        // Go to the edit users page and try to delete another admin
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(new HomePage)
-                ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage)
-                ->pressOnDeleteUserButton($this->otherAdmin->id)
-                ->waitForText(__('validation/deleteUser.user.unchanged_if_other_admin'));
-        });
+    public function testDeleteUser() {
+        // Go to the edit users page and delete a user
+        $this->doUserDelete($this->user->id);
 
-        // Check record unaffected
-        $this->assertDatabaseHas('users', ['id' => $this->otherAdmin->id]);
+        // Check the record deletion from the database
+        $this->assertDatabaseMissing('users', ['id' => $this->user->id]);
+    }
+
+    public function testDeleteLender() {
+        // Go to the edit users page and delete a lender
+        $this->doUserDelete($this->lender->id);
+
+        // Check the record deletion from the database
+        $this->assertDatabaseMissing('users', ['id' => $this->lender->id]);
+    }
+
+    public function testDeleteSelf() {
+        // Go to the edit users page and delete self
+        $this->doUserDelete($this->admin->id);
+
+        // Check the record deletion from the database
+        $this->assertDatabaseMissing('users', ['id' => $this->admin->id]);
     }
 }

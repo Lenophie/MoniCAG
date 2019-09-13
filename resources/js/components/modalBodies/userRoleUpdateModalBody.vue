@@ -15,6 +15,7 @@
                             v-model="userRoleUpdateRequest.params.role">
                             <option
                                 v-for="userRole in userRoles"
+                                :id="`role-option-${userRole.id}`"
                                 :value="userRole"
                                 :selected="userRole === userRoleUpdateRequest.params.role">
                                 {{ userRole.name }}

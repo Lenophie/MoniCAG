@@ -16,39 +16,46 @@ class PatchUserRoleTest extends DuskTestCase
     use WithFaker;
 
     private $admin;
-    private $otherAdmin;
+    private $adminPassword;
     private $lender;
     private $user;
 
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
-        $user = factory(User::class)->create();
-        $this->user = $user;
-        $lender = factory(User::class)->state('lender')->create();
-        $this->lender = $lender;
-        $admin = factory(User::class)->state('admin')->create();
-        $this->admin = $admin;
-        $otherAdmin = factory(User::class)->state('admin')->create();
-        $this->otherAdmin = $otherAdmin;
+        $this->user = factory(User::class)->create();
+        $this->lender = factory(User::class)->state('lender')->create();
+        $this->adminPassword = $this->faker()->unique()->password;
+        $this->admin = factory(User::class)->state('admin')->create([
+            'password' => bcrypt($this->adminPassword)
+        ]);
     }
 
     protected function tearDown(): void {
         User::query()->delete();
     }
 
-    public function testPatchUserRole() {
-        // Go to the edit users page and patch a user's role
-        $this->browse(function (Browser $browser) {
+    private function doUserRolePatch($id, $role) {
+        $this->browse(function (Browser $browser) use ($id, $role) {
             $browser->loginAs($this->admin)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
                 ->on(new EditUsersPage)
-                ->select("#role-{$this->user->id}", UserRole::ADMINISTRATOR)
-                ->pressOnConfirmButton($this->user->id)
+                ->waitForPageLoaded()
+                ->clickOnUserButton($id)
+                ->whenAvailable('@userRoleUpdateModal', function (Browser $modal) use ($role) {
+                    $modal->clickOptionFromRoleDropdown($role)
+                        ->type("password", $this->adminPassword)
+                        ->press('@userRoleUpdateConfirmationButton');
+                })
                 ->waitForReload()
-                ->assertPathIs('/edit-users');
+                ->assertPathIs('/');
         });
+    }
+
+    public function testUserRolePatch() {
+        // Go to the edit users page and patch a user's role
+        $this->doUserRolePatch($this->user->id, UserRole::ADMINISTRATOR);
 
         // Check record modification in the database
         $this->assertDatabaseHas('users', [
@@ -57,18 +64,9 @@ class PatchUserRoleTest extends DuskTestCase
         ]);
     }
 
-    public function testPatchLenderRole() {
+    public function testLenderRolePatch() {
         // Go to the edit users page and patch a lender's role
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(new HomePage)
-                ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage)
-                ->select("#role-{$this->lender->id}", UserRole::ADMINISTRATOR)
-                ->pressOnConfirmButton($this->lender->id)
-                ->waitForReload()
-                ->assertPathIs('/edit-users');
-        });
+        $this->doUserRolePatch($this->lender->id, UserRole::ADMINISTRATOR);
 
         // Check record modification in the database
         $this->assertDatabaseHas('users', [
@@ -77,37 +75,9 @@ class PatchUserRoleTest extends DuskTestCase
         ]);
     }
 
-    public function testPatchOtherAdminRoleRejection() {
-        // Go to the edit users page and try to patch another admin's role
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(new HomePage)
-                ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage)
-                ->select("#role-{$this->otherAdmin->id}", UserRole::NONE)
-                ->pressOnConfirmButton($this->otherAdmin->id)
-                ->waitForText(__('validation/updateUserRole.user.unchanged_if_other_admin'));
-        });
-
-        // Check record unchanged in the database
-        $this->assertDatabaseHas('users', [
-            'id' => $this->otherAdmin->id,
-            'role_id' => UserRole::ADMINISTRATOR
-        ]);
-    }
-
     public function testPatchSelfRole() {
         // Go to the edit users page and try to patch own role
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(new HomePage)
-                ->navigateTo(PagesFromHomeEnum::EDIT_USERS)
-                ->on(new EditUsersPage)
-                ->select("#role-{$this->admin->id}", UserRole::NONE)
-                ->pressOnConfirmButton($this->admin->id)
-                ->waitForReload()
-                ->assertPathIs('/');
-        });
+        $this->doUserRolePatch($this->admin->id, UserRole::NONE);
 
         // Check record modification in the database
         $this->assertDatabaseHas('users', [
