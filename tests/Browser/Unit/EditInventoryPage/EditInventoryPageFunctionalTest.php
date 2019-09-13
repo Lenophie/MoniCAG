@@ -11,7 +11,7 @@ use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\EditInventoryPage;
 use Tests\DuskTestCase;
 
-class EditInventoryPageDataFunctionalTest extends DuskTestCase
+class EditInventoryPageFunctionalTest extends DuskTestCase
 {
     use WithFaker;
 
