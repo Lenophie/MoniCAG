@@ -26,6 +26,7 @@ const setupVueComponents = () => {
             flags: {
                 showUserRoleUpdateModal: false,
                 showUserDeletionModal: false,
+                isMounted: false,
             },
             requests: {
                 userRoleUpdate: {
@@ -49,7 +50,6 @@ const setupVueComponents = () => {
                 },
             },
             baseUsersUrl: '',
-            isMounted: false,
         },
         computed: {
             /**
@@ -165,7 +165,7 @@ const setupVueComponents = () => {
         },
         mounted() {
             this.$nextTick(function () {
-                this.isMounted = true;
+                this.flags.isMounted = true;
             });
         }
     });
