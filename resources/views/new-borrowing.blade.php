@@ -52,7 +52,7 @@
             <div class="column is-full">
                 <inventory-item-search-bar
                     :inventory-items="inventoryItems"
-                    :displayed-inventory-items.sync="displayedInventoryItems"
+                    :filtered-inventory-items.sync="displayedInventoryItems"
                     :tabable="!showModal">
                 </inventory-item-search-bar>
             </div>

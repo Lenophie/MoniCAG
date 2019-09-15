@@ -34,7 +34,7 @@
                 type: Array,
                 required: true
             },
-            displayedInventoryItems: {
+            filteredInventoryItems: {
                 type: Array,
                 required: true,
             },
@@ -64,8 +64,8 @@
              * If the input is not empty, it calls the filtering function and emits its result
              */
             applyFilter() {
-                if (this.inputValue === '') this.emitDisplayedInventoryItems(this.inventoryItems);
-                else this.emitDisplayedInventoryItems(this.getInventoryItemsFilteredByName());
+                if (this.inputValue === '') this.emitFilteredInventoryItems(this.inventoryItems);
+                else this.emitFilteredInventoryItems(this.getInventoryItemsFilteredByName());
             },
             /**
              * Cleans the input of the search field
@@ -87,18 +87,18 @@
                     maxPatternLength: 32,
                     minMatchCharLength: 1,
                     keys: [
-                        "name"
+                        "name", "altNames.name"
                     ]
                 };
                 const fuse = new Fuse(this.inventoryItems, options);
                 return fuse.search(this.inputValue);
             },
             /**
-             * Emits an update of the inventory items to display
-             * @param displayedInventoryItems
+             * Emits an update of the filtered inventory items
+             * @param filteredInventoryItems
              */
-            emitDisplayedInventoryItems(displayedInventoryItems) {
-                this.$emit('update:displayed-inventory-items', displayedInventoryItems);
+            emitFilteredInventoryItems(filteredInventoryItems) {
+                this.$emit('update:filtered-inventory-items', filteredInventoryItems);
             }
         }
     }
