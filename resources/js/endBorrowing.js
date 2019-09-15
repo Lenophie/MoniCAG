@@ -1,188 +1,154 @@
-import './modal.js';
-import {cloneAndReplace, getByClass, getById, getBySelector, ready, remove} from './toolbox.js';
+// Tools
 import {HTTPVerbs, makeAjaxRequest} from './ajax.js';
-
+import {requestTranslationFile} from './trans.js';
 // Icons
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faDice, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faArrowRight, faDice} from '@fortawesome/free-solid-svg-icons';
+// Components
+import modal from './components/modal.vue';
+import dataCarrier from './components/dataCarrier.vue';
+import borrowingsEndingModalBody from './components/modalBodies/borrowingsEndingModalBody.vue';
+import borrowingsEndingModalButton from "./components/modalBodies/borrowingsEndingModalButton.vue";
+import borrowingsListElement from "./components/endBorrowing/borrowingsListElement.vue";
 
 library.add(faDice, faArrowRight);
 
-let messages = {};
-const selectedBorrowings = [];
-const buttonsEnum = {
-    END: 0,
-    LOST: 1
-};
+const setupVueComponents = () => {
+    new Vue({
+        el: '#app',
+        data: {
+            showModal: false,
+            borrowings: [],
+            newInventoryItemsStatuses: {},
+            borrowingsEndingRequest: {
+                isProcessing: false,
+                params: {
+                    selectedBorrowings: [],
+                    newInventoryItemsStatus: null,
+                },
+                route: '',
+                errors: {}
+            },
+            messages: {
+                modalTitle: {
+                    return: Vue.prototype.trans('messages.end_borrowing.modal.title.returned'),
+                    lost: Vue.prototype.trans('messages.end_borrowing.modal.title.lost')
+                }
+            },
+            isMounted: false,
+        },
+        components: {
+            modal, dataCarrier, borrowingsEndingModalBody, borrowingsEndingModalButton, borrowingsListElement
+        },
+        computed: {
+            modalTitle: function() {
+                if (this.borrowingsEndingRequest.params.newInventoryItemsStatus === null)
+                    return 'Confirmation';
+                if (this.borrowingsEndingRequest.params.newInventoryItemsStatus
+                    === this.newInventoryItemsStatuses.return) return this.messages.modalTitle.return;
+                if (this.borrowingsEndingRequest.params.newInventoryItemsStatus
+                    === this.newInventoryItemsStatuses.lost) return this.messages.modalTitle.lost;
+                return 'Confirmation';
+            },
+        },
+        methods: {
+            /**
+             * Handles a click on the borrowings ending confirmation button
+             */
+            requestBorrowingsEnding() {
+                this.borrowingsEndingRequest.isProcessing = true;
 
-// After page is loaded
-ready(() => {
-    getTranslatedMessages();
-    for (const borrowing of borrowings) borrowing.selected = false;
-    addListElements(borrowings);
-    addListeners();
-});
+                // Prepare request callbacks
+                const successCallback = () => window.location.href = '/borrowings-history';
+                const errorCallback = (response) => {
+                    this.borrowingsEndingRequest.isProcessing = false;
+                    this.borrowingsEndingRequest.errors = JSON.parse(response).errors;
+                };
 
-const getTranslatedMessages = () => {
-    messages.late = getBySelector("meta[name='messages.late']").getAttribute('content');
-    messages.selectedTag = getBySelector("meta[name='messages.selected_tag']").getAttribute('content');
-    messages.borrowedBy = getBySelector("meta[name='messages.borrowed_by']").getAttribute('content');
-    messages.lentBy = getBySelector("meta[name='messages.lent_by']").getAttribute('content');
-    messages.modal = {
-        title: {},
-        button: {}
-    };
-    messages.modal.title.returned = getBySelector("meta[name='messages.modal.title.returned']").getAttribute('content');
-    messages.modal.title.lost = getBySelector("meta[name='messages.modal.title.lost']").getAttribute('content');
-    messages.modal.button.returned = getBySelector("meta[name='messages.modal.button.returned']").getAttribute('content');
-    messages.modal.button.lost = getBySelector("meta[name='messages.modal.button.lost']").getAttribute('content');
-};
+                // Make deletion request
+                makeAjaxRequest(
+                    HTTPVerbs.PATCH,
+                    this.borrowingsEndingRequest.route,
+                    JSON.stringify(this.formatRequestParams()),
+                    successCallback,
+                    errorCallback);
+            },
 
-const addListElements = (borrowings) => {
-    for (const borrowing of borrowings) {
-        getById('borrowings-list').innerHTML +=
-            `<a id="borrowings-list-element-${borrowing.id}" class="list-item has-background-${borrowing.isLate ? 'bad' : 'good'}">
-                <div class="level">
-                    <div class="level-left">
-                        <h5 class="borrowed-item-name level-item">${borrowing.inventoryItem.name}</h5>
-                    </div>
-                    ${borrowing.isLate ? `<small class="late-message level-item">${messages.late}</small>` : ''}
-                    <div class="level-right">
-                        <small class="level-item">
-                            <span>
-                                <span class="borrow-date">${borrowing.startDate}</span>
-                                 <i class="fas fa-arrow-right"></i>
-                                 <span class="expected-return-date">${borrowing.expectedReturnDate}</span>
-                            </span>
-                        </small>
-                    </div>
-                </div>
-                <div class="level">
-                    <div class="level-left">
-                        <p class="level-item">${messages.borrowedBy} ${borrowing.borrower.name} (Promo ${borrowing.borrower.promotion}) | ${messages.lentBy} ${borrowing.initialLender.name} (Promo ${borrowing.initialLender.promotion})</p>
-                    </div>
-                    <div class="level-right">
-                        <small class="level-item selection-span no-display">${messages.selectedTag}</small>
-                    </div>
-                </div>
-            </a>`;
-    }
-};
+            /**
+             * Handles borrowings ending modal closing
+             */
+            closeBorrowingsEndingModal() {
+                if (!this.borrowingsEndingRequest.isProcessing) {
+                    this.showModal = false;
+                    this.borrowingsEndingRequest.params.newInventoryItemsStatus = null;
+                    this.borrowingsEndingRequest.errors = {};
+                }
+            },
 
-const addListeners = () => {
-    for (const borrowing of borrowings) {
-        getById(`borrowings-list-element-${borrowing.id}`).addEventListener('click', () => handleBorrowingsListElementClick(borrowing));
-    }
-    getById('return-button').addEventListener('click', () => handleReturnButtonClick(buttonsEnum.END));
-    getById('lost-button').addEventListener('click', () => handleReturnButtonClick(buttonsEnum.LOST));
-};
+            /**
+             * Handles borrowings opening modal in return mode
+             */
+            openBorrowingsEndingModalAsReturned() {
+                this.showModal = true;
+                this.borrowingsEndingRequest.params.newInventoryItemsStatus = this.newInventoryItemsStatuses.return;
+            },
 
+            /**
+             * Handles borrowings opening modal in lost mode
+             */
+            openBorrowingsEndingModalAsLost() {
+                this.showModal = true;
+                this.borrowingsEndingRequest.params.newInventoryItemsStatus = this.newInventoryItemsStatuses.lost;
+            },
 
-const handleBorrowingsListElementClick = (borrowing) => {
-    const borrowingListElement = getById(`borrowings-list-element-${borrowing.id}`);
-    if (borrowing.selected === false) {
-        borrowingListElement.classList.add('is-active');
-        borrowingListElement.classList.add(borrowing.isLate ? 'has-background-darker-bad' : 'has-background-darker-good');
-        borrowingListElement.classList.remove(borrowing.isLate ? 'has-background-bad' : 'has-background-good');
-        getBySelector(`#borrowings-list-element-${borrowing.id} .selection-span`).classList.remove('no-display');
-        addBorrowingToSelectedBorrowingsList(borrowing);
-    } else {
-        borrowingListElement.classList.remove('is-active');
-        borrowingListElement.classList.remove(borrowing.isLate ? 'has-background-darker-bad' : 'has-background-darker-good');
-        borrowingListElement.classList.add(borrowing.isLate ? 'has-background-bad' : 'has-background-good');
-        getBySelector(`#borrowings-list-element-${borrowing.id} .selection-span`).classList.add('no-display');
-        removeBorrowingFromSelectedBorrowingsList(borrowing);
-    }
-    borrowing.selected = !borrowing.selected;
-    enableEndButtons(selectedBorrowings.length > 0);
-};
+            /**
+             * Updates the selected borrowings list
+             * @param {Object} selectedBorrowing The borrowing to add or remove from the list
+             * @param {boolean} isSelected If true, the item has to be added to the list. If false, it has to be removed.
+             */
+            updateSelectedBorrowingsList(selectedBorrowing, isSelected) {
+                if (isSelected) this.borrowingsEndingRequest.params.selectedBorrowings.push(selectedBorrowing);
+                else this.removeBorrowingFromSelectedBorrowingsList(selectedBorrowing);
+            },
 
-const addBorrowingToSelectedBorrowingsList = (borrowing) => {
-    selectedBorrowings.push(borrowing);
-};
+            /**
+             * Removes a borrowing from the selected borrowings list
+             * @param {Object} borrowing The borrowing to remove from the list
+             */
+            removeBorrowingFromSelectedBorrowingsList(borrowing) {
+                for (let i = 0; i < this.borrowingsEndingRequest.params.selectedBorrowings.length; i++) {
+                    if (this.borrowingsEndingRequest.params.selectedBorrowings[i].id === borrowing.id)
+                        this.borrowingsEndingRequest.params.selectedBorrowings.splice(i, 1);
+                }
+            },
 
-const removeBorrowingFromSelectedBorrowingsList = (borrowing) => {
-    for (const i in selectedBorrowings) {
-        if (selectedBorrowings[i].id === borrowing.id) {
-            selectedBorrowings.splice(i, 1);
-            break;
-        }
-    }
-};
+            /**
+             * Returns formatted request parameters
+             */
+            formatRequestParams() {
+                const requestParams = this.borrowingsEndingRequest.params;
+                return {
+                    newInventoryItemsStatus: requestParams.newInventoryItemsStatus,
+                    selectedBorrowings: requestParams.selectedBorrowings.map(borrowing => borrowing.id),
+                }
+            },
 
-const enableEndButtons = (bool) => {
-    if (bool) {
-        for (const elem of getByClass('end-button')) elem.removeAttribute('disabled');
-    } else {
-        for (const elem of getByClass('end-button')) elem.setAttribute('disabled', 'disabled');
-    }
-};
-
-const handleReturnButtonClick = (buttonEnum) => {
-    let modalTitle;
-    let modalSubmitText;
-    const modalSubmitButton = getById(`end-borrowing-submit`);
-    let classToAddToSubmitButton;
-    let classToRemoveFromSubmitButton;
-    switch (buttonEnum) {
-      case buttonsEnum.END:
-          modalTitle = messages.modal.title.returned;
-          modalSubmitText = messages.modal.button.returned;
-          classToAddToSubmitButton = 'is-success';
-          classToRemoveFromSubmitButton = 'is-danger';
-      break;
-      case buttonsEnum.LOST:
-          modalTitle = messages.modal.title.lost;
-          modalSubmitText = messages.modal.button.lost;
-          classToAddToSubmitButton = 'is-danger';
-          classToRemoveFromSubmitButton = 'is-success';
-      break;
-    }
-    getBySelector(`#end-borrowing-modal .modal-card-title`).innerHTML = modalTitle;
-    modalSubmitButton.innerHTML = modalSubmitText;
-    modalSubmitButton.classList.add(classToAddToSubmitButton);
-    modalSubmitButton.classList.remove(classToRemoveFromSubmitButton);
-
-    const toReturnListElement = getBySelector('#end-borrowing-modal #to-return-list');
-    toReturnListElement.innerHTML = '';
-    for (const borrowing of selectedBorrowings) {
-        toReturnListElement.innerHTML +=
-            `<li>${borrowing.inventoryItem.name} ${messages.borrowedBy.toLowerCase()} ${borrowing.borrower.name} (Promo ${borrowing.borrower.promotion}) le ${borrowing.startDate}</li>`;
-    }
-
-    remove(getByClass('error-text'));
-    const newModalSubmitButton = cloneAndReplace(modalSubmitButton);
-    newModalSubmitButton.addEventListener('click', () => handleConfirmButtonClick(buttonEnum));
-};
-
-const handleConfirmButtonClick = (buttonEnum) => {
-    const selectedBorrowingsIDs = {};
-    let i = 0;
-
-    for (const selectedBorrowing of selectedBorrowings) {
-        selectedBorrowingsIDs[i] = selectedBorrowing.id;
-        i++;
-    }
-    const newInventoryItemsStatus = buttonEnum === buttonsEnum.END ? inventoryItemStatuses.RETURNED : inventoryItemStatuses.LOST;
-    const data = {
-        selectedBorrowings: selectedBorrowingsIDs,
-        newInventoryItemsStatus: newInventoryItemsStatus
-    };
-    const successCallback = () => window.location.href = borrowingsHistoryUrl;
-    const errorCallback = (response) => handleFormErrors(JSON.parse(response).errors);
-
-    remove(getByClass('error-text'));
-    makeAjaxRequest(HTTPVerbs.PATCH, borrowingsApiUrl, JSON.stringify(data), successCallback, errorCallback);
-};
-
-const handleFormErrors = (errors) => {
-    for (const fieldName in errors) {
-        for (const error of errors[fieldName]) {
-            if (!fieldName.startsWith('selectedBorrowings.')) {
-                getById(`form-field-${fieldName}`).innerHTML += `<div class="error-text">${error}</div>`;
-            } else {
-                getById(`form-field-selectedBorrowings`).innerHTML += `<div class="error-text">${error}</div>`;
+            /**
+             * Handle the PHP compacted data
+             * @param {Object} data
+             */
+            setCarriedData(data) {
+                this.borrowingsEndingRequest.route = data.routes.borrowings;
+                this.borrowings = data.resources.borrowings;
+                this.newInventoryItemsStatuses = data.resources.newInventoryItemsStatuses;
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                this.isMounted = true;
+            });
         }
-    }
+    });
 };
+
+requestTranslationFile().then(setupVueComponents);

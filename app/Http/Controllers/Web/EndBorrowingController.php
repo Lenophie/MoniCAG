@@ -21,12 +21,20 @@ class EndBorrowingController extends Controller
 
         $eagerLoadedBorrowings = Borrowing::with('inventoryItem', 'borrower', 'initialLender')
             ->where('return_date', null)->orderByDate()->get();
-        $borrowings = BorrowingResource::collection($eagerLoadedBorrowings)->jsonSerialize();
+        $borrowings = BorrowingResource::collection($eagerLoadedBorrowings);
 
-        $inventoryItemStatuses = (object) [
-            'RETURNED' => InventoryItemStatus::IN_LCR_D4,
-            'LOST' => InventoryItemStatus::LOST
+        $compactData = [
+            'resources' => [
+                'borrowings' => $borrowings,
+                'newInventoryItemsStatuses' => [
+                    'return' => InventoryItemStatus::IN_LCR_D4,
+                    'lost' => InventoryItemStatus::LOST
+                ]
+            ],
+            'routes' => [
+                'borrowings' => route('borrowings.return')
+            ]
         ];
-        return view('end-borrowing', compact('borrowings', 'inventoryItemStatuses'));
+        return view('end-borrowing', compact('compactData'));
     }
 }
