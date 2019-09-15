@@ -51,7 +51,8 @@ class RetrieveBorrowingTest extends DuskTestCase
             $browser->loginAs($this->lender)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
-                ->on(new EndBorrowingPage);
+                ->on(new EndBorrowingPage)
+                ->waitForPageLoaded();
 
             // Select borrowings to end by clicking on them
             foreach ($this->borrowingsToEnd as $borrowingToEnd) {
@@ -60,8 +61,8 @@ class RetrieveBorrowingTest extends DuskTestCase
 
             // Confirm in the end borrowing modal
             $browser->click('@returnButton')
-                ->whenAvailable('@endBorrowingModal', function($modal) {
-                    $modal->press('@endBorrowingSubmitButton');
+                ->whenAvailable('@borrowingsEndingModal', function($modal) {
+                    $modal->press('@borrowingsEndingConfirmationButton');
                 })
                 ->waitForReload()
                 ->assertPathIs('/borrowings-history');
@@ -101,7 +102,8 @@ class RetrieveBorrowingTest extends DuskTestCase
             $browser->loginAs($this->lender)
                 ->visit(new HomePage)
                 ->navigateTo(PagesFromHomeEnum::END_BORROWING)
-                ->on(new EndBorrowingPage);
+                ->on(new EndBorrowingPage)
+                ->waitForPageLoaded();
 
             // Select borrowings to end by clicking on them
             foreach ($this->borrowingsToEnd as $borrowingToEnd) {
@@ -110,8 +112,8 @@ class RetrieveBorrowingTest extends DuskTestCase
 
             // Confirm in the end borrowing modal
             $browser->click('@lostButton')
-                ->whenAvailable('@endBorrowingModal', function($modal) {
-                    $modal->press('@endBorrowingSubmitButton');
+                ->whenAvailable('@borrowingsEndingModal', function($modal) {
+                    $modal->press('@borrowingsEndingConfirmationButton');
                 })
                 ->waitForReload()
                 ->assertPathIs('/borrowings-history');

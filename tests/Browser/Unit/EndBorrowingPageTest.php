@@ -46,7 +46,8 @@ class EndBorrowingPageTest extends DuskTestCase
     public function testBorrowingsPresence() {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
-                ->visit(new EndBorrowingPage);
+                ->visit(new EndBorrowingPage)
+                ->waitForPageLoaded();
 
             foreach ($this->borrowings as $borrowing) {
                 $browser->assertPresent("#borrowings-list-element-{$borrowing->id}");
@@ -59,6 +60,7 @@ class EndBorrowingPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage)
+                ->waitForPageLoaded()
                 ->assertSeeIn("#borrowings-list-element-{$this->lateBorrowing->id}", __('messages.end_borrowing.late'))
                 ->assertDontSeeIn("#borrowings-list-element-{$this->onTimeBorrowing->id}", __('messages.end_borrowing.late'));
         });
@@ -70,9 +72,10 @@ class EndBorrowingPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($borrowing) {
             $browser->loginAs($this->lender)
                 ->visit(new EndBorrowingPage)
+                ->waitForPageLoaded()
                 ->clickOnBorrowingButton($borrowing->id)
                 ->click('@returnButton')
-                ->whenAvailable('@endBorrowingModal', function (Browser $modal) use ($borrowing) {
+                ->whenAvailable('@borrowingsEndingModal', function (Browser $modal) use ($borrowing) {
                     $modal->assertSee($borrowing->inventoryItem()->first()->name);
                 });
         });

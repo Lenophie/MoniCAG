@@ -27,6 +27,10 @@ class EndBorrowingPage extends Page
         //
     }
 
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitUntilVue('isMounted', true, '#app');
+    }
+
     /**
      * Get the element shortcuts for the page.
      *
@@ -37,8 +41,8 @@ class EndBorrowingPage extends Page
         return [
             '@returnButton' => '#return-button',
             '@lostButton' => '#lost-button',
-            '@endBorrowingModal' => '#end-borrowing-modal',
-            '@endBorrowingSubmitButton' => '#end-borrowing-submit'
+            '@borrowingsEndingModal' => '#borrowings-ending-modal',
+            '@borrowingsEndingConfirmationButton' => '#borrowings-ending-confirmation-button'
         ];
     }
 
