@@ -20,6 +20,13 @@ class ViewInventoryController extends Controller
         $inventoryItems = DetailedInventoryItemResource::collection($eagerLoadedInventoryItems);
         $genres = GenreResource::collection(Genre::translated()->get());
 
-        return view('view-inventory', compact('inventoryItems', 'genres'));
+        $compactData = [
+            'resources' => [
+                'inventoryItems' => $inventoryItems,
+                'genres' => $genres
+            ]
+        ];
+
+        return view('view-inventory', compact('compactData'));
     }
 }

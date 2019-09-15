@@ -11,35 +11,14 @@
     border-color: #a7885a !important;
 }
 
-.inventory-item {
-    height: 100%;
-    padding: 6px 12px 6px 12px;
+.inventory-item-card {
+    padding: 5px 12px 5px 12px;
     color: #a7885a;
     border: #a7885a 1px solid;
     border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-.inventory-item-footer {
-    font-style: italic;
-    text-align: right;
-    font-size: 10px;
-}
-
-.inventory-item-precision {
-    font-size: 12px;
-    text-align: left;
-}
-
-.inventory-item-name {
-    text-align: center;
-}
-
-.item-hr {
-    margin-top: 0;
-    margin-bottom: 3px;
+.inventory-item-card-hr {
     background-color: #a7885a;
 }
 
