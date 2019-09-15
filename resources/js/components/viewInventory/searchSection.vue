@@ -22,9 +22,9 @@
                         </div>
                         <div class="control is-expanded">
                             <div class="select is-fullwidth">
-                                <select id="genre-select" v-model="selectedGenre">
+                                <select name="genre" id="genre-select" v-model="selectedGenre">
                                     <option :value="null" selected>{{ trans("messages.view_inventory.filter_genre_placeholder") }}</option>
-                                    <option v-for="genre in genres" :value="genre">{{ genre.name }}</option>
+                                    <option v-for="genre in genres" :value="genre" :id="`genre-option-${genre.id}`">{{ genre.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -48,6 +48,7 @@
                                 type="number"
                                 min="0"
                                 class="input"
+                                name="duration"
                                 v-model.number="selectedDuration"
                                 :placeholder="trans('messages.view_inventory.filter_duration_placeholder')"
                             >
@@ -72,6 +73,7 @@
                                 type="number"
                                 min="1"
                                 class="input"
+                                name="players"
                                 v-model.number="selectedNumberOfPlayers"
                                 :placeholder="trans('messages.view_inventory.filter_players_placeholder')">
                         </div>

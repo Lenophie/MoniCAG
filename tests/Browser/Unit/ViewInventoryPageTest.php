@@ -32,10 +32,11 @@ class ViewInventoryPageTest extends DuskTestCase
         $inventoryItems = factory(InventoryItem::class, 3)->create();
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
-            $browser->visit(new ViewInventoryPage);
+            $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded();
 
             foreach ($inventoryItems as $inventoryItem) {
-                $browser->assertPresent('#inventory-item-' . $inventoryItem->id);
+                $browser->assertPresent('#inventory-item-card-' . $inventoryItem->id);
             }
         });
     }
@@ -44,8 +45,9 @@ class ViewInventoryPageTest extends DuskTestCase
         $inventoryItem = factory(InventoryItem::class)->create();
 
         $this->browse(function (Browser $browser) use ($inventoryItem) {
-            $inventoryItemDivSelector = '#inventory-item-' . $inventoryItem->id;
+            $inventoryItemDivSelector = '#inventory-item-card-' . $inventoryItem->id;
             $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded()
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->duration_min)
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->duration_max)
                 ->assertSeeIn($inventoryItemDivSelector, $inventoryItem->players_min)
@@ -62,9 +64,11 @@ class ViewInventoryPageTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $genreToSelect = $inventoryItems[0]->genres()->get()[0];
             $browser->visit(new ViewInventoryPage)
-                ->select('@genreSelect', $genreToSelect->id)
-                ->assertPresent("#inventory-item-{$inventoryItems[0]->id}")
-                ->assertMissing("#inventory-item-{$inventoryItems[1]->id}");
+                ->waitForPageLoaded()
+                ->clickOptionFromGenreDropdown($genreToSelect->id)
+                ->pause(100)
+                ->assertPresent("#inventory-item-card-{$inventoryItems[0]->id}")
+                ->assertMissing("#inventory-item-card-{$inventoryItems[1]->id}");
         });
     }
 
@@ -82,17 +86,27 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
-                "#inventory-item-{$inventoryItems[0]->id}",
-                "#inventory-item-{$inventoryItems[1]->id}"
+                "#inventory-item-card-{$inventoryItems[0]->id}",
+                "#inventory-item-card-{$inventoryItems[1]->id}"
             ];
             $browser->visit(new ViewInventoryPage)
-                ->type('@durationInput', 20)
+                ->waitForPageLoaded()
+                ->type('duration', 20)
+                ->pause(100)
                 ->assertPresent($inventoryItemDivSelectors[0])
-                ->assertPresent($inventoryItemDivSelectors[1])
-                ->type('@durationInput', 25)
+                ->assertPresent($inventoryItemDivSelectors[1]);
+
+            $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded()
+                ->type('duration', 25)
+                ->pause(100)
                 ->assertPresent($inventoryItemDivSelectors[0])
-                ->assertMissing($inventoryItemDivSelectors[1])
-                ->type('@durationInput', 35)
+                ->assertMissing($inventoryItemDivSelectors[1]);
+
+            $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded()
+                ->type('duration', 35)
+                ->pause(100)
                 ->assertMissing($inventoryItemDivSelectors[0])
                 ->assertMissing($inventoryItemDivSelectors[1]);
         });
@@ -112,17 +126,27 @@ class ViewInventoryPageTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($inventoryItems) {
             $inventoryItemDivSelectors = [
-                "#inventory-item-{$inventoryItems[0]->id}",
-                "#inventory-item-{$inventoryItems[1]->id}"
+                "#inventory-item-card-{$inventoryItems[0]->id}",
+                "#inventory-item-card-{$inventoryItems[1]->id}"
             ];
             $browser->visit(new ViewInventoryPage)
-                ->type('@playersInput', 5)
+                ->waitForPageLoaded()
+                ->type('players', 5)
+                ->pause(100)
                 ->assertPresent($inventoryItemDivSelectors[0])
-                ->assertPresent($inventoryItemDivSelectors[1])
-                ->type('@playersInput', 3)
+                ->assertPresent($inventoryItemDivSelectors[1]);
+
+            $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded()
+                ->type('players', 3)
+                ->pause(100)
                 ->assertPresent($inventoryItemDivSelectors[0])
-                ->assertMissing($inventoryItemDivSelectors[1])
-                ->type('@playersInput', 30)
+                ->assertMissing($inventoryItemDivSelectors[1]);
+
+            $browser->visit(new ViewInventoryPage)
+                ->waitForPageLoaded()
+                ->type('players', 30)
+                ->pause(100)
                 ->assertMissing($inventoryItemDivSelectors[0])
                 ->assertMissing($inventoryItemDivSelectors[1]);
         });

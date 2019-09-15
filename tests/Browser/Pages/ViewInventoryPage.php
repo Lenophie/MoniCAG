@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Pages;
 
+use Facebook\WebDriver\WebDriverBy;
 use Laravel\Dusk\Browser;
 
 class ViewInventoryPage extends Page
@@ -27,6 +28,16 @@ class ViewInventoryPage extends Page
         //
     }
 
+    public function waitForPageLoaded(Browser $browser) {
+        $browser->waitUntilVue('isMounted', true, '#app');
+    }
+
+    // Necessary because value is not a string
+    public function clickOptionFromGenreDropdown(Browser $browser, $id) : void {
+        $selector = "//select[@name='genre']/option[@id='genre-option-{$id}']";
+        $browser->driver->findElement(WebDriverBy::xpath($selector))->click();
+    }
+
     /**
      * Get the element shortcuts for the page.
      *
@@ -35,9 +46,7 @@ class ViewInventoryPage extends Page
     public function elements()
     {
         return [
-            '@genreSelect' => '#genre-select',
-            '@durationInput' => '#duration-input',
-            '@playersInput' => '#players-input'
+
         ];
     }
 }

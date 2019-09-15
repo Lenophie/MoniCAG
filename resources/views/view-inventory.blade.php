@@ -49,7 +49,8 @@
         <div class="columns is-multiline">
             <div class="column is-2" v-for="inventoryItem in displayedInventoryItems">
                 <inventory-item-card
-                    :inventory-item="inventoryItem">
+                    :inventory-item="inventoryItem"
+                    :id="`inventory-item-card-${inventoryItem.id}`">
                 </inventory-item-card>
             </div>
         </div>
