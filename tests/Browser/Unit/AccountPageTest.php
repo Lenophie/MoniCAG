@@ -17,16 +17,18 @@ class AccountPageTest extends DuskTestCase
 
     private $user;
     private $borrowings;
+    private $pastBorrowings;
 
     protected function setUp(): void {
         Parent::setUp();
         $this->faker->seed(0);
-        $user = factory(User::class)->create();
-        $this->user = $user;
-        $borrowings = factory(Borrowing::class, 3)->create([
+        $this->user = factory(User::class)->create();
+        $this->borrowings = factory(Borrowing::class, 3)->create([
             'borrower_id' => $this->user->id
         ]);
-        $this->borrowings = $borrowings;
+        $this->pastBorrowings = factory(Borrowing::class, 3)->state('finished')->create([
+            'borrower_id' => $this->user->id
+        ]);
     }
 
     protected function tearDown(): void {
@@ -58,6 +60,12 @@ class AccountPageTest extends DuskTestCase
             foreach ($this->borrowings as $borrowing) {
                 $browser->assertSee($borrowing->inventoryItem->name)
                     ->assertSee($borrowing->expected_return_date->format('d/m/Y'));
+            }
+
+            foreach ($this->pastBorrowings as $borrowing) {
+                $browser->assertSee($borrowing->inventoryItem->name)
+                    ->assertSee($borrowing->start_date->format('d/m/Y'))
+                    ->assertSee($borrowing->return_date->format('d/m/Y'));
             }
         });
     }
