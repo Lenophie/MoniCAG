@@ -21,7 +21,7 @@ class newBorrowingController extends Controller
 
         $inventoryItems = DetailedInventoryItemResource::collection(
             InventoryItem::with('altNames')->orderBy('name')->get()
-        )->collection;
+        );
 
         $compactData = [
             'resources' => [
