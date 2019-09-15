@@ -1,6 +1,6 @@
 <template>
     <div class="field has-addons has-addons-centered">
-        <div class="control">
+        <div class="control is-expanded">
             <input
                 type="text"
                 id="search-game-field"

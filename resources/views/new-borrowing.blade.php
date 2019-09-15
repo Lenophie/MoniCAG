@@ -49,7 +49,7 @@
     </data-carrier>
     <div class="container is-fluid" v-cloak>
         <div class="columns">
-            <div class="column is-full">
+            <div class="column is-8 is-offset-2">
                 <inventory-item-search-bar
                     :inventory-items="inventoryItems"
                     :filtered-inventory-items.sync="displayedInventoryItems"
