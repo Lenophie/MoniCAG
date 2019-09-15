@@ -66,7 +66,17 @@
                             @endforeach
                             </ul>
                         @else
-                            <div id="no-borrowing-div">{{__('messages.end_borrowing.no_current')}}</div>
+                            <div id="no-borrowing-div">{{__('messages.account.no_current')}}</div>
+                        @endif
+                        <h3 class="title is-6">{{__('My past borrowings')}}</h3>
+                        @if (count($userPastBorrowings) !== 0)
+                            <ul>
+                                @foreach($userPastBorrowings as $userBorrowing)
+                                    <li>{{$userBorrowing["inventoryItem"]["name"]}} ({{$userBorrowing["startDate"]}} - {{$userBorrowing["returnDate"]}})</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <div id="no-borrowing-div">{{__('messages.account.no_past')}}</div>
                         @endif
                     </div>
                 </div>

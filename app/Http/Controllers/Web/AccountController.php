@@ -20,8 +20,13 @@ class AccountController extends Controller
             ->where('borrower_id', $user->id)
             ->whereNull('return_date')
             ->get();
+        $userPastBorrowings = Borrowing::with('inventoryItem')
+            ->where('borrower_id', $user->id)
+            ->whereNotNull('return_date')
+            ->get();
 
         $userBorrowings = BorrowingResource::collection($userCurrentBorrowings)->jsonSerialize();
+        $userPastBorrowings = BorrowingResource::collection($userPastBorrowings)->jsonSerialize();
 
         $compactData = [
             'routes' => [
@@ -31,6 +36,6 @@ class AccountController extends Controller
             ]
         ];
 
-        return view('account', compact('userBorrowings', 'user', 'compactData'));
+        return view('account', compact('userBorrowings', 'userPastBorrowings', 'user', 'compactData'));
     }
 }

@@ -77,6 +77,8 @@ return [
         'user_deletion_warning' => "Supprimer un utilisateur ne devrait être fait que si l'utilisateur ne correspond pas, et n'a jamais correspondu, à une personne réelle.<br/>Après avoir supprimé l'utilisateur, ses emprunts ne seront pas supprimés de la base de données mais les données le concernant seront supprimées.<br/>Cette suppression est <b>irréversible</b>."
     ],
     'account' => [
+        'no_current' => "Pas d'emprunt en cours",
+        'no_past' => "Pas d'emprunt passé",
         'deletion_title' => 'Confirmer la suppression du compte',
         'deletion_warning' => "Votre compte et l'intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>."
     ],

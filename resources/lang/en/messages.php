@@ -77,6 +77,8 @@ return [
         'user_deletion_warning' => "Deleting a user should only be done if the user doesn't, and never did, correspond to a real person.</br>After deleting a user, their borrowings won't be deleted from the database but the corresponding personal info will.</br><b>This deletion can't be undone.</b>"
     ],
     'account' => [
+        'no_current' => 'No ongoing borrowing',
+        'no_past' => 'No past borrowing',
         'deletion_title' => 'Confirm account deletion',
         'deletion_warning' => "Your account will be deleted along with all your personal data.<br/><b>This deletetion can't be undone.</b>"
     ],
