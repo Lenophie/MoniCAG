@@ -13,7 +13,7 @@ export const buildMinMaxString = (min, max, singularSuffix, pluralSuffix) => {
 
     // Min and max case
     if (min !== null && max !== null) {
-        string = `${min} - ${max}`;
+        string = min !== max ? `${min} - ${max}` : `${min}`;
         if (max > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
         else if (max <= 1 && singularSuffix != null) string += ` ${singularSuffix}`;
     // Only min case
