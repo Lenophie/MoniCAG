@@ -1,6 +1,5 @@
-import { getById, ready } from './toolbox.js';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEye, faDice, faWarehouse, faWrench, faChess, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faCalendarAlt, faChess, faDice, faEye, faWarehouse, faWrench} from '@fortawesome/free-solid-svg-icons';
 
 // Load icons present on page
 library.add(faEye, faDice, faWarehouse, faWrench, faChess, faCalendarAlt);
@@ -14,14 +13,15 @@ const buttonsLinks = {
     'edit-users-button': '/edit-users',
 };
 
-ready(() => addListeners());
-
 const addListeners = () => {
     for (const id in buttonsLinks) {
-        getById(id).addEventListener('click', (e) => buttonClickHandler(id));
+        const element = document.getElementById(id);
+        element.addEventListener('click', () => buttonClickHandler(element, buttonsLinks[id]));
     }
 };
 
-const buttonClickHandler = (id) => {
-    if (getById(id).getAttribute('disabled') !== 'disabled') window.location.href = buttonsLinks[id];
+const buttonClickHandler = (element, url) => {
+    if (element.getAttribute('disabled') !== 'disabled') window.location.href = url;
 };
+
+addListeners();

@@ -1,6 +1,5 @@
 import get from "lodash.get";
-import {makeAjaxPromise, HTTPVerbs} from "./ajax.js";
-import {getBySelector} from "./toolbox.js";
+import {HTTPVerbs, makeAjaxPromise} from "./ajax.js";
 
 const storeTranslationFile = json => {
     window.i18n = json;

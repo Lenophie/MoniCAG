@@ -2,8 +2,6 @@
  * @typedef {string} HTTPVerb
  **/
 
-import {getBySelector} from "./toolbox.js";
-
 /**
  * @enum HTTPVerb
  */
@@ -39,8 +37,8 @@ const isMethodInEnum = (method) => {
 export const makeAjaxRequest = (method, url, data, successCallback, errorCallback) => {
     if (isMethodInEnum(method) && typeof(url) === 'string') {
         const request = new XMLHttpRequest();
-        const csrfToken = getBySelector("meta[name='CSRF-TOKEN']").getAttribute('content');
-        const localization = getBySelector("meta[name='X-Localization']").getAttribute('content');
+        const csrfToken = document.querySelector("meta[name='CSRF-TOKEN']").getAttribute('content');
+        const localization = document.querySelector("meta[name='X-Localization']").getAttribute('content');
         request.open(method, url, true);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");

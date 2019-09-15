@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2019-09-15
+## [1.0.0] - 2019-09-16
 
 ### Added
 
@@ -14,12 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * `Vue` refactor
     * "Account" view
     * "New borrowing" view
+    * "End borrowing" view
     * "Edit inventory" view
     * "View inventory" view
     * "Edit users" view
 * "Account" view
     * Past borrowings
-* "Edit users"
+* "Edit users" view
     * Password verification when editing or deleting a user
     * Genres addition, edition and deletion
 * `Docker` setup
@@ -58,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Started using @json `Blade` directive
 * Replaced triple backticks by single backticks in changelog
 * Improved instructions in readme
+* Fixed Home page ugly code
 
 ### Fixed
 
