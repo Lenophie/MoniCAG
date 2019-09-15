@@ -14,7 +14,7 @@ This application aims at :
 ---
 
 *Just MoniCAG.*  
-**Version :** *MoniCAG v0.16.1* - [Changelog](./changelog.md)  
+**Version :** *MoniCAG v1.0.0* - [Changelog](./changelog.md)  
 **French README [here](./readme.fr-FR.md)**
 
 # How to use

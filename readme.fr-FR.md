@@ -15,7 +15,7 @@ Cette application cherche à :
 
 *Juste MoniCAG.*
 
-**Version :** *MoniCAG v0.16.1* - [Changelog](./changelog.md)
+**Version :** *MoniCAG v1.0.0* - [Changelog](./changelog.md)
 
 # Utilisation
 

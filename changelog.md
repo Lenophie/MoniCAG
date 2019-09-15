@@ -5,41 +5,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2019-09-15
 
 ### Added
 
+#### Major
+
 * `Vue` refactor
-    * Account view
-    * New borrowing view
-    * Edit inventory view
+    * "Account" view
+    * "New borrowing" view
+    * "Edit inventory" view
+    * "View inventory" view
+    * "Edit users" view
+* "Account" view
+    * Past borrowings
+* "Edit users"
+    * Password verification when editing or deleting a user
+    * Genres addition, edition and deletion
 * `Docker` setup
+    * Not fully functional
 * `Travis` setup
     * Added Travis badge to readme
 * `Laravel Passport` setup
 * Support for API localization
+* API Resources
+* Policies
 * Trusted proxies environment variable
-* Comments in `js` files
+
+#### Minor
+
+* More code documentation
 * `PHP` extensions requirements in `composer.json`
 * Link to french readme in readme
+* Format info for promotion year in registration form
 
 ### Changed
 
+#### Major
+
+* Refactored inventory items alternative naming system
+    * Removed localized names in favor of alt names
+    * Added the appropriate migrations
+    * Alt names can be added to inventory items, which are then used when searching
 * Re-organised routes and controllers to separate web and API logic
 * Reduced build size
 * Made tab navigation smoother
 * Dependencies update
 * Dusk environment setup
+
+#### Minor
+
 * Started using @json `Blade` directive
 * Replaced triple backticks by single backticks in changelog
 * Improved instructions in readme
-* Replaced middleware & resource authorizations with policies
 
 ### Fixed
 
-* Edit inventory view
+* "Edit inventory" view
     * New genres couldn't be added after receiving an error related to genres
     * Opening and closing the deletion modal for multiple games then deleting one would affect the first game the modal was opened for, not the current one
+* "View inventory" view
+    * Mix-max strings formatting
+    * Duration and players-based filtering
 * Views
     * Incorrect method attribute for some forms
 * Tests
