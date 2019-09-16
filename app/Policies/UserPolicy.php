@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role_id == UserRole::ADMINISTRATOR;
+        return $user->role_id == UserRole::ADMINISTRATOR || $user->role_id == UserRole::SUPER_ADMINISTRATOR;
     }
 
     /**
@@ -44,13 +44,17 @@ class UserPolicy
      */
     public function updateRole(User $user, User $model)
     {
-        if ($user->id == $model->id) return true;
+        if ($user->id == $model->id && $user->role_id != UserRole::SUPER_ADMINISTRATOR) return true;
         else if ($user->role_id == UserRole::ADMINISTRATOR) {
             if ($model->role_id == UserRole::ADMINISTRATOR)
                 $this->deny(__('validation/updateUserRole.user.unchanged_if_other_admin'));
             else if ($model->role_id == UserRole::LENDER || $model->role_id == UserRole::NONE)
                 return true;
-        }
+        } else if ($user->role_id == UserRole::SUPER_ADMINISTRATOR
+                && ($model->role_id == UserRole::ADMINISTRATOR ||
+                    $model->role_id == UserRole::LENDER ||
+                    $model->role_id == UserRole::NONE))
+                return true;
         return false;
     }
 
@@ -64,13 +68,17 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if ($user->id == $model->id) return true;
+        if ($user->id == $model->id && $user->role_id != UserRole::SUPER_ADMINISTRATOR) return true;
         else if ($user->role_id == UserRole::ADMINISTRATOR) {
             if ($model->role_id == UserRole::ADMINISTRATOR)
                 $this->deny(__('validation/deleteUser.user.unchanged_if_other_admin'));
             else if ($model->role_id == UserRole::LENDER || $model->role_id == UserRole::NONE)
                 return true;
-        }
+        } else if ($user->role_id == UserRole::SUPER_ADMINISTRATOR
+            && ($model->role_id == UserRole::ADMINISTRATOR ||
+                $model->role_id == UserRole::LENDER ||
+                $model->role_id == UserRole::NONE))
+            return true;
         return false;
     }
 }
