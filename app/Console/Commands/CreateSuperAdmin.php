@@ -30,7 +30,7 @@ class CreateSuperAdmin extends Command
      *
      * @var string
      */
-    protected $description = 'Create a super admin';
+    protected $description = 'Create the super admin';
 
     /**
      * Create a new command instance.

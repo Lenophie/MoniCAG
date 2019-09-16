@@ -88,9 +88,13 @@ return [
             'success' => "Les fichiers ont été générés avec succès !"
         ],
         'super_admin' => [
-            'already_one_super_admin' => "Il y a déjà un super administrateur. Pour modifier ses identifiants, utilisez 'php artisan super-admin:update'",
+            'already_one_super_admin' => "Il y a déjà un super administrateur. Pour modifier ses identifiants, utilisez 'php artisan super-admin:update'.",
+            'no_super_admin' => "Il n'y a pas de super administrateur. Pour en créer un, utiliser 'php artisan super-admin:create'.",
             'creation_success' => "Le super administrateur a été créé avec succès !",
-            'creation_error' => "La création du super administrateur a échoué.",
+            'creation_error' => "Une erreur est survenue lors de la création du super administrateur.",
+            'no_update_option' => "Vous n'avez pas renseigné de champ à modifier !",
+            'update_success' => "Le super administrateur a été mis à jour avec succès !",
+            'update_error' => "Une erreur est survenue lors de la mise à jour du super administrateur."
         ]
     ]
 ];

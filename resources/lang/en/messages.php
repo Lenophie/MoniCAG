@@ -88,9 +88,13 @@ return [
             'success' => 'Successfully generated the language files !'
         ],
         'super_admin' => [
-            'already_one_super_admin' => "There already is a super administrator. To edit its credentials, use 'php artisan super-admin:update'",
+            'already_one_super_admin' => "There already is a super administrator. To edit its credentials, use 'php artisan super-admin:update'.",
+            'no_super_admin' => "There is no super administrator. To create one, use 'php artisan super-admin:create'.",
             'creation_success' => "The super administrator was successfully created !",
             'creation_error' => "The super administrator creation failed.",
+            'no_update_option' => "At least one option must be filled to update the super administrator.",
+            'update_success' => "The super administrator was successfully updated !",
+            'update_error' => "The super administrator update failed."
         ]
     ]
 ];
