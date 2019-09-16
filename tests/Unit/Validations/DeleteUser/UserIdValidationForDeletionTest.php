@@ -57,6 +57,18 @@ class UserIdValidationForDeletionTest extends TestCase
     }
 
     /**
+     * Tests deletion of super admin rejection.
+     *
+     * @return void
+     */
+    public function testDeletionOfSuperAdminRejection()
+    {
+        $superAdmin = factory(User::class)->state('super-admin')->create();
+        $response = $this->json('DELETE', route('users.destroy', $superAdmin->id), []);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /**
      * Tests deletion of lender validation.
      *
      * @return void

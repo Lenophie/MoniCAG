@@ -67,6 +67,20 @@ class UserIdValidationForPatchingTest extends TestCase
     }
 
     /**
+     * Tests modification of super admin rejection.
+     *
+     * @return void
+     */
+    public function testModificationOfSuperAdminRejection()
+    {
+        $superAdmin = factory(User::class)->state('super-admin')->create();
+        $response = $this->json('PATCH', route('users.changeRole', $superAdmin->id), [
+            'password' => $this->adminPassword
+        ]);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /**
      * Tests modification of lender validation.
      *
      * @return void
