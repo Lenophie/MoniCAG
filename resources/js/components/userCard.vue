@@ -14,25 +14,14 @@
         </div>
         <div class="user-card-footer" v-if="isRoleInfoShown">
             <span>
-                {{user.role.name}}
-                <span v-if="user.role.id === 1">
-                     <i class="fas fa-chess-pawn"></i>
-                </span>
-                <span v-else-if="user.role.id === 2">
-                     <i class="fas fa-chess-knight"></i>
-                </span>
-                <span v-else-if="user.role.id === 3">
-                     <i class="fas fa-chess-queen"></i>
-                </span>
+                {{user.role.name}} <user-icon :role-id="user.role.id"></user-icon>
             </span>
         </div>
     </div>
 </template>
 
 <script>
-    // Icons
-    import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faChessQueen, faChessKnight, faChessPawn } from '@fortawesome/free-solid-svg-icons';
+    import userIcon from "./userIcon.vue";
 
     export default {
         name: "userCard",
@@ -56,6 +45,9 @@
                 required: false,
                 default: false,
             }
+        },
+        components: {
+            userIcon
         },
         computed: {
             /**
@@ -81,9 +73,6 @@
             handleDeleteClick: function() {
                 if (!this.disabled) this.$emit('user-deletion-clicked', this.user);
             }
-        },
-        beforeCreate() {
-            library.add(faChessKnight, faChessQueen, faChessPawn);
         }
     }
 </script>
