@@ -10,6 +10,7 @@ return [
     'borrowerEmail.required' => 'Enter the borrower\'s registered email address.',
     'borrowerEmail.email' => 'The email address\' format is incorrect.',
     'borrowerEmail.exists' => 'This email address is not registered in our database.',
+    'borrowerEmail.not_a_super_admin' => 'A super administrator can\'t borrow games.',
     'borrowerPassword.required' => 'Enter the borrower\'s password.',
     'borrowerPassword.password_for' => 'The password is incorrect.',
     'expectedReturnDate.required' => 'Choose the borrowing\'s expected return date.',

@@ -10,6 +10,7 @@ return [
     'borrowerEmail.required' => 'Veuillez saisir l\'adresse mail de l\'utilisateur souhaitant emprunter.',
     'borrowerEmail.email' => 'Le format de cette adresse mail est incorrect.',
     'borrowerEmail.exists' => 'Cette adresse mail n\'existe pas dans notre base de données.',
+    'borrowerEmail.not_a_super_admin' => 'Un super administrateur ne peut pas emprunter de jeux.',
     'borrowerPassword.required' => 'Veuillez saisir le mot de passe de l\'emprunteur.',
     'borrowerPassword.password_for' => 'Ce mot de passe est incorrect.',
     'expectedReturnDate.required' => 'Renseignez une date de retour prévu.',
