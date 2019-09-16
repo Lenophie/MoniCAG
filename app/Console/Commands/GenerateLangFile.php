@@ -50,10 +50,10 @@ class GenerateLangFile extends Command
                 Storage::disk('public')->put('lang/' . $lang . '.json', $content);
 
         } catch (Exception $err) {
-            $this->error('An error occurred while generating the language files.');
+            $this->error(__('messages.console.lang_generate.error'));
         }
 
-        $this->info('Successfully generated language files !');
+        $this->info(__('messages.console.lang_generate.success'));
     }
 
     /**

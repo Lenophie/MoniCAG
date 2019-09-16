@@ -15,7 +15,7 @@ class GenerateLangTest extends TestCase
         Storage::fake('public');
 
         $this->artisan('lang:generate')
-            ->expectsOutput('Successfully generated language files !');
+            ->expectsOutput(__('messages.console.lang_generate.success'));
 
         Storage::disk('public')
             ->assertExists('lang/fr.json')

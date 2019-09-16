@@ -82,4 +82,10 @@ return [
         'deletion_title' => 'Confirmer la suppression du compte',
         'deletion_warning' => "Votre compte et l'intégralité de vos données personnelles vont être supprimés.<br/>Cette action est <b>irréversible</b>."
     ],
+    'console' => [
+        'lang_generate' => [
+            'error' => "Une erreur est survenue lors de la génération des fichiers.",
+            'success' => "Les fichiers ont été générés avec succès !"
+        ],
+    ]
 ];

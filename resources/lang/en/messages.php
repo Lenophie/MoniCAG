@@ -82,4 +82,10 @@ return [
         'deletion_title' => 'Confirm account deletion',
         'deletion_warning' => "Your account will be deleted along with all your personal data.<br/><b>This deletetion can't be undone.</b>"
     ],
+    'console' => [
+        'lang_generate' => [
+            'error' => 'An error occurred while generating the language files.',
+            'success' => 'Successfully generated the language files !'
+        ],
+    ]
 ];
