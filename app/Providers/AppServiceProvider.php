@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.header', 'header');
         Blade::component('components.menu-button', 'menubutton');
         Blade::component('components.user-icon', 'usericon');
-        Blade::component('components.button-enabler', 'buttonenabler');
 
         Validator::extend('inventory_item_available', 'App\Validators\InventoryItemAvailable@validate');
         Validator::extend('inventory_item_not_borrowed', 'App\Validators\InventoryItemNotBorrowed@validate');

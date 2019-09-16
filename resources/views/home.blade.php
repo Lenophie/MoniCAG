@@ -57,7 +57,7 @@
                             {{mb_strtoupper(__('messages.titles.perform_borrowing'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::LENDER}}
+                            {{$pagesAuthorizations['new-borrowing']}}
                         @endslot
                         @slot('icon')
                             @include('icons/new-borrowing')
@@ -77,7 +77,7 @@
                             {{mb_strtoupper(__('messages.titles.retrieve_borrowing'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::LENDER}}
+                            {{$pagesAuthorizations['end-borrowing']}}
                         @endslot
                         @slot('icon')
                             @include('icons/end-borrowing')
@@ -97,7 +97,7 @@
                             {{mb_strtoupper(__('messages.titles.view_borrowings_history'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::LENDER}}
+                            {{$pagesAuthorizations['borrowings-history']}}
                         @endslot
                         @slot('icon')
                             @include('icons/borrowings-history')
@@ -129,7 +129,7 @@
                             {{mb_strtoupper(__('messages.titles.view_inventory'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::NONE}}
+                            {{$pagesAuthorizations['view-inventory']}}
                         @endslot
                         @slot('icon')
                             @include('icons/view-inventory')
@@ -149,7 +149,7 @@
                             {{mb_strtoupper(__('messages.titles.edit_inventory'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::ADMINISTRATOR}}
+                            {{$pagesAuthorizations['edit-inventory']}}
                         @endslot
                         @slot('icon')
                             @include('icons/edit-inventory')
@@ -181,7 +181,7 @@
                             {{mb_strtoupper(__('messages.titles.edit_users'))}}
                         @endslot
                         @slot('enablerCondition')
-                            {{\App\UserRole::ADMINISTRATOR}}
+                            {{$pagesAuthorizations['edit-users']}}
                         @endslot
                         @slot('icon')
                             @include('icons/edit-users')
