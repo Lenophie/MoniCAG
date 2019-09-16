@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRoleRequest extends FormRequest
 {
@@ -40,7 +42,10 @@ class UpdateUserRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => 'required|integer|exists:user_roles,id',
+            'role' => ['required',
+                'integer',
+                Rule::In([UserRole::NONE, UserRole::LENDER, UserRole::ADMINISTRATOR])
+            ],
             'password' => 'required|string|current_user_password'
         ];
     }
