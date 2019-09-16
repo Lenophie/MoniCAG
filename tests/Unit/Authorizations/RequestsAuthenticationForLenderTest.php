@@ -125,7 +125,7 @@ class RequestsAuthenticationForLenderTest extends TestCase
     }
 
     /**
-     * Tests lender prevented from deleting a delete.
+     * Tests lender prevented from deleting a genre.
      *
      * @return void
      */
