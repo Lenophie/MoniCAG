@@ -87,5 +87,10 @@ return [
             'error' => 'An error occurred while generating the language files.',
             'success' => 'Successfully generated the language files !'
         ],
+        'super_admin' => [
+            'already_one_super_admin' => "There already is a super administrator. To edit its credentials, use 'php artisan super-admin:update'",
+            'creation_success' => "The super administrator was successfully created !",
+            'creation_error' => "The super administrator creation failed.",
+        ]
     ]
 ];

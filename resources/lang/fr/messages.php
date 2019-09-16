@@ -87,5 +87,10 @@ return [
             'error' => "Une erreur est survenue lors de la génération des fichiers.",
             'success' => "Les fichiers ont été générés avec succès !"
         ],
+        'super_admin' => [
+            'already_one_super_admin' => "Il y a déjà un super administrateur. Pour modifier ses identifiants, utilisez 'php artisan super-admin:update'",
+            'creation_success' => "Le super administrateur a été créé avec succès !",
+            'creation_error' => "La création du super administrateur a échoué.",
+        ]
     ]
 ];
