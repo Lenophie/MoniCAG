@@ -1,1 +1,0 @@
-<i class="fas fa-chess-knight"></i>
