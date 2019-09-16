@@ -29,7 +29,7 @@ class CreateBorrowingRequest extends FormRequest
         return [
             'borrowedItems' => 'required|array',
             'borrowedItems.*' => 'bail|integer|exists:inventory_items,id|distinct|inventory_item_available',
-            'borrowerEmail' => 'required|email|exists:users,email',
+            'borrowerEmail' => 'required|email|exists:users,email|not_a_super_admin',
             'borrowerPassword' => 'required|password_for:borrowerEmail',
             'expectedReturnDate' => 'required|date_format:Y-m-d|after_or_equal:today|before_or_equal:+1 month',
             'guarantee' => 'required|numeric|regex:/^[0-9]+(.[0-9][0-9]?)?$/|max:1000',
