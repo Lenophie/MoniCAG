@@ -1,6 +1,7 @@
 <?php
 
 /** @var Factory $factory */
+
 use App\User;
 use App\UserRole;
 use Carbon\Carbon;
@@ -23,4 +24,5 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->state(User::class, 'lender', ['role_id' => UserRole::LENDER]);
 $factory->state(User::class, 'admin', ['role_id' => UserRole::ADMINISTRATOR]);
+$factory->state(User::class, 'super-admin', ['role_id' => UserRole::SUPER_ADMINISTRATOR]);
 
