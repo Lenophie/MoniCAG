@@ -94,4 +94,18 @@ class RoleValidationTest extends TestCase
         ]);
         $response->assertJsonValidationErrors('role');
     }
+
+    /**
+     * Tests super admin role rejection.
+     *
+     * @return void
+     */
+    public function testSuperAdminRoleRejection()
+    {
+        $user = factory(User::class)->create();
+        $response = $this->json('PATCH', route('users.changeRole', $user->id), [
+            'role' => UserRole::SUPER_ADMINISTRATOR
+        ]);
+        $response->assertJsonValidationErrors('role');
+    }
 }
