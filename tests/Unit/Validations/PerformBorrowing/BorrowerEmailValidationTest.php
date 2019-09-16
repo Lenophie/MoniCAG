@@ -43,6 +43,20 @@ class BorrowerEmailValidationTest extends TestCase
     }
 
     /**
+     * Tests super admin email rejection.
+     *
+     * @return void
+     */
+    public function testSuperAdminEmailRejection()
+    {
+        $superAdmin = factory(User::class)->state('super-admin')->create();
+        $response = $this->json('POST', route('borrowings.store'), [
+            'borrowerEmail' => $superAdmin->email
+        ]);
+        $response->assertJsonValidationErrors('borrowerEmail');
+    }
+
+    /**
      * Tests registered borrower email validation.
      *
      * @return void
