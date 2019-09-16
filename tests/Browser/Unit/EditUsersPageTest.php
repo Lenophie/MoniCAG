@@ -22,6 +22,7 @@ class EditUsersPageTest extends DuskTestCase
         $this->admin = factory(User::class)->state('admin')->create();
         $this->users = factory(User::class, 5)->create();
         $this->otherAdmin = factory(User::class)->state('admin')->create();
+        $this->superAdmin = factory(User::class)->state('super-admin')->create();
     }
 
     protected function tearDown(): void {
@@ -43,6 +44,9 @@ class EditUsersPageTest extends DuskTestCase
                             ->click('.delete');
                     });
             }
+
+            $browser->assertDontSee($this->superAdmin->first_name)
+                ->assertDontSee($this->superAdmin->last_name);
         });
     }
 
