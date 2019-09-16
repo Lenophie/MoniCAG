@@ -21,14 +21,24 @@ class EditUsersController extends Controller
     {
         abort_unless(Gate::allows('viewAny', User::class), Response::HTTP_FORBIDDEN);
 
-        $users = UserResource::collection(User::all());
-        $userRoles = UserRoleResource::collection(UserRole::translated()->get());
+        $usersQuery = User::where('role_id', '!=', UserRole::SUPER_ADMINISTRATOR)->get();
+        $users = UserResource::collection($usersQuery);
+
+        $userRolesQuery = UserRole::translated()
+            ->where('id', '!=', UserRole::SUPER_ADMINISTRATOR)
+            ->get();
+        $userRoles = UserRoleResource::collection($userRolesQuery);
+
+        $loggedUser = Auth::user();
 
         $compactData = [
             'resources' => [
                 'users' => $users,
                 'userRoles' => $userRoles,
-                'loggedUserId' => Auth::user()->id,
+                'loggedUser' => [
+                    'id' => $loggedUser->id,
+                    'isSuperAdmin' => $loggedUser->role_id == UserRole::SUPER_ADMINISTRATOR
+                ],
             ],
             'routes' => [
                 'users' => route('users.index')

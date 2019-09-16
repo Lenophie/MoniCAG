@@ -27,8 +27,8 @@
                 type: Object,
                 required: true
             },
-            loggedUserId: {
-                type: Number,
+            loggedUser: {
+                type: Object,
                 required: true,
             },
             tabable: {
@@ -39,7 +39,9 @@
         },
         data: function() {
             return {
-                isDisabled: this.user.role.id === 3 && this.loggedUserId !== this.user.id
+                isDisabled: this.loggedUser.isSuperAdmin === false
+                    && this.user.role.id === 3
+                    && this.loggedUser.id !== this.user.id
             }
         },
         components: { userCard },

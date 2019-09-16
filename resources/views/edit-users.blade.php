@@ -47,7 +47,7 @@
                     <div class="column is-2" v-for="user in resources.users">
                         <user-card-button
                             :user="user"
-                            :logged-user-id="resources.loggedUserId"
+                            :logged-user="resources.loggedUser"
                             :has-delete-button="true"
                             :tabable="!isAModalShown"
                             @user-clicked="openUserRoleUpdateModal"
