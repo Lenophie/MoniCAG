@@ -15,10 +15,10 @@
 @section('content')
     @header
         @slot('leftIcon')
-            @include('icons/user')
+            @include('icons/edit-users')
         @endslot
         @slot('rightIcon')
-            @include('icons/user')
+            @include('icons/edit-users')
         @endslot
         @slot('hasReturnButton')
             true

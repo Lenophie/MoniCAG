@@ -184,7 +184,7 @@
                             {{\App\UserRole::ADMINISTRATOR}}
                         @endslot
                         @slot('icon')
-                            @include('icons/user')
+                            @include('icons/edit-users')
                         @endslot
                     @endmenubutton
                 </div>
