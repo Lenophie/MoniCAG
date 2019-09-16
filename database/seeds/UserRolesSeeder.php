@@ -19,6 +19,7 @@ class UserRolesSeeder extends Seeder
         UserRole::create(['name_fr' => 'Aucun', 'name_en' => 'None']);
         UserRole::create(['name_fr' => 'Prêteur', 'name_en' => 'Lender']);
         UserRole::create(['name_fr' => 'Administrateur', 'name_en' => 'Administrator']);
+        UserRole::create(['name_fr' => 'Super Administrateur', 'name_en' => 'Super Administrator']);
         Schema::enableForeignKeyConstraints();
     }
 }

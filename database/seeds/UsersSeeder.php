@@ -23,7 +23,7 @@ class UsersSeeder extends Seeder
             'promotion' => 2021,
             'email' => 'monika@root.ddlc',
             'password' => bcrypt('root'),
-            'role_id' => UserRole::ADMINISTRATOR]);
+            'role_id' => UserRole::SUPER_ADMINISTRATOR]);
         User::create([
             'first_name' => 'Sayori',
             'last_name' => 'ROot',

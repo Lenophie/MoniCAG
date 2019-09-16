@@ -1,25 +1,26 @@
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import {dom, library} from '@fortawesome/fontawesome-svg-core'
 import {
     faArrowCircleLeft,
-    faArrowUp,
     faArrowDown,
-    faUser,
-    faChessQueen,
+    faArrowUp,
+    faAt,
     faChessKnight,
     faChessPawn,
-    faSun,
-    faMoon,
+    faChessQueen,
     faCircle,
+    faDiceD20,
     faKey,
+    faMoon,
+    faSpinner,
+    faSun,
     faTimes,
-    faAt,
+    faUser,
     faUserCheck,
-    faUserPlus,
-    faSpinner
+    faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import {faGithub} from '@fortawesome/free-brands-svg-icons'
 
 // Load icons present in template, footer and header
-library.add(faArrowCircleLeft, faArrowUp, faArrowDown, faUser, faChessQueen, faChessKnight, faChessPawn, faGithub,
-    faSun, faMoon, faCircle, faKey, faTimes, faAt, faUserCheck, faUserPlus, faSpinner);
+library.add(faArrowCircleLeft, faArrowUp, faArrowDown, faUser, faChessQueen, faChessKnight, faChessPawn, faDiceD20,
+    faGithub, faSun, faMoon, faCircle, faKey, faTimes, faAt, faUserCheck, faUserPlus, faSpinner);
 dom.watch();

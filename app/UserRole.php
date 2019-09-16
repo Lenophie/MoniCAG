@@ -12,6 +12,7 @@ class UserRole extends Model
     public const NONE = 1;
     public const LENDER = 2;
     public const ADMINISTRATOR = 3;
+    public const SUPER_ADMINISTRATOR = 4;
 
     /**
      * @return Builder
