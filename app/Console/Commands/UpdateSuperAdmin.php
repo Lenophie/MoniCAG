@@ -81,6 +81,10 @@ class UpdateSuperAdmin extends Command
             'last_name' => 'sometimes|string|min:1|max:50',
         ]);
 
+        // Encrypt password
+        if ($request->get('password') != null)
+            $request->merge(['password' => bcrypt($request->get('password'))]);
+
         // Handle validation errors
         if ($validator->fails()) {
             $errorMessages = $validator->errors()->messages();
