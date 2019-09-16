@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('components.header', 'header');
         Blade::component('components.menu-button', 'menubutton');
-        Blade::component('components.modal', 'modal');
         Blade::component('components.user-icon', 'usericon');
         Blade::component('components.button-enabler', 'buttonenabler');
 
