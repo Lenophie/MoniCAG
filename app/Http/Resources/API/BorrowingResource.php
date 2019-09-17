@@ -24,18 +24,30 @@ class BorrowingResource extends JsonResource
                 ];
             }),
             'borrower' => $this->whenLoaded('borrower', function () {
-                return [
-                    'name' => "{$this->borrower->first_name} {$this->borrower->last_name}",
-                    'promotion' => $this->borrower->promotion, // TODO: Used by EndBorrowing view, should be moved to ViewsResource with id
-                    'url' => action('Resources\UserController@show', ['id' => $this->borrower->id])
-                ];
+                return $this->when(
+                    $this->borrower !== null,
+                    function () {
+                        return [
+                            'name' => "{$this->borrower->first_name} {$this->borrower->last_name}",
+                            'promotion' => $this->borrower->promotion, // TODO: Used by EndBorrowing view, should be moved to ViewsResource with id
+                            'url' => action('Resources\UserController@show', ['id' => $this->borrower->id])
+                        ];
+                    },
+                    null
+                );
             }),
             'initialLender' => $this->whenLoaded('initialLender', function () {
-                return [
-                    'name' => "{$this->initialLender->first_name} {$this->initialLender->last_name}",
-                    'promotion' => $this->borrower->promotion,
-                    'url' => action('Resources\UserController@show', ['id' => $this->initialLender->id])
-                ];
+                return $this->when(
+                    $this->initialLender !== null,
+                    function () {
+                        return [
+                            'name' => "{$this->initialLender->first_name} {$this->initialLender->last_name}",
+                            'promotion' => $this->initialLender->promotion,
+                            'url' => action('Resources\UserController@show', ['id' => $this->initialLender->id])
+                        ];
+                    },
+                    null
+                );
             }),
             // When the relationship is not loaded, the attribute is missing
             // When it is loaded, it is not null when the return date is not null
@@ -43,7 +55,7 @@ class BorrowingResource extends JsonResource
                 'returnLender',
                 function () {
                     return $this->when(
-                        $this->return_date !== null,
+                        $this->return_date !== null && $this->returnLender !== null,
                         function () {
                             return [
                                 'name' => "{$this->returnLender->first_name} {$this->returnLender->last_name}",
