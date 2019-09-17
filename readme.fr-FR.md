@@ -56,6 +56,12 @@ Cette application cherche à :
 * [Installer docker-compose](https://docs.docker.com/compose/install/)
 * Exécuter `sudo docker-compose -f docker-compose.yml up --build`
 
+# Deployment tips
+
+* Potentiellement devoir `chown` la racine du projet pour la donner au user group responsable du service (type "www").
+* Potentiellement exécuter `chmod -R 775 /storage`.
+* Potentiellement indiquer des proxys connus dans `.env` pour que les images et les fichiers CSS soient correctement servis.
+
 # Licence
 
 Code mis à disposition selon la [Licence MIT](./LICENSE).

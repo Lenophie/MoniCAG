@@ -56,6 +56,11 @@ This application aims at :
 * [Install docker-compose](https://docs.docker.com/compose/install/)
 * Run `sudo docker-compose -f docker-compose.yml up --build`
 
+# Deployment tips
+
+* May have to `chown` the root of the project for it to match the www user group.
+* May have to `chmod -R 775 /storage`.
+* May have to set trusted proxies in `.env` for CSS assets and images to be accessible.
 
 # License
 
