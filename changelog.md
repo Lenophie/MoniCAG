@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2019-09-16
+## [1.0.0] - 2019-09-17
 
 ### Added
 
@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * "Edit users" view
     * Password verification when editing or deleting a user
     * Genres addition, edition and deletion
+* Super admin role
+    * Command to create and edit the associated user
+    * Can manipulate admin roles
 * `Docker` setup
     * Not fully functional
 * `Travis` setup
