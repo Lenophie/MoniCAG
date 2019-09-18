@@ -32,12 +32,11 @@
 
 <script>
     // Tools
-    import { buildMinMaxString } from "../tools.js";
-
+    import {buildMinMaxString} from "../tools.js";
     // Icons
-    import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons';
-    import { faClock } from '@fortawesome/free-regular-svg-icons';
+    import {library} from '@fortawesome/fontawesome-svg-core';
+    import {faTrophy, faUsers} from '@fortawesome/free-solid-svg-icons';
+    import {faClock} from '@fortawesome/free-regular-svg-icons';
 
     export default {
         name: "inventoryItemCard",
@@ -182,7 +181,7 @@
         text-align: left;
     }
 
-    .inventory-item-card-info {
+    .inventory-item-card-info, .inventory-item-card-name {
         white-space: normal;
     }
 
