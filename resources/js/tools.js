@@ -14,16 +14,18 @@ export const buildMinMaxString = (min, max, singularSuffix, pluralSuffix) => {
     // Min and max case
     if (min !== null && max !== null) {
         string = min !== max ? `${min} - ${max}` : `${min}`;
-        if (max > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
-        else if (max <= 1 && singularSuffix != null) string += ` ${singularSuffix}`;
+        if (max <= 1 && singularSuffix != null) string += ` ${singularSuffix}`;
+        else if (max > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
     // Only min case
     } else if (min !== null && max === null) {
         string = `>= ${min}`;
         if (min <= 1 && singularSuffix != null) string += ` ${singularSuffix}`;
+        else if (min > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
     // Only max case
     } else if (min === null && max !== null) {
         string = `<= ${max}`;
-        if (max > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
+        if (max <=1 && singularSuffix !== null) string += ` ${singularSuffix}`;
+        else if (max > 1 && pluralSuffix != null) string += ` ${pluralSuffix}`;
     }
 
     return string;
